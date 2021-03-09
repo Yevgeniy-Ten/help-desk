@@ -1,0 +1,64 @@
+.appeal-info{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.appeal-text{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.appeal-text-inner{
+    margin: 5px 8px;
+}
+
+.appeal-text-description{
+    display: flex;
+    flex-direction: column;
+}
+
+.appeal-info__perepiska{
+    margin-top: 10px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgray;
+}
+
+.appeal-info__perepiska-title{
+    margin: 15px 8px;
+}
+
+.appeal-info__perepiska-flex-start,
+.appeal-info__perepiska-flex-end{
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.appeal-info__perepiska-flex-start{
+    align-items: flex-start;
+}
+
+.appeal-info__perepiska-flex-end{
+    align-items: flex-end;
+}
+
+.perepiska__wrapp{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    background-color: lightyellow;
+    border: 1px solid blue;
+    border-radius: 8px;
+}
+
+.perepiska__title,
+.perepiska__message{
+    margin: 5px 0;
+}

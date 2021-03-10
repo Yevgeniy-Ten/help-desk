@@ -1,5 +1,6 @@
 import React from "react";
-import {Button, Form, Input} from "antd";
+import { Button, Form, Input } from "antd";
+import 'antd/dist/antd.css';
 
 const AddAppealForm = () => {
     const [form] = Form.useForm()
@@ -17,12 +18,12 @@ const AddAppealForm = () => {
             <Form.Item
                 name={"email"}
                 label="Тематика обращения">
-                <Input placeholder={"Выбрать тематику"}/>
+                <Input placeholder={"Выбрать тематику"} />
             </Form.Item>
             <Form.Item
                 name={"status"}
                 label="Заголовок обращения">
-                <Input placeholder={"Опишите в кратце обращение"}/>
+                <Input placeholder={"Опишите в кратце обращение"} />
             </Form.Item>
             <Form.Item name={['user', 'introduction']} label="Полное описание проблемы">
                 <Input.TextArea placeholder={"Подробно опишите проблему"} />
@@ -30,7 +31,7 @@ const AddAppealForm = () => {
             <Form.Item
                 label={"Прикрепить файлы"}
                 name={"date"}>
-                <Input placeholder="Файлы"/>
+                <Input placeholder="Файлы" />
             </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit" size={"large"}>

@@ -1,15 +1,15 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
-import {Menu} from "antd";
+import { NavLink } from "react-router-dom";
+import { Menu } from "antd";
 
-const {SubMenu} = Menu;
+const { SubMenu } = Menu;
 
 const MenuSider = () => {
     return (
         <Menu theme="dark" mode="inline">
             <SubMenu key="sub1" title="Обращение">
                 <Menu.Item key="1">
-                    <NavLink to="appeals">Обращение</NavLink>
+                    <NavLink to="/appeals">Обращение</NavLink>
                 </Menu.Item>
                 <Menu.Item key="2">
                     <NavLink to="/appeals/add">Создать обращение</NavLink>

@@ -1,1 +1,1 @@
-export const getTiketsState = (state) => state.tiketsList;
+export const getTicketsState = (state) => state.tickets;

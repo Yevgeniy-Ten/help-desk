@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
                     foreignKey: "userId",
                     as: "appeals"
                 })
+
         }
 
         toJSON() {

@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom"
 import App from "./App";
 import "antd/dist/antd.css";
 import store from "./store/configStore";
+import 'antd/dist/antd.css';
 const app = (
     <Provider store={store}>
         <BrowserRouter>

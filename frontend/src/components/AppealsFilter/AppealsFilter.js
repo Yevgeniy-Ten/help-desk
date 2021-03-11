@@ -4,8 +4,8 @@ import {Input, Form, Button, Checkbox} from "antd";
 
 const AppealsFilter = () => {
     const [form] = Form.useForm()
-    const submitFormHandler = (event) => {
-
+    const submitFormHandler = (value) => {
+        console.log(value);
     }
 
     return (

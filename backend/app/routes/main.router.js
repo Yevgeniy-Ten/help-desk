@@ -1,11 +1,14 @@
 const {Router} = require("express");
-const userRouter = require("./forUsers/users.router");
-const appealsRoutes = require("./forAppeal/appeal.router")
+const userRoute = require("./forUsers/users.router");
+const appealsRoute = require("./forAppeal/appeal.router")
+const topicsRoute = require("./forTopics/topicRoute")
+const ticketsRoute = require("./forTickets/tickets.router")
 const mainRouter = Router()
 
-mainRouter.use("/users", userRouter);
-// mainRouter.use("/tickets", ticketRouter);
-mainRouter.use("/appeals", appealsRoutes);
+mainRouter.use("/users", userRoute);
+mainRouter.use("/topics", topicsRoute);
+mainRouter.use("/tickets", ticketsRoute);
+mainRouter.use("/appeals", appealsRoute);
 
 
 module.exports = mainRouter;

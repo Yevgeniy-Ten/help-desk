@@ -6,23 +6,13 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-
-        static associate({Appeal, Ticket, Department, Topic, EmployeeTickets}) {
-            // имеет много общащений
+        static associate({Appeal, Ticket, Topic}) {
+            // имеет много общащений, обращения связываются через userId
             this.hasMany(Appeal,
                 {
                     foreignKey: "userId",
                     as: "appeals"
                 })
-
-            // имеет тикеты(задачи), связано через таблицу ЗадачСотрудников
-            // this.belongsToMany(Ticket, {
-            //     through: EmployeeTickets,
-            // })
-            // принадлежит к отделу с какой то тематикой, связывается через Отдел
-            // this.belongsToMany(Topic, {
-            //     through: Department
-            // })
         }
 
         toJSON() {

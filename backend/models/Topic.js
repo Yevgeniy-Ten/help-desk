@@ -4,24 +4,24 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Topic extends Model {
-        static associate({Ticket, Solution, Department, User}) {
-            // тематика имеет монго тикетов
+        static associate({Ticket, Appeal}) {
+            // тематика имеет много тикетов открытых по этой тематике
             this.hasMany(Ticket, {
                 foreignKey: "topicId",
                 as: "tickets"
             })
-            // тематика имеет много решений
-            this.hasMany(Solution, {
-                foreignKey: "solutionId"
+            // тематика имеет много обращений открытых по этой тематике
+            this.hasMany(Appeal, {
+                foreignKey: "topicId",
+                as: "appeals"
             })
-            // принадлежит к юзеру через отдел
-            // this.belongsToMany(User, {
-            //     through: Department
-            // })
         }
     };
     Topic.init({
-        name: DataTypes.STRING
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
     }, {
         sequelize,
         modelName: "Topic",

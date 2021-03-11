@@ -3,17 +3,22 @@ const {Ticket} = require("../../../../models")
 module.exports = {
     async create(req, res) {
         try {
-            const {type, description, deadline, employeeId, topicId} = req.body
-            const ticket = await Ticket.create({
-                employeeId,
+            const {type, description, deadline, topicId, title, priority, status} = req.body
+            Ticket.create({
                 type,
                 description,
                 deadline,
-                topicId
-            });
-            res.send(ticket);
-        } catch (e) {
-            res.sendStatus(500)
+                topicId,
+                title,
+                priority,
+                status
+            }).then(newTicket => {
+                res.status(201).send(newTicket)
+            }).catch(errors => {
+                res.status(400).send(errors)
+            })
+        } catch (errors) {
+            res.status(500).send(errors)
         }
     },
     async edit(req, res) {
@@ -29,10 +34,10 @@ module.exports = {
             res.status(401).send(e);
         }
     },
-    async get(req, res) {
+    async getAll(req, res) {
         try {
             const tickets = await Ticket.findAll()
-            console.log(tickets)
+            if (!tickets.length) res.sendStatus(404)
             res.send(tickets)
         } catch (e) {
             res.status(500).send(e);
@@ -40,9 +45,8 @@ module.exports = {
     },
     async deleteTicket(req, res) {
         try {
-            console.log(req.params)
             const message = {message: "successful"}
-            await Ticket.destroy({where: {_id: req.params.id}})
+            await Ticket.destroy({where: {id: req.params.id}})
             return res.send(message)
         } catch (e) {
             res.status(401).send(e);

@@ -4,32 +4,40 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Ticket extends Model {
-        static associate({Appeal, User, Topic, EmployeeTickets}) {
-            this.belongsTo(Appeal, {
-                foreignKey: "appealId"
+        static associate({Appeal, Topic}) {
+            // имеет много обращений, связывать по ключу ticketId
+            this.hasMany(Appeal, {
+                foreignKey: "ticketId",
+                as: "appeals"
             })
-            // принадлежит Юзеру через ОтделЗадач
-            // this.belongsToMany(User, {
-            //     through: EmployeeTickets
-            // })
+            // приднадлежит к тематике связывается через topicId
             this.belongsTo(Topic, {
-                foreignKey: "topicId"
+                foreignKey: "topicId",
+                as: "topic",
             })
         }
     };
     Ticket.init({
-        appealId: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         type: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("request", "incident"),
+            allowNull: false
         },
         topicId: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        description: DataTypes.STRING,
+        priority: {
+            type: DataTypes.ENUM("low", "high", "medium"),
+            allowNull: false
+        },
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         status: DataTypes.STRING,
         deadline: {
             type: DataTypes.DATE,

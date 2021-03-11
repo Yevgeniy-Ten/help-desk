@@ -4,17 +4,23 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Appeal extends Model {
-        /**
-         * Helper method for defining associations.
-         * This method is not a part of Sequelize lifecycle.
-         * The `models/index` file will call this method automatically.
-         */
-        static associate({User}) {
+
+        static associate({User, Ticket, Topic}) {
+            // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
                 foreignKey: "userId",
                 as: "user"
             })
-            // define association here
+            // принадлежит тикету, связывается через ticketId
+            this.belongsTo(Ticket, {
+                foreignKey: "ticketId",
+                as: "ticket"
+            })
+            // принадлежит к тематике связывается через topicId
+            this.belongsTo(Topic, {
+                foreignKey: "topicId",
+                as: "topic"
+            })
         }
     };
     Appeal.init({
@@ -23,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+        },
+        ticketId: DataTypes.INTEGER,
+        topicId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     }, {
         sequelize,

@@ -1,9 +1,9 @@
-const {Ticket} = require("../../../../models")
+const {Ticket, Appeal} = require("../../../../models")
 
 module.exports = {
     async create(req, res) {
         try {
-            const {type, description, deadline, topicId, title, priority, status} = req.body
+            const {type, description, deadline, topicId, title, priority, status, appeals} = req.body
             Ticket.create({
                 type,
                 description,
@@ -11,9 +11,27 @@ module.exports = {
                 topicId,
                 title,
                 priority,
-                status
+                status,
             }).then(newTicket => {
-                res.status(201).send(newTicket)
+                if (appeals && appeals.length) {
+                    appeals.forEach(async appealId => {
+                        const appeal = await Appeal.findOne({
+                            where: {
+                                id: appealId
+                            }
+                        })
+                        if (appeal) {
+                            await appeal.update({
+                                ticketId: newTicket.id,
+                                status: "started"
+                            })
+                        }
+                    })
+                    res.status(201).send(newTicket)
+                } else {
+                    res.status(201).send(newTicket)
+
+                }
             }).catch(errors => {
                 res.status(400).send(errors)
             })
@@ -25,7 +43,8 @@ module.exports = {
         try {
             const {id} = req.params
             const ticket = await Ticket.findOne({
-                where: {id}
+                where: {id
+                }
             })
             if (!ticket) res.sendStatus(404)
             await ticket.update(req.body)

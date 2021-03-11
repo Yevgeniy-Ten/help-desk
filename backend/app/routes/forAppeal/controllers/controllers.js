@@ -36,6 +36,7 @@ module.exports = {
                 where: {
                     userId: req.user.id,
                 },
+                include: ["topic", "ticket"],
             })
             if (!appeals.length) res.sendStatus(404)
             res.send(appeals)

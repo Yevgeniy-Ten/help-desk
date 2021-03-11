@@ -34,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
         topicId: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        status: {
+            allowNull: false,
+            type: DataTypes.ENUM("notStarted", "started", "finished"),
+            defaultValue: "notStarted"
         }
     }, {
         sequelize,

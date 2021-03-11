@@ -1,1 +1,0 @@
-export const getAppealsState = (state) => state.appealsList;

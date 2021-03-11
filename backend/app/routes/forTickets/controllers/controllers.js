@@ -43,7 +43,8 @@ module.exports = {
         try {
             const {id} = req.params
             const ticket = await Ticket.findOne({
-                where: {id
+                where: {
+                    id
                 }
             })
             if (!ticket) res.sendStatus(404)
@@ -60,6 +61,16 @@ module.exports = {
             res.send(tickets)
         } catch (e) {
             res.status(500).send(e);
+        }
+    },
+    async getById(req, res) {
+        try {
+            const {id} = req.params
+            const ticket = await Ticket.findOne({id})
+            if (!ticket) res.sendStatus(404)
+            res.send(ticket)
+        } catch (errors) {
+            res.status(500).send(errors);
         }
     },
     async deleteTicket(req, res) {

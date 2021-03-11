@@ -17,6 +17,16 @@ module.exports = {
             res.status(500).send(errors);
         }
     },
+    async getById(req, res) {
+        try {
+            const {id} = req.params
+            const appeal = await Appeal.findOne({id})
+            if (!appeal) res.sendStatus(404)
+            res.send(appeal)
+        } catch (errors) {
+            res.status(500).send(errors);
+        }
+    },
     async edit(req, res) {
         try {
             const {id} = req.params

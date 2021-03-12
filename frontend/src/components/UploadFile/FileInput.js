@@ -3,7 +3,7 @@ import {
     Button,
     Input
     } from "antd";
-import { InboxOutlined, DeleteTwoTone } from '@ant-design/icons';
+import { InboxOutlined, DeleteFilled } from '@ant-design/icons';
 
 const FileInput = ({name, onChange, error}) => {
     const inputRef = useRef();
@@ -11,13 +11,17 @@ const FileInput = ({name, onChange, error}) => {
 
     const onFileChange = e => {
         const filesListCopy = [...filesList];
-        filesListCopy.push(e.target.files[0]);
+        if(e.target.files.length > 0) {
+            filesListCopy.push(e.target.files[0]);
+        }
         setFilesList(filesListCopy);
-        // if(e.target.files[0]) {
-        //     setFilename(e.target.files[0].name)
-        // } else{
-        //     setFilename('')
-        // }
+        onChange(filesListCopy);
+    };
+
+    const removeFile = (index) => {
+        const filesListCopy = [...filesList];
+        filesListCopy.splice(index, 1);
+        setFilesList(filesListCopy);
         onChange(filesListCopy);
     };
 
@@ -50,12 +54,24 @@ const FileInput = ({name, onChange, error}) => {
                 </Button>
                 {filesList.map((file, index) => {
                     return (
-                        <div key={index} style={{"border": "1px solid #ff4d4f"}}>
+                        <div 
+                        key={index} 
+                        style={{
+                            border: "1px solid #ff4d4f", 
+                            borderRadius: "3px",
+                            padding: "15px", 
+                            margin: "5px 0", 
+                            maxWidth: "400px", 
+                            display: "flex",
+                            justifyContent: "space-between",
+                            color: "#ff4d4f",
+                            background: "#fff"
+                            }}>
                             <span>
-                                {file.name}
+                                {file && file.name ? file.name : null}
                             </span>
-                            <span style={{marginLeft: "5px"}}>
-                                <DeleteTwoTone color="red"/>
+                            <span onClick={() => removeFile(index)}>
+                                <DeleteFilled style={{ color: "#ff4d4f", cursor: "pointer" }}/>
                             </span>
                         </div>
                     )

@@ -1,0 +1,14 @@
+.header, .header__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header__logo,
+.header__link {
+    color: #fff;
+}
+.header__link {
+    margin: 0 5px;
+    padding: 5px;
+}
+

@@ -13,6 +13,7 @@ const AllAppeals = () => {
     // useEffect(() => {
     //     dispatch(fetchAppeals());
     // })
+    
     return (
         <>
             <AppealsFilter/>

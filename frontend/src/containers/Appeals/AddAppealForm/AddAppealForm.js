@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { 
     Button,
     Form, 
     Input, 
-    Select, 
-    Upload 
+    Select
     } from "antd";
 import FileInput from "../../../components/UploadFile/FileInput";
-// import 'antd/dist/antd.css';
-// import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import "./AddAppealForm.css";
 const { Option } = Select;
 
 const AddAppealForm = () => {
@@ -19,22 +17,17 @@ const AddAppealForm = () => {
     }, []);
 
     const submitFormHandler = (value) => {
-        console.log(value);
+        // console.log(value);
     }
 
-    const onGenderChange = (value) => {
+    const onTopicChange = (value) => {
         form.setFieldsValue({ topic: value });
     };
 
-    const normFile = (filesList) => {
-        console.log(filesList);
-      
-        // const name = e.target.name;
-        // const file = e.target.files[0];
-        // console.log(name);
-        // console.log(file);
+    const onFilesChange = (filesList) => {
         form.setFieldsValue({ upload: filesList });
     };
+
     return (
         <Form
             form={form}
@@ -42,7 +35,6 @@ const AddAppealForm = () => {
             size={"default"}
             layout={"horizontal"}
             onFinish={submitFormHandler}
-            // className={}
         >
             <Form.Item
                 name={"topic"}
@@ -53,10 +45,9 @@ const AddAppealForm = () => {
                     },
                 ]}
             >
-                {/* <Input /> */}
                 <Select
                 placeholder="Выберите тематику обращения"
-                onChange={onGenderChange}
+                onChange={onTopicChange}
                 allowClear
                 >
                     <Option value={"IT"}>IT</Option>
@@ -76,7 +67,6 @@ const AddAppealForm = () => {
                 <Input placeholder={"Опишите в кратце обращение"} />
             </Form.Item>
             <Form.Item 
-            // name={['user', 'introduction']}
             name={"description"}
             label="Полное описание проблемы">
                 <Input.TextArea placeholder={"Подробно опишите проблему"} />
@@ -84,43 +74,12 @@ const AddAppealForm = () => {
             <Form.Item
             name={"upload"}
             label="Загрузите файл"
-            rules={[
-                {
-                    required: true,
-                },
-            ]}
             >
                 <FileInput 
                 name="upload"
-                onChange={normFile}
+                onChange={onFilesChange}
                 />
             </Form.Item>
-            {/* <Form.Item
-                label={"Прикрепить файлы"}
-                name={"date"}>
-                <Input placeholder="Файлы" />
-            </Form.Item> */}
-            {/* <Form.Item label="Файлы">
-                <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-                    <Upload.Dragger name="files">
-                        <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">Нажмите или перетащите файлы в эту область</p>
-                    </Upload.Dragger>
-                </Form.Item>
-            </Form.Item> */}
-            {/* <Form.Item
-            name="upload"
-            label="Файлы"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-            extra="longgggggggggggggggggggggggggggggggggg"
-            >
-                <Upload>
-                <Button icon={<InboxOutlined />}>Нажмите для загрузки</Button>
-                </Upload>
-            </Form.Item> */}
             <Form.Item>
                 <Button type="primary" htmlType="submit" size={"large"}>
                     Создать обращение

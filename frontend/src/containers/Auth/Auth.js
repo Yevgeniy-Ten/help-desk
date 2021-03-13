@@ -7,8 +7,8 @@ import {Row, Col} from "antd"
 const Auth = () => {
 
     return (
-        <Row style={{padding: "40px 0"}}>
-            <Col span={16} push={4}>
+        <Row style={{padding: "4% 0"}}>
+            <Col span={10} push={7}>
                 <Switch>
                     <Route exact path="/auth" component={Login}/>
                     <Route exact path="/auth/register" component={Register}/>

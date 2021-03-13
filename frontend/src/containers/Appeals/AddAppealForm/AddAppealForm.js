@@ -3,7 +3,9 @@ import {
     Button,
     Form, 
     Input, 
-    Select
+    Select,
+    Row,
+    Col
     } from "antd";
 import FileInput from "../../../components/UploadFile/FileInput";
 import "./AddAppealForm.css";
@@ -33,58 +35,75 @@ const AddAppealForm = () => {
             form={form}
             name="add-appeal"
             size={"default"}
-            layout={"horizontal"}
+            layout={"vertical"}
             onFinish={submitFormHandler}
         >
-            <Form.Item
-                name={"topic"}
-                label="Тематика обращения"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <Select
-                placeholder="Выберите тематику обращения"
-                onChange={onTopicChange}
-                allowClear
-                >
-                    <Option value={"IT"}>IT</Option>
-                    <Option value={"телефония"}>телефония</Option>
-                    <Option value={"другое"}>другое</Option>
-                </Select>
-            </Form.Item>
-            <Form.Item
-            name={"title"}
-            label="Заголовок обращения"
-            rules={[
-                {
-                    required: true,
-                },
-            ]}
-            >
-                <Input placeholder={"Опишите в кратце обращение"} />
-            </Form.Item>
-            <Form.Item 
-            name={"description"}
-            label="Полное описание проблемы">
-                <Input.TextArea placeholder={"Подробно опишите проблему"} />
-            </Form.Item>
-            <Form.Item
-            name={"upload"}
-            label="Загрузите файл"
-            >
-                <FileInput 
-                name="upload"
-                onChange={onFilesChange}
-                />
-            </Form.Item>
-            <Form.Item>
-                <Button type="primary" htmlType="submit" size={"large"}>
-                    Создать обращение
-                </Button>
-            </Form.Item>
+            <Row gutter={{ xs: 8, lg: 10 }}>
+                <Col xs={{ span: 24 }} lg={{ span: 10 }}>
+                    <Form.Item
+                    name={"topic"}
+                    label="Тематика обращения"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                    style={{marginBottom: "15px"}}
+                    >
+                        <Select
+                        placeholder="Выберите тематику обращения"
+                        onChange={onTopicChange}
+                        allowClear
+                        >
+                            <Option value={"IT"}>IT</Option>
+                            <Option value={"телефония"}>телефония</Option>
+                            <Option value={"другое"}>другое</Option>
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+                    <Form.Item
+                    name={"title"}
+                    label="Заголовок обращения"
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                    style={{marginBottom: "15px"}}
+                    >
+                        <Input placeholder={"Опишите в кратце обращение"} />
+                    </Form.Item>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+                    <Form.Item 
+                    name={"description"}
+                    label="Полное описание"
+                    style={{marginBottom: "15px"}}
+                    >
+                        <Input.TextArea placeholder={"Подробно опишите проблему"} allowClear={true} autoSize={{ minRows: 5, maxRows: 5 }} />
+                    </Form.Item>    
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 15 }}>
+                    <Form.Item
+                    name={"upload"}
+                    style={{marginBottom: "15px"}}
+                    >
+                        <FileInput 
+                        name="upload"
+                        onChange={onFilesChange}
+                        inputType={false}
+                        />
+                    </Form.Item>
+                </Col>
+                <Col span={24}>
+                    <Form.Item style={{marginBottom: "0"}}>
+                        <Button type="primary" htmlType="submit" size={"large"}>
+                            Создать обращение
+                        </Button>
+                    </Form.Item>
+                </Col>
+            </Row>
         </Form>
     );
 };

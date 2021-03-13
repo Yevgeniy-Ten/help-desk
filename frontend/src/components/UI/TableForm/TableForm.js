@@ -1,38 +1,47 @@
 import { Table, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 const TablForm = ({appeals}) => {
-    const [state, setState] = useState({
-        selectedRowKeys: []
-    })
-
-    const onSelectChange = selectedRowKeys => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
-        setState({ selectedRowKeys });
+    const rowSeleced = {
+        onChange: (selectedRowKeys, selectedRows) => {
+          console.log(selectedRows);
+        }
     };
 
-    const rowSelection = {
-        state: state,
-        onChange: onSelectChange,
+    const props = {
+    bordered: true,
+    pagination: { position: "bottom" },
+    size: "middle",
+    showHeader: true,
+    rowSelection: {
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(selectedRows);
+        }
+    },
+    scroll: { x: 400 }
     };
 
     const columns = [
         {
-            title: 'Title',
+            key: "title",
+            title: 'Заголовок обращения',
             dataIndex: 'title',
+            align: "center",
+            width: "50%"
         },
         {
-            title: 'Status',
+            key: "status",
+            title: 'Статус',
             dataIndex: 'status',
+            align: "center",
+            width: "30%"
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
-        },
-        {
-            title: 'Action',
+            key: "action",
+            title: 'Просмотр',
             dataIndex: 'action',
+            align: "center",
+            width: "15%"
         },
     ];
 
@@ -40,33 +49,33 @@ const TablForm = ({appeals}) => {
     for (let index = 0; index < appeals.length; index++) {
         data.push({
             key: index,
+            id: appeals[index].id,
             title: appeals[index].title,
             status: appeals[index].status,
             description: appeals[index].description,
             action: (
                 <>
-                    <NavLink to={`/appeals/${appeals[index].id}`}>Detail</NavLink>
+                    <Button type="default" size={"middle"}>
+                        <NavLink to={`/appeals/${appeals[index].id}`}>Detail</NavLink>
+                    </Button>
                 </>
             ),
         });
     }
-    // appeals.map((appeal, index) => {
-    //     return {
-    //         key: index,
-    //         title: appeal.title,
-    //         status: appeal.status,
-    //         description: appeal.description,
-    //         action: (
-    //             <>
-    //                 <NavLink to={`/appeals/${appeal.id}`}>Detail</NavLink>
-    //             </>
-    //         ),
-    //     }
-    // });
-    console.log(data);
+
+    
 
     return (
-        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+        <Table 
+        {...props}
+        // size="middle"
+        // rowSelection={{...rowSelection}}
+        columns={columns} 
+        dataSource={data} 
+        // pagination
+        // scroll={{ x: 400 }}
+        // pagination={{ position: [state.top, state.bottom] }}
+        />
     );
 }
 

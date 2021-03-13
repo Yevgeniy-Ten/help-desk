@@ -17,11 +17,15 @@ const AppHeader = () => {
                     <h1 className="header__logo">HELP DESK</h1>
                 </NavLink>
                 <div className="header__item">
-                    <NavLink to="/auth" className="header__link">
-                        Log in
+                    <NavLink to="/auth">
+                        <span className="header__link">
+                            Log in
+                        </span>
                     </NavLink>
-                    <NavLink to="/auth/register" className="header__link">
-                        Register
+                    <NavLink to="/auth/register">
+                        <span className="header__link">
+                            Register
+                        </span>
                     </NavLink>
                 </div>
                 

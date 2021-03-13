@@ -7,8 +7,29 @@
 .header__link {
     color: #fff;
 }
+.header__logo:hover {
+    opacity: 0.5;
+}
 .header__link {
+    position: relative;
     margin: 0 5px;
     padding: 5px;
+    font-size: 20px;
+    line-height: 20px;
+}
+.header__link::after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    content: "";
+    display: block;
+    margin: 1px auto 0 auto;
+    width: 30px;
+    height: 2px;
+    background: transparent;
+}
+.header__link:hover::after {
+    background: #fff;
 }
 

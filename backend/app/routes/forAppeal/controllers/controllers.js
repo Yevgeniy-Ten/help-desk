@@ -2,12 +2,13 @@ const {Appeal} = require("../../../../models");
 module.exports = {
     async create(req, res) {
         try {
-            const {title, description, topicId} = req.body;
+            const {title, description, topicId, serviceTopicId} = req.body;
             Appeal.create({
                 title,
                 description,
                 userId: req.user.id,
-                topicId
+                topicId,
+                serviceTopicId
             }).then(newAppeal => {
                 res.status(201).send(newAppeal)
             }).catch(errors => {

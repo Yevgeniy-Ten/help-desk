@@ -5,10 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class UserRole extends Model {
         static associate({User}) {
-            this.belongsTo(User, {
-                foreignKey: "userId",
-                as: "user"
+            this.hasMany(User, {
+                foreignKey: "roleId",
+                as: "users"
             })
+
+            // почему бы у роли не сделать this.hasMany
         }
 
         toJSON() {
@@ -22,11 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     UserRole.init({
         name: {
-            type: DataTypes.ENUM("moderator", "client", "employee"),
-            allowNull: false
-        },
-        userId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         accessAppeals: {

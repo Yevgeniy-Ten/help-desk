@@ -3,7 +3,7 @@ const {Ticket, Appeal} = require("../../../../models")
 module.exports = {
     async create(req, res) {
         try {
-            const {type, description, deadline, topicId, title, priority, status, appeals} = req.body
+            const {type, description, deadline, topicId, title, priority, status, appeals, serviceTopicId} = req.body
             Ticket.create({
                 type,
                 description,
@@ -12,6 +12,7 @@ module.exports = {
                 title,
                 priority,
                 status,
+                serviceTopicId
             }).then(newTicket => {
                 if (appeals && appeals.length) {
                     appeals.forEach(async appealId => {
@@ -28,11 +29,8 @@ module.exports = {
                             // юзерам отправить уведомления
                         }
                     })
-                    res.status(201).send(newTicket)
-                } else {
-                    res.status(201).send(newTicket)
-
                 }
+                res.status(201).send(newTicket)
             }).catch(errors => {
                 res.status(400).send(errors)
             })

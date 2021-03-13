@@ -55,6 +55,9 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 0,
             allowNull: false
         },
+        serviceTopicId: {
+            type: DataTypes.INTEGER,
+        },
     }, {
         sequelize,
         modelName: "Ticket",

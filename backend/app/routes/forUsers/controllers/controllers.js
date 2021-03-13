@@ -10,8 +10,7 @@ const UsersController = {
     },
     async create(req, res) {
         try {
-            const {firstName, lastName, password, role, email} = req.body
-
+            const {firstName, lastName, password, email} = req.body
             if (req.files) {
                 // saveFile(req.files.photo, "users")
             }
@@ -19,7 +18,6 @@ const UsersController = {
                 firstName,
                 lastName,
                 password,
-                role,
                 email
             }).then(result => {
                 const user = result.toJSON()
@@ -43,6 +41,13 @@ const UsersController = {
         } catch (e) {
             res.status(401).send(e);
         }
+    },
+    async updateUser(req, res) {
+        const {id: userId} = req.params
+        const user = await User.findOne({where: {userId}})
+        if (!user) res.sendStatus(404)
+        await user.update(req.body)
+        res.send(user)
     },
     async deleteSessions(req, res) {
         try {

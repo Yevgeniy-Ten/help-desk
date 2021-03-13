@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
                     foreignKey: "userId",
                     as: "appeals"
                 })
-            // имеет одну роль которая связана через userId
-            this.hasOne(UserRole, {
-                foreignKey: "userId",
+            // принадлежит к какой-то роли
+            this.belongsTo(UserRole, {
+                foreignKey: "roleId",
                 as: "role"
             })
             // привязан к одному отделу, а может и не привязан
@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "departmentId",
                 as: "department"
             })
-
         }
 
         toJSON() {
@@ -52,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
         },
         photo: DataTypes.STRING,
+        roleId: {
+            type: DataTypes.STRING,
+            defaultValue: 1
+        }
     }, {
         sequelize,
         modelName: "User",

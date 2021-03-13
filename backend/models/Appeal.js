@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Appeal extends Model {
 
-        static associate({User, Ticket, Topic}) {
+        static associate({User, Ticket, Topic, ServicesTopic}) {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
                 foreignKey: "userId",
@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
             this.belongsTo(Ticket, {
                 foreignKey: "ticketId",
                 as: "ticket"
+            })
+            // принадлежит к определенной услуге
+            this.belongsTo(ServicesTopic, {
+                foreignKey: "serviceTopicId",
+                as: "serviceTopic"
             })
             // принадлежит к тематике связывается через topicId
             this.belongsTo(Topic, {
@@ -26,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     Appeal.init({
         title: DataTypes.STRING,
         description: DataTypes.STRING,
+        status: {
+            allowNull: false,
+            type: DataTypes.ENUM("notStarted", "started", "finished"),
+            defaultValue: "notStarted"
+        },
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -35,11 +45,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        status: {
-            allowNull: false,
-            type: DataTypes.ENUM("notStarted", "started", "finished"),
-            defaultValue: "notStarted"
-        }
+        serviceTopicId: DataTypes.INTEGER,
     }, {
         sequelize,
         modelName: "Appeal",

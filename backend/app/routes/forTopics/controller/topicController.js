@@ -1,4 +1,4 @@
-const {Topic} = require("../../../../models")
+const {Topic, ServicesTopic} = require("../../../../models")
 
 const TopicController = {
     async getTopics(req, res) {
@@ -8,6 +8,35 @@ const TopicController = {
             res.send(topics)
         } catch (e) {
             res.status(500).json(e)
+        }
+    },
+    async getTopicServices(req, res) {
+        const {id: topicId} = req.params
+        const servicesByTopic = await ServicesTopic.findAll({
+            where: {
+                topicId
+            }
+        })
+        if (!servicesByTopic) return res.sendStatus(404)
+        res.send(servicesByTopic)
+    },
+    async createTopicServices(req, res) {
+        try {
+            const {id: topicId} = req.params
+            const topic = await Topic.findOne({
+                where: {
+                    topicId
+                }
+            })
+            if (!topic) res.sendStatus(400)
+            const {name} = req.body
+            ServicesTopic.create({name, topicId}).then(newServiceTopic => {
+                res.status(201).send(newServiceTopic)
+            }).catch(errors => {
+                res.status(400).send(errors)
+            })
+        } catch (e) {
+            res.status(e).send(e)
         }
     },
     async createTopic(req, res) {

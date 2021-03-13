@@ -4,7 +4,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Ticket extends Model {
-        static associate({Appeal, Topic}) {
+        static associate({Appeal, Topic, ServicesTopic}) {
             // имеет много обращений, связывать по ключу ticketId
             this.hasMany(Appeal, {
                 foreignKey: "ticketId",
@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
             this.belongsTo(Topic, {
                 foreignKey: "topicId",
                 as: "topic",
+            })
+
+            // принадлежит к определенной услуге,
+            this.belongsTo(ServicesTopic, {
+                foreignKey: "serviceTopicId",
+                as: "servicesTopics"
             })
         }
     };

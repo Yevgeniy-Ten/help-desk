@@ -6,13 +6,23 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate({Appeal, Ticket, Topic}) {
+        static associate({Appeal, TopicDepartment, UserRole}) {
             // имеет много общащений, обращения связываются через userId
             this.hasMany(Appeal,
                 {
                     foreignKey: "userId",
                     as: "appeals"
                 })
+            // имеет одну роль которая связана через userId
+            this.hasOne(UserRole, {
+                foreignKey: "userId",
+                as: "role"
+            })
+            // привязан к одному отделу, а может и не привязан
+            this.belongsTo(TopicDepartment, {
+                foreignKey: "departmentId",
+                as: "department"
+            })
 
         }
 
@@ -30,11 +40,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "client"
-        },
         email: {
             type: DataTypes.STRING,
             allowNull: false
@@ -43,7 +48,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        photo: DataTypes.STRING
+        departmentId: {
+            type: DataTypes.INTEGER,
+        },
+        photo: DataTypes.STRING,
     }, {
         sequelize,
         modelName: "User",
@@ -58,9 +66,7 @@ module.exports = (sequelize, DataTypes) => {
                 throw new Error(err)
             });
     })
-    User.prototype.checkPassword = function (password) {
-        return bcrypt.compare(password, this.password)
-    };
+
     User.prototype.generateToken = function (password) {
         this.token = nanoid()
     }

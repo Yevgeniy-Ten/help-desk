@@ -1,5 +1,5 @@
 const express = require("express");
-const {create, edit, getAll} = require("./controllers/controllers");
+const {create, edit, getAll,getById} = require("./controllers/controllers");
 const auth = require("../../middlewares/auth")
 
 const appealRouter = express.Router();

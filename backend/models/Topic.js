@@ -4,13 +4,18 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Topic extends Model {
-        static associate({Ticket, Appeal, Solution, User}) {
-            // тематика имеет много тикетов открытых по этой тематике
+        static associate({Ticket, Appeal, Solution, TopicDepartment, ServicesTopic}) {
+            // одна тематика имеет много тикетов открытых по этой тематике
             this.hasMany(Ticket, {
                 foreignKey: "topicId",
                 as: "tickets"
             })
-            // тематика имеет много обращений открытых по этой тематике
+            // одна тематике принадлежит к отделу который предоставляет услуги по этой тематике
+            this.belongsTo(TopicDepartment, {
+                foreignKey: "departmentId",
+                as: "department"
+            })
+            // одна тематика имеет много обращений открытых по этой тематике
             this.hasMany(Appeal, {
                 foreignKey: "topicId",
                 as: "appeals"
@@ -20,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "topicId",
                 as: "solutions"
             })
+            // одна тематика имеет много услуг
+            this.hasMany(ServicesTopic, {
+                foreignKey: "topicId",
+                as: "services"
+            })
         }
     };
     Topic.init({
@@ -28,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
     }, {
+        timestamps: true,
         sequelize,
         modelName: "Topic",
         tableName: "topics"

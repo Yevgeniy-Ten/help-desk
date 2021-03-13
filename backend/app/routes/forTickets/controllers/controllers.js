@@ -25,6 +25,7 @@ module.exports = {
                                 ticketId: newTicket.id,
                                 status: "started"
                             })
+                            // юзерам отправить уведомления
                         }
                     })
                     res.status(201).send(newTicket)

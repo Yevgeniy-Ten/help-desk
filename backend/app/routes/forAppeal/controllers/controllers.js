@@ -34,7 +34,7 @@ module.exports = {
             const appeal = await Appeal.findOne({
                 where: {id}
             })
-            if (!appeal) res.sendStatus(404)
+            if (!appeal) return res.sendStatus(404)
             await appeal.update(req.body)
             res.send(appeal)
         } catch (e) {

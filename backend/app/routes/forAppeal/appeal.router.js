@@ -1,7 +1,6 @@
 const express = require("express");
 const {create, edit, getAll,getById} = require("./controllers/controllers");
 const auth = require("../../middlewares/auth")
-
 const appealRouter = express.Router();
 appealRouter.get("/", auth, getAll);
 appealRouter.get("/:id", auth, getById);

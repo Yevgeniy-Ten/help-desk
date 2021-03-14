@@ -4,7 +4,6 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Appeal extends Model {
-
         static associate({User, Ticket, Topic, ServicesTopic}) {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {

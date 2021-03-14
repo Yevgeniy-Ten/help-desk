@@ -1,9 +1,16 @@
-const {Ticket, Appeal} = require("../../../../models")
-
-module.exports = {
+const {Ticket, Appeal, TicketHistory, TicketTask} = require("../../../../models")
+// нужно будет синхронизировать историю тиктеа
+const TicketController = {
     async create(req, res) {
         try {
-            const {type, description, deadline, topicId, title, priority, status, appeals, serviceTopicId} = req.body
+            const {
+                type, description,
+                deadline,
+                topicId,
+                title, priority,
+                status, appeals,
+                serviceTopicId
+            } = req.body
             Ticket.create({
                 type,
                 description,
@@ -37,6 +44,25 @@ module.exports = {
         } catch (errors) {
             res.status(500).send(errors)
         }
+    },
+    async createTasks(req, res) {
+        const {id: ticketId} = req.params
+        const ticket = await Ticket.findOne({
+            where: {
+                id: ticketId
+            }
+        })
+        if (!ticket) res.sendStatus(404)
+        const {title, employeeId} = req.body
+        TicketTask.create({
+            title,
+            employeeId,
+            ticketId
+        }).then(newTask => {
+            res.status(201).send(newTask)
+        }).catch(errors => {
+            res.status(400).send(errors)
+        })
     },
     async edit(req, res) {
         try {
@@ -81,4 +107,5 @@ module.exports = {
             res.status(401).send(e);
         }
     }
-};
+}
+module.exports = TicketController

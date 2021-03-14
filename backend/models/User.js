@@ -6,7 +6,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate({Appeal, TopicDepartment, UserRole}) {
+        static associate({Appeal, TopicDepartment, UserRole, TicketTask}) {
             // имеет много общащений, обращения связываются через userId
             this.hasMany(Appeal,
                 {
@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "departmentId",
                 as: "department"
             })
+            // имеет много задач если он сотрудник
+            this.hasMany(TicketTask, {
+                foreignKey: "employeeId",
+                as: "employeeTasks"
+            })
         }
 
         toJSON() {
@@ -30,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     User.init({
-        token: DataTypes.STRING,
         firstName: {
             type: DataTypes.STRING,
             allowNull: false
@@ -41,16 +45,17 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false
         },
+        photo: DataTypes.STRING,
         departmentId: {
             type: DataTypes.INTEGER,
         },
-        photo: DataTypes.STRING,
         roleId: {
             type: DataTypes.INTEGER,
         }

@@ -6,6 +6,7 @@ const fileUpload = require("express-fileupload");
 const corsOptions = {
     origin: webURL,
     optionSuccessStatus: 200,
+    credentials: true
 };
 
 module.exports = [

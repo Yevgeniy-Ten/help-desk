@@ -4,7 +4,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Ticket extends Model {
-        static associate({Appeal, Topic, ServicesTopic}) {
+        static associate({Appeal, Topic, ServicesTopic, TicketHistory, TicketTask}) {
             // имеет много обращений, связывать по ключу ticketId
             this.hasMany(Appeal, {
                 foreignKey: "ticketId",
@@ -21,15 +21,21 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "serviceTopicId",
                 as: "servicesTopics"
             })
+            // тикет будет иметь куча историй
+            this.hasMany(TicketHistory, {
+                foreignKey: "ticketId",
+                as: "ticketHistory"
+            })
+            // тикет может иметь куча задач открытых по этому тикеты
+            this.hasMany(TicketTask, {
+                foreignKey: "ticketId",
+                as: "tasks"
+            })
         }
     };
     Ticket.init({
         type: {
             type: DataTypes.ENUM("request", "incident"),
-            allowNull: false
-        },
-        topicId: {
-            type: DataTypes.INTEGER,
             allowNull: false
         },
         priority: {
@@ -53,6 +59,10 @@ module.exports = (sequelize, DataTypes) => {
         hourWork: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
+            allowNull: false
+        },
+        topicId: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         serviceTopicId: {

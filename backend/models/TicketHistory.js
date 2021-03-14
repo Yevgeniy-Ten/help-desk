@@ -4,12 +4,17 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class TicketHistory extends Model {
-        static associate() {
-
+        static associate({Ticket}) {
+            this.belongsTo(Ticket, {
+                foreignKey: "ticketId"
+            })
         }
     };
     TicketHistory.init({
-        isShowed: DataTypes.BOOLEAN
+        ticketId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
     }, {
         sequelize,
         modelName: "TicketHistory",

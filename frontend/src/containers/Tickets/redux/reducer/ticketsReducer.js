@@ -6,17 +6,7 @@ import {
 } from "../action/ticketsActionType";
 
 const initState = {
-    tickets: [{
-        id: 1,
-        title: "У меня не работает сайт",
-        status: "На рассмотрении",
-        description: "Какое-то описание Какое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описание"
-    }, {
-        id: 2,
-        title: "У меня не работает сайт",
-        status: "Выполняется",
-        description: "Какое-то описание Какое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описание"
-    }],
+    tickets: [],
     loading: false,
     error: null,
 }
@@ -30,7 +20,7 @@ const ticketsReducer = (state = initState, action) => {
         case TICKETS_ERROR:
             return { ...state, loading: false, error: action.error };
         case GET_TICKETS:
-            return { ...state, ticketsL: action.value };
+            return { ...state, tickets: action.values };
         default:
             return state;
     }

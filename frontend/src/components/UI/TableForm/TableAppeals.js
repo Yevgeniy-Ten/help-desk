@@ -3,9 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const TablForm = ({appeals, saveSelectedAppealsHandler}) => {
+const TableAppeals = ({appeals, saveSelectedAppealsHandler}) => {
     const [selectAppeals, setSelectAppeals] = useState([]);
-    const dispatch = useDispatch();
 
     const props = {
     bordered: true,
@@ -83,4 +82,4 @@ const TablForm = ({appeals, saveSelectedAppealsHandler}) => {
     );
 }
 
-export default TablForm;
+export default TableAppeals;

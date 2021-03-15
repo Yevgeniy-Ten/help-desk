@@ -1,3 +1,8 @@
 #add-tiket {
     padding: 4%;
 }
+.form__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

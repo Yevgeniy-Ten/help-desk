@@ -22,7 +22,7 @@ const AppHeader = () => {
                     <h1 className="header__logo">HELP DESK</h1>
                 </NavLink>
                 <div className="header__item">
-                    <NavLink to="/auth">
+                    <div>
                         {user ? (
                             <>
                                 <span className="header__username">
@@ -30,12 +30,14 @@ const AppHeader = () => {
                                 </span>
                             </>
                         ) : (
-                            <span className="header__link">
-                                Log in
-                            </span>
+                            <NavLink to="/auth">
+                                <span className="header__link">
+                                    Log in
+                                </span>
+                            </NavLink>
                         )}
                         
-                    </NavLink>
+                    </div>
                     <NavLink to="/auth/register">
                         {user ? (
                             <Button type="default" size={"middle"} onClick={logoutUserHandler}>

@@ -22,7 +22,7 @@ const AddAppealForm = () => {
 
     useEffect(() => {
         dispatch(fetchTopics());
-    }, []);
+    }, [dispatch]);
 
     const submitFormHandler = (value) => {
         dispatch(addNewAppeals(value));
@@ -61,10 +61,10 @@ const AddAppealForm = () => {
                         onChange={onTopicChange}
                         allowClear
                         >
-                            {topics.map(topic => {
+                            {topics.map((topic, index) => {
                                 return(
                                     <>
-                                        <Option key={topic.id} value={topic.id}>{topic.name}</Option>
+                                        <Option key={index} value={topic.id}>{topic.name}</Option>
                                     </>
                                 )
                             })}
@@ -82,7 +82,7 @@ const AddAppealForm = () => {
                     ]}
                     style={{marginBottom: "15px"}}
                     >
-                        <Input placeholder={"Опишите в кратце обращение"} />
+                        <Input placeholder={"Опишите вкратце обращение"} />
                     </Form.Item>
                 </Col>
                 <Col xs={{ span: 24 }} lg={{ span: 15 }}>

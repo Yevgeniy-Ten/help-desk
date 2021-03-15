@@ -6,7 +6,7 @@ import {
     TICKETS_ERROR,
 } from "./ticketsActionType";
 
-export const getTickets = (value) => ({ type: GET_TICKETS, value });
+export const getTickets = (values) => ({ type: GET_TICKETS, values });
 
 export const ticketsRequest = () => ({ type: TICKETS_REQUEST_PENDING });
 export const ticketsSuccess = () => ({ type: TICKETS_SUCCESS });
@@ -15,14 +15,10 @@ export const ticketsError = (error) => ({ type: TICKETS_ERROR, error });
 export const fetchTickets = (id) => {
     return async (dispatch, _, axios) => {
         try {
-            let urlAppeal = '/tickets';
-            if (id) {
-                urlAppeal = `/tickets?idAppeal=${id}`;
-            }
             dispatch(ticketsRequest());
-            const response = await axios.get(urlAppeal);
+            const response = await axios.get('/tickets');
             if (response.data !== null) {
-                dispatch(getAppeals(response.data));
+                dispatch(getTickets(response.data));
                 dispatch(ticketsSuccess());
             }
         } catch (err) {
@@ -33,6 +29,7 @@ export const fetchTickets = (id) => {
 
 export const addNewTickets = (dataCopy) => {
     return async (dispatch, _, axios) => {
+        console.log(dataCopy);
         try {
             dispatch(ticketsRequest());
             await axios.post('/tickets', dataCopy);

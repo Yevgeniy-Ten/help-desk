@@ -7,19 +7,7 @@ import {
 } from "../action/appealsActionType";
 
 const initState = {
-    // appeals: [{
-    //     id: 1,
-    //     title: "У меня не работает сайт",
-    //     status: "На рассмотрении",
-    //     description: "Какое-то описание Какое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описание"
-    // }, {
-    //     id: 2,
-    //     title: "У меня не работает сайт",
-    //     status: "Выполняется",
-    //     description: "Какое-то описание Какое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описаниеКакое-то описание"
-    // }],
     appeals: [],
-    selectedAppeals: [],
     loading: false,
     error: null,
 }
@@ -35,7 +23,7 @@ const appealsReducer = (state = initState, action) => {
         case GET_APPEALS:
             return {...state, appeals: action.value};
         case SELECTED_APPEALS:
-            return {...state, selectedAppeals: action.values};
+            return {...state, appeals: action.values};
         default:
             return state;
     }

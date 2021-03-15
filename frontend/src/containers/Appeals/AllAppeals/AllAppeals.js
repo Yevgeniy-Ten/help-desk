@@ -12,7 +12,7 @@ const AllAppeals = () => {
 
     useEffect(() => {
         dispatch(fetchAppeals());
-    })
+    }, [dispatch]);
     
     return (
         <>

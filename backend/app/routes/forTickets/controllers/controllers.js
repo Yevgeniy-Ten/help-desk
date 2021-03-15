@@ -52,7 +52,7 @@ const TicketController = {
                 id: ticketId
             }
         })
-        if (!ticket) res.sendStatus(404)
+        if (!ticket) return res.sendStatus(404)
         const {title, employeeId} = req.body
         TicketTask.create({
             title,
@@ -72,7 +72,7 @@ const TicketController = {
                     id
                 }
             })
-            if (!ticket) res.sendStatus(404)
+            if (!ticket) return res.sendStatus(404)
             await ticket.update(req.body)
             res.send(ticket)
         } catch (e) {
@@ -82,7 +82,7 @@ const TicketController = {
     async getAll(req, res) {
         try {
             const tickets = await Ticket.findAll()
-            if (!tickets.length) res.sendStatus(404)
+            if (!tickets.length) return res.sendStatus(404)
             res.send(tickets)
         } catch (e) {
             res.status(500).send(e);
@@ -92,7 +92,7 @@ const TicketController = {
         try {
             const {id} = req.params
             const ticket = await Ticket.findOne({id})
-            if (!ticket) res.sendStatus(404)
+            if (!ticket) return res.sendStatus(404)
             res.send(ticket)
         } catch (errors) {
             res.status(500).send(errors);

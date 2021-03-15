@@ -4,7 +4,7 @@ const TopicController = {
     async getTopics(req, res) {
         try {
             const topics = await Topic.findAll()
-            if (!topics.length) res.sendStatus(404)
+            if (!topics.length) return res.sendStatus(404)
             res.send(topics)
         } catch (e) {
             res.status(500).json(e)
@@ -25,10 +25,10 @@ const TopicController = {
             const {id: topicId} = req.params
             const topic = await Topic.findOne({
                 where: {
-                    topicId
+                    id: topicId
                 }
             })
-            if (!topic) res.sendStatus(400)
+            if (!topic) return res.sendStatus(400)
             const {name} = req.body
             ServicesTopic.create({name, topicId}).then(newServiceTopic => {
                 res.status(201).send(newServiceTopic)
@@ -44,7 +44,7 @@ const TopicController = {
         Topic.create({
             name
         }).then((newTopic) => {
-            res.status(201).send(newTopic)
+            return res.status(201).send(newTopic)
         }).catch((errors) => {
             res.status(400).send(errors)
         })

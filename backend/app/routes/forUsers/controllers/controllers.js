@@ -47,7 +47,7 @@ const UsersController = {
     async updateUser(req, res) {
         const {id: userId} = req.params;
         const user = await User.findOne({where: {userId}});
-        if (!user) res.sendStatus(404);
+        if (!user) return res.sendStatus(404);
         await user.update(req.body);
         res.send(user);
     },

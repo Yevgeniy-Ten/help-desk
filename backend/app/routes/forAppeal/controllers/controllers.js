@@ -22,7 +22,7 @@ module.exports = {
         try {
             const {id} = req.params
             const appeal = await Appeal.findOne({id})
-            if (!appeal) res.sendStatus(404)
+            if (!appeal) return res.sendStatus(404)
             res.send(appeal)
         } catch (errors) {
             res.status(500).send(errors);
@@ -49,7 +49,7 @@ module.exports = {
                 },
                 include: ["topic", "ticket"],
             })
-            if (!appeals.length) res.sendStatus(404)
+            if (!appeals.length) return res.sendStatus(404)
             res.send(appeals)
         } catch (errors) {
             res.status(500).send(errors);

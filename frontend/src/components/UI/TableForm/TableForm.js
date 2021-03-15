@@ -1,12 +1,11 @@
 import { Table, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-const TablForm = ({appeals}) => {
-    const rowSeleced = {
-        onChange: (selectedRowKeys, selectedRows) => {
-          console.log(selectedRows);
-        }
-    };
+const TablForm = ({appeals, saveSelectedAppealsHandler}) => {
+    const [selectAppeals, setSelectAppeals] = useState([]);
+    const dispatch = useDispatch();
 
     const props = {
     bordered: true,
@@ -15,10 +14,20 @@ const TablForm = ({appeals}) => {
     showHeader: true,
     rowSelection: {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(selectedRows);
+            setSelectAppeals(selectedRows);
         }
     },
-    scroll: { x: 400 }
+    scroll: { x: 400 },
+    footer: () => {
+
+        return (
+            <>
+                <Button type="primary" size={"middle"} onClick={() => saveSelectedAppealsHandler(selectAppeals)} >
+                    <NavLink to={`/tickets/add`}>Создать тикет</NavLink>
+                </Button>
+            </>
+        );
+    }
     };
 
     const columns = [
@@ -68,13 +77,8 @@ const TablForm = ({appeals}) => {
     return (
         <Table 
         {...props}
-        // size="middle"
-        // rowSelection={{...rowSelection}}
         columns={columns} 
         dataSource={data} 
-        // pagination
-        // scroll={{ x: 400 }}
-        // pagination={{ position: [state.top, state.bottom] }}
         />
     );
 }

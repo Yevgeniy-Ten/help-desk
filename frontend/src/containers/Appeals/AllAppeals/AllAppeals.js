@@ -9,10 +9,10 @@ const AllAppeals = () => {
     const dispatch = useDispatch();
 
     const {appeals} = useSelector(getAppealsState, shallowEqual);
-    //
-    // useEffect(() => {
-    //     dispatch(fetchAppeals());
-    // })
+
+    useEffect(() => {
+        dispatch(fetchAppeals());
+    })
     
     return (
         <>

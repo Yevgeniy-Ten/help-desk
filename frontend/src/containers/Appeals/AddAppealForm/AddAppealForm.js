@@ -9,21 +9,27 @@ import {
     } from "antd";
 import FileInput from "../../../components/UploadFile/FileInput";
 import "./AddAppealForm.css";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { addNewAppeals } from "../redux/action/appealsAction";
+import { fetchTopics } from "../redux/action/topicsActions";
+import { getTopicsState } from "../redux/getters/getters";
 const { Option } = Select;
 
 const AddAppealForm = () => {
     const [form] = Form.useForm();
-    
+    const dispatch = useDispatch();
+    const {topics} = useSelector(getTopicsState, shallowEqual);
+
     useEffect(() => {
-        //выгружает список тематик для options
+        dispatch(fetchTopics());
     }, []);
 
     const submitFormHandler = (value) => {
-        // console.log(value);
+        dispatch(addNewAppeals(value));
     }
 
     const onTopicChange = (value) => {
-        form.setFieldsValue({ topic: value });
+        form.setFieldsValue({ topicId: value });
     };
 
     const onFilesChange = (filesList) => {
@@ -41,7 +47,7 @@ const AddAppealForm = () => {
             <Row gutter={{ xs: 8, lg: 10 }}>
                 <Col xs={{ span: 24 }} lg={{ span: 10 }}>
                     <Form.Item
-                    name={"topic"}
+                    name={"topicId"}
                     label="Тематика обращения"
                     rules={[
                         {
@@ -55,9 +61,13 @@ const AddAppealForm = () => {
                         onChange={onTopicChange}
                         allowClear
                         >
-                            <Option value={"IT"}>IT</Option>
-                            <Option value={"телефония"}>телефония</Option>
-                            <Option value={"другое"}>другое</Option>
+                            {topics.map(topic => {
+                                return(
+                                    <>
+                                        <Option key={topic.id} value={topic.id}>{topic.name}</Option>
+                                    </>
+                                )
+                            })}
                         </Select>
                     </Form.Item>
                 </Col>
@@ -98,7 +108,7 @@ const AddAppealForm = () => {
                 </Col>
                 <Col span={24}>
                     <Form.Item style={{marginBottom: "0"}}>
-                        <Button type="primary" htmlType="submit" size={"large"}>
+                        <Button type="primary" htmlType="submit" size={"middle"}>
                             Создать обращение
                         </Button>
                     </Form.Item>

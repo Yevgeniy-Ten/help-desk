@@ -32,4 +32,10 @@
 .header__link:hover::after {
     background: #fff;
 }
+.header__username {
+    margin: 0 5px;
+    padding: 5px;
+    color: #fff;
+    text-decoration: underline;
+}
 

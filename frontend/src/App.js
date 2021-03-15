@@ -8,12 +8,20 @@ const {Sider, Content} = Layout;
 
 function App() {
     const [sideIsShowed, toggleSideIsShow] = useToggle()
+
     return (
         <Layout>
-            <AppHeader onShowSider={toggleSideIsShow} sideIsShow={sideIsShowed}/>
+            <AppHeader 
+            onShowSider={toggleSideIsShow} 
+            sideIsShow={sideIsShowed}
+            />
             <Layout>
-                <Sider collapsible collapsed={sideIsShowed}
-                       onCollapse={toggleSideIsShow} style={{minHeight: "100vh"}}>
+                <Sider 
+                collapsible 
+                collapsed={sideIsShowed}
+                onCollapse={toggleSideIsShow} 
+                style={{minHeight: "100vh"}}
+                >
                     <MenuSider/>
                 </Sider>
                 <Content>

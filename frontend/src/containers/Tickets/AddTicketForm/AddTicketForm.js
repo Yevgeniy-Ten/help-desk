@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-
 import { Button, Form, Input } from "antd";
-import 'antd/dist/antd.css';
-// import { getTiketsState } from '../redux/getters/getters';
+import "./AddTicketForm.css";
+import { getTiketsState } from '../redux/getters/getters';
 
 const AddTicketForm = () => {
     const dispatch = useDispatch();
-    // const { TextArea } = Input;
     // const [loading, setLoading] = useState(false);
-
     const [form] = Form.useForm();
+
     const submitFormHandler = (event) => {
 
     }
@@ -20,7 +18,7 @@ const AddTicketForm = () => {
             <Form
                 form={form}
                 name="add-tiket"
-                size={"large"}
+                size={"default"}
                 layout={"vertical"}
                 onFinish={submitFormHandler}
             >
@@ -61,7 +59,7 @@ const AddTicketForm = () => {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" size={"large"}>
+                    <Button type="primary" htmlType="submit" size={"middle"}>
                         Создать обращение
                 </Button>
                 </Form.Item>

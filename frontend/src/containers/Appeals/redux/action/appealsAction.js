@@ -3,6 +3,7 @@ import {
     APPEALS_REQUEST_PENDING,
     APPEALS_SUCCESS,
     APPEALS_ERROR,
+    SELECTED_APPEALS
 } from "./appealsActionType";
 
 export const getAppeals = (value) => ({ type: GET_APPEALS, value });
@@ -11,15 +12,13 @@ export const appealsRequest = () => ({ type: APPEALS_REQUEST_PENDING });
 export const appealsSuccess = () => ({ type: APPEALS_SUCCESS });
 export const appealsError = (error) => ({ type: APPEALS_ERROR, error });
 
-export const fetchAppeals = (id) => {
+export const saveSelectedAppeals = (values) => ({ type: SELECTED_APPEALS, values });
+
+export const fetchAppeals = () => {
     return async (dispatch, _, axios) => {
         try {
-            let urlAppeal = '/appeals';
-            if (id) {
-                urlAppeal = `/appeals?idAppeal=${id}`;
-            }
             dispatch(appealsRequest());
-            const response = await axios.get(urlAppeal);
+            const response = await axios.get('/appeals');
             if (response.data !== null) {
                 dispatch(getAppeals(response.data));
                 dispatch(appealsSuccess());

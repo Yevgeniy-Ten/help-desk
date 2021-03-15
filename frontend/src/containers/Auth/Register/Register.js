@@ -15,7 +15,7 @@ const Register = () => {
     const {registerError, isLoading} = useSelector(getUserState, shallowEqual);
 
     const submitFormHandler = (values) => {
-        // dispatch(registerUser(values));
+        dispatch(registerUser(values));
         console.log(values);
     }
 

@@ -1,0 +1,3 @@
+export const GET_TOPICS = 'GET_TOPICS';
+export const TOPICS_SUCCESS = 'TOPICS_SUCCESS';
+export const TOPICS_ERROR = 'TOPICS_ERROR';

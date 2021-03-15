@@ -12,12 +12,13 @@ export const registerUserFailure = (error) => ({type: REGISTER_USER_FAILURE, err
 export const loginUserFailure = (error) => ({type: LOGIN_USER_FAILURE, error})
 export const userRequestPending = () => ({type: USER_REQUEST_PENDING})
 export const clearUserState = () => ({type: CLEAR_USER_STATE})
+// import { push } from "connected-react-router";
 
 export const registerUser = (userData) => {
     return async (dispatch, _, axios) => {
         try {
             const response = await axios.post("/users", userData)
-            dispatch(registerUserSuccess(response.data))
+            // dispatch(registerUserSuccess(response.data))
         } catch (e) {
             if (e.response && e.response.data) {
                 dispatch(registerUserFailure(e.response.data));
@@ -34,7 +35,8 @@ export const logoutUser = () => {
     return async (dispatch, _, axios) => {
         try {
             await axios.delete("/users/sessions");
-            dispatch(clearUserState())
+            dispatch(clearUserState());
+            // dispatch(push("/auth"));
         } catch (e) {
             dispatch(clearUserState())
         }

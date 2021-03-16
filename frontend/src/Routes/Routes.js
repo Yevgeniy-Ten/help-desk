@@ -12,7 +12,7 @@ const Routes = () => {
     return (
         <Switch>
             <ProtectedRoute isAllowed={true} redirectTo={"/auth"} path="/appeals" component={Appeals}/>
-            <ProtectedRoute path="/tickets" isAllowed={true} redirectTo={"/auth"} component={Tickets}/>
+            <ProtectedRoute isAllowed={true} redirectTo={"/auth"} path="/tickets" component={Tickets}/>
             <ProtectedRoute isAllowed={!user} redirectTo={"/appeals"} path="/auth" component={Auth}/>
             <Route path={"/faq"} exact component={Route}/>
             <Redirect to={!!user ? "/appeals" : "/auth"}/>

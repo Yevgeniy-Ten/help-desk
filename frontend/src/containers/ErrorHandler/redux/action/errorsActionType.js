@@ -1,0 +1,4 @@
+export const CLEAR_ALL_ERRORS = "CLEAR_ALL_ERRORS";
+
+export const LOGIN_FAILED = "LOGIN_FAILED";
+export const REGISTER_FAILED = "REGISTER_FAILED";

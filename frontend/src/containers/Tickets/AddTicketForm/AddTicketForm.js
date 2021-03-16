@@ -43,6 +43,7 @@ const AddTicketForm = () => {
             topicId: values.topicId,
             type: values.type
         }
+        console.log(ticketData)
         dispatch(addNewTickets(ticketData));
     };
 
@@ -105,7 +106,7 @@ const AddTicketForm = () => {
                                             <Option key={index} value={appeal.id}>
                                                 <div className="form__item">
                                                     <span style={{marginRight: "auto"}}>
-                                                        {appeal.id}
+                                                       ID: {appeal.id}, {appeal.title}
                                                     </span>
                                                     <Button type="primary" size={"middle"} style={{marginRight: "10px"}}>
                                                         <NavLink to={`/appeals/${appeal.id}`}>Detail</NavLink>
@@ -155,7 +156,7 @@ const AddTicketForm = () => {
                         style={{marginBottom: "15px"}}
                         >
                             <Select
-                            placeholder="Выберите инцидент или обащение"
+                            placeholder="Выберите инцидент или обращение"
                             onChange={onTypeChange}
                             allowClear
                             >
@@ -178,9 +179,9 @@ const AddTicketForm = () => {
                             placeholder="Выберите статус"
                             onChange={onStatusChange}
                             allowClear
-                            defaultValue="open"
+                            // defaultValue="open"
                             >
-                                <Option key="open" value="open">Откырто</Option>
+                                <Option key="open" value="open">Открыто</Option>
                                 <Option key="inProcess" value="inProcess">В процессе</Option>
                                 <Option key="done" value="done">Выполнено</Option>
                             </Select>
@@ -200,7 +201,7 @@ const AddTicketForm = () => {
                             placeholder="Выберите приоритет"
                             onChange={onPriorityChange}
                             allowClear
-                            defaultValue="low"
+                            // defaultValue="low"
                             >
                                 <Option key="high" value="high">Срочно</Option>
                                 <Option key="medium" value="medium">Средний</Option>

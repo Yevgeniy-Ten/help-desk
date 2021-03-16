@@ -33,7 +33,7 @@ const AddTicketForm = () => {
     const submitFormHandler = (values) => {
         const {deadline} = values;
         const ticketData = {
-            appealId: values.appealId,
+            appeals: values.appeals,
             deadline: deadline._d,
             description: values.description,
             hourWork: values.hourWork,
@@ -48,7 +48,7 @@ const AddTicketForm = () => {
 
     const onAppealsChange = (values) => {
         // console.log(values);
-        form.setFieldsValue({ appealId: values });
+        form.setFieldsValue({ appeals: values });
     };
 
     const onTypeChange = (value) => {
@@ -83,7 +83,7 @@ const AddTicketForm = () => {
                 <Row gutter={{ xs: 8, lg: 10 }}>
                     <Col xs={{ span: 24 }} lg={{ span: 12 }}>
                         <Form.Item
-                        name={"appealId"}
+                        name={"appeals"}
                         label="Выбранные обращения"
                         rules={[
                             {
@@ -217,37 +217,37 @@ const AddTicketForm = () => {
                         </Form.Item>
                     </Col>
                     <Col xs={{ span: 24 }} lg={{ span: 12 }}>
-                    <Form.Item
-                    name={"title"}
-                    label="Заголовок тикета"
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                    style={{marginBottom: "15px"}}
-                    >
-                        <Input placeholder={"Опишите вкратце тикет"} />
-                    </Form.Item>
-                    <Form.Item
-                    name={'description'}
-                    label="Полное описание тикета"
-                    style={{marginBottom: "15px"}}
-                    >
-                        <Input.TextArea placeholder={"Подробно опишите тикет"} />
-                    </Form.Item>
-                    <Form.Item
-                    label={"Срок"}
-                    name={"deadline"}
-                    rules={[
-                        {
-                            required: true,
-                        },
-                    ]}
-                    style={{marginBottom: "15px"}}
-                    >
-                        <DatePicker showTime/>
-                    </Form.Item>
+                        <Form.Item
+                        name={"title"}
+                        label="Заголовок тикета"
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                        style={{marginBottom: "15px"}}
+                        >
+                            <Input placeholder={"Опишите вкратце тикет"} />
+                        </Form.Item>
+                        <Form.Item
+                        name={'description'}
+                        label="Полное описание тикета"
+                        style={{marginBottom: "15px"}}
+                        >
+                            <Input.TextArea placeholder={"Подробно опишите тикет"} allowClear={true} autoSize={{ minRows: 5, maxRows: 5 }} />
+                        </Form.Item>
+                        <Form.Item
+                        label={"Срок"}
+                        name={"deadline"}
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                        style={{marginBottom: "15px"}}
+                        >
+                            <DatePicker showTime/>
+                        </Form.Item>
                     </Col>
                 </Row>
                 <Form.Item style={{marginBottom: "15px"}}>

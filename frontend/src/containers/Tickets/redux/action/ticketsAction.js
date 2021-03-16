@@ -34,9 +34,7 @@ export const addNewTickets = (dataCopy) => {
             dispatch(ticketsRequest());
             await axios.post('/tickets', dataCopy);
             dispatch(ticketsSuccess());
-            setTimeout(() => {
-                dispatch(push('/'));
-            }, 2000)
+            dispatch(push("/tickets"));
         } catch (e) {
             if (e.response && e.response.data) {
                 dispatch(ticketsError(e.response.data));

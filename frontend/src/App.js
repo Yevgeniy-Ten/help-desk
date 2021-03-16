@@ -1,13 +1,20 @@
-import React from "react"
-import {Layout} from "antd";
-import {useToggle} from "./hooks/useToggle";
+import React, { useEffect } from "react"
+import { Layout } from "antd";
+import { useToggle } from "./hooks/useToggle";
 import AppHeader from "./components/Header/Header";
 import MenuSider from "./components/MenuSider/MenuSider";
 import Routes from "./Routes/Routes";
-const {Sider, Content} = Layout;
+import { getUser } from "./containers/Auth/redux/actions/usersActions";
+import { useDispatch } from "react-redux";
+const { Sider, Content } = Layout;
 
 function App() {
-    const [sideIsShowed, toggleSideIsShow] = useToggle()
+    const [sideIsShowed, toggleSideIsShow] = useToggle();
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(getUser());
+    }, [])
 
     return (
         <Layout>

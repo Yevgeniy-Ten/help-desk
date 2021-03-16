@@ -1,4 +1,5 @@
 import {
+    GET_USER_SUCCESS,
     CLEAR_USER_STATE,
     LOGIN_USER_FAILURE,
     LOGIN_USER_SUCCESS,
@@ -16,6 +17,8 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_USER_SUCCESS:
+            return {...initialState, user: action.user}
         case USER_REQUEST_PENDING:
             return {...initialState, isLoading: true}
         case REGISTER_USER_SUCCESS:

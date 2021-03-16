@@ -32,15 +32,29 @@ const TableAppeals = ({appeals, saveSelectedAppealsHandler}) => {
     const columns = [
         {
             key: "title",
-            title: 'Заголовок обращения',
+            title: 'Заголовок',
             dataIndex: 'title',
             align: "center",
-            width: "50%"
+            width: "20%"
         },
         {
             key: "status",
             title: 'Статус',
             dataIndex: 'status',
+            align: "center",
+            width: "20%"
+        },
+        {
+            key: "ticket",
+            title: 'Тикет',
+            dataIndex: 'ticket',
+            align: "center",
+            width: "20%"
+        },
+        {
+            key: "topic",
+            title: 'Тематика',
+            dataIndex: 'topic',
             align: "center",
             width: "30%"
         },
@@ -60,6 +74,16 @@ const TableAppeals = ({appeals, saveSelectedAppealsHandler}) => {
             id: appeals[index].id,
             title: appeals[index].title,
             status: appeals[index].status,
+            ticket: appeals[index].ticket ? (
+                <>
+                    <Button type="default" size={"middle"}>
+                        <NavLink to={`/appeals/${appeals[index].ticket.id}`}>
+                            {appeals[index].ticket.title}
+                        </NavLink>
+                    </Button>
+                </>
+            ) : null,
+            topic: appeals[index].topic ? appeals[index].topic.name : null,
             description: appeals[index].description,
             action: (
                 <>

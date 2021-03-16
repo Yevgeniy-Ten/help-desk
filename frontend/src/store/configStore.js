@@ -5,6 +5,10 @@ import appealsReducer from "../containers/Appeals/redux/reducer/appealsReducer";
 import ticketsReducer from "../containers/Tickets/redux/reducer/ticketsReducer";
 import userReducer from "../containers/Auth/redux/reducer/userReducer";
 import topicsReducer from "../containers/Appeals/redux/reducer/topicsReducer";
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from "connected-react-router";
+
+export const history = createBrowserHistory();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
@@ -12,20 +16,15 @@ const rootReducer = combineReducers({
     topics: topicsReducer,
     appeals: appealsReducer,
     tickets: ticketsReducer,
+    router: connectRouter(history)
 });
-const middlewares = [reduxThunk.withExtraArgument(axios)];
 
+const middlewares = [
+    reduxThunk.withExtraArgument(axios), 
+    routerMiddleware(history)
+];
 
 const enhancers = composeEnhancers(applyMiddleware(...middlewares));
+export const store = createStore(rootReducer, enhancers);
 
-const store = createStore(rootReducer, enhancers);
-// axios.interceptors.request.use(config => {
-//     try {
-//         config.headers["Authorization"] = store.getState().user.user.token;
-//     } catch (e) {
-//         // user non authorized
-//     }
-//     return config;
-// });
-
-export default store;
+// export default store;

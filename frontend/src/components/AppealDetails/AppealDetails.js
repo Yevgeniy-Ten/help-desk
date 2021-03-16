@@ -1,73 +1,97 @@
 import React from "react";
-import {Row, Col} from "antd"
+import "./AppealDetails.css";
+import {
+    Row, 
+    Col, 
+    Button, 
+    Form, 
+    Input
+    } from "antd"
 
-const AppealDetails = ({chat}) => {
+const AppealDetails = ({chat, appeal}) => {
+    const [form] = Form.useForm();
 
-    const submitFormHandler = (event) => {
-
-        event.preventDefault();
+    const submitFormHandler = (values) => {
 
     }
+
     return (
-        <Row>
-            <Col span={24}>
-                <h1>Детали обращения #1</h1>
-            </Col>
-            <Col span={24}>
-                <div className="appeal-info">
-                    <div className="appeal-info__header">
-                        <div className="appeal-text">
-                            <h3 className="appeal-text-inner">Тематика усулуги: <strong>Сайты</strong></h3>
-                        </div>
-                        <div className="appeal-text">
-                            <h3 className="appeal-text-inner">Тема обращения: <strong className="appeal-text-inner"> Не
-                                работает домен
-                            </strong>
-                            </h3>
-                        </div>
-                        <div className="appeal-text-description">
-                            <h3 className="appeal-text-inner">Полное описание:</h3>
-                            <p className="appeal-text-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Ipsa
-                                libero
-                                molestiae quisquam. Cum
-                                earum exercitationem, iure magnam suscipit unde. Facere.
-                            </p>
-                        </div>
+        <div className="detail-block">
+            <Row>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                    <h2><strong>Детали обращения</strong></h2>
+
+                    <h3><strong>Тематика:</strong></h3>
+                    <p>{appeal ? appeal.topicId : null}</p>
+
+                    <h3><strong>Заголовок:</strong></h3>
+                    <p>{appeal ? appeal.title : null}</p>
+
+                    <h3><strong>Описание:</strong></h3>
+                    <p>{appeal ? appeal.description : null}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 12 }}>
+                    <Button type="danger" size={"middle"}>
+                        Отозвать
+                    </Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <h2><strong>Переписка:</strong></h2>
+                    <div className="detail-block__chat">
+                        {chat.map((message) => {
+                            const isClient = message.role === "client"
+                            return (
+                                <Col span={24} style={{
+                                    display: "flex",
+                                    justifyContent: isClient ? "flex-start" : "flex-end"
+                                }}>
+                                    <div>
+                                        <h5>
+                                            {isClient ? "Вы" : "Служба поддержки"}
+                                        </h5>
+                                        <p>
+                                            {message.msg}
+                                        </p>
+                                    </div>
+                                </Col>)
+                        })}
+                        <Form
+                        form={form}
+                        name="send-message"
+                        size={"default"}
+                        layout={"vertical"}
+                        onFinish={submitFormHandler}
+                        >
+                            <Row
+                            justify="space-between"
+                            align="middle"
+                            wrap={true}
+                            >
+                                <Col xs={{ span: 24 }} lg={{ span: 20 }}>
+                                    <Form.Item
+                                    name={'message'}
+                                    style={{marginBottom: "0"}}
+                                    >
+                                        <Input.TextArea placeholder={"Напишите сообщение"} allowClear={true} autoSize={{ minRows: 2, maxRows: 2 }} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={{ span: 24 }} lg={{ span: 4 }}>
+                                    <Form.Item 
+                                    style={{marginLeft: "15px", marginBottom: "0"}}
+                                    >
+                                        <Button type="primary" htmlType="submit" size={"middle"}>
+                                            Отправить
+                                        </Button>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                        </Form>
                     </div>
-                    <div className="appeal-info__perepiska">
-                        <h4 className="appeal-info__perepiska-title">Переписка:</h4>
-                        <Row>
-                            {
-                                chat.map((message, i) => {
-                                    const isClient = message.role === "client"
-                                    return (
-                                        <Col span={24} style={{
-                                            display: "flex",
-                                            justifyContent: isClient ? "flex-start" : "flex-end"
-                                        }}>
-                                            <div>
-                                                <h5>
-                                                    {isClient ? "Вы" : "Служба поддержки"}
-                                                </h5>
-                                                <p>
-                                                    {message.msg}
-                                                </p>
-                                            </div>
-                                        </Col>)
-                                })
-                            }
-                        </Row>
-                        <form autoComplete="off" onSubmit={submitFormHandler}>
-                            <div>
-                                <input type="text" placeholder={"Ваше сообщение"}/>
-                                <button type="submit">Отправить</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </Col>
-        </Row>
+                </Col>
+            </Row>
+        </div>
     );
 };
 

@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         videoPath: DataTypes.STRING
     }, {
         sequelize,
+        timestamps: false,
         modelName: "Solution",
         tableName: "solutions"
     });

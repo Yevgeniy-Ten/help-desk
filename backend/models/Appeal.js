@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         serviceTopicId: DataTypes.INTEGER,
     }, {
+        timestamps: false,
         sequelize,
         modelName: "Appeal",
         tableName: "appeals",

@@ -4,9 +4,19 @@ const axios = require("axios");
 const UsersController = {
     async get(req, res) {
         const users = await User.findAll({
-            include: ["appeals", "tickets"],
+            // include: ["appeals", "tickets"],
+            // tickets такого нет в алиясах
+            include: ["appeals"],
         });
         res.json(users);
+    },
+    async getCurrentUser (req,res){
+        try{
+            res.send(req.user)
+        }
+        catch(e){
+            res.status(401).send(e);
+        }
     },
     async create(req, res) {
         try {
@@ -31,14 +41,6 @@ const UsersController = {
     },
     async createSessions(req, res) {
         try {
-            // const {email, password} = req.body
-            // let user = await User.findOne({where: {email}});
-            // if (!user) return res.sendStatus(404)
-            // const isMatch = await user.checkPassword(password)
-            // if (!isMatch) return res.status(400).send({message: "Password is wrong"});
-            // user.generateToken();
-            // user = await user.save()
-            // res.send(user);
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);
@@ -53,10 +55,6 @@ const UsersController = {
     },
     async deleteSessions(req, res) {
         try {
-            // const user = req.user;
-            // user.generateToken()
-            // await user.save()
-            // res.sendStatus(200)
             await req.session.destroy();
             res.json(req.user);
         } catch (e) {

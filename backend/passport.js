@@ -8,9 +8,7 @@ module.exports = function (passport) {
   });
 
   passport.deserializeUser(function (id, done) {
-    console.log("DeSerialize");
     User.findOne({ where: { id } }).then((users) => {
-      console.log(users);
       return done(null, users);
     });
   });

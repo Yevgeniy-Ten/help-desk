@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     TopicDepartment.init({}, {
         sequelize,
+        timestamps: false,
         modelName: "TopicDepartment",
         tableName: "topic_department"
     });

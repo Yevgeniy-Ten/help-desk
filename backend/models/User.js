@@ -46,7 +46,13 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            validate: {
+                isEmail: { msg: "Пожалуйста введите корректную почту" },
+                async checkUnique(email) {
+                  const user = await User.findOne({ where: { email } });
+                  if (user) throw new Error("Данная почта уже используется");
+                },
+              },
         },
         password: {
             type: DataTypes.STRING,
@@ -61,6 +67,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         sequelize,
+        timestamps: false,
         modelName: "User",
         tableName: "users"
     });

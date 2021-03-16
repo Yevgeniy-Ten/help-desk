@@ -1,7 +1,6 @@
 const auth = async (req, res, next) => {
-    console.log(req.user, "auth")
     if (!req.user) {
-        return res.sendStatus(403)
+        return res.status(403).send({message:"Необходимо авторизоваться"})
     }
     next();
 };

@@ -1,12 +1,12 @@
 "use strict";
 const bcrypt = require("bcryptjs")
-const {nanoid} = require("nanoid")
+const { nanoid } = require("nanoid")
 const {
     Model
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate({Appeal, TopicDepartment, UserRole, TicketTask}) {
+        static associate({ Appeal, TopicDepartment, UserRole, TicketTask }) {
             // имеет много общащений, обращения связываются через userId
             this.hasMany(Appeal,
                 {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         }
 
         toJSON() {
-            return {...this.get(), password: undefined}
+            return { ...this.get(), password: undefined }
         }
     };
     User.init({
@@ -49,10 +49,10 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 isEmail: { msg: "Пожалуйста введите корректную почту" },
                 async checkUnique(email) {
-                  const user = await User.findOne({ where: { email } });
-                  if (user) throw new Error("Данная почта уже используется");
+                    const user = await User.findOne({ where: { email } });
+                    if (user) throw new Error("Данная почта уже используется");
                 },
-              },
+            },
         },
         password: {
             type: DataTypes.STRING,
@@ -64,6 +64,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         roleId: {
             type: DataTypes.INTEGER,
+        },
+        authorized: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
         }
     }, {
         sequelize,

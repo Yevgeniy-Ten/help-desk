@@ -1,26 +1,22 @@
-const {User} = require("../../../../models");
-const {saveFile} = require("../../../helpers/helpers");
+const { User } = require("../../../../models");
+const { saveFile } = require("../../../helpers/helpers");
 const axios = require("axios");
 const UsersController = {
-    async get(req, res) {
-        const users = await User.findAll({
-            // include: ["appeals", "tickets"],
-            // tickets такого нет в алиясах
-            include: ["appeals"],
-        });
+    async getAll(req, res) {
+        const users = await User.findAll();
         res.json(users);
     },
-    async getCurrentUser (req,res){
-        try{
+    async getCurrentUser(req, res) {
+        try {
             res.send(req.user)
         }
-        catch(e){
+        catch (e) {
             res.status(401).send(e);
         }
     },
     async create(req, res) {
         try {
-            const {firstName, lastName, password, email} = req.body;
+            const { firstName, lastName, password, email } = req.body;
             if (req.files) {
                 // saveFile(req.files.photo, "users")
             }
@@ -47,8 +43,8 @@ const UsersController = {
         }
     },
     async updateUser(req, res) {
-        const {id: userId} = req.params;
-        const user = await User.findOne({where: {userId}});
+        const { id: userId } = req.params;
+        const user = await User.findOne({ where: { userId } });
         if (!user) return res.sendStatus(404);
         await user.update(req.body);
         res.send(user);
@@ -70,12 +66,12 @@ const UsersController = {
         try {
             const response = await axios.get(debugTokenUrl);
             if (response.data.data.error)
-                return res.status(401).send({error: "Facebook token incorrect"});
+                return res.status(401).send({ error: "Facebook token incorrect" });
             if (req.body.id !== response.data.data.user_id)
-                return res.status(401).send({error: "Wrong User ID"});
+                return res.status(401).send({ error: "Wrong User ID" });
 
             let user = await User.findOne({
-                where: {facebookId: req.body.id},
+                where: { facebookId: req.body.id },
             });
 
             if (!user) {
@@ -89,7 +85,7 @@ const UsersController = {
                     token: nanoid(),
                 });
             }
-            return res.send({message: "Login or Register successful", user});
+            return res.send({ message: "Login or Register successful", user });
         } catch (e) {
             return res.status(401).send(e);
         }

@@ -1,3 +1,5 @@
-#add-appeal {
-    padding: 4%;
+.appeal-form {
+    margin: 0 auto;
+    max-width: 600px;
+    padding: 30px 0;
 }

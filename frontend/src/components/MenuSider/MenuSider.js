@@ -7,26 +7,21 @@ const { SubMenu } = Menu;
 const MenuSider = () => {
     return (
         <Menu theme="dark" mode="inline">
-            <SubMenu key="sub1" title="Обращение">
+            <SubMenu key="sub1" title="Заявки">
                 <Menu.Item key="1">
-                    <NavLink to="/appeals">Обращение</NavLink>
+                    <NavLink to="/appeals">Заявки</NavLink>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <NavLink to="/appeals/add">Создать обращение</NavLink>
-                </Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" title="Тикеты">
-                <Menu.Item key="3">
-                    <NavLink to="/tickets">Тикеты</NavLink>
-                </Menu.Item>
-                <Menu.Item key="4">
-                    <NavLink to="/tickets/add">Создать тикет</NavLink>
+                    <NavLink to="/appeals/add">Новая заявка</NavLink>
                 </Menu.Item>
             </SubMenu>
             <Menu.Item key="5">
-                <NavLink to="/faq">FAQ</NavLink>
+                <NavLink to="/users">Контакты</NavLink>
             </Menu.Item>
             <Menu.Item key="6">
+                <NavLink to="/faq">База знаний</NavLink>
+            </Menu.Item>
+            <Menu.Item key="7">
                 Настройки
             </Menu.Item>
         </Menu>

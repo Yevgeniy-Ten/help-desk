@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import App from "./App";
 import "antd/dist/antd.css";
-import { store, history } from "./store/configStore";
-import 'antd/dist/antd.css';
 import { ConnectedRouter } from "connected-react-router";
+import { store, history } from "./store/configStore";
+import App from "./containers/App/App";
+import AnonymMenu from "./containers/Header/AnonymMenu/AnonymMenu";
+import AuthMenu from "./containers/Header/AuthMenu/AuthMenu";
 
 const app = (
     <Provider store={store}>

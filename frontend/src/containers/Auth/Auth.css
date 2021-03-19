@@ -1,0 +1,15 @@
+.mb-sm {
+    margin-bottom: 10px;
+}
+
+.auth-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    min-height: 400px;
+}
+
+.auth-form-width {
+    min-width: 300px;
+}

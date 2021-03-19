@@ -1,33 +1,28 @@
 import {
-    GET_APPEALS,
-    GET_APPEAL,
+    APPEALS_REQUEST_ERROR,
     APPEALS_REQUEST_PENDING,
-    APPEALS_SUCCESS,
-    APPEALS_ERROR,
-    SELECTED_APPEALS
+    APPEALS_REQUEST_SUCCESS,
+    SAVE_SELECTED_APPEALS,
+    SET_APPEAL,
+    SET_APPEALS
 } from "./appealsActionType";
-import { push } from "connected-react-router";
+import {push} from "connected-react-router";
 
-export const getAppeals = (value) => ({ type: GET_APPEALS, value });
-export const getAppeal = (value) => ({ type: GET_APPEAL, value });
-
-export const appealsRequest = () => ({ type: APPEALS_REQUEST_PENDING });
-export const appealsSuccess = () => ({ type: APPEALS_SUCCESS });
-export const appealsError = (error) => ({ type: APPEALS_ERROR, error });
-
-export const saveSelectedAppeals = (values) => ({ type: SELECTED_APPEALS, values });
+export const appealsRequestPending = () => ({type: APPEALS_REQUEST_PENDING});
+export const appealsRequestError = () => ({type: APPEALS_REQUEST_ERROR});
+export const appealsRequestSuccess = () => ({type: APPEALS_REQUEST_SUCCESS});
+export const setAppeals = (appeals) => ({type: SET_APPEALS, appeals})
+export const setAppeal = (appeal) => ({type: SET_APPEAL, appeal});
+export const saveSelectedAppeals = (selectedAppeals) => ({type: SAVE_SELECTED_APPEALS, selectedAppeals});
 
 export const fetchAppeals = () => {
     return async (dispatch, _, axios) => {
+        dispatch(appealsRequestPending());
         try {
-            dispatch(appealsRequest());
-            const response = await axios.get('/appeals');
-            if (response.data !== null) {
-                dispatch(getAppeals(response.data));
-                dispatch(appealsSuccess());
-            }
+            const response = await axios.get("/appeals");
+            dispatch(setAppeals(response.data))
         } catch (err) {
-            dispatch(appealsError(err));
+            dispatch(appealsRequestError());
         }
     }
 };
@@ -35,46 +30,44 @@ export const fetchAppeals = () => {
 export const fetchAppeal = (id) => {
     return async (dispatch, _, axios) => {
         try {
-            dispatch(appealsRequest());
+            dispatch(appealsRequestPending());
             const response = await axios.get(`/appeals/${id}`);
-            if (response.data !== null) {
-                dispatch(getAppeal(response.data));
-                dispatch(appealsSuccess());
-            }
+            dispatch(setAppeal(response.data))
+            dispatch(appealsRequestSuccess())
         } catch (err) {
-            dispatch(appealsError(err));
+            dispatch(appealsRequestError());
         }
     }
 };
 
-export const addNewAppeals = (dataCopy) => {
+export const addNewAppeals = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
-            dispatch(appealsRequest());
-            await axios.post('/appeals', dataCopy);
-            dispatch(appealsSuccess());
+            dispatch(appealsRequestPending());
+            await axios.post("/appeals", appealData);
             dispatch(push("/appeals"));
+            dispatch(appealsRequestSuccess())
         } catch (e) {
             if (e.response && e.response.data) {
-                dispatch(appealsError(e.response.data));
+                dispatch(appealsRequestError(e.response.data));
             } else {
-                dispatch(appealsError({ global: 'No internet' }));
+                dispatch(appealsRequestError());
             }
         }
     }
 };
 
-export const putAppeals = (id, dataCopy) => {
+export const putAppeals = (id, appealData) => {
     return async (dispatch, _, axios) => {
         try {
-            dispatch(appealsRequest());
-            await axios.put(`/appeals/${id}`, dataCopy);
-            dispatch(appealsSuccess());
+            dispatch(appealsRequestPending());
+            await axios.put(`/appeals/${id}`, appealData);
+            dispatch(appealsRequestSuccess())
         } catch (e) {
             if (e.response && e.response.data) {
-                dispatch(appealsError(e.response.data));
+                dispatch(appealsRequestError(e.response.data));
             } else {
-                dispatch(appealsError({ global: 'No internet' }));
+                dispatch(appealsRequestError());
             }
         }
     }

@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__logo {
+    color:#fff;
+}
+
+.menu__link {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.menu__link.active {
+    color: #84f3d2;
+}
+
+.menu__link:last-child {
+    margin-left: 5px;
+}

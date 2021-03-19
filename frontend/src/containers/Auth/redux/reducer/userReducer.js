@@ -15,7 +15,7 @@ const initialState = {
     isLoading: false
 }
 
-const usersReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USER_SUCCESS:
             return {...initialState, user: action.user}
@@ -36,4 +36,4 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export default usersReducer;
+export default userReducer;

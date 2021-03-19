@@ -1,7 +1,6 @@
 import { Table, Button } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 const TableTickets = ({tickets}) => {
     const props = {
@@ -95,13 +94,13 @@ const TableTickets = ({tickets}) => {
         });
     }
 
-    
+
 
     return (
-        <Table 
+        <Table
         {...props}
-        columns={columns} 
-        dataSource={data} 
+        columns={columns}
+        dataSource={data}
         />
     );
 }

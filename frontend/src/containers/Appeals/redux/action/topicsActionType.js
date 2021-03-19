@@ -1,3 +1,1 @@
-export const GET_TOPICS = 'GET_TOPICS';
-export const TOPICS_SUCCESS = 'TOPICS_SUCCESS';
-export const TOPICS_ERROR = 'TOPICS_ERROR';
+export const SET_TOPICS = "SET_TOPICS"

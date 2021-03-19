@@ -2,12 +2,10 @@ import React from "react";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {getUserState} from "../redux/getters/getters";
 import {registerUser} from "../redux/actions/usersActions";
-import {Button, Form, Input, Row, Col} from "antd";
-import {getFieldError} from "../../../helpers/helpers";
-import FacebookAuth from "../FacebookAuth/FacebookAuth";
 import {NavLink} from "react-router-dom";
 import FileInput from "../../../components/UploadFile/FileInput";
-
+import {Button, Form, Input} from "antd";
+import "../Auth.css"
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -16,97 +14,91 @@ const Register = () => {
 
     const submitFormHandler = (values) => {
         dispatch(registerUser(values));
-        console.log(values);
     }
 
     const onFilesChange = (filesList) => {
-        form.setFieldsValue({ upload: filesList });
+        form.setFieldsValue({upload: filesList});
     };
 
     return (
-        <Form
-        form={form}
-        onFinish={submitFormHandler}
-        size={"default"}
-        name="register"
-        layout={"vertical"}
-        >
+        <Form form={form}
+              onFinish={submitFormHandler}
+              name="register"
+              layout={"vertical"}>
+            <h1>Форма регистрации</h1>
+            <hr/>
             <Form.Item
-            label="Имя"
-            name={"lastName"}
-            rules={[{
-                required: true, 
-                message: "Введите ваше имя"
-            }]}
-            style={{marginBottom: "15px"}}
+                label="Имя"
+                name={"lastName"}
+                rules={[{
+                    required: true,
+                    message: "Введите ваше имя"
+                }]}
+                className={"mb-sm"}
             >
                 <Input placeholder={"Имя"}/>
             </Form.Item>
             <Form.Item
-            label="Фамилия"
-            name={"firstName"}
-            rules={[{
-                required: true, 
-                message: "Введите вашу фамилию"
-            }]}
-            style={{marginBottom: "15px"}}
+                label="Фамилия"
+                name={"firstName"}
+                rules={[{
+                    required: true,
+                    message: "Введите вашу фамилию"
+                }]}
+                className={"mb-sm"}
             >
                 <Input placeholder={"Фамилия"}/>
             </Form.Item>
             <Form.Item
-            name={"email"}
-            label="Электронная почта"
-            validateStatus={getFieldError(registerError, "login") && "error"}
-            help={getFieldError(registerError, "login")}
-            rules={[{
-                required: true, 
-                message: "Please input login!"
-            }]}
-            style={{marginBottom: "15px"}}
+                name={"email"}
+                label="Электронная почта"
+                rules={[{
+                    required: true,
+                    message: "Пожалуйста введит свою почту!"
+                }]}
+                className={"mb-sm"}
             >
-                <Input placeholder={"User login"}/>
+                <Input placeholder={"Ваша почта:"}/>
             </Form.Item>
             <Form.Item
-            label="Пароль"
-            name={"password"}
-            validateStatus={getFieldError(registerError, "password") && "error"}
-            help={getFieldError(registerError, "password")}
-            rules={[{
-                required: true, 
-                message: "Введите пароль"
-            }]}
-            style={{marginBottom: "15px"}}
+                name={"tel"}
+                label="Телефон"
+                rules={[{
+                    required: true,
+                    message: "Введите номер телефона"
+                }]}
+                className={"mb-sm"}>
+                <Input placeholder={"Номер телефона"}/>
+            </Form.Item>
+            <Form.Item
+                name={"companyName"}
+                label="Компания"
+                className={"mb-sm"}
+            >
+                <Input placeholder={"Имя компании"}/>
+            </Form.Item>
+            <Form.Item
+                label="Пароль"
+                name={"password"}
+                className={"mb-sm"}
+                rules={[{required: true, message: "Введите пароль"}]}
             >
                 <Input.Password placeholder={"Пароль"}/>
             </Form.Item>
-            <Form.Item
-            name={"upload"}
-            style={{marginBottom: "15px"}}
-            >
-                <FileInput 
-                name="upload"
-                onChange={onFilesChange}
-                inputType={true}
+            <Form.Item className={"mb-sm"} name={"upload"}>
+                <FileInput
+                    name="upload"
+                    onChange={onFilesChange}
+                    inputType={true}
                 />
             </Form.Item>
-            <Form.Item>
-                <Row gutter={5}>
-                    <Col span={24} style={{marginBottom: "15px"}}>
-                        <Row gutter={5} align="middle">
-                            <Col span={8}>
-                                <Button loading={isLoading} type="default" block htmlType="submit" size={"middle"}>
-                                    Register
-                                </Button>
-                            </Col> 
-                            <Col span={8}>
-                                Or <NavLink to={"/auth"} style={{ cursor: "pointer" }}>Login now!</NavLink>
-                            </Col> 
-                        </Row>
-                    </Col>
-                    <Col span={8}>
-                        <FacebookAuth/> 
-                    </Col>
-                </Row>
+            <Form.Item className={"mb-sm"}>
+                <Button loading={isLoading} type="default" block htmlType="submit" size={"middle"}>
+                    Зарегистирироваться
+                </Button>
+            </Form.Item>
+            <Form.Item className={"mb-sm"}>
+                Or <NavLink to={"/auth"}>Login now!</NavLink>
             </Form.Item>
         </Form>
     );

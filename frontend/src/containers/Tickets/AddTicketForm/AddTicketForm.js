@@ -24,9 +24,7 @@ const AddTicketForm = () => {
     const {topics} = useSelector(getTopicsState, shallowEqual);
 
     useEffect(() => {
-        if(appeals.length < 1) {
-            dispatch(fetchAppeals());
-        }
+        dispatch(fetchAppeals());
         dispatch(fetchTopics());
     }, [dispatch]);
 

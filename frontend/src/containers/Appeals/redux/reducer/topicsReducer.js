@@ -1,23 +1,17 @@
 import {
     GET_TOPICS,
     TOPICS_SUCCESS,
-    TOPICS_ERROR,
+    TOPICS_ERROR, SET_TOPICS,
 } from "../action/topicsActionType";
 
 const initState = {
-    topics: [{id: 1, name: "Topic"}],
-    loading: false,
-    error: null,
+    topics: [{id: 1, name: "Сайты"}],
 }
 
 const topicsReducer = (state = initState, action) => {
     switch (action.type) {
-        case TOPICS_SUCCESS:
-            return {...state, loading: false, error: null};
-        case TOPICS_ERROR:
-            return {...state, loading: false, error: action.error};
-        case GET_TOPICS:
-            return {...state, topics: action.value};
+        case SET_TOPICS:
+            return {topics: action.topics}
         default:
             return state;
     }

@@ -4,7 +4,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class UserRole extends Model {
-        static associate({User}) {
+        static associate({ User }) {
             this.hasMany(User, {
                 foreignKey: "roleId",
                 as: "users"
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     UserRole.init({
         name: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),
             allowNull: false
         },
         accessAppeals: {

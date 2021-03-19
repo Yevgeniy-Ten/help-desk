@@ -6,7 +6,8 @@ const passport = require("passport");
 
 userRouter.post("/", UsersController.create);
 userRouter.get("/", UsersController.getAll);
-userRouter.get("/current", auth, UsersController.getCurrentUser)
+userRouter.get("/current", auth, UsersController.getCurrentUser);
+userRouter.get("/authorize/:id", UsersController.authorizedUser);
 userRouter.patch("/:id", UsersController.get);
 userRouter.post("/sessions", (req, res) => {
   passport.authenticate("local-signin", function (err, user, info) {

@@ -8,11 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         static associate({ Appeal, TopicDepartment, UserRole, Company, TicketTask }) {
             // имеет много общащений, обращения связываются через userId
-            this.hasMany(Appeal,
-                {
-                    foreignKey: "userId",
-                    as: "appeals"
-                })
+            this.hasMany(Appeal, {
+                foreignKey: "userId",
+                as: "appeals"
+            })
             // принадлежит к какой-то роли
             this.belongsTo(UserRole, {
                 foreignKey: "roleId",

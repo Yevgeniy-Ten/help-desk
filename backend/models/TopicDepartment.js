@@ -4,7 +4,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class TopicDepartment extends Model {
-        static associate({Topic, User}) {
+        static associate({ Topic, User }) {
             this.hasMany(Topic, {
                 foreignKey: "departmentId",
                 as: "topics"
@@ -15,7 +15,12 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     };
-    TopicDepartment.init({}, {
+    TopicDepartment.init({
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+    }, {
         sequelize,
         timestamps: false,
         modelName: "TopicDepartment",

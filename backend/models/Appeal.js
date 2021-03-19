@@ -7,15 +7,18 @@ module.exports = (sequelize, DataTypes) => {
         static associate({ User, Ticket, Topic, }) {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
-                foreignKey: "userId",
-                as: "user"
+                foreignKey: "clientId",
+                as: "client"
+            })
+            this.belongsTo(User, {
+                foreignKey: "employeeId",
+                as: "employee"
             })
             // принадлежит тикету, связывается через ticketId
             // this.belongsTo(Ticket, {
             //     foreignKey: "ticketId",
             //     as: "ticket"
             // })
-
             // принадлежит к тематике связывается через topicId
             this.belongsTo(Topic, {
                 foreignKey: "topicId",
@@ -26,11 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     Appeal.init({
         clientId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            defaultValue: null,
         },
         employeeId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            defaultValue: null,
         },
         priority: {
             type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),

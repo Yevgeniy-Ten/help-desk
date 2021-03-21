@@ -1,31 +1,21 @@
 import {
-    APPEALS_REQUEST_ERROR,
-    APPEALS_REQUEST_PENDING, APPEALS_REQUEST_SUCCESS,
-    SAVE_SELECTED_APPEALS, SET_APPEALS, SET_APPEAL
+    APPEALS_GET_SUCCESS, APPEALS_REQUEST_ERROR, APPEALS_REQUEST_STARTED
 } from "../action/appealsActionType";
 
 const initState = {
     appeals: [],
-    appeal: {},
-    selectedAppeals: [],
     loading: false,
     error: null,
 }
 
 const appealsReducer = (state = initState, action) => {
     switch (action.type) {
-        case APPEALS_REQUEST_PENDING:
-            return {...state, loading: true, error: null};
-        case APPEALS_REQUEST_SUCCESS:
-            return {...state, loading: false, error: null};
         case APPEALS_REQUEST_ERROR:
-            return {...state, loading: false, error: action.error};
-        case SET_APPEALS:
-            return {...state, appeals: action.appeals};
-        case SET_APPEAL:
-            return {...state, appeal: action.appeal};
-        case SAVE_SELECTED_APPEALS:
-            return {...state, appeals: action.selectedAppeals};
+            return {...state, loading: false, error: action.errors}
+        case APPEALS_GET_SUCCESS:
+            return {...initState, appeals: action.appeals}
+        case APPEALS_REQUEST_STARTED:
+            return {...initState, loading: true}
         default:
             return state;
     }

@@ -1,0 +1,1 @@
+export const getAppealState = (state) => state.appeal

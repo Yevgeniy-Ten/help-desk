@@ -22,7 +22,7 @@ const MenuSider = () => {
                 <NavLink to="/faq">База знаний</NavLink>
             </Menu.Item>
             <Menu.Item key="7">
-                Настройки
+                <NavLink to="/settings">Настройки</NavLink>
             </Menu.Item>
         </Menu>
     );

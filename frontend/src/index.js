@@ -5,9 +5,6 @@ import "antd/dist/antd.css";
 import { ConnectedRouter } from "connected-react-router";
 import { store, history } from "./store/configStore";
 import App from "./containers/App/App";
-import AnonymMenu from "./containers/Header/AnonymMenu/AnonymMenu";
-import AuthMenu from "./containers/Header/AuthMenu/AuthMenu";
-
 const app = (
     <Provider store={store}>
         <ConnectedRouter history={history}>

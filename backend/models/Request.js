@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
                 foreignKey: "clientId",
-                as: "client"
+                as: "clientRequest"
             })
             this.belongsTo(User, {
                 foreignKey: "employeeId",
-                as: "employee"
+                as: "employeeRequest"
             })
             // 
             this.hasMany(RequestHistory, {

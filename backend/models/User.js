@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         static associate({ Appeal, Request, Department, UserRole, Company, TicketTask }) {
             // имеет много обращений, обращения связываются через userId
             this.hasMany(Request, {
-                foreignKey: "userId",
+                foreignKey: "clientId",
                 as: "clientRequest"
             });
             // имеет много обращений, обращения связываются через userId
             this.hasMany(Request, {
-                foreignKey: "userId",
+                foreignKey: "employeeId",
                 as: "employeeRequest"
             });
             // принадлежит к какой-то роли

@@ -1,6 +1,6 @@
-const { Department, Ticket, Appeal, TicketHistory, TicketTask } = require("../../../../models")
-// нужно будет синхронизировать историю тиктеа
-const TicketController = {
+const { Department } = require("../../../../models")
+// 
+const DepartmentController = {
     async getAllDepartment(req, res) {
         try {
             const department = await Department.findAll()
@@ -55,4 +55,4 @@ const TicketController = {
         }
     }
 }
-module.exports = TicketController
+module.exports = DepartmentController

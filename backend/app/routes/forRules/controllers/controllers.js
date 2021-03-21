@@ -1,43 +1,21 @@
-const {Ticket, Appeal, TicketHistory, TicketTask} = require("../../../../models")
+const { Rules, Department, Topic, } = require("../../../../models")
 // нужно будет синхронизировать историю тиктеа
-const TicketController = {
-    async create(req, res) {
+const RulesController = {
+    async createRules(req, res) {
         try {
             const {
-                type, description,
-                deadline,
                 topicId,
-                title, priority,
-                status, appeals,
-                serviceTopicId
+                departmentId,
+                name,
+                deadline,
             } = req.body
-            Ticket.create({
-                type,
-                description,
-                deadline,
+            Rules.create({
                 topicId,
-                title,
-                priority,
-                status,
-                serviceTopicId
-            }).then(newTicket => {
-                if (appeals && appeals.length) {
-                    appeals.forEach(async appealId => {
-                        const appeal = await Appeal.findOne({
-                            where: {
-                                id: appealId
-                            }
-                        })
-                        if (appeal) {
-                            await appeal.update({
-                                ticketId: newTicket.id,
-                                status: "started"
-                            })
-                            // юзерам отправить уведомления
-                        }
-                    })
-                }
-                res.status(201).send(newTicket)
+                departmentId,
+                name,
+                deadline,
+            }).then(newRules => {
+                res.status(201).send(newRules)
             }).catch(errors => {
                 res.status(400).send(errors)
             })
@@ -45,29 +23,10 @@ const TicketController = {
             res.status(500).send(errors)
         }
     },
-    async createTasks(req, res) {
-        const {id: ticketId} = req.params
-        const ticket = await Ticket.findOne({
-            where: {
-                id: ticketId
-            }
-        })
-        if (!ticket) return res.sendStatus(404)
-        const {title, employeeId} = req.body
-        TicketTask.create({
-            title,
-            employeeId,
-            ticketId
-        }).then(newTask => {
-            res.status(201).send(newTask)
-        }).catch(errors => {
-            res.status(400).send(errors)
-        })
-    },
     async edit(req, res) {
         try {
-            const {id} = req.params
-            const ticket = await Ticket.findOne({
+            const { id } = req.params
+            const ticket = await Rules.findOne({
                 where: {
                     id
                 }
@@ -81,31 +40,31 @@ const TicketController = {
     },
     async getAll(req, res) {
         try {
-            const tickets = await Ticket.findAll()
-            if (!tickets.length) return res.sendStatus(404)
-            res.send(tickets)
+            const rules = await Rules.findAll()
+            if (!rules.length) return res.sendStatus(404)
+            res.send(rules)
         } catch (e) {
             res.status(500).send(e);
         }
     },
     async getById(req, res) {
         try {
-            const {id} = req.params
-            const ticket = await Ticket.findOne({id})
-            if (!ticket) return res.sendStatus(404)
-            res.send(ticket)
+            const { id } = req.params
+            const rules = await Rules.findOne({ id })
+            if (!rules) return res.sendStatus(404)
+            res.send(rules)
         } catch (errors) {
             res.status(500).send(errors);
         }
     },
-    async deleteTicket(req, res) {
+    async deleteRules(req, res) {
         try {
-            const message = {message: "successful"}
-            await Ticket.destroy({where: {id: req.params.id}})
+            const message = { message: "Delete successful" }
+            await Rules.destroy({ where: { id: req.params.id } })
             return res.send(message)
         } catch (e) {
             res.status(401).send(e);
         }
     }
 }
-module.exports = TicketController
+module.exports = RulesController

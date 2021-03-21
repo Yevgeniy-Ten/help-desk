@@ -2,23 +2,28 @@
 const {
     Model
 } = require("sequelize");
+
+//  ТЕМАТИКА 
+//  Общая организация проекта
+//  Бухгалтерия
+//  Техническая поддержка
+//  Отчетность
 module.exports = (sequelize, DataTypes) => {
     class Topic extends Model {
-        static associate({Ticket, Appeal, Solution, TopicDepartment, ServicesTopic}) {
-            // одна тематика имеет много тикетов открытых по этой тематике
-            this.hasMany(Ticket, {
+        static associate({ Requets, Solution, Department, Rules, ServicesTopic }) {
+            // одна тематика имеет много заявок открытых по этой тематике
+            this.hasMany(Requets, {
                 foreignKey: "topicId",
-                as: "tickets"
+                as: "requets"
             })
             // одна тематике принадлежит к отделу который предоставляет услуги по этой тематике
-            this.belongsTo(TopicDepartment, {
-                foreignKey: "departmentId",
-                as: "department"
-            })
-            // одна тематика имеет много обращений открытых по этой тематике
-            this.hasMany(Appeal, {
+            // this.hasMany(Department, {
+            //     foreignKey: "topicId",
+            //     as: "department"
+            // })
+            this.hasMany(Rules, {
                 foreignKey: "topicId",
-                as: "appeals"
+                as: "rules"
             })
             // одна тематика имеет много решений
             this.hasMany(Solution, {
@@ -26,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
                 as: "solutions"
             })
             // одна тематика имеет много услуг
-            this.hasMany(ServicesTopic, {
-                foreignKey: "topicId",
-                as: "services"
-            })
+            // this.hasMany(ServicesTopic, {
+            //     foreignKey: "topicId",
+            //     as: "services"
+            // })
         }
     };
     Topic.init({

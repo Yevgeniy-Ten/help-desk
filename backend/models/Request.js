@@ -3,8 +3,8 @@ const {
     Model
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class Appeal extends Model {
-        static associate({ User, Ticket, Topic, }) {
+    class Request extends Model {
+        static associate({ User, Topic, RequestHistory }) {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
                 foreignKey: "clientId",
@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "employeeId",
                 as: "employee"
             })
-            // принадлежит тикету, связывается через ticketId
-            // this.belongsTo(Ticket, {
-            //     foreignKey: "ticketId",
-            //     as: "ticket"
-            // })
+            // 
+            this.hasMany(RequestHistory, {
+                foreignKey: "requestId",
+                as: "requestHistory"
+            })
             // принадлежит к тематике связывается через topicId
             this.belongsTo(Topic, {
                 foreignKey: "topicId",
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     };
-    Appeal.init({
+    Request.init({
         clientId: {
             type: DataTypes.INTEGER,
             defaultValue: null,
@@ -37,6 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         priority: {
             type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),
+            defaultValue: "Стандартно",
             allowNull: false
         },
         title: {
@@ -49,17 +50,17 @@ module.exports = (sequelize, DataTypes) => {
         },
         status: {
             type: DataTypes.ENUM("Открыто", "В процессе", "Выполнено"),
+            defaultValue: "Открыто",
             allowNull: false
         },
         deadline: {
             type: DataTypes.DATE,
-            defaultValue: Date.now,
+            defaultValue: Date.now(),
             allowNull: false
         },
         hourWork: {
             type: DataTypes.INTEGER,
             defaultValue: 0,
-            allowNull: false
         },
         topicId: {
             type: DataTypes.INTEGER,
@@ -68,8 +69,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false,
         sequelize,
-        modelName: "Appeal",
-        tableName: "appeals",
+        modelName: "Request",
+        tableName: "request",
     });
-    return Appeal;
+    return Request;
 };

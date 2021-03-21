@@ -3,19 +3,19 @@ const {
     Model
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class TicketTask extends Model {
-        static associate({User, Ticket}) {
+    class RequestTask extends Model {
+        static associate({ User, Request }) {
             this.belongsTo(User, {
                 foreignKey: "employeeId",
                 as: "employee"
             })
-            this.belongsTo(Ticket, {
-                foreignKey: "ticketId",
-                as: "ticket"
+            this.belongsTo(Request, {
+                foreignKey: "requestId",
+                as: "request"
             })
         }
     };
-    TicketTask.init({
+    RequestTask.init({
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -28,15 +28,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        ticketId: {
+        requestId: {
             type: DataTypes.INTEGER,
             allowNull: false
         }
     }, {
         sequelize,
         timestamps: false,
-        modelName: "TicketTask",
-        tableName: "ticket_tasks"
+        modelName: "RequestTask",
+        tableName: "request_tasks"
     });
-    return TicketTask;
+    return RequestTask;
 };

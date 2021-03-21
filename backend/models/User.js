@@ -6,32 +6,37 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate({ Appeal, TopicDepartment, UserRole, Company, TicketTask }) {
-            // имеет много общащений, обращения связываются через userId
-            this.hasMany(Appeal, {
+        static associate({ Appeal, Request, Department, UserRole, Company, TicketTask }) {
+            // имеет много обращений, обращения связываются через userId
+            this.hasMany(Request, {
                 foreignKey: "userId",
-                as: "appeals"
-            })
+                as: "clientRequest"
+            });
+            // имеет много обращений, обращения связываются через userId
+            this.hasMany(Request, {
+                foreignKey: "userId",
+                as: "employeeRequest"
+            });
             // принадлежит к какой-то роли
             this.belongsTo(UserRole, {
                 foreignKey: "roleId",
                 as: "role"
-            })
+            });
             // принадлежит к какой-то компаний, связываются через companyId
             this.belongsTo(Company, {
                 foreignKey: "companyId",
                 as: "company"
             });
             // привязан к одному отделу, а может и не привязан
-            this.belongsTo(TopicDepartment, {
+            this.belongsTo(Department, {
                 foreignKey: "departmentId",
-                as: "department"
+                as: "departmentUser"
             })
             // имеет много задач если он сотрудник
-            this.hasMany(TicketTask, {
-                foreignKey: "employeeId",
-                as: "employeeTasks"
-            })
+            // this.hasMany(TicketTask, {
+            //     foreignKey: "employeeId",
+            //     as: "employeeTasks"
+            // })
         }
 
         toJSON() {
@@ -80,7 +85,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         companyId: {
             type: DataTypes.INTEGER,
-            allowNull: false
         }
     }, {
         sequelize,

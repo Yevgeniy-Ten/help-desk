@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         static associate({ User }) {
             // имеет много юзерув, связывается через userId
             this.hasMany(User, {
-                foreignKey: "userId",
-                as: "user"
+                foreignKey: "companyId",
+                as: "employees"
             });
         }
     };

@@ -56,7 +56,7 @@ const UsersController = {
         await user.update({
             isAuthorized: true,
         });
-        res.send({ message: "User confirmed" });
+        res.send({ message: "User authorize confirmed !" });
     },
     async deleteSessions(req, res) {
         try {

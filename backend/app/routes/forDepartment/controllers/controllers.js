@@ -1,107 +1,54 @@
-const {Ticket, Appeal, TicketHistory, TicketTask} = require("../../../../models")
+const { Department, Ticket, Appeal, TicketHistory, TicketTask } = require("../../../../models")
 // нужно будет синхронизировать историю тиктеа
 const TicketController = {
-    async create(req, res) {
+    async getAllDepartment(req, res) {
         try {
-            const {
-                type, description,
-                deadline,
-                topicId,
-                title, priority,
-                status, appeals,
-                serviceTopicId
-            } = req.body
-            Ticket.create({
-                type,
-                description,
-                deadline,
-                topicId,
-                title,
-                priority,
-                status,
-                serviceTopicId
-            }).then(newTicket => {
-                if (appeals && appeals.length) {
-                    appeals.forEach(async appealId => {
-                        const appeal = await Appeal.findOne({
-                            where: {
-                                id: appealId
-                            }
-                        })
-                        if (appeal) {
-                            await appeal.update({
-                                ticketId: newTicket.id,
-                                status: "started"
-                            })
-                            // юзерам отправить уведомления
-                        }
-                    })
-                }
-                res.status(201).send(newTicket)
-            }).catch(errors => {
-                res.status(400).send(errors)
-            })
-        } catch (errors) {
-            res.status(500).send(errors)
-        }
-    },
-    async createTasks(req, res) {
-        const {id: ticketId} = req.params
-        const ticket = await Ticket.findOne({
-            where: {
-                id: ticketId
-            }
-        })
-        if (!ticket) return res.sendStatus(404)
-        const {title, employeeId} = req.body
-        TicketTask.create({
-            title,
-            employeeId,
-            ticketId
-        }).then(newTask => {
-            res.status(201).send(newTask)
-        }).catch(errors => {
-            res.status(400).send(errors)
-        })
-    },
-    async edit(req, res) {
-        try {
-            const {id} = req.params
-            const ticket = await Ticket.findOne({
-                where: {
-                    id
-                }
-            })
-            if (!ticket) return res.sendStatus(404)
-            await ticket.update(req.body)
-            res.send(ticket)
-        } catch (e) {
-            res.status(401).send(e);
-        }
-    },
-    async getAll(req, res) {
-        try {
-            const tickets = await Ticket.findAll()
-            if (!tickets.length) return res.sendStatus(404)
-            res.send(tickets)
+            const department = await Department.findAll()
+            if (!department.length) return res.sendStatus(404)
+            res.send(department)
         } catch (e) {
             res.status(500).send(e);
         }
     },
     async getById(req, res) {
         try {
-            const {id} = req.params
-            const ticket = await Ticket.findOne({id})
-            if (!ticket) return res.sendStatus(404)
-            res.send(ticket)
-        } catch (errors) {
-            res.status(500).send(errors);
+            const { id } = req.params
+            const department = await Department.findOne({ id })
+            if (!department) return res.sendStatus(404)
+            res.send(department)
+        } catch (e) {
+            res.status(500).json(e)
         }
     },
-    async deleteTicket(req, res) {
+    async create(req, res) {
+        const { name } = req.body
+        Department.create({
+            name
+        }).then((newDepartment) => {
+            return res.status(201).send(newDepartment)
+        }).catch((errors) => {
+            res.status(400).send(errors)
+        })
+    },
+    async edit(req, res) {
         try {
-            const message = {message: "successful"}
-            await Ticket.destroy({where: {id: req.params.id}})
+            const { id } = req.params
+            const department = await Department.findOne({
+                where: {
+                    id
+                }
+            })
+            if (!department) return res.sendStatus(404)
+            await department.update(req.body)
+            res.send(department)
+        } catch (e) {
+            res.status(401).send(e);
+        }
+    },
+    async deleteDepartment(req, res) {
+        try {
+            const message = { message: "Delete successful" }
+            await Department.destroy({ where: { id: req.params.id } })
             return res.send(message)
         } catch (e) {
             res.status(401).send(e);

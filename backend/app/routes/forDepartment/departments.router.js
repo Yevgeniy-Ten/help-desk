@@ -1,15 +1,14 @@
-const {Router} = require("express");
+const { Router } = require("express");
 const auth = require("../../middlewares/auth");
-const TicketController = require("./controllers/controllers");
+const DepartmentController = require("./controllers/controllers");
 
-const ticketRouter = Router();
+const departmentRouter = Router();
 
-ticketRouter.post("/", [auth], TicketController.create);
-ticketRouter.post("/:id/tasks", [auth], TicketController.createTasks);
-ticketRouter.put("/:id", [auth], TicketController.edit);
-ticketRouter.delete("/:id", [auth], TicketController.deleteTicket);
-ticketRouter.get("/", [auth], TicketController.getAll);
-ticketRouter.get("/:id", [auth], TicketController.getById);
+departmentRouter.get("/", [auth], DepartmentController.getAllDepartment);
+departmentRouter.get("/:id", [auth], DepartmentController.getById);
+departmentRouter.post("/", [auth], DepartmentController.create);
+departmentRouter.put("/:id", [auth], DepartmentController.edit);
+departmentRouter.delete("/:id", [auth], DepartmentController.deleteDepartment);
 
 
-module.exports = ticketRouter;
+module.exports = departmentRouter;

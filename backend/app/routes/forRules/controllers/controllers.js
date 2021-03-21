@@ -1,4 +1,4 @@
-const { Rules, Department, Topic, } = require("../../../../models")
+const { Rules } = require("../../../../models")
 // нужно будет синхронизировать историю тиктеа
 const RulesController = {
     async createRules(req, res) {
@@ -26,14 +26,14 @@ const RulesController = {
     async edit(req, res) {
         try {
             const { id } = req.params
-            const ticket = await Rules.findOne({
+            const rules = await Rules.findOne({
                 where: {
                     id
                 }
             })
-            if (!ticket) return res.sendStatus(404)
-            await ticket.update(req.body)
-            res.send(ticket)
+            if (!rules) return res.sendStatus(404)
+            await rules.update(req.body)
+            res.send(rules)
         } catch (e) {
             res.status(401).send(e);
         }

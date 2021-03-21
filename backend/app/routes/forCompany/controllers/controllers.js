@@ -45,5 +45,14 @@ module.exports = {
         } catch (errors) {
             res.status(500).send(errors);
         }
+    },
+    async deleteCompany(req, res) {
+        try {
+            const message = { message: "Delete successful" }
+            await Company.destroy({ where: { id: req.params.id } })
+            return res.send(message)
+        } catch (e) {
+            res.status(401).send(e);
+        }
     }
 };

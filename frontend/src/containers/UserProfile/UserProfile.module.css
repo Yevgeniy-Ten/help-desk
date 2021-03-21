@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 0;
+    border-bottom: 1px solid gray;
+}
+
+.card__info {
+
+}

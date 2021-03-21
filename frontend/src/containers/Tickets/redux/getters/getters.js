@@ -1,1 +1,0 @@
-export const getTicketsState = (state) => state.tickets;

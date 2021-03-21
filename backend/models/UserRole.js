@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     };
     UserRole.init({
         name: {
-            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),
+            type: DataTypes.ENUM("admin", "employee", "client", "moderator", "user"),
+            default: "user",
             allowNull: false
         },
         accessAppeals: {

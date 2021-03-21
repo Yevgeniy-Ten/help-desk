@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     RequestHistory.init({
-        appealId: {
+        requestId: {
             type: DataTypes.INTEGER,
             allowNull: false
         }

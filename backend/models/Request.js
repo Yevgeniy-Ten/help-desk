@@ -4,15 +4,19 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Request extends Model {
-        static associate({ User, Topic, RequestHistory }) {
+        static associate({ User, Topic, Department, RequestHistory }) {
             // принадлежит к юзеру, связывается через userId
             this.belongsTo(User, {
                 foreignKey: "clientId",
                 as: "clientRequest"
             })
-            this.belongsTo(User, {
-                foreignKey: "employeeId",
-                as: "employeeRequest"
+            // this.belongsTo(User, {
+            //     foreignKey: "employeeId",
+            //     as: "employeeRequest"
+            // })
+            this.belongsTo(Department, {
+                foreignKey: "departmentId",
+                as: "department"
             })
             // 
             this.hasMany(RequestHistory, {
@@ -31,9 +35,13 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             defaultValue: null,
         },
-        employeeId: {
+        // employeeId: {
+        //     type: DataTypes.INTEGER,
+        //     defaultValue: null,
+        // },
+        departmentId: {
             type: DataTypes.INTEGER,
-            defaultValue: null,
+            // defaultValue: null,
         },
         priority: {
             type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),

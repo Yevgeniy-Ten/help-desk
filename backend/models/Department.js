@@ -7,7 +7,7 @@ const {
 //  Техническая поддержка
 module.exports = (sequelize, DataTypes) => {
     class Department extends Model {
-        static associate({ Rules, User }) {
+        static associate({ Rules, User, Request }) {
             this.hasMany(Rules, {
                 foreignKey: "departmentId",
                 as: "rules"
@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             this.hasMany(User, {
                 foreignKey: "departmentId",
                 as: "employeesDepartment"
+            })
+            this.hasMany(Request, {
+                foreignKey: "departmentId",
+                as: "departmentRequest"
             })
         }
     };

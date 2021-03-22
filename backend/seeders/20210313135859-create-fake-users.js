@@ -12,7 +12,7 @@ module.exports = {
                 lastName: "esdp",
                 firstName: "dev",
                 password: "esdp",
-                departmentId: 3,
+                departmentId: company,
                 roleId: 3,
                 companyId: company,
                 // createdAt: new Date(), updatedAt: new Date()

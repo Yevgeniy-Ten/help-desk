@@ -4,28 +4,34 @@ module.exports = {
         try {
             const {
                 topicId,
-                clientId,
                 title,
                 description,
             } = req.body;
-            const rules = await Rules.findOne({
+            const rule = await Rules.findOne({
                 where: {
                     id: topicId
-                }
+                },
+                include: ["topicRules", "departmentRules"],
             });
-            if (rules) {
-                Request.create({
-                    clientId,
-                    topicId,
-                    title,
-                    description,
-                    deadline: rules.deadline,
-                }).then(newRequest => {
-                    res.status(201).send(newRequest)
-                }).catch(errors => {
-                    res.status(400).send(errors)
-                });
+            let deadline = null;
+            let departmentId = null;
+            if (rule) {
+                deadline = rule.dataValues.deadline;
+                departmentId = rule.dataValues.departmentId;
             }
+            Request.create({
+                clientId: req.user.id,
+                topicId,
+                title,
+                description,
+                deadline,
+                departmentId,
+                // status: 'Выполняется'
+            }).then(newRequest => {
+                res.status(201).send(newRequest)
+            }).catch(errors => {
+                res.status(400).send(errors)
+            });
         } catch (errors) {
             res.status(500).send(errors);
         }

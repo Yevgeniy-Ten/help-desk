@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Topic.init({
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },

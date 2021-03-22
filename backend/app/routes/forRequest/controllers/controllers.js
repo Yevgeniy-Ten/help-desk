@@ -18,6 +18,8 @@ module.exports = {
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
+                // deadline = rule.topicRules.dataValues.title;
+                // departmentId = rule.departmentRules.dataValues.title;
             }
             Request.create({
                 clientId: req.user.id,

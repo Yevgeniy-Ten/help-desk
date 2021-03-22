@@ -11,7 +11,7 @@ const AllUsers = () => {
         dispatch(fetchAllUsers())
     }, [dispatch])
     return (
-        <div>
+        <div style={{padding: "10px 20px"}}>
             <UsersTable users={users}/>
         </div>
     );

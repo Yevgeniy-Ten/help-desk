@@ -17,9 +17,6 @@ const App = () => {
     }, [dispatch]);
     return (
         <>
-            {/*{Object.values(errors).some((element) => element !== null) ? (*/}
-            {/*    <ErrorHandler errors={errors}/>*/}
-            {/*) : null}*/}
             <Layout>
                 <AppHeader onShowSider={toggleSideIsShow} sideIsShow={sideIsShowed}/>
                 <Layout>

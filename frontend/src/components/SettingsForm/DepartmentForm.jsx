@@ -1,11 +1,15 @@
 import React from "react";
 import {useForm} from "antd/es/form/Form";
 import {Button, Form, Input} from "antd";
+import {useDispatch} from "react-redux";
 
 const DepartmentForm = () => {
-    const [form]=useForm()
+    const [form] = useForm()
+    const dispatch = useDispatch()
+    const onCreateDepartment = (department) => dispatch(department)
     return (
         <Form form={form}
+              onFinish={onCreateDepartment}
               name="add-department"
               className={"appeal-form"}
               layout={"vertical"}

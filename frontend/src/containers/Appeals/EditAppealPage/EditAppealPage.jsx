@@ -4,19 +4,23 @@ import {getTopics} from "../../Settings/redux/settingGetters";
 import {useParams} from "react-router-dom";
 import {fetchTopics} from "../../Settings/redux/settingsActions";
 import EditAppealForm from "../../../components/CreateForms/EditAppealForm";
+import {fetchAppeal, fetchPutAppeal} from "../redux/appealActions";
+import {getAppealCurrent} from "../redux/appealGetters";
 
 const EditAppealPage = () => {
     const dispatch = useDispatch()
     const topics = useSelector(getTopics)
-    const {id} = useParams()
+    const appeal = useSelector(getAppealCurrent)
+    const {id: appealId} = useParams()
     useEffect(() => {
         dispatch(fetchTopics());
+        dispatch(fetchAppeal(appealId))
     }, [dispatch]);
     const onSaveAppeal = (appeal) => {
-        // диспатчить изменения
+        dispatch(fetchPutAppeal(appeal))
     }
     return (
-        <EditAppealForm topics={topics} onSaveAppeal={onSaveAppeal}/>
+        <EditAppealForm appealFields={appeal} topics={topics} onSaveAppeal={onSaveAppeal}/>
     );
 };
 

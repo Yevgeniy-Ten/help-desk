@@ -24,7 +24,7 @@ export const fetchAppeal = (id) => {
         }
     }
 };
-export const addNewAppeals = (appealData) => {
+export const fetchCreateAppeal = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(appealRequestStarted());
@@ -41,12 +41,13 @@ export const addNewAppeals = (appealData) => {
     }
 };
 
-export const putAppeals = (id, appealData) => {
+export const fetchPutAppeal = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(appealRequestStarted());
-            await axios.put(`/appeals/${id}`, appealData);
+            await axios.put(`/appeals/${appealData.id}`, appealData);
             dispatch(appealUpdateSuccess())
+            dispatch(push("/appeals"));
         } catch (e) {
             if (e.response && e.response.data) {
                 dispatch(appealRequestError(e.response.data));

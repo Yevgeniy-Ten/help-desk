@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import {Row, Col, Breadcrumb} from "antd"
-import {fetchAppeals} from "../redux/action/appealsAction";
+import {fetchAppealFilters, fetchAppeals} from "../redux/action/appealsAction";
 import {getAppealsState} from "../redux/getters/getters";
 import AppealsFilter from "../../../components/AppealsFilter/AppealsFilter";
 import AppealsTable from "../../../components/Tables/AppealsTable/AppealsTable";
@@ -17,11 +17,11 @@ const AllAppeals = () => {
         dispatch(fetchAppeals());
     }, [dispatch]);
     const filterFormHandler = (filters) => {
-        console.log(filters)
-        // будем диспатчить фильтры отправлять на сервер
+        // диспатчим фильтры на сервер чтобы получить фильтрованные заявки
+        dispatch(fetchAppealFilters(filters))
     }
     const filterChangeHandler = (e) => {
-        console.log(e)
+        // обработчик на изменение назначений
     }
     const appealsState = [{
         createdDate: new Date().toJSON(),

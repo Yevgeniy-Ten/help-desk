@@ -4,6 +4,7 @@ import {fetchTopics} from "../../Settings/redux/settingsActions";
 import {getTopics} from "../../Settings/redux/settingGetters";
 import {getUser} from "../../Auth/redux/getters/getters";
 import CreateAppealForm from "../../../components/CreateForms/CreateAppealForm";
+import {fetchCreateAppeal} from "../redux/appealActions";
 import "./AddAppealForm.css";
 
 
@@ -16,10 +17,10 @@ const AddAppealPage = () => {
             dispatch(fetchTopics());
         }, [dispatch]);
         const onFieldsChange = (fields) => {
-
+            // обработчик изменения полей
         }
         const onCreateAppeal = (appeal) => {
-            console.log(appeal)
+            dispatch(fetchCreateAppeal(appeal))
         }
 
         return (

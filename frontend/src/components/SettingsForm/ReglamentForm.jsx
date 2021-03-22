@@ -1,14 +1,19 @@
 import React from "react";
 import {useForm} from "antd/es/form/Form";
 import {Button, Form, Input} from "antd";
+import {useDispatch} from "react-redux";
+import {fetchReglamentCreate} from "../../containers/Settings/redux/settingsActions";
 
 const ReglamentForm = () => {
-    const [form]=useForm()
+    const [form] = useForm()
+    const dispatch = useDispatch()
+    const onCreateReglament = (reglament) => dispatch(fetchReglamentCreate(reglament))
     return (
         <Form form={form}
               name="add-appeal"
               className={"appeal-form"}
               layout={"vertical"}
+              onFinish={onCreateReglament}
         >
             <Form.Item
                 name={"title"}

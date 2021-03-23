@@ -41,7 +41,16 @@ module.exports = {
     async getById(req, res) {
         try {
             const { id } = req.params
-            const request = await Request.findOne({ id })
+            const request = await Request.findOne({
+                where: { id },
+                include: ["topic", "department", "clientRequest"],
+            });
+            // const rule = await Rules.findOne({
+            //     where: {
+            //         id: topicId
+            //     },
+            //     include: ["topicRules", "departmentRules"],
+            // });
             if (!request) return res.sendStatus(404)
             res.send(request)
         } catch (errors) {
@@ -52,7 +61,7 @@ module.exports = {
         try {
             const { id } = req.params
             const request = await Request.findOne({
-                where: { id }
+                where: { id },
             })
             if (!request) return res.sendStatus(404)
             await request.update(req.body)
@@ -67,7 +76,7 @@ module.exports = {
                 where: {
                     userId: req.user.id,
                 },
-                include: ["topic", "employee", "client"],
+                include: ["topic", "department", "clientRequest"],
             })
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)

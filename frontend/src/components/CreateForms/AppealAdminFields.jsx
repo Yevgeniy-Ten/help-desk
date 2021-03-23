@@ -52,7 +52,7 @@ const AppealAdminFields = () => {
                 </Select>
             </Form.Item>
             <Form.Item
-                name={"topicId"}
+                name={"priority"}
                 label="Приоритет"
                 rules={[{required: true}]}>
                 <Select placeholder="Приоритет" allowClear>
@@ -66,7 +66,7 @@ const AppealAdminFields = () => {
                 </Select>
             </Form.Item>
             <Form.Item
-                name={"topicId"}
+                name={"status"}
                 label="Статус"
                 rules={[{required: true}]}>
                 <Select placeholder="Статус" allowClear>

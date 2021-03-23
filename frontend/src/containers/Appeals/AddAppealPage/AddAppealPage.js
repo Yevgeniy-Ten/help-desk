@@ -19,9 +19,7 @@ const AddAppealPage = () => {
         const onFieldsChange = (fields) => {
             // обработчик изменения полей
         }
-        const onCreateAppeal = (appeal) => {
-            dispatch(fetchCreateAppeal(appeal))
-        }
+        const onCreateAppeal = (appeal) => dispatch(fetchCreateAppeal(appeal))
 
         return (
             <CreateAppealForm topics={topics}

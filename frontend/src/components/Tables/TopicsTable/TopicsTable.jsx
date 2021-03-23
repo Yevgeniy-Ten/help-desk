@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Table, Space, Button} from "antd"
 import {NavLink} from "react-router-dom";
+import {getTopics} from "../../../containers/Settings/redux/settingGetters";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchTopics} from "../../../containers/Settings/redux/settingsActions";
 
 const columns = [
     {
@@ -25,10 +28,11 @@ const columns = [
     },
 ];
 const TopicsTable = () => {
-    const topics = [{
-        id: 1,
-        title: "Сайты",
-    }]
+    const dispatch = useDispatch();
+    const topics = useSelector(getTopics);
+    useEffect(() => {
+        dispatch(fetchTopics());
+    }, [dispatch]);
     return (
         <Table bordered title={()=><h4>Тематики</h4>} columns={columns} dataSource={topics}/>
     );

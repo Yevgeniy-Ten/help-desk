@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDepartments} from "../../../containers/Settings/redux/settingsActions";
+import {getDepartments} from "../../../containers/Settings/redux/settingGetters";
 const columns = [
     {
         title: "Идентификатор",
@@ -29,13 +32,13 @@ const columns = [
     },
 ];
 const DepartmentTable = () => {
-    const companies = [{
-        id: 1,
-        title: "Beeline",
-        employees: 5
-    }]
+    const dispatch = useDispatch();
+    const departments = useSelector(getDepartments);
+    useEffect(() => {
+        dispatch(fetchDepartments());
+    }, [dispatch]);
     return (
-        <Table bordered title={() => <h4>Отделы</h4>} columns={columns} dataSource={companies}/>
+        <Table bordered title={() => <h4>Отделы</h4>} columns={columns} dataSource={departments}/>
     );
 };
 

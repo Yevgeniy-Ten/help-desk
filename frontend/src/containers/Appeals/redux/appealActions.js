@@ -28,7 +28,7 @@ export const fetchCreateAppeal = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(appealRequestStarted());
-            await axios.post("/appeals", appealData);
+            await axios.post("/requests", appealData);
             dispatch(push("/appeals"));
             dispatch(appealCreateSuccess())
         } catch (e) {

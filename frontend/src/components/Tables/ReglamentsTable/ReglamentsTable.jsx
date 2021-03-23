@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
+import {fetchReglaments} from "../../../containers/Settings/redux/settingsActions";
+import {useDispatch, useSelector} from "react-redux";
+import {getReglaments} from "../../../containers/Settings/redux/settingGetters";
 
 const columns = [
     {
@@ -15,13 +18,13 @@ const columns = [
     },
     {
         title: "Тематика",
-        dataIndex: "topic",
-        key: "topic",
+        dataIndex: "topicId",
+        key: "topicId",
     },
     {
         title: "Ответсвенный отдел",
-        dataIndex: "department",
-        key: "department",
+        dataIndex: "departmentId",
+        key: "departmentId",
     },
     {
         title: "Срок исполнения",
@@ -41,15 +44,13 @@ const columns = [
     },
 ];
 const ReglamentsTable = () => {
-    const companies = [{
-        id: 1,
-        title: "Beeline",
-        topic: "Сайты",
-        department: "Отдел сайтов",
-        deadline: 8
-    }]
+    const dispatch = useDispatch();
+    const reglaments = useSelector(getReglaments);
+    useEffect(() => {
+        dispatch(fetchReglaments());
+    }, [dispatch]);
     return (
-        <Table bordered title={() => <h4>Регламенты</h4>} columns={columns} dataSource={companies}/>
+        <Table bordered title={() => <h4>Регламенты</h4>} columns={columns} dataSource={reglaments}/>
     );
 };
 

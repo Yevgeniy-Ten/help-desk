@@ -3,7 +3,6 @@ import {
     Input,
     Form,
     Button,
-    Checkbox,
 } from "antd";
 import DateFilter from "../UI/DateFilter/DateFilter";
 import AdminAppealsFilter from "./AdminAppealsFilter";

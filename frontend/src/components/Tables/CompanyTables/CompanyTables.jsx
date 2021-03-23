@@ -1,6 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
+import {fetchCompanies} from "../../../containers/Settings/redux/settingsActions";
+import {useDispatch, useSelector} from "react-redux";
+import {getCompanies} from "../../../containers/Settings/redux/settingGetters";
 
 const columns = [
     {
@@ -30,11 +33,11 @@ const columns = [
     },
 ];
 const CompanyTables = () => {
-    const companies = [{
-        id: 1,
-        title: "Beeline",
-        employees: 5
-    }]
+    const dispatch = useDispatch();
+    const companies = useSelector(getCompanies);
+    useEffect(() => {
+        dispatch(fetchCompanies());
+    }, [dispatch]);
     return (
         <Table bordered title={() => <h4>Компании</h4>} columns={columns} dataSource={companies}/>
     );

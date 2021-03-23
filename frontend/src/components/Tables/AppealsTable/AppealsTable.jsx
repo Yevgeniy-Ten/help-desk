@@ -12,13 +12,13 @@ const AppealsTable = ({appeals}) => {
         },
         {
             title: "ID заявки",
-            dataIndex: "appealId",
-            key: "appeal",
+            dataIndex: "id",
+            key: "id",
         },
         {
             title: "Тематика",
-            dataIndex: "topic",
-            key: "topic",
+            dataIndex: "topicId",
+            key: "topicId",
             render: topic => topic.name
         },
         {

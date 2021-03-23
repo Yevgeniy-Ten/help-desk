@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useForm} from "antd/es/form/Form";
-import {Button, Form, Input} from "antd";
-import {useDispatch} from "react-redux";
-import {fetchReglamentCreate} from "../../containers/Settings/redux/settingsActions";
-
+import {Button, Form, Input, Select} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchDepartments, fetchReglamentCreate, fetchTopics} from "../../containers/Settings/redux/settingsActions";
+import {getDepartments, getTopics} from "../../containers/Settings/redux/settingGetters";
+const {Option} = Select
 const ReglamentForm = () => {
     const [form] = useForm()
     const dispatch = useDispatch()
+    const topics = useSelector(getTopics)
+    const departments = useSelector(getDepartments);
+    useEffect(() => {
+        dispatch(fetchTopics());
+        dispatch(fetchDepartments());
+    },[])
     const onCreateReglament = (reglament) => dispatch(fetchReglamentCreate(reglament))
     return (
         <Form form={form}
@@ -26,27 +33,40 @@ const ReglamentForm = () => {
                 <Input placeholder={"Заголовок регламента"}/>
             </Form.Item>
             <Form.Item
-                name={"title"}
-                label="Тематика"
+                name={"topicId"}
+                label="Тематика Заявки"
                 rules={[
-                    {
-                        required: true,
-                        message: "Заголовок обязателен!"
-                    }]}>
-                <Input placeholder={"Выбрать тематику"}/>
+                    {required: true}]}>
+                <Select placeholder="Выберите тематику" allowClear>
+                    {topics.map((topic, index) => {
+                        return (
+                            <Option key={index} value={topic.id}>
+                                {topic.title}
+                            </Option>
+                        );
+                    })}
+                </Select>
             </Form.Item>
             <Form.Item
-                name={"title"}
+                name={"departmentId"}
                 label="Отвественный отдел"
                 rules={[
                     {
                         required: true,
                         message: "Заголовок обязателен!"
                     }]}>
-                <Input placeholder={"Заголовок регламента"}/>
+                <Select placeholder="Выберите отвественный отдел" allowClear>
+                    {departments.map((department, index) => {
+                        return (
+                            <Option key={index} value={department.id}>
+                                {department.title}
+                            </Option>
+                        );
+                    })}
+                </Select>
             </Form.Item>
             <Form.Item
-                name={"title"}
+                name={"deadline"}
                 label="Плановая дата решения"
                 rules={[
                     {

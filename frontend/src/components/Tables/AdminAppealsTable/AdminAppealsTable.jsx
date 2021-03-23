@@ -12,26 +12,25 @@ const AdminAppealsTable = ({appeals}) => {
         },
         {
             title: "ID заявки",
-            dataIndex: "appealId",
-            key: "appeal",
+            dataIndex: "id",
+            key: "id",
         },
         {
             title: "Заявка от",
-            dataIndex: "creator",
-            key: "creator",
+            dataIndex: "clientId",
+            key: "clientId",
             render: (creator) => creator.name
         },
         {
             title: "Тематика",
-            dataIndex: "topic",
-            key: "topic",
+            dataIndex: "topicId",
+            key: "topicId",
             render: topic => topic.name
         },
         {
-            title: "Ответственный",
-            dataIndex: "employee",
-            key: "employee",
-            render: employee => employee.name
+            title: "Ответственный отдел",
+            dataIndex: "departmentId",
+            key: "departmentId",
         },
         {
             title: "Статус",
@@ -44,11 +43,11 @@ const AdminAppealsTable = ({appeals}) => {
             key: "priority",
             render: (priority) => {
                 let color = "cyan"
-                if (priority === "high") {
+                if (priority === "Срочно") {
                     color = "volcano"
-                } else if (priority === "medium") {
+                } else if (priority === "Средний") {
                     color = "gold"
-                } else if (priority === "incident") {
+                } else if (priority === "Инцидент") {
                     color = "red"
                 }
                 return <Tag color={color}>

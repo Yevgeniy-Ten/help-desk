@@ -15,7 +15,7 @@ const SettingsFilter = ({onChangeCurrentSetting}) => {
             <h3>Фильтр</h3>
             <hr/>
             <Form.Item
-                name={"setting"}
+                name={"status"}
                 label="По статусу"
             >
                 <Select

@@ -46,7 +46,7 @@ const EditAppealForm = ({topics, onSaveAppeal}) => {
                 />
             </Form.Item>
             <Form.Item
-                name={"title"}
+                name={"deadline"}
                 label="Плановая дата решения"
                 rules={[
                     {

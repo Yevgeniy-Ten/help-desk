@@ -43,15 +43,16 @@ const UsersController = {
         }
     },
     async updateUser(req, res) {
-        const { id: userId } = req.params;
-        const user = await User.findOne({ where: { userId } });
+        const userId = req.params;
+        const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
         await user.update(req.body);
         res.send(user);
     },
     async authorizedUser(req, res) {
-        const { id: userId } = req.params;
-        const user = await User.findOne({ where: { userId } });
+        const userId = req.params.id;
+
+        const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
         await user.update({
             isAuthorized: true,

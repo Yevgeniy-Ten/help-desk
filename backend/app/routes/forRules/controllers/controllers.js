@@ -40,7 +40,9 @@ const RulesController = {
     },
     async getAll(req, res) {
         try {
-            const rules = await Rules.findAll()
+            const rules = await Rules.findAll({
+                include: ["topicRules", "departmentRules"],
+            })
             if (!rules.length) return res.sendStatus(404)
             res.send(rules)
         } catch (e) {

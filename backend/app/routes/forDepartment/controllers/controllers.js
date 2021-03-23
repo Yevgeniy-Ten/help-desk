@@ -21,9 +21,9 @@ const DepartmentController = {
         }
     },
     async create(req, res) {
-        const { name } = req.body
+        const { title } = req.body
         Department.create({
-            name
+            title
         }).then((newDepartment) => {
             return res.status(201).send(newDepartment)
         }).catch((errors) => {

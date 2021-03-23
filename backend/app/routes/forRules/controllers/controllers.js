@@ -6,13 +6,13 @@ const RulesController = {
             const {
                 topicId,
                 departmentId,
-                name,
+                title,
                 deadline,
             } = req.body
             Rules.create({
                 topicId,
                 departmentId,
-                name,
+                title,
                 deadline,
             }).then(newRules => {
                 res.status(201).send(newRules)

@@ -2,9 +2,9 @@ const { Company } = require("../../../../models");
 module.exports = {
     async createCompany(req, res) {
         try {
-            const { name } = req.body;
+            const { title } = req.body;
             company.create({
-                name,
+                title,
             }).then(newCompany => {
                 res.status(201).send(newCompany)
             }).catch(errors => {

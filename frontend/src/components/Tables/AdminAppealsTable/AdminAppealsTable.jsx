@@ -6,9 +6,9 @@ const AdminAppealsTable = ({appeals}) => {
     const appealColumns = [
         {
             title: "Дата создания",
-            dataIndex: "createdDate",
-            key: "date",
-            render: text => new Date(text).toLocaleDateString()
+            dataIndex: "createdAt",
+            key: "createdAt",
+            render: createdAt => new Date(createdAt).toLocaleDateString()
         },
         {
             title: "ID заявки",
@@ -29,8 +29,9 @@ const AdminAppealsTable = ({appeals}) => {
         },
         {
             title: "Ответственный отдел",
-            dataIndex: "departmentId",
-            key: "departmentId",
+            dataIndex: "department",
+            key: "department",
+            render: department => department.title
         },
         {
             title: "Статус",

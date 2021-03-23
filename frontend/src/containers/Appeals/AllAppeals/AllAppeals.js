@@ -31,10 +31,15 @@ const AllAppeals = () => {
                     <Breadcrumb.Item>Заявки</Breadcrumb.Item>
                 </Breadcrumb>
             </Col>
-            {loading ? <Spinner/> : <Col span={17}>
-                {isAdmin ? <AdminAppealsTable appeals={appeals}/>
-                    : <AppealsTable appeals={appeals}/>}
-            </Col>}
+            <Col span={17}>
+                {loading ? <Spinner/> : (
+                    <>
+                        {isAdmin ? <AdminAppealsTable appeals={appeals}/>
+                        : <AppealsTable appeals={appeals}/>}
+                    </>
+                    )
+                }
+            </Col>
             <Col push={1} span={5}>
                 <AppealsFilter
                     loading={loading}

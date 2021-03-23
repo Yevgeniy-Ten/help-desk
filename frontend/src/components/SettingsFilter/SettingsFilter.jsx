@@ -1,38 +1,47 @@
 import React from "react";
 import {Button, Form, Select} from "antd";
-import {NavLink} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {push} from "connected-react-router";
 
 const {Option} = Select
-const SettingsFilter = ({onChangeCurrentSetting}) => {
+const SettingsFilter = () => {
+    const dispatch = useDispatch()
     const [form] = Form.useForm();
+
+    const filterSubmitHandler = (value) => {
+        dispatch(push(value.status));
+    }
 
     return (
         <Form form={form}
               name="form-filter"
               layout={"vertical"}
-            // onFinish={filterSubmitHandler}
+              onFinish={filterSubmitHandler}
+              
         >
             <h3>Фильтр</h3>
             <hr/>
             <Form.Item
                 name={"status"}
                 label="По статусу"
+                
             >
                 <Select
                     placeholder="Справочник"
-                    defaultValue={"topic"}
-                    name={"setting"}>
-                    <Option value={"topic"}>
-                        <NavLink to={"/settings/topics"}>По тематикам</NavLink>
+                    defaultValue={"/settings/topics"}
+                    name={"setting"}
+                    >
+                    <Option value={"/settings/topics"}>
+                        По тематикам
                     </Option>
-                    <Option value={"company"}>
-                        <NavLink to={"/settings/companies"}>По компаниям</NavLink>
+                    <Option value={"/settings/companies"}>
+                        По компаниям
                     </Option>
-                    <Option value={"reglament"}>
-                        <NavLink to={"/settings/reglaments"}>По регламенту</NavLink>
+                    <Option value={"/settings/reglaments"}>
+                        По регламенту
                     </Option>
-                    <Option value={"department"}>
-                        <NavLink to={"/settings/departments"}>По отделу</NavLink>
+                    <Option value={"/settings/departments"}>
+                        По отделу
                     </Option>
                 </Select>
             </Form.Item>

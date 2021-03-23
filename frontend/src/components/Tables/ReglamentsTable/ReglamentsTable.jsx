@@ -19,13 +19,15 @@ const columns = [
     },
     {
         title: "Тематика",
-        dataIndex: "topicId",
-        key: "topicId",
+        dataIndex: "topicRules",
+        key: "topicRules",
+        render: topicRules => topicRules.title
     },
     {
         title: "Ответсвенный отдел",
-        dataIndex: "departmentId",
-        key: "departmentId",
+        dataIndex: "departmentRules",
+        key: "departmentRules",
+        render: departmentRules => departmentRules.title
     },
     {
         title: "Срок исполнения",

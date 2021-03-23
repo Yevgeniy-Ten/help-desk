@@ -10,11 +10,11 @@ const {
 //  Отчетность
 module.exports = (sequelize, DataTypes) => {
     class Topic extends Model {
-        static associate({ Requets, Solution, Department, Rules, ServicesTopic }) {
+        static associate({ Request, Solution, Department, Rules, ServicesTopic }) {
             // одна тематика имеет много заявок открытых по этой тематике
-            this.hasMany(Requets, {
+            this.hasMany(Request, {
                 foreignKey: "topicId",
-                as: "requets"
+                as: "topicRequets"
             })
             // одна тематике принадлежит к отделу который предоставляет услуги по этой тематике
             // this.hasMany(Department, {

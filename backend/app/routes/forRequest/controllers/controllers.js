@@ -42,6 +42,8 @@ module.exports = {
                 where: { id },
                 include: ["topic", "department", "clientRequest"],
             });
+            console.log(requests);
+
             if (!request) return res.sendStatus(404)
             res.send(request)
         } catch (errors) {
@@ -65,10 +67,11 @@ module.exports = {
         try {
             const requests = await Request.findAll({
                 where: {
-                    userId: req.user.id,
+                    clientId: req.user.id,
                 },
                 include: ["topic", "department", "clientRequest"],
             })
+            console.log(requests);
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)
         } catch (errors) {

@@ -3,7 +3,8 @@ import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
 import {fetchCompanies} from "../../../containers/Settings/redux/settingsActions";
 import {useDispatch, useSelector} from "react-redux";
-import {getCompanies} from "../../../containers/Settings/redux/settingGetters";
+import {getCompanies, getSettingsLoader} from "../../../containers/Settings/redux/settingGetters";
+import Spinner from "../../Spinner/Spinner";
 
 const columns = [
     {
@@ -17,9 +18,10 @@ const columns = [
         key: "title",
     },
     {
-        title: "Клиентов",
+        title: "Сотрудников",
         dataIndex: "employees",
         key: "employees",
+        render: (employess) => employess ? employess : 0
     },
     {
         title: "Действия",
@@ -35,11 +37,15 @@ const columns = [
 const CompanyTables = () => {
     const dispatch = useDispatch();
     const companies = useSelector(getCompanies);
+    const isLoad = useSelector(getSettingsLoader)
     useEffect(() => {
         dispatch(fetchCompanies());
     }, [dispatch]);
     return (
-        <Table bordered title={() => <h4>Компании</h4>} columns={columns} dataSource={companies}/>
+        <>
+            {isLoad ? <Spinner/> :
+                <Table bordered title={() => <h4>Компании</h4>} columns={columns} dataSource={companies}/>}
+        </>
     );
 };
 

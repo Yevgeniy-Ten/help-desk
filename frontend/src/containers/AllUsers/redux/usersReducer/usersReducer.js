@@ -7,18 +7,7 @@ import {
 } from "../usersAction/usersTypes";
 
 const initialState = {
-    users: [{
-        firstName: "Евгений",
-        lastName: "Тен",
-        company: {
-            name: "Beeline"
-        },
-        email: "ten.djenia@gmail.com",
-        role: {
-            name: "Клиент"
-        },
-        isAuthorized: false,
-    }],
+    users: [],
     isLoading: false,
 }
 

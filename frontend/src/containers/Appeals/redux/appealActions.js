@@ -17,7 +17,7 @@ export const fetchAppeal = (id) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(appealRequestStarted());
-            const response = await axios.get(`/appeals/${id}`);
+            const response = await axios.get(`/requests/${id}`);
             dispatch(getAppealSuccess(response.data))
         } catch (err) {
             dispatch(appealRequestError(err));
@@ -45,7 +45,7 @@ export const fetchPutAppeal = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(appealRequestStarted());
-            await axios.put(`/appeals/${appealData.id}`, appealData);
+            await axios.put(`/requests/${appealData.id}`, appealData);
             dispatch(appealUpdateSuccess())
             dispatch(push("/appeals"));
         } catch (e) {

@@ -13,7 +13,7 @@ const ReglamentForm = () => {
     useEffect(() => {
         dispatch(fetchTopics());
         dispatch(fetchDepartments());
-    },[])
+    },[dispatch])
     const onCreateReglament = (reglament) => dispatch(fetchReglamentCreate(reglament))
     return (
         <Form form={form}

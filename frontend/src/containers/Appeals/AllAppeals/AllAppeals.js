@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
-import {Row, Col, Breadcrumb} from "antd"
+import {Row, Col, Breadcrumb, Spin} from "antd"
 import {fetchAppealFilters, fetchAppeals} from "../redux/action/appealsAction";
 import {getAppealsState} from "../redux/getters/getters";
 import AppealsFilter from "../../../components/AppealsFilter/AppealsFilter";
 import AppealsTable from "../../../components/Tables/AppealsTable/AppealsTable";
 import AdminAppealsTable from "../../../components/Tables/AdminAppealsTable/AdminAppealsTable";
 import {getUser} from "../../Auth/redux/getters/getters";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const AllAppeals = () => {
     const dispatch = useDispatch();
@@ -23,25 +24,6 @@ const AllAppeals = () => {
     const filterChangeHandler = (e) => {
         // обработчик на изменение назначений
     }
-    const appealsState = [{
-        createdDate: new Date().toJSON(),
-        appealId: 1,
-        topic: {
-            name: "Сайты"
-        },
-        action: {
-            title: "Сменился статус"
-        },
-        creator: {
-            name: "Евгений"
-        },
-        employee: {
-            name: "Иванов"
-        },
-        status: "Выполняется",
-        priority: "incident",
-        hourWorks: 16
-    }]
     return (
         <Row style={{padding: "10px 20px"}}>
             <Col span={24} className={"mb-sm"}>
@@ -49,12 +31,13 @@ const AllAppeals = () => {
                     <Breadcrumb.Item>Заявки</Breadcrumb.Item>
                 </Breadcrumb>
             </Col>
-            <Col span={17}>
-                {isAdmin ? <AdminAppealsTable appeals={appealsState}/>
-                    : <AppealsTable appeals={appealsState}/>}
-            </Col>
+            {loading ? <Spinner/> : <Col span={17}>
+                {isAdmin ? <AdminAppealsTable appeals={appeals}/>
+                    : <AppealsTable appeals={appeals}/>}
+            </Col>}
             <Col push={1} span={5}>
                 <AppealsFilter
+                    loading={loading}
                     isAdmin={isAdmin}
                     filterChangeHandler={filterChangeHandler}
                     filterSubmitHandler={filterFormHandler}/>

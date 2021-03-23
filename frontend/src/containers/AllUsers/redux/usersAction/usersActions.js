@@ -21,8 +21,7 @@ export const fetchAllUsers = () => {
         try {
             dispatch(getAllUsersPending())
             const response = await axios.get("/users")
-            // dispatch(getAllUsersSuccess([]))
-            // dispatch(getAllUsersSuccess(response.data))
+            dispatch(getAllUsersSuccess(response.data))
         } catch (e) {
             dispatch(getAllUsersError())
         }

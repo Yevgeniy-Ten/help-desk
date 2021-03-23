@@ -9,7 +9,7 @@ const AppealDetails = ({appeal}) => {
     return (
         <Card title={`Детали обращения #${appeal.id}`} bordered={false}
               extra={<Button danger>Отозвать</Button>}>
-            <Meta title={`Тематика: ${appeal.topic.name}`} className={"mb-sm"}/>
+            <Meta title={`Тематика: ${appeal.topic.title}`} className={"mb-sm"}/>
             <Meta title={`Описание:`} description={appeal.description}/>
         </Card>
     );

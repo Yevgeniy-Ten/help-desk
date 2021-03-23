@@ -6,11 +6,13 @@ import {getUser} from "../../Auth/redux/getters/getters";
 import CreateAppealForm from "../../../components/CreateForms/CreateAppealForm";
 import {fetchCreateAppeal} from "../redux/appealActions";
 import "./AddAppealForm.css";
+import {getAppealStateLoader} from "../redux/appealGetters";
 
 
 const AddAppealPage = () => {
         const user = useSelector(getUser)
         const topics = useSelector(getTopics)
+        const isLoaded = useSelector(getAppealStateLoader)
         const dispatch = useDispatch();
         const isAdmin = true
         useEffect(() => {
@@ -22,7 +24,7 @@ const AddAppealPage = () => {
         const onCreateAppeal = (appeal) => dispatch(fetchCreateAppeal(appeal))
 
         return (
-            <CreateAppealForm topics={topics}
+            <CreateAppealForm isLoaded={isLoaded} topics={topics}
                               isAdmin={isAdmin}
                               onCreateAppeal={onCreateAppeal}
                               onFieldsChange={onFieldsChange}/>

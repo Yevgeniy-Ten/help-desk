@@ -4,7 +4,7 @@ import {Button, Form, Input, Select} from "antd";
 
 const {Option} = Select;
 
-const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin}) => {
+const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin,isLoaded}) => {
     const [form] = Form.useForm();
     return (
         <Form form={form}
@@ -21,13 +21,13 @@ const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin}) => 
                     {topics.map((topic, index) => {
                         return (
                             <Option key={index} value={topic.id}>
-                                {topic.name}
+                                {topic.title}
                             </Option>
                         );
                     })}
                 </Select>
             </Form.Item>
-            {isAdmin && <AppealAdminFields/>}
+            {/*{isAdmin && <AppealAdminFields/>}*/}
             <Form.Item
                 name={"title"}
                 label="Заголовок обращения"
@@ -56,7 +56,7 @@ const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin}) => 
             {/*    />*/}
             {/*</Form.Item>*/}
             <Form.Item>
-                <Button type="primary" htmlType="submit" size={"middle"}>
+                <Button disabled={isLoaded} type="primary" htmlType="submit" size={"middle"}>
                     Создать заявку
                 </Button>
             </Form.Item>

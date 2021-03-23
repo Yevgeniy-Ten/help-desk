@@ -22,7 +22,7 @@ export const settingsReducer = (state = initialState, action) => {
         case SETTING_REQUEST_STARTED:
             return {...state, isLoading: true}
         case SETTING_REQUEST_ERROR:
-            return {...initialState}
+            return {...initialState, errors: action.errors ? action.errors : null}
         case SETTING_REQUEST_TOPICS:
             return {...state, isLoading: false, topics: action.topics}
         case SETTING_REQUEST_COMPANIES:

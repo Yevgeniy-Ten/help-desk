@@ -3,7 +3,9 @@ import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchDepartments} from "../../../containers/Settings/redux/settingsActions";
-import {getDepartments} from "../../../containers/Settings/redux/settingGetters";
+import {getDepartments, getSettingsLoader} from "../../../containers/Settings/redux/settingGetters";
+import Spinner from "../../Spinner/Spinner";
+
 const columns = [
     {
         title: "Идентификатор",
@@ -19,6 +21,7 @@ const columns = [
         title: "Сотрудников",
         dataIndex: "employees",
         key: "employees",
+        render: (employess) => employess ? employess : 0
     },
     {
         title: "Действия",
@@ -34,11 +37,15 @@ const columns = [
 const DepartmentTable = () => {
     const dispatch = useDispatch();
     const departments = useSelector(getDepartments);
+    const isLoad = useSelector(getSettingsLoader)
     useEffect(() => {
         dispatch(fetchDepartments());
     }, [dispatch]);
     return (
-        <Table bordered title={() => <h4>Отделы</h4>} columns={columns} dataSource={departments}/>
+        <>
+            {isLoad ? <Spinner/> :
+                <Table bordered title={() => <h4>Отделы</h4>} columns={columns} dataSource={departments}/>}
+        </>
     );
 };
 

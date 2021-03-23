@@ -17,15 +17,15 @@ const AdminAppealsTable = ({appeals}) => {
         },
         {
             title: "Заявка от",
-            dataIndex: "clientId",
-            key: "clientId",
-            render: (creator) => creator.name
+            dataIndex: "clientRequest",
+            key: "clientRequest",
+            render: (creator) => `${creator.firstName} ${creator.lastName}`
         },
         {
             title: "Тематика",
-            dataIndex: "topicId",
-            key: "topicId",
-            render: topic => topic.name
+            dataIndex: "topic",
+            key: "topic",
+            render: topic => topic.title
         },
         {
             title: "Ответственный отдел",
@@ -57,8 +57,8 @@ const AdminAppealsTable = ({appeals}) => {
         },
         {
             title: "Затрачено",
-            dataIndex: "hourWorks",
-            render: (hourWorks) => `${hourWorks} часов`
+            dataIndex: "hourWork",
+            render: (hourWork) => `${hourWork} часов`
         },
         {
             title: "Действия",

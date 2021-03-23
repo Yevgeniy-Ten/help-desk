@@ -11,7 +11,7 @@ const UserProfile = () => {
             <div className={styles.card__info}>
                 <h2>{user.firstName} {user.lastName}</h2>
                 <p>Сотрудник компании: Beeline</p>
-                <p>Потвержден администратором</p>
+                <p>{user.isAuthorized ? "Потвержден администратором" : "Выполняется проверка вашего профиля"}</p>
                 <p>Сотрудник отдела: Бухгалетрия</p>
             </div>
             <div>

@@ -4,14 +4,16 @@ import {getUserState} from "../redux/getters/getters";
 import {registerUser} from "../redux/actions/usersActions";
 import {NavLink} from "react-router-dom";
 import FileInput from "../../../components/UploadFile/FileInput";
-import {Button, Form, Input} from "antd";
+import {Button, Form, Input, Select} from "antd";
+import {getCompanies} from "../../Settings/redux/settingGetters";
 import "../Auth.css"
 
+const {Option} = Select
 const Register = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const {registerError, isLoading} = useSelector(getUserState, shallowEqual);
-
+    const companies = useSelector(getCompanies)
     const submitFormHandler = (values) => {
         dispatch(registerUser(values));
     }
@@ -61,7 +63,7 @@ const Register = () => {
                 <Input placeholder={"Ваша почта:"}/>
             </Form.Item>
             <Form.Item
-                name={"tel"}
+                name={"phoneNumber"}
                 label="Телефон"
                 rules={[{
                     required: true,
@@ -71,11 +73,19 @@ const Register = () => {
                 <Input placeholder={"Номер телефона"}/>
             </Form.Item>
             <Form.Item
-                name={"companyName"}
+                name={"companyId"}
                 label="Компания"
                 className={"mb-sm"}
             >
-                <Input placeholder={"Имя компании"}/>
+                <Select placeholder="Выберите компанию" allowClear>
+                    {companies.map((company) => {
+                        return (
+                            <Option key={company.id} value={company.id}>
+                                {company.title}
+                            </Option>
+                        );
+                    })}
+                </Select>
             </Form.Item>
             <Form.Item
                 label="Пароль"

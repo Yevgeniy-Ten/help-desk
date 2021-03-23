@@ -15,7 +15,7 @@ export const fetchAppeals = () => {
     return async (dispatch, _, axios) => {
         dispatch(appealsRequestStarted());
         try {
-            const response = await axios.get("/appeals");
+            const response = await axios.get("/requests");
             dispatch(appealsGetSuccess(response.data))
             dispatch(push("/appeals"))
         } catch (err) {
@@ -27,7 +27,7 @@ export const fetchAppeals = () => {
 export const fetchAppealFilters = (params) => {
     return async (dispatch, _, axios) => {
         try {
-            const response = await axios.get("/appeals", {params})
+            const response = await axios.get("/requests", {params})
             // приходят филтрованные поля
             dispatch(appealFilterSuccess(response.data))
         } catch (err) {

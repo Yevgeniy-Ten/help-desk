@@ -1,6 +1,8 @@
 import {
-    SETTING_CREATE_COMPANY_SUCCESS, SETTING_CREATE_DEPARTMENT_SUCCESS, SETTING_CREATE_REGLAMENT_SUCCESS,
-    SETTING_REQUEST_COMPANIES,
+    SETTING_CREATE_COMPANY_SUCCESS,
+    SETTING_CREATE_DEPARTMENT_SUCCESS,
+    SETTING_CREATE_REGLAMENT_SUCCESS, SETTING_DELETE_SUCCESS,
+    SETTING_REQUEST_COMPANIES, SETTING_REQUEST_DEPARTMENTS,
     SETTING_REQUEST_ERROR,
     SETTING_REQUEST_REGLAMENTS,
     SETTING_REQUEST_STARTED,
@@ -12,58 +14,63 @@ export const settingsRequestStart = () => ({type: SETTING_REQUEST_STARTED})
 export const settingsRequestError = (errors) => ({type: SETTING_REQUEST_ERROR, errors})
 export const settingsRequestTopics = (topics) => ({type: SETTING_REQUEST_TOPICS, topics})
 export const settingsRequestReglaments = (reglaments) => ({type: SETTING_REQUEST_REGLAMENTS, reglaments})
-export const settingsRequestDepartments = (departments) =>
-    ({type: SETTING_CREATE_DEPARTMENT_SUCCESS, departments})
+export const settingsRequestDepartments = (departments) =>({type:SETTING_REQUEST_DEPARTMENTS, departments})
 export const settingsRequestCompanies = (companies) => ({type: SETTING_REQUEST_COMPANIES, companies})
 export const createTopicSuccess = () => ({type: SETTING_CREATE_COMPANY_SUCCESS})
 export const createDepartmentSuccess = () => ({type: SETTING_CREATE_DEPARTMENT_SUCCESS})
 export const createCompanySuccess = () => ({type: SETTING_CREATE_COMPANY_SUCCESS})
 export const createReglamentSuccess = () => ({type: SETTING_CREATE_REGLAMENT_SUCCESS})
+export const settingDeleteSuccess = () => ({type: SETTING_DELETE_SUCCESS})
 // для получения тематик
 export const fetchTopics = () => {
     return async (dispatch, _, axios) => {
         try {
+            dispatch(settingsRequestStart())
             const response = await axios.get("/topics");
             dispatch(settingsRequestTopics(response.data))
         } catch {
-            // топиков нет)
+            dispatch(settingsRequestError())
         }
     }
 };
 export const fetchReglaments = () => {
     return async (dispatch, _, axios) => {
         try {
+            dispatch(settingsRequestStart())
             const response = await axios.get("/rules");
             dispatch(settingsRequestReglaments(response.data))
         } catch {
-            // топиков нет)
+            dispatch(settingsRequestError())
         }
     }
 };
 export const fetchCompanies = () => {
     return async (dispatch, _, axios) => {
         try {
+            dispatch(settingsRequestStart())
             const response = await axios.get("/companies");
             dispatch(settingsRequestCompanies(response.data))
         } catch {
-            // топиков нет)
+            dispatch(settingsRequestError())
         }
     }
 };
 export const fetchDepartments = () => {
     return async (dispatch, _, axios) => {
         try {
+            dispatch(settingsRequestStart())
             const response = await axios.get("/departments");
             dispatch(settingsRequestDepartments(response.data))
         } catch {
-            //  департментов нет)
+            dispatch(settingsRequestError())
         }
     }
 };
 export const fetchCompanyCreate = (company) => {
     return async (dispatch, _, axios) => {
         try {
-            axios.post("/companies", company)
+            dispatch(settingsRequestStart())
+            await axios.post("/companies", company)
             dispatch(createCompanySuccess())
             dispatch(fetchCompanies())
         } catch (errors) {
@@ -74,7 +81,8 @@ export const fetchCompanyCreate = (company) => {
 export const fetchDepartmentCreate = (department) => {
     return async (dispatch, _, axios) => {
         try {
-            axios.post("/departments", department)
+            dispatch(settingsRequestStart())
+            await axios.post("/departments", department)
             dispatch(createDepartmentSuccess())
             dispatch(fetchDepartments())
         } catch (errors) {
@@ -85,7 +93,8 @@ export const fetchDepartmentCreate = (department) => {
 export const fetchReglamentCreate = (reglament) => {
     return async (dispatch, _, axios) => {
         try {
-            axios.post("/rules", reglament)
+            dispatch(settingsRequestStart())
+            await axios.post("/rules", reglament)
             dispatch(fetchReglaments())
         } catch (errors) {
             dispatch(settingsRequestError(errors))
@@ -95,9 +104,30 @@ export const fetchReglamentCreate = (reglament) => {
 export const fetchTopicCreate = (topic) => {
     return async (dispatch, _, axios) => {
         try {
-            axios.post("/topics", topic)
+            dispatch(settingsRequestStart())
+            await axios.post("/topics", topic)
             dispatch(createTopicSuccess())
             dispatch(fetchTopics())
+        } catch (errors) {
+            dispatch(settingsRequestError(errors))
+        }
+    }
+}
+export const fetchSettingDelete = (settingType, id) => {
+    return async (dispatch, _, axios) => {
+        try {
+            dispatch(settingsRequestStart())
+            await axios.delete(`/${settingType}/${id}`)
+            if (settingType === "companies") {
+                dispatch(fetchCompanies())
+            } else if (settingType === "departments") {
+                dispatch(fetchDepartments())
+            } else if (settingType === "topics") {
+                dispatch(fetchTopics())
+            } else {
+                dispatch(fetchReglaments())
+            }
+            dispatch(settingDeleteSuccess())
         } catch (errors) {
             dispatch(settingsRequestError(errors))
         }

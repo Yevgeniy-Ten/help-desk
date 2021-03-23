@@ -3,7 +3,8 @@ import {Button, Space, Table} from "antd";
 import {NavLink} from "react-router-dom";
 import {fetchReglaments} from "../../../containers/Settings/redux/settingsActions";
 import {useDispatch, useSelector} from "react-redux";
-import {getReglaments} from "../../../containers/Settings/redux/settingGetters";
+import {getReglaments, getSettingsLoader} from "../../../containers/Settings/redux/settingGetters";
+import Spinner from "../../Spinner/Spinner";
 
 const columns = [
     {
@@ -30,7 +31,6 @@ const columns = [
         title: "Срок исполнения",
         dataIndex: "deadline",
         key: "deadline",
-        render: (text) => `${text} часов`,
     },
     {
         title: "Действия",
@@ -46,11 +46,15 @@ const columns = [
 const ReglamentsTable = () => {
     const dispatch = useDispatch();
     const reglaments = useSelector(getReglaments);
+    const isLoad = useSelector(getSettingsLoader)
     useEffect(() => {
         dispatch(fetchReglaments());
     }, [dispatch]);
     return (
-        <Table bordered title={() => <h4>Регламенты</h4>} columns={columns} dataSource={reglaments}/>
+        <>
+            {isLoad ? <Spinner/> :
+                <Table title={() => <h4>Регламенты</h4>} columns={columns} dataSource={reglaments}/>}
+        </>
     );
 };
 

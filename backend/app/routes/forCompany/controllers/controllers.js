@@ -3,7 +3,7 @@ module.exports = {
     async createCompany(req, res) {
         try {
             const { title } = req.body;
-            company.create({
+            Company.create({
                 title,
             }).then(newCompany => {
                 res.status(201).send(newCompany)

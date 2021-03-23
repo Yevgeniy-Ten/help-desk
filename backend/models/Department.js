@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Department.init({
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },

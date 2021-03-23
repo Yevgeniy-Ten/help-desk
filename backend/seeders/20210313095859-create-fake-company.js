@@ -6,17 +6,17 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         let company = [
             {
-                name: "Beeline",
+                title: "Beeline",
             },
             {
-                name: "HalukBank",
+                title: "HalukBank",
             },
             {
-                name: "KaspiKZ",
+                title: "KaspiKZ",
             }]
         company = company.map((element, i) => {
             return {
-                name: element.name,
+                title: element.title,
             }
         })
         await queryInterface.bulkInsert("company", company, {});

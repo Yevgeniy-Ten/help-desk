@@ -27,8 +27,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         deadline: {
-            type: DataTypes.DATE,
-            defaultValue: Date.now(),
+            type: DataTypes.STRING,
+            // type: DataTypes.DATE,
+            // defaultValue: Date.now(),
             allowNull: false
         },
         departmentId: {

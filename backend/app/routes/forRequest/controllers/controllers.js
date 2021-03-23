@@ -18,8 +18,6 @@ module.exports = {
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
-                // deadline = rule.topicRules.dataValues.title;
-                // departmentId = rule.departmentRules.dataValues.title;
             }
             Request.create({
                 clientId: req.user.id,
@@ -28,7 +26,6 @@ module.exports = {
                 description,
                 deadline,
                 departmentId,
-                // status: 'Выполняется'
             }).then(newRequest => {
                 res.status(201).send(newRequest)
             }).catch(errors => {
@@ -45,12 +42,6 @@ module.exports = {
                 where: { id },
                 include: ["topic", "department", "clientRequest"],
             });
-            // const rule = await Rules.findOne({
-            //     where: {
-            //         id: topicId
-            //     },
-            //     include: ["topicRules", "departmentRules"],
-            // });
             if (!request) return res.sendStatus(404)
             res.send(request)
         } catch (errors) {

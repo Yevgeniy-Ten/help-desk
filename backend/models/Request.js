@@ -59,12 +59,13 @@ module.exports = (sequelize, DataTypes) => {
         status: {
             type: DataTypes.ENUM("Открыто", "В процессе", "Выполнено"),
             defaultValue: "Открыто",
-            allowNull: false
+            // allowNull: false
         },
         deadline: {
-            type: DataTypes.DATE,
-            defaultValue: Date.now(),
-            allowNull: false
+            type: DataTypes.STRING,
+            // type: DataTypes.DATE,
+            // defaultValue: Date.now(),
+            // allowNull: false
         },
         hourWork: {
             type: DataTypes.INTEGER,

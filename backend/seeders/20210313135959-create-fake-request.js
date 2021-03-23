@@ -24,6 +24,7 @@ module.exports = {
                 topicId: i + 1,
                 deadline: new Date(),
                 hourWork: i + 8,
+                createdAt: new Date(), updatedAt: new Date()
                 // status default открыто
                 // priority default стандартно
             }

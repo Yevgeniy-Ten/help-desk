@@ -22,13 +22,8 @@ module.exports = {
             }]
         let depId;
         topics = topics.map((el, i) => {
-            depId = 3;
-            if (i < 3) depId = i + 1;
             return {
-                topicId: i + 1,
                 title: el.title,
-                deadline: i + 2,
-                departmentId: parseInt(depId),
             }
         })
         await queryInterface.bulkInsert("topics",

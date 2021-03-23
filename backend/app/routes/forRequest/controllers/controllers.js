@@ -1,4 +1,4 @@
-const { Request, Rules } = require("../../../../models");
+const { Request, Rules, User } = require("../../../../models");
 module.exports = {
     async create(req, res) {
         try {
@@ -42,7 +42,7 @@ module.exports = {
                 where: { id },
                 include: ["topic", "department", "clientRequest"],
             });
-            console.log(requests);
+            // console.log(requests);
 
             if (!request) return res.sendStatus(404)
             res.send(request)
@@ -65,13 +65,29 @@ module.exports = {
     },
     async getAll(req, res) {
         try {
+            // let client_ID = null;
+            // let where_ID;
+            // const user = await User.findOne({
+            //     where: {
+            //         id: req.user.id
+            //     },
+            //     include: ["role", "department"],
+            // });
+            // console.log(user);
+            // if (user) {
+            //     if (user.role.dataValues.name === "client") {
+            //         where_ID = { where: { clientId: req.user.id }, }
+            //         // client_ID = req.user.id
+            //     } else {
+            //         where_ID = { where: { departmentId: user.department.dataValues.id }, }
+            //     }
+            // }
             const requests = await Request.findAll({
-                where: {
-                    clientId: req.user.id,
-                },
+                // where_ID,
+                where: { clientId: req.user.id },
                 include: ["topic", "department", "clientRequest"],
             })
-            console.log(requests);
+            // console.log(requests);
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)
         } catch (errors) {

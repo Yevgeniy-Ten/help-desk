@@ -3,6 +3,7 @@ import {Button, Space, Table, Tag} from "antd";
 import {NavLink} from "react-router-dom";
 
 const AdminAppealsTable = ({appeals}) => {
+    console.log(appeals)
     const appealColumns = [
         {
             title: "Дата создания",

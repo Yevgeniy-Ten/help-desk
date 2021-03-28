@@ -1,7 +1,7 @@
 import React from "react";
 import AppealAdminFields from "./AppealAdminFields";
 import {Button, Form, Input, Select} from "antd";
-
+import {prioritets} from "../../constants"
 const {Option} = Select;
 
 const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin,isLoaded}) => {
@@ -37,6 +37,20 @@ const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin,isLoa
                         message: "Заголовок обязателен!"
                     }]}>
                 <Input placeholder={"Опишите вкратце обращение"}/>
+            </Form.Item>
+            <Form.Item
+                name={"priority"}
+                label="Приоритет"
+                rules={[{required: true}]}>
+                <Select placeholder="Приоритет" allowClear>
+                    {prioritets.map((prioritet) => {
+                        return (
+                            <Option key={prioritet.value} value={prioritet.value}>
+                                {prioritet.name}
+                            </Option>
+                        );
+                    })}
+                </Select>
             </Form.Item>
             <Form.Item
                 name={"description"}

@@ -1,28 +1,13 @@
 import React from "react";
 import {Form, Select} from "antd";
-
+import {prioritets} from "../../constants"
 const {Option} = Select
 const AppealAdminFields = () => {
     const users = [{
         id: 1,
         name: "Евгений"
     }]
-    const prioritets = [{
-        name: "Инцидиент",
-        value: "incident"
-    },
-        {
-            name: "Стандартный",
-            value: "low"
-        }, {
-
-            name: "Средний",
-            value: "medium"
-        },
-        {
-            name: "Высокий",
-            value: "high"
-        }]
+    
     const status = [{
         name: "Открытый",
         value: "isOpen"

@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Rules.init({
+        priority: {
+            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
+            defaultValue: "Стандартно",
+            allowNull: false
+        },
         topicId: {
             type: DataTypes.INTEGER,
             defaultValue: null,

@@ -4,12 +4,15 @@ module.exports = {
         try {
             const {
                 topicId,
+                priority,
+                status,
                 title,
                 description,
             } = req.body;
             const rule = await Rules.findOne({
                 where: {
-                    id: topicId
+                    topicId: topicId,
+                    priority: priority
                 },
                 include: ["topicRules", "departmentRules"],
             });
@@ -22,6 +25,8 @@ module.exports = {
             Request.create({
                 clientId: req.user.id,
                 topicId,
+                priority,
+                status,
                 title,
                 description,
                 deadline,
@@ -83,11 +88,14 @@ module.exports = {
             //     }
             // }
             const requests = await Request.findAll({
-                // where_ID,
                 where: { clientId: req.user.id },
-                include: ["topic", "department", "clientRequest"],
+                include: [{
+                    model: User,
+                    as: 'clientRequest',
+                    attributes: ['firstName', 'lastName'],
+                }, 'department', 'topic']
+                
             })
-            // console.log(requests);
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)
         } catch (errors) {

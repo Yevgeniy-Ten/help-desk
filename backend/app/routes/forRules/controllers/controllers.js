@@ -8,12 +8,14 @@ const RulesController = {
                 departmentId,
                 title,
                 deadline,
+                priority
             } = req.body
             Rules.create({
                 topicId,
                 departmentId,
                 title,
                 deadline,
+                priority
             }).then(newRules => {
                 res.status(201).send(newRules)
             }).catch(errors => {

@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
             // defaultValue: null,
         },
         priority: {
-            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Инцидент"),
+            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
             defaultValue: "Стандартно",
             allowNull: false
         },
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         status: {
-            type: DataTypes.ENUM("Открыто", "В процессе", "Выполнено"),
+            type: DataTypes.ENUM("Открыто", "Выполняется", "Выполнено"),
             defaultValue: "Открыто",
             // allowNull: false
         },

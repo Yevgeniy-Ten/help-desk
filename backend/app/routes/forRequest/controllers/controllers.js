@@ -3,35 +3,29 @@ module.exports = {
     async create(req, res) {
         try {           
             let {
-                copmanyId,
+                clientId,
                 topicId,
                 priority,
                 status,
                 title,
                 description,
             } = req.body;
-            if(!copmanyId) { //если сотрудник создал заявку для клиентской компании, то сотрудник отправляет id компании
+            let copmanyId = null;
+            //сотрудник создал заявку от имени клиента
+            if(clientId) {
+                const client = await User.findOne({
+                    where: {
+                        id: clientId
+                    },
+                });
+                copmanyId = client.dataValues.companyId;
+            }
+            //клиент или сотрудник создал заявку от своего имени
+            if(!clientId) {
                 if(req.user.dataValues.companyId) {
-                    copmanyId = req.user.dataValues.companyId;//если клиент создал заявку, вытаскиваем id компании из клиента
+                    copmanyId = req.user.dataValues.companyId;
                 }
             }
-            // const ruleCompany = await Rules.findOne({
-            //     where: {
-            //         copmanyId: copmanyId
-            //     },
-            // });
-            // if(!ruleCompany) {
-            //     return res.status(403).send({errors: "No rule found for this company"})
-            // }
-            // const ruleCompanyTopic = await Rules.findOne({
-            //     where: {
-            //         copmanyId: copmanyId,
-            //         topicId: topicId
-            //     },
-            // });
-            // if(!ruleCompanyTopic) {
-            //     return res.status(403).send({errors: "No rule found for this company for this topic"})
-            // }
             const rule = await Rules.findOne({
                 where: {
                     topicId: topicId,
@@ -46,7 +40,7 @@ module.exports = {
                 departmentId = rule.dataValues.departmentId;
             }
             Request.create({
-                clientId: req.user.id,
+                clientId: clientId ? clientId : req.user.id,
                 topicId,
                 priority,
                 status,

@@ -1,20 +1,43 @@
 const { Request, Rules, User } = require("../../../../models");
 module.exports = {
     async create(req, res) {
-        try {
-            const {
+        try {           
+            let {
+                copmanyId,
                 topicId,
                 priority,
                 status,
                 title,
                 description,
             } = req.body;
+            if(!copmanyId) { //если сотрудник создал заявку для клиентской компании, то сотрудник отправляет id компании
+                if(req.user.dataValues.companyId) {
+                    copmanyId = req.user.dataValues.companyId;//если клиент создал заявку, вытаскиваем id компании из клиента
+                }
+            }
+            // const ruleCompany = await Rules.findOne({
+            //     where: {
+            //         copmanyId: copmanyId
+            //     },
+            // });
+            // if(!ruleCompany) {
+            //     return res.status(403).send({errors: "No rule found for this company"})
+            // }
+            // const ruleCompanyTopic = await Rules.findOne({
+            //     where: {
+            //         copmanyId: copmanyId,
+            //         topicId: topicId
+            //     },
+            // });
+            // if(!ruleCompanyTopic) {
+            //     return res.status(403).send({errors: "No rule found for this company for this topic"})
+            // }
             const rule = await Rules.findOne({
                 where: {
                     topicId: topicId,
-                    priority: priority
+                    priority: priority,
+                    copmanyId: copmanyId
                 },
-                include: ["topicRules", "departmentRules"],
             });
             let deadline = null;
             let departmentId = null;
@@ -57,12 +80,27 @@ module.exports = {
     },
     async edit(req, res) {
         try {
+            const {
+                topicId,
+                priority,
+                status,
+                deadline,
+                departmentId,
+                hourWork
+            } = req.body;
             const { id } = req.params
             const request = await Request.findOne({
                 where: { id },
             })
             if (!request) return res.sendStatus(404)
-            await request.update(req.body)
+            await request.update({
+                topicId,
+                priority,
+                status,
+                deadline,
+                departmentId,
+                hourWork
+            })
             res.send(request)
         } catch (e) {
             res.status(401).send(e);
@@ -92,7 +130,7 @@ module.exports = {
                 include: [{
                     model: User,
                     as: 'clientRequest',
-                    attributes: ['firstName', 'lastName'],
+                    attributes: ['firstName', 'lastName', 'companyId'],
                 }, 'department', 'topic']
                 
             })

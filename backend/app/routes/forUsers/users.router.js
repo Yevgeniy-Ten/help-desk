@@ -8,10 +8,10 @@ userRouter.post("/", UsersController.create);
 userRouter.get("/", UsersController.getAll);
 userRouter.get("/current", auth, UsersController.getCurrentUser);
 userRouter.put("/authorize/:id", UsersController.authorizedUser);
+userRouter.put("/:id", auth, UsersController.updateUser);
 // userRouter.patch("/:id", UsersController.get);
 userRouter.post("/sessions", (req, res) => {
   passport.authenticate("local-signin", function (err, user, info) {
-    console.log(info);
     if (info) return res.status(400).send({ ...info });
     else UsersController.createSessions(req, res);
   })(req, res);

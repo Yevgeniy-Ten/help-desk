@@ -1,18 +1,16 @@
 "use strict";
-//  Бухгалтерия
-//  Техническая поддержка
-//  Отчетность
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         let department = [
             {
-                title: "Бухгалтерия",
+                title: "Отдел бухгалтерии",
             },
             {
-                title: "Отчетность",
+                title: "Отдел аналитики",
             },
             {
-                title: "Техническая поддержка",
+                title: "Отдел тех поддержки",
             }]
         department = department.map((element, i) => {
             return {

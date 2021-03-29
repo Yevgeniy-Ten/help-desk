@@ -1,15 +1,16 @@
 "use strict";
-//  Бухгалтерия
-//  Техническая поддержка
-//  Отчетность
+
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         let company = [
             {
+                title: "BPContact",
+            },
+            {
                 title: "Beeline",
             },
             {
-                title: "HalukBank",
+                title: "Halyk Bank",
             },
             {
                 title: "KaspiKZ",

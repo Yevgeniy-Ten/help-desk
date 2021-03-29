@@ -79,10 +79,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-        isEmployee: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
+        // isEmployee: {
+        //     type: DataTypes.BOOLEAN,
+        //     defaultValue: false
+        // },
         companyId: {
             type: DataTypes.INTEGER,
         }

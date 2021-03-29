@@ -4,6 +4,7 @@ const RulesController = {
     async createRules(req, res) {
         try {
             const {
+                copmanyId,
                 topicId,
                 departmentId,
                 title,
@@ -11,6 +12,7 @@ const RulesController = {
                 priority
             } = req.body
             Rules.create({
+                copmanyId,
                 topicId,
                 departmentId,
                 title,
@@ -43,7 +45,7 @@ const RulesController = {
     async getAll(req, res) {
         try {
             const rules = await Rules.findAll({
-                include: ["topicRules", "departmentRules"],
+                include: ["topicRules", "departmentRules", "copmanyRules"],
             })
             if (!rules.length) return res.sendStatus(404)
             res.send(rules)

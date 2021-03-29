@@ -3,7 +3,9 @@ const { saveFile } = require("../../../helpers/helpers");
 const axios = require("axios");
 const UsersController = {
     async getAll(req, res) {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            include: ["company"],
+        });
         res.json(users);
     },
     async getCurrentUser(req, res) {
@@ -16,15 +18,17 @@ const UsersController = {
     },
     async create(req, res) {
         try {
-            const { firstName, lastName, password, email } = req.body;
+            const { companyId, firstName, lastName, password, email, phoneNumber } = req.body;
             if (req.files) {
                 // saveFile(req.files.photo, "users")
             }
             User.create({
+                companyId,
                 firstName,
                 lastName,
                 password,
                 email,
+                phoneNumber
             })
                 .then((result) => {
                     res.sendStatus(201)
@@ -43,15 +47,26 @@ const UsersController = {
         }
     },
     async updateUser(req, res) {
-        const userId = req.params;
+        //необходимо сюда добавить отдел и должность для сотрудника, когда будет орг структура
+        const { 
+            companyId, 
+            firstName, 
+            lastName, 
+            phoneNumber 
+            } = req.body;
+        const userId = req.params.id;
         const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
-        await user.update(req.body);
+        await user.update({
+            companyId, 
+            firstName, 
+            lastName, 
+            phoneNumber 
+        });
         res.send(user);
     },
     async authorizedUser(req, res) {
         const userId = req.params.id;
-
         const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
         await user.update({

@@ -4,7 +4,11 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Rules extends Model {
-        static associate({ Topic, Department }) {
+        static associate({ Company, Topic, Department }) {
+            this.belongsTo(Company, {
+                foreignKey: "copmanyId",
+                as: "copmanyRules"
+            })
             // принадлежит к отделу связывается через topicId
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
@@ -18,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Rules.init({
+        copmanyId: {
+            type: DataTypes.INTEGER,
+            defaultValue: null,
+        },
         priority: {
             type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
             defaultValue: "Стандартно",
@@ -32,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         deadline: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             // type: DataTypes.DATE,
             // defaultValue: Date.now(),
             allowNull: false

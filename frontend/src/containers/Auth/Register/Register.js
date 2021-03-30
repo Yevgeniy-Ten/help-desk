@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {getUserState} from "../redux/getters/getters";
 import {registerUser} from "../redux/actions/usersActions";
@@ -7,6 +7,7 @@ import FileInput from "../../../components/UploadFile/FileInput";
 import {Button, Form, Input, Select} from "antd";
 import {getCompanies} from "../../Settings/redux/settingGetters";
 import "../Auth.css"
+import { fetchCompanies } from "../../Settings/redux/settingsActions";
 
 const {Option} = Select
 const Register = () => {
@@ -21,7 +22,9 @@ const Register = () => {
     const onFilesChange = (filesList) => {
         form.setFieldsValue({upload: filesList});
     };
-
+    useEffect(()=>{
+        dispatch(fetchCompanies())
+    },[dispatch])
     return (
         <Form form={form}
               onFinish={submitFormHandler}

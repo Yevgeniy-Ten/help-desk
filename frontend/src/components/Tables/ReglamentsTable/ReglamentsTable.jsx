@@ -30,6 +30,12 @@ const columns = [
         render: departmentRules => departmentRules.title
     },
     {
+        title: "Компания",
+        dataIndex: "copmanyRules",
+        key: "copmanyRules",
+        render: copmanyRules => copmanyRules.title
+    },
+    {
         title: "Срок исполнения",
         dataIndex: "deadline",
         key: "deadline",
@@ -52,10 +58,11 @@ const ReglamentsTable = () => {
     useEffect(() => {
         dispatch(fetchReglaments());
     }, [dispatch]);
+    console.log(reglaments,"reglaments")
     return (
         <>
             {isLoad ? <Spinner/> :
-                <Table title={() => <h4>Регламенты</h4>} columns={columns} dataSource={reglaments}/>}
+                <Table title={() => <h4>Регламенты</h4>} columns={columns} dataSource={reglaments} scroll={{x:1000}}/>}
         </>
     );
 };

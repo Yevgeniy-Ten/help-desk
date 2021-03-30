@@ -49,7 +49,7 @@ const AdminAppealsTable = ({appeals}) => {
                     color = "volcano"
                 } else if (priority === "Средний") {
                     color = "gold"
-                } else if (priority === "Инцидент") {
+                } else if (priority === "Критично") {
                     color = "red"
                 }
                 return <Tag color={color}>

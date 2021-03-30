@@ -9,7 +9,7 @@ userRouter.get("/", UsersController.getAll);
 userRouter.get("/current", auth, UsersController.getCurrentUser);
 userRouter.put("/authorize/:id", UsersController.authorizedUser);
 userRouter.put("/:id", auth, UsersController.updateUser);
-// userRouter.patch("/:id", UsersController.get);
+userRouter.patch("/:id", UsersController.getUser);
 userRouter.post("/sessions", (req, res) => {
   passport.authenticate("local-signin", function (err, user, info) {
     if (info) return res.status(400).send({ ...info });

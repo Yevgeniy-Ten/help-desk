@@ -82,6 +82,19 @@ const UsersController = {
             res.status(401).send(e);
         }
     },
+    async getUser(req, res) {
+        try {
+            const userId = req.params.id;
+            const user = await User.findOne({ 
+                where: { id: userId },
+                include: ["company", "departmentUser"], 
+            });
+            if (!user) return res.sendStatus(404);
+            res.json(user);
+        } catch (e) {
+            res.status(401).send(e);
+        }
+    },
     async facebookLogin(req, res) {
         const inputToken = req.body.accessToken;
         const accessToken =

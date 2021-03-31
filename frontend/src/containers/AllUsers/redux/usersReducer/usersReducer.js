@@ -24,7 +24,7 @@ const usersReducer = (state = initialState, action) => {
     case AXIOS_USER_ERROR:
       return { ...state, isLoading: false };
     case AXIOS_USER_SUCCESS:
-      return { ...state, userForUpdate: action.user };
+      return { ...state, isLoading: false, userForUpdate: action.user };
     case AXIOS_USERS_ERROR:
       return { ...state, isLoading: false };
     case AXIOS_USERS_SUCCESS:

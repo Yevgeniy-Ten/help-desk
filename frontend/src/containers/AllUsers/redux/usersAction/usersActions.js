@@ -45,7 +45,6 @@ export const fetchUserForUpdate = (id) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(getUserForUpdatePending())
-            // const response = await axios.patch(`/users/${id}`)
             const response = await axios.get(`/users/${id}`)
             console.log(response.data)
             dispatch(getUserForUpdateSuccess(response.data))
@@ -59,6 +58,7 @@ export const fetchAllUsers = () => {
         try {
             dispatch(getAllUsersPending())
             const response = await axios.get("/users")
+            console.log(response.data);
             dispatch(getAllUsersSuccess(response.data))
         } catch (e) {
             dispatch(getAllUsersError())

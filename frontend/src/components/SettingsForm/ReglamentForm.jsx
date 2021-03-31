@@ -67,7 +67,7 @@ const ReglamentForm = () => {
             </Form.Item>
             <Form.Item
                 name={"deadline"}
-                label="Срок исполнения"
+                label="Срок исполнения (часов)"
                 rules={[
                     {
                         required: true,

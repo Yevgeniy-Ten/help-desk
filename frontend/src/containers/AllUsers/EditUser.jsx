@@ -15,7 +15,7 @@ const EditUser = () => {
     getUserForUpdateState,
     shallowEqual
   );
-  console.log(isLoading,"isLoading")
+  console.log(isLoading, "isLoading")
   const companies = useSelector(getCompanies)
   useEffect(() => {
     dispatch(fetchUserForUpdate(id));
@@ -23,7 +23,7 @@ const EditUser = () => {
   }, [dispatch, id]);
   return (
     <div>
-      {!isLoading ? <Spinner /> : <UserDetails userInfo={userForUpdate} companies={companies}/>}
+      {!isLoading ? <Spinner /> : <UserDetails userInfo={userForUpdate} companies={companies} />}
     </div>
   );
 };

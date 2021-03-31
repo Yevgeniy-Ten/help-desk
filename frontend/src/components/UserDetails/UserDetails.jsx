@@ -24,65 +24,68 @@ const UserDetails = ({ userInfo, companies }) => {
     console.log(value);
     if (value) dispatch(fetchUpdatedUser(value, userInfo.id));
   };
-  const formItems = (
-    <Form form={form} name="edit-user" layout={"vertical"} onFinish={onFinish}>
-      <Space direction="vertical">
-        <Collapse>
-          <Panel header="Контакты" key="1">
-            <Form.Item name={"email"} initialValue={userInfo.email}>
-              <Input prefix={<MailOutlined />} disabled />
-            </Form.Item>
-            <Form.Item name={"phoneNumber"} initialValue={userInfo.phoneNumber}>
-              <Input prefix={<PhoneOutlined />} />
-            </Form.Item>
-          </Panel>
-          <Panel header="Основная информация" key="2">
-            <Form.Item
-              name={"firstName"}
-              label="Имя"
-              initialValue={userInfo.firstName}
-            >
-              <Input prefix={<UserOutlined />} />
-            </Form.Item>
-            <Form.Item
-              name={"lastName"}
-              label="Фамилия"
-              initialValue={userInfo.lastName}
-            >
-              <Input prefix={<UserOutlined />} />
-            </Form.Item>
-          </Panel>
-          <Panel header="Дополнительная информация" key="3">
-            <Space direction="vertical">
-              <Text>ID: {userInfo.id}</Text>
-              <Text>
-                {userInfo.company &&
-                  `${userInfo.company.title} ID : ${userInfo.id} `}
-              </Text>
-            </Space>
-            <Form.Item
-              name={"companyId"}
-              label="Компания :"
-              className={"mb-sm"}
-            >
-              <Select placeholder="Выберите компанию" allowClear>
-                {companies.map((company) => {
-                  return (
-                    <Option key={company.id + company.title} value={company.id}>
-                      {company.title}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </Form.Item>
-          </Panel>
-        </Collapse>
-        <Button type="primary" htmlType="submit">
-          Обновить данные
+  let formItems;
+  if (userInfo) {
+    formItems = (
+      <Form form={form} name="edit-user" layout={"vertical"} onFinish={onFinish}>
+        <Space direction="vertical">
+          <Collapse>
+            <Panel header="Контакты" key="1">
+              <Form.Item name={"email"} initialValue={userInfo.email}>
+                <Input prefix={<MailOutlined />} disabled />
+              </Form.Item>
+              <Form.Item name={"phoneNumber"} initialValue={userInfo.phoneNumber}>
+                <Input prefix={<PhoneOutlined />} />
+              </Form.Item>
+            </Panel>
+            <Panel header="Основная информация" key="2">
+              <Form.Item
+                name={"firstName"}
+                label="Имя"
+                initialValue={userInfo.firstName}
+              >
+                <Input prefix={<UserOutlined />} />
+              </Form.Item>
+              <Form.Item
+                name={"lastName"}
+                label="Фамилия"
+                initialValue={userInfo.lastName}
+              >
+                <Input prefix={<UserOutlined />} />
+              </Form.Item>
+            </Panel>
+            <Panel header="Дополнительная информация" key="3">
+              <Space direction="vertical">
+                <Text>ID: {userInfo.id}</Text>
+                <Text>
+                  {userInfo.company &&
+                    `${userInfo.company.title} ID : ${userInfo.id} `}
+                </Text>
+              </Space>
+              <Form.Item
+                name={"companyId"}
+                label="Компания :"
+                className={"mb-sm"}
+              >
+                <Select placeholder="Выберите компанию" allowClear>
+                  {companies.map((company) => {
+                    return (
+                      <Option key={company.id + company.title} value={company.id}>
+                        {company.title}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Panel>
+          </Collapse>
+          <Button type="primary" htmlType="submit">
+            Обновить данные
         </Button>
-      </Space>
-    </Form>
-  );
+        </Space>
+      </Form>
+    );
+  }
   return (
     <>
       {userInfo && (

@@ -4,7 +4,7 @@ const axios = require("axios");
 const UsersController = {
     async getAll(req, res) {
         const users = await User.findAll({
-            include: ["company"],
+            include: ["company", "departmentUser", "role"],
         });
         res.json(users);
     },
@@ -48,20 +48,20 @@ const UsersController = {
     },
     async updateUser(req, res) {
         //необходимо сюда добавить отдел и должность для сотрудника, когда будет орг структура
-        const { 
-            companyId, 
-            firstName, 
-            lastName, 
-            phoneNumber 
-            } = req.body;
+        const {
+            companyId,
+            firstName,
+            lastName,
+            phoneNumber
+        } = req.body;
         const userId = req.params.id;
         const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
         await user.update({
-            companyId, 
-            firstName, 
-            lastName, 
-            phoneNumber 
+            companyId,
+            firstName,
+            lastName,
+            phoneNumber
         });
         res.send(user);
     },
@@ -85,9 +85,9 @@ const UsersController = {
     async getUser(req, res) {
         try {
             const userId = req.params.id;
-            const user = await User.findOne({ 
+            const user = await User.findOne({
                 where: { id: userId },
-                include: ["company", "departmentUser"], 
+                include: ["company", "departmentUser"],
             });
             if (!user) return res.sendStatus(404);
             res.json(user);

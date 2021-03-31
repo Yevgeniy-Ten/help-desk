@@ -43,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             // type: DataTypes.DATE,
             // defaultValue: Date.now(),
-            allowNull: false
+            defaultValue: 0,
+            // allowNull: false
         },
         departmentId: {
             type: DataTypes.INTEGER,

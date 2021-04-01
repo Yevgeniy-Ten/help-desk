@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: mysql:8.0.23
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: "esdp-user"
+      MYSQL_PASSWORD: "esdp-user"
+    volumes:
+    - ./database:/var/lib/mysql
+    ports:
+    - 3005:3005
+  backend:
+    build:
+      ./backend
+

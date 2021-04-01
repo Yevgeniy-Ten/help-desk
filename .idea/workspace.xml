@@ -2,7 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/helpers/helpers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/middlewares/appMiddleware.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/middlewares/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forCompany/company.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forCompany/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forDepartment/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forDepartment/departments.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forRequest/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forRequest/request.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forRules/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forRules/rules.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forTickets/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forTickets/tickets.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forTopics/controller/topicController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forTopics/topic.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/forUsers/users.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/routes/main.router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/config/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/config/general.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/futureModels/Chat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Company.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Department.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Request.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/RequestHistory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/RequestTask.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Rules.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Solution.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/Topic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/User.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/UserRole.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/passport.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210312132156-create-fake-user-roles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210312132157-create-fake-topic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210313095859-create-fake-company.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210313095859-create-fake-department.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210313095859-create-fake-rules.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210313135859-create-fake-users.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/seeders/20210313135959-create-fake-request.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/text.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/Routes/ProtectedRoute/ProtectedRoute.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/Routes/ProtectedRoute/ProtectedRoute.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/FacebookLoginButton/FacebookLoginButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/FacebookLoginButton/FacebookLoginButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/FacebookAuth/FacebookAuth.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/FacebookAuth/FacebookAuth.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/getters/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/getters/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/reducer/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/reducer/userReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/helpers/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/helpers/helpers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/hooks/useToggle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/hooks/useToggle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/store/configStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/store/configStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +90,11 @@
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -33,7 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1617270112871</updated>
       <workItem from="1617270114786" duration="8000" />
-      <workItem from="1617270137074" duration="184000" />
+      <workItem from="1617270137074" duration="508000" />
     </task>
     <servers />
   </component>

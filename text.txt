@@ -1,0 +1,1 @@
+ npx lerna bootstrap --hoist

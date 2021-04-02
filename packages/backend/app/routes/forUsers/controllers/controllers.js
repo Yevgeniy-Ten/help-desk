@@ -41,6 +41,11 @@ const UsersController = {
     },
     async createSessions(req, res) {
         try {
+            const userId = req.user.id;
+            const user = await User.findOne({
+                where: { id: userId },
+            });
+            if (!user.isAuthorized) return res.status(403).send({ message: "User not authorize !" });
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);

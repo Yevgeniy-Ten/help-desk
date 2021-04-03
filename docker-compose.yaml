@@ -1,19 +1,38 @@
 version: '3.8'
 
 services:
-
   db:
     image: mysql:8.0.23
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: "esdp-user"
-      MYSQL_PASSWORD: "esdp-user"
+      MYSQL_ROOT_PASSWORD: 27012
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
     volumes:
-    - ./database:/var/lib/mysql
+      - ./database:/var/lib/mysql
     ports:
-    - 3005:3005
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
   backend:
     build:
-      ./backend
-
+      ./packages/backend
+    restart: always
+    environment:
+      SQL_PORT: "${MYSQL_PORT}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      FRONT_HOST: frontend
+      MYSQL_HOST: db
+    ports:
+    - "${BACK_PORT}:${BACK_PORT}"
+  frontend:
+    build:
+      ./packages/frontend
+    restart: always
+    environment:
+      REACT_APP_BACK_PORT: "${BACK_PORT}"
+      REACT_APP_FRONT_PORT: "${FRONT_PORT}"
+      REACT_APP_BACK_HOST: backend
+    ports:
+    - "${FRONT_PORT}:${FRONT_PORT}"

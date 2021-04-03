@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Breadcrumb, Col, Row} from "antd";
 import {Switch, Route, Redirect} from "react-router-dom"
 import TopicForm from "../../components/SettingsForm/TopicForm";
@@ -10,6 +10,8 @@ import CompanyTables from "../../components/Tables/CompanyTables/CompanyTables";
 import ReglamentsTable from "../../components/Tables/ReglamentsTable/ReglamentsTable";
 import DepartmentTable from "../../components/Tables/DepartmentTable/DepartmentTable";
 import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
+import PositionTable from "../../components/Tables/PositionTable";
+import PositionForm from "../../components/SettingsForm/PositionForm";
 
 const Settings = () => {
 
@@ -26,6 +28,7 @@ const Settings = () => {
                     <Route path={"/settings/companies"} component={CompanyTables}/>
                     <Route path={"/settings/reglaments"} component={ReglamentsTable}/>
                     <Route path={"/settings/departments"} component={DepartmentTable}/>
+                    <Route path={"/settings/positions"} component={PositionTable}/>
                     <Redirect to={"/settings/topics"}/>
                 </Switch>
             </Col>
@@ -38,6 +41,7 @@ const Settings = () => {
                     <Route path={"/settings/companies"} component={CompanyForm}/>
                     <Route path={"/settings/reglaments"} component={ReglamentForm}/>
                     <Route path={"/settings/departments"} component={DepartmentForm}/>
+                    <Route path={"/settings/positions"} component={PositionForm}/>
                     <Redirect to={"/settings/topics"}/>
                 </Switch>
             </Col>

@@ -2,12 +2,12 @@ import React from "react";
 import {useForm} from "antd/es/form/Form";
 import {Button, Form, Input} from "antd";
 import {useDispatch} from "react-redux";
-import {fetchDepartmentCreate} from "../../containers/Settings/redux/settingsActions";
+import {fetchSettingCreate} from "../../containers/Settings/redux/settingsActions";
 
 const DepartmentForm = () => {
     const [form] = useForm()
     const dispatch = useDispatch()
-    const onCreateDepartment = (department) => dispatch(fetchDepartmentCreate(department))
+    const onCreateDepartment = (department) => dispatch(fetchSettingCreate("departments", department))
     return (
         <Form form={form}
               onFinish={onCreateDepartment}

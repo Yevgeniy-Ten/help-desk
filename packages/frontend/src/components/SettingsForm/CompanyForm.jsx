@@ -2,12 +2,12 @@ import React from "react";
 import {Button, Form, Input} from "antd";
 import {useForm} from "antd/es/form/Form";
 import {useDispatch} from "react-redux";
-import {fetchCompanyCreate} from "../../containers/Settings/redux/settingsActions";
+import {fetchSettingCreate} from "../../containers/Settings/redux/settingsActions";
 
 const CompanyForm = () => {
     const [form] = useForm()
     const dispatch = useDispatch()
-    const onCreateCompany = (company) => dispatch(fetchCompanyCreate(company))
+    const onCreateCompany = (company) => dispatch(fetchSettingCreate("companies", company))
     return (
         <Form form={form}
               name="add-appeal"

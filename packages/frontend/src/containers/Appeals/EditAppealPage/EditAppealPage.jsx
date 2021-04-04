@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getTopics} from "../../Settings/redux/settingGetters";
 import {useParams} from "react-router-dom";
-import {fetchTopics} from "../../Settings/redux/settingsActions";
 import EditAppealForm from "../../../components/CreateForms/EditAppealForm";
 import {fetchAppeal, fetchPutAppeal} from "../redux/appealActions";
 import {getAppealCurrent} from "../redux/appealGetters";
+import {fetchSettings} from "../../Settings/redux/settingsActions";
 
 const EditAppealPage = () => {
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const EditAppealPage = () => {
     const appeal = useSelector(getAppealCurrent)
     const {id: appealId} = useParams()
     useEffect(() => {
-        dispatch(fetchTopics());
+        dispatch(fetchSettings("topics"));
         dispatch(fetchAppeal(appealId))
     }, [dispatch]);
     const onSaveAppeal = (appeal) => {

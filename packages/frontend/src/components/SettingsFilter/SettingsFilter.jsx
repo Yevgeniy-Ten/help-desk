@@ -17,20 +17,20 @@ const SettingsFilter = () => {
               name="form-filter"
               layout={"vertical"}
               onFinish={filterSubmitHandler}
-              
+
         >
             <h3>Фильтр</h3>
             <hr/>
             <Form.Item
                 name={"status"}
                 label="По статусу"
-                
+
             >
                 <Select
                     placeholder="Справочник"
                     defaultValue={"/settings/topics"}
                     name={"setting"}
-                    >
+                >
                     <Option value={"/settings/topics"}>
                         По тематикам
                     </Option>
@@ -45,6 +45,9 @@ const SettingsFilter = () => {
                     </Option>
                     <Option value={"/settings/positions"}>
                         По должностям
+                    </Option>
+                    <Option value={"/settings/orgstructure"}>
+                        По орг. структуре
                     </Option>
                 </Select>
             </Form.Item>

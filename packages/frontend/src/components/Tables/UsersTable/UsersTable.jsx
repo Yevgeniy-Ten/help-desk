@@ -46,7 +46,7 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
                 Потвердить
               </Button>
             )}
-            <NavLink to={`/edit/user/${user.id}`}>
+            <NavLink to={`/users/edit/${user.id}`}>
               <Button type="dashed">Редактировать</Button>
             </NavLink>
             <Button danger>Удалить</Button>

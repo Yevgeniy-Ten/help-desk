@@ -1,19 +1,24 @@
 import {
-    SETTING_CREATE_COMPANY_SUCCESS, SETTING_CREATE_DEPARTMENT_SUCCESS,
-    SETTING_CREATE_REGLAMENT_SUCCESS, SETTING_CREATE_TOPIC_SUCCESS,
-    SETTING_REQUEST_COMPANIES, SETTING_REQUEST_DEPARTMENTS,
-    SETTING_REQUEST_ERROR, SETTING_REQUEST_REGLAMENTS,
+    SETTING_REQUEST_COMPANIES,
+    SETTING_REQUEST_DEPARTMENTS,
+    SETTING_REQUEST_ERROR,
+    SETTING_REQUEST_REGLAMENTS,
     SETTING_REQUEST_STARTED,
     SETTING_REQUEST_TOPICS,
-    SETTING_CREATE_POSITION_SUCCESS,
-    SETTING_REQUEST_POSITIONS, SETTING_SET_EDITABLE_ELEMENT, CLEAR_EDITABLE_ELEMENT
+    SETTING_REQUEST_POSITIONS,
+    SETTING_SET_EDITABLE_ELEMENT,
+    CLEAR_EDITABLE_ELEMENT,
+    SETTING_REQUEST_FINISHED,
+    SETTING_ORGSTRUCTURE_SUCCESS
 } from "./settingsTypes";
 
 const initialState = {
+    orgStructures: [],
     topics: [],
     reglaments: [],
     companies: [],
     departments: [],
+    positions: [],
     isLoading: false,
     errors: null,
     editableSetting: null
@@ -26,34 +31,24 @@ export const settingsReducer = (state = initialState, action) => {
             return {...state, isLoading: true}
         case SETTING_REQUEST_ERROR:
             return {...initialState, errors: action.errors ? action.errors : null}
+        case SETTING_REQUEST_FINISHED:
+            return {...state, isLoading: false}
         case SETTING_REQUEST_TOPICS:
-            return {...state, isLoading: false, topics: action.topics}
+            return {...state, topics: action.topics}
         case SETTING_REQUEST_COMPANIES:
-            return {...state, isLoading: false, companies: action.companies}
+            return {...state, companies: action.companies}
+        case SETTING_ORGSTRUCTURE_SUCCESS:
+            return {...state, orgStructures: action.orgStructures}
         case SETTING_REQUEST_REGLAMENTS:
-            return {...state, isLoading: false, reglaments: action.reglaments}
+            return {...state, reglaments: action.reglaments}
         case SETTING_REQUEST_DEPARTMENTS:
-            return {...state, isLoading: false, departments: action.departments}
+            return {...state, departments: action.departments}
         case SETTING_REQUEST_POSITIONS:
-            return {...state, isLoading: false, positions: action.positions}
-        case SETTING_CREATE_REGLAMENT_SUCCESS:
-            return {...state, isLoading: false}
-        case SETTING_CREATE_COMPANY_SUCCESS:
-            return {...state, isLoading: false}
-        case SETTING_CREATE_DEPARTMENT_SUCCESS:
-            return {...state, isLoading: false}
-        case SETTING_CREATE_TOPIC_SUCCESS:
-            return {...state, isLoading: false}
-        case SETTING_CREATE_POSITION_SUCCESS:
-            return {...state, isLoading: false}
+            return {...state, positions: action.positions}
         case SETTING_SET_EDITABLE_ELEMENT:
-            return {
-                ...state, editableSetting: action.element
-            }
+            return {...state, editableSetting: action.element}
         case CLEAR_EDITABLE_ELEMENT:
-            return {
-                ...state, editableSetting: null
-            }
+            return {...state, editableSetting: null}
         default:
             return state
     }

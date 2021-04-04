@@ -4,7 +4,6 @@ import {
   Form,
   Input,
   Button,
-  InputNumber,
   Space,
   Select,
   Typography,
@@ -17,7 +16,6 @@ const { Text } = Typography;
 const { Panel } = Collapse;
 const { Option } = Select;
 const UserDetails = ({ userInfo, companies }) => {
-  console.log(userInfo);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onFinish = (value) => {

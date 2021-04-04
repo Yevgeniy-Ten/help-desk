@@ -13,6 +13,7 @@ import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
 import PositionTable from "../../components/Tables/PositionTable";
 import PositionForm from "../../components/SettingsForm/PositionForm";
 import OrgStructureTable from "../../components/Tables/OrgStructureTable";
+import OrgStructureForm from "../../components/SettingsForm/OrgStructureForm";
 
 const Settings = () => {
 
@@ -44,7 +45,7 @@ const Settings = () => {
                     <Route path={"/settings/reglaments"} component={ReglamentForm}/>
                     <Route path={"/settings/departments"} component={DepartmentForm}/>
                     <Route path={"/settings/positions"} component={PositionForm}/>
-                    <Route path={"/settings/orgstructure"} component={PositionTable}/>
+                    <Route path={"/settings/orgstructure"} component={OrgStructureForm}/>
                     <Redirect to={"/settings/topics"}/>
                 </Switch>
             </Col>

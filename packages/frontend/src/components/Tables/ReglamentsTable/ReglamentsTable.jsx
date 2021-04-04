@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Button, Form, Popconfirm, Space, Table, Typography} from "antd";
 import {
     clearEditalbleElement,
-    fetchReglaments,
+    fetchReglaments, fetchSettings,
     fetchSettingUpdate,
     setEditableSetting
 } from "../../../containers/Settings/redux/settingsActions";
@@ -93,7 +93,7 @@ const ReglamentsTable = () => {
         },
     ];
     useEffect(() => {
-        dispatch(fetchReglaments());
+        dispatch(fetchSettings("reglaments"));
     }, [dispatch]);
     const mergedColumns = getMergedColumns(columns, isEditing)
     return (

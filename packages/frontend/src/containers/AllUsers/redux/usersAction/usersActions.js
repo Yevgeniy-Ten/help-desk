@@ -2,8 +2,6 @@ import {
     AXIOS_AUTHORIZE_USER_ERROR,
     AXIOS_AUTHORIZE_USER_PENDING, AXIOS_DELETE_USER_ERROR, AXIOS_DELETE_USER_PENDING,
     AXIOS_UPDATE_USER_ERROR,
-    AXIOS_UPDATE_USER_PENDING,
-    AXIOS_UPDATE_USER_SUCCESS,
     AXIOS_USERS_ERROR,
     AXIOS_USERS_PENDING,
     AXIOS_USERS_SUCCESS,
@@ -25,8 +23,7 @@ export const getUserForUpdatePending = () => ({ type: AXIOS_USER_PENDING })
 export const getUserForUpdateSuccess = (user) => ({ type: AXIOS_USER_SUCCESS, user })
 export const getUserForUpdateError = () => ({ type: AXIOS_USER_ERROR })
 
-export const updateUserPending = () => ({ type: AXIOS_UPDATE_USER_PENDING })
-export const updateUserSuccess = (user) => ({ type: AXIOS_UPDATE_USER_SUCCESS, user })
+
 export const updateUserError = () => ({ type: AXIOS_UPDATE_USER_ERROR })
 
 export const fetchUpdatedUser = (dataUser, id) => {
@@ -46,7 +43,6 @@ export const fetchUserForUpdate = (id) => {
         try {
             dispatch(getUserForUpdatePending())
             const response = await axios.get(`/users/${id}`)
-            console.log(response.data)
             dispatch(getUserForUpdateSuccess(response.data))
         } catch (e) {
             dispatch(getUserForUpdateError())
@@ -58,7 +54,6 @@ export const fetchAllUsers = () => {
         try {
             dispatch(getAllUsersPending())
             const response = await axios.get("/users")
-            console.log(response.data);
             dispatch(getAllUsersSuccess(response.data))
         } catch (e) {
             dispatch(getAllUsersError())

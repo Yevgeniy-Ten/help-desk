@@ -1,26 +1,29 @@
-import React, { useEffect } from "react";
-import { useForm } from "antd/es/form/Form";
-import { Button, Form, Input, Select } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDepartments, fetchReglamentCreate, fetchTopics } from "../../containers/Settings/redux/settingsActions";
-import { getDepartments, getTopics } from "../../containers/Settings/redux/settingGetters";
-const { Option } = Select
+import React, {useEffect} from "react";
+import {useForm} from "antd/es/form/Form";
+import {Button, Form, Input, Select} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    fetchSettingCreate, fetchSettings,
+} from "../../containers/Settings/redux/settingsActions";
+import {getDepartments, getTopics} from "../../containers/Settings/redux/settingGetters";
+
+const {Option} = Select
 const ReglamentForm = () => {
     const [form] = useForm()
     const dispatch = useDispatch()
     const topics = useSelector(getTopics)
     const departments = useSelector(getDepartments);
     useEffect(() => {
-        dispatch(fetchTopics());
-        dispatch(fetchDepartments());
+        dispatch(fetchSettings("topics"));
+        dispatch(fetchSettings("departments"));
     }, [dispatch])
-    const onCreateReglament = (reglament) => dispatch(fetchReglamentCreate(reglament))
+    const onCreateReglament = (reglament) => dispatch(fetchSettingCreate("rules", reglament))
     return (
         <Form form={form}
-            name="add-appeal"
-            className={"appeal-form"}
-            layout={"vertical"}
-            onFinish={onCreateReglament}
+              name="add-appeal"
+              className={"appeal-form"}
+              layout={"vertical"}
+              onFinish={onCreateReglament}
         >
             <Form.Item
                 name={"title"}
@@ -30,13 +33,13 @@ const ReglamentForm = () => {
                         required: true,
                         message: "Заголовок обязателен!"
                     }]}>
-                <Input placeholder={"Заголовок регламента"} />
+                <Input placeholder={"Заголовок регламента"}/>
             </Form.Item>
             <Form.Item
                 name={"topicId"}
                 label="Тематика Заявки"
                 rules={[
-                    { required: true }]}>
+                    {required: true}]}>
                 <Select placeholder="Выберите тематику" allowClear>
                     {topics.map((topic, index) => {
                         return (
@@ -73,7 +76,7 @@ const ReglamentForm = () => {
                         required: true,
                         message: "Заголовок обязателен!"
                     }]}>
-                <Input placeholder={"Количество часов"} />
+                <Input placeholder={"Количество часов"}/>
             </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit" size={"middle"}>

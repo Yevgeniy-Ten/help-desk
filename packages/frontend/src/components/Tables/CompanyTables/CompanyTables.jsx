@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Button, Form, Popconfirm, Space, Table, Typography} from "antd";
 import {
     clearEditalbleElement,
-    fetchCompanies,
+    fetchCompanies, fetchSettings,
     fetchSettingUpdate,
     setEditableSetting
 } from "../../../containers/Settings/redux/settingsActions";
@@ -26,7 +26,7 @@ const CompanyTables = () => {
     }
     const cancel = () => dispatch(clearEditalbleElement())
     useEffect(() => {
-        dispatch(fetchCompanies());
+        dispatch(fetchSettings("companies"));
     }, [dispatch]);
     const saveEditableCompany = async () => {
         try {

@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import UsersTable from "../../components/UsersTable/UsersTable";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
-import {fetchAllUsers, fetchAuthorizeUser} from "./redux/usersAction/usersActions";
 import {getUsersState} from "./redux/usersGetters/usersGetters";
+import {fetchAllUsers, fetchAuthorizeUser} from "./redux/usersAction/usersActions";
 import Spinner from "../../components/Spinner/Spinner";
+import UsersTable from "../../components/Tables/UsersTable/UsersTable";
 
-const AllUsers = () => {
+const UserTableContainer = () => {
     const dispatch = useDispatch()
     const {users, isLoading} = useSelector(getUsersState, shallowEqual)
     const onAuthorizeUser = (id) => dispatch(fetchAuthorizeUser(id))
@@ -19,4 +19,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default UserTableContainer;

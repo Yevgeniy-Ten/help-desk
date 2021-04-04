@@ -2,12 +2,12 @@ import React from "react";
 import {useForm} from "antd/es/form/Form";
 import {Button, Form, Input} from "antd";
 import {useDispatch} from "react-redux";
-import {fetchPositionCreate} from "../../containers/Settings/redux/settingsActions";
+import {fetchSettingCreate} from "../../containers/Settings/redux/settingsActions";
 
 const PositionForm = () => {
     const [form] = useForm()
     const dispatch = useDispatch()
-    const onCreatePosition = (position) => dispatch(fetchPositionCreate(position))
+    const onCreatePosition = (position) => dispatch(fetchSettingCreate("position", position))
     return (
         <Form form={form}
               name="add-position"

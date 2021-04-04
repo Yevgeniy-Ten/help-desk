@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getEditableElement, getPositions, getSettingsLoader} from "../../containers/Settings/redux/settingGetters";
 import {
     clearEditalbleElement,
-    fetchPositions, fetchSettingUpdate,
+    fetchSettings, fetchSettingUpdate,
     setEditableSetting
 } from "../../containers/Settings/redux/settingsActions";
 import Spinner from "../Spinner/Spinner";
@@ -25,7 +25,7 @@ const PositionTable = () => {
     }
     const cancel = () => dispatch(clearEditalbleElement())
     useEffect(() => {
-        dispatch(fetchPositions())
+        dispatch(fetchSettings("position"));
     }, [dispatch]);
     const columns = [
         {
@@ -72,7 +72,6 @@ const PositionTable = () => {
         }
     };
     const mergedColumns = getMergedColumns(columns, isEditing)
-
     return (
         <>
             {isLoad ? <Spinner/> :

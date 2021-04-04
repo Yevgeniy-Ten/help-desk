@@ -3,7 +3,7 @@ import {Button, Form, Popconfirm, Space, Table, Typography} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {
     clearEditalbleElement,
-    fetchDepartments,
+    fetchSettings,
     fetchSettingUpdate,
     setEditableSetting
 } from "../../../containers/Settings/redux/settingsActions";
@@ -25,7 +25,7 @@ const DepartmentTable = () => {
     }
     const cancel = () => dispatch(clearEditalbleElement())
     useEffect(() => {
-        dispatch(fetchDepartments());
+        dispatch(fetchSettings("departments"));
     }, [dispatch]);
     const saveEditableDepartment = async () => {
         try {

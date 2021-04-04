@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchTopics} from "../../Settings/redux/settingsActions";
+import {fetchSettings} from "../../Settings/redux/settingsActions";
 import {getTopics} from "../../Settings/redux/settingGetters";
 import {getUser} from "../../Auth/redux/getters/getters";
 import CreateAppealForm from "../../../components/CreateForms/CreateAppealForm";
@@ -16,7 +16,7 @@ const AddAppealPage = () => {
         const dispatch = useDispatch();
         const isAdmin = true
         useEffect(() => {
-            dispatch(fetchTopics());
+            dispatch(fetchSettings("topics"));
         }, [dispatch]);
         const onFieldsChange = (fields) => {
             // обработчик изменения полей

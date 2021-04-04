@@ -5,3 +5,4 @@ export const getDepartments = (state) => state.settings.departments
 export const getSettingsLoader = (state) => state.settings.isLoading
 export const getPositions = (state) => state.settings.positions
 export const getEditableElement = (state) => state.settings.editableSetting
+export const getOrgStructures = (state) => state.settings.orgStructures

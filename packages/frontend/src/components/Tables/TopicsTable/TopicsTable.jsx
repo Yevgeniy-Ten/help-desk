@@ -3,9 +3,8 @@ import {Table, Space, Button, Form, Popconfirm, Typography} from "antd"
 import {getEditableElement, getSettingsLoader, getTopics} from "../../../containers/Settings/redux/settingGetters";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    clearEditalbleElement,
+    clearEditalbleElement, fetchSettings,
     fetchSettingUpdate,
-    fetchTopics,
     setEditableSetting
 } from "../../../containers/Settings/redux/settingsActions";
 import Spinner from "../../Spinner/Spinner";
@@ -26,7 +25,7 @@ const TopicsTable = () => {
     }
     const cancel = () => dispatch(clearEditalbleElement())
     useEffect(() => {
-        dispatch(fetchTopics());
+        dispatch(fetchSettings("topics"));
     }, [dispatch]);
     const saveEditableTopic = async () => {
         try {

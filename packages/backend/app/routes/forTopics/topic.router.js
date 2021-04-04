@@ -4,7 +4,8 @@ const { Router } = require("express")
 const topicRoute = Router()
 
 topicRoute.get("/", TopicController.getTopics)
-topicRoute.post("/", TopicController.createTopic)
+topicRoute.post("/", TopicController.createTopic);
+topicRoute.put("/", TopicController.editTopic);
 // topicRoute.get("/:id/services", TopicController.getTopicServices)
 // topicRoute.post("/:id/services", TopicController.createTopicServices)
 

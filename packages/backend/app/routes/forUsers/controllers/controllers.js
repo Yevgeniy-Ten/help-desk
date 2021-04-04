@@ -45,7 +45,7 @@ const UsersController = {
             const user = await User.findOne({
                 where: { id: userId },
             });
-            if (!user.isAuthorized) return res.status(403).send({ message: "User not authorize !" });
+            if (!user.isAuthorized) return res.status(403).send({ message: "Вы не авторизованы !" });
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);
@@ -77,7 +77,7 @@ const UsersController = {
         await user.update({
             isAuthorized: true,
         });
-        res.send({ message: "User authorize confirmed !" });
+        res.send({ message: "Вы авторизованы !" });
     },
     async deleteSessions(req, res) {
         try {

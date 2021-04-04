@@ -21,10 +21,11 @@ const OrgStructureController = {
         }
     },
     async create(req, res) {
-        const { positionId, departmentId } = req.body
+        const { positionId, departmentId, isMain } = req.body
         OrgStructure.create({
             positionId,
-            departmentId
+            departmentId,
+            isMain: isMain ? isMain : false
         }).then((newOrgStructure) => {
             return res.status(201).send(newOrgStructure)
         }).catch((errors) => {

@@ -1,23 +1,21 @@
 "use strict";
+const bcrypt = require("bcryptjs")
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        let users = ["ten@mail.ru", "kuat@mail.ru", "aza@mail.ru", "nur@mail.ru"]
-        let company = 1;
-        users = users.map((email, i) => {
-            if (i === 3) company = 3
-            if (i === 4) company = 2
-            return {
-                email,
-                lastName: "esdp",
-                firstName: "dev",
-                password: "esdp",
-                departmentId: company,
-                roleId: 3,
-                companyId: company,
-                // createdAt: new Date(), updatedAt: new Date()
-            }
-        })
+        const pass = 123456;
+        const hashPass = await bcrypt.hash(pass, 10)
+        const users = [{
+            email: "test@mail.ru",
+            lastName: "esdp",
+            firstName: "dev",
+            password: hashPass,
+            departmentId: 1,
+            roleId: 3,
+            companyId: 1,
+            phoneNumber: '+' + 77054546622
+            // createdAt: new Date(), updatedAt: new Date()
+        }]
         await queryInterface.bulkInsert("users", users, {});
     },
 

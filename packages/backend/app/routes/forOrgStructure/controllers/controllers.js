@@ -3,7 +3,9 @@ const { OrgStructure } = require("../../../../models")
 const OrgStructureController = {
     async getAllOrgStructure(req, res) {
         try {
-            const orgStructure = await OrgStructure.findAll()
+            const orgStructure = await OrgStructure.findAll({
+                include: ["positionIdOrgStre", "departmentIdOrgStre", "clientRequest"],
+            })
             if (!orgStructure.length) return res.sendStatus(404)
             res.send(orgStructure)
         } catch (e) {
@@ -13,7 +15,10 @@ const OrgStructureController = {
     async getById(req, res) {
         try {
             const { id } = req.params
-            const orgStructure = await OrgStructure.findOne({ id })
+            const orgStructure = await OrgStructure.findOne({
+                where: { id },
+                include: ["positionIdOrgStre", "departmentIdOrgStre", "clientRequest"],
+            })
             if (!orgStructure) return res.sendStatus(404)
             res.send(orgStructure)
         } catch (e) {

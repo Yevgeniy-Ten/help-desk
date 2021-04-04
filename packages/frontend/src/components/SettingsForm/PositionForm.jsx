@@ -10,7 +10,7 @@ const PositionForm = () => {
     const onCreatePosition = (position) => dispatch(fetchPositionCreate(position))
     return (
         <Form form={form}
-              name="add-appeal"
+              name="add-position"
               className={"appeal-form"}
               layout={"vertical"}
               onFinish={onCreatePosition}

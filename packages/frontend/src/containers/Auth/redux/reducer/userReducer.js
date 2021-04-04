@@ -12,7 +12,7 @@ const initialState = {
     registerError: null,
     loginError: null,
     user: null,
-    isLoading: false
+    isLoading: false,
 }
 
 const userReducer = (state = initialState, action) => {

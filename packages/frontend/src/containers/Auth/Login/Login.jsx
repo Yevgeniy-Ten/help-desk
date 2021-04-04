@@ -1,16 +1,25 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {getUserState} from "../redux/getters/getters";
 import {Button, Form, Input} from "antd";
-import {loginUser} from "../redux/actions/usersActions";
+import {clearUserState, loginUser} from "../redux/actions/usersActions";
+import {message} from "antd"
 
 
 const Login = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
     const {loginError, isLoading} = useSelector(getUserState, shallowEqual);
-
+    useEffect(() => {
+        if (loginError && loginError.message) {
+            message.error({
+                content: loginError.message,
+                className: "message-custom"
+            })
+            dispatch(clearUserState())
+        }
+    }, [loginError])
     const submitFormHandler = (values) => {
         dispatch(loginUser(values));
     }

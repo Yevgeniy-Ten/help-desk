@@ -1,4 +1,5 @@
 import {
+    CLEAR_EDITABLE_ELEMENT,
     SETTING_CREATE_COMPANY_SUCCESS,
     SETTING_CREATE_DEPARTMENT_SUCCESS, SETTING_CREATE_POSITION_SUCCESS,
     SETTING_CREATE_REGLAMENT_SUCCESS, SETTING_DELETE_SUCCESS,
@@ -6,8 +7,10 @@ import {
     SETTING_REQUEST_ERROR, SETTING_REQUEST_POSITIONS,
     SETTING_REQUEST_REGLAMENTS,
     SETTING_REQUEST_STARTED,
-    SETTING_REQUEST_TOPICS
+    SETTING_REQUEST_TOPICS, SETTING_SET_EDITABLE_ELEMENT
 } from "./settingsTypes";
+import {useSelector} from "react-redux";
+import {getEditableElement} from "./settingGetters";
 
 
 export const settingsRequestStart = () => ({type: SETTING_REQUEST_STARTED})
@@ -23,6 +26,8 @@ export const createCompanySuccess = () => ({type: SETTING_CREATE_COMPANY_SUCCESS
 export const createReglamentSuccess = () => ({type: SETTING_CREATE_REGLAMENT_SUCCESS})
 export const createPositionSuccess = () => ({type: SETTING_CREATE_POSITION_SUCCESS})
 export const settingDeleteSuccess = () => ({type: SETTING_DELETE_SUCCESS})
+export const setEditableSetting = (element) => ({type: SETTING_SET_EDITABLE_ELEMENT, element})
+export const clearEditalbleElement = () => ({type: CLEAR_EDITABLE_ELEMENT})
 // для получения тематик
 export const fetchTopics = () => {
     return async (dispatch, _, axios) => {
@@ -152,10 +157,38 @@ export const fetchPositions = () => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(settingsRequestStart())
-            const positions = await axios.get("/position")
-            dispatch(settingsRequestPositions(positions))
+            const response = await axios.get("/position")
+            dispatch(settingsRequestPositions(response.data))
         } catch (errors) {
             dispatch(settingsRequestError(errors))
+        }
+    }
+}
+export const fetchSettingUpdate = (settingType, record) => {
+    return async (dispatch, getState, axios) => {
+        try {
+            const updatedSetting = {
+                ...getState().settings.editableSetting,
+                ...record
+            }
+            dispatch(settingsRequestStart())
+            await axios.put(`${settingType}/${updatedSetting.id}`, updatedSetting)
+            dispatch(clearEditalbleElement())
+            if (settingType === "companies") {
+                dispatch(fetchCompanies())
+            } else if (settingType === "departments") {
+                dispatch(fetchDepartments())
+            } else if (settingType === "topics") {
+                dispatch(fetchTopics())
+            } else if (settingType === "rules") {
+                dispatch(fetchReglaments())
+            } else if (settingType === "position") {
+                dispatch(fetchPositions())
+            }
+            dispatch(settingDeleteSuccess())
+        } catch (errors) {
+            console.log(errors)
+            // dispatch(settingsRequestError(errors))
         }
     }
 }

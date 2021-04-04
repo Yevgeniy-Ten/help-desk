@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {getUserState} from "../redux/getters/getters";
 import {registerUser} from "../redux/actions/usersActions";
@@ -6,25 +6,34 @@ import {NavLink} from "react-router-dom";
 import FileInput from "../../../components/UploadFile/FileInput";
 import {Button, Form, Input, Select} from "antd";
 import {getCompanies} from "../../Settings/redux/settingGetters";
-import "../Auth.css"
-import { fetchCompanies } from "../../Settings/redux/settingsActions";
+import {message} from "antd"
+import {fetchCompanies} from "../../Settings/redux/settingsActions";
+import {getFieldError} from "../../../helpers/helpers";
 
 const {Option} = Select
 const Register = () => {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
-    const {registerError, isLoading} = useSelector(getUserState, shallowEqual);
+    const {registerError, isLoading, isRegisterSuccess} = useSelector(getUserState, shallowEqual);
     const companies = useSelector(getCompanies)
     const submitFormHandler = (values) => {
         dispatch(registerUser(values));
     }
-
+    useEffect(() => {
+        if (registerError && registerError.message) {
+            message.error({
+                content: registerError.message,
+                className: "message-custom"
+            })
+        }
+    }, [registerError])
     const onFilesChange = (filesList) => {
         form.setFieldsValue({upload: filesList});
     };
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchCompanies())
-    },[dispatch])
+    }, [dispatch])
+    console.log(getFieldError(registerError, "email"))
     return (
         <Form form={form}
               onFinish={submitFormHandler}
@@ -57,6 +66,8 @@ const Register = () => {
             <Form.Item
                 name={"email"}
                 label="Электронная почта"
+                validateStatus={getFieldError(registerError, "email") && "error"}
+                help={getFieldError(registerError, "email")}
                 rules={[{
                     required: true,
                     message: "Пожалуйста введит свою почту!"
@@ -93,6 +104,8 @@ const Register = () => {
             <Form.Item
                 label="Пароль"
                 name={"password"}
+                validateStatus={getFieldError(registerError, "password") && "error"}
+                help={getFieldError(registerError, "password")}
                 className={"mb-sm"}
                 rules={[{required: true, message: "Введите пароль"}]}
             >

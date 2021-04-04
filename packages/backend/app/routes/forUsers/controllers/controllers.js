@@ -10,6 +10,7 @@ const UsersController = {
     },
     async getCurrentUser(req, res) {
         try {
+            if (!req.user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
             res.send(req.user)
         }
         catch (e) {
@@ -45,7 +46,7 @@ const UsersController = {
             const user = await User.findOne({
                 where: { id: userId },
             });
-            if (!user.isAuthorized) return res.status(403).send({ message: "User not authorize !" });
+            if (!user.isAuthorized) return res.status(403).send({ message:  "Вы не потверждены администратором." });
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);

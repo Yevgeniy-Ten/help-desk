@@ -2,21 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/PositionForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/PositionTable.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/OrgStructureTable.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/tableConstants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/UI/EditableCeil.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/PositionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/PositionForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/CompanyTables/CompanyTables.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/CompanyTables/CompanyTables.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/DepartmentTable/DepartmentTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/DepartmentTable/DepartmentTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/PositionTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/PositionTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/ReglamentsTable/ReglamentsTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/ReglamentsTable/ReglamentsTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/TopicsTable/TopicsTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/TopicsTable/TopicsTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Register/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/reducer/userReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/reducer/userReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/helpers/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/helpers/helpers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +119,8 @@
       <workItem from="1617270114786" duration="8000" />
       <workItem from="1617270137074" duration="2676000" />
       <workItem from="1617445692454" duration="3022000" />
+      <workItem from="1617451513114" duration="3748000" />
+      <workItem from="1617519892255" duration="8330000" />
     </task>
     <servers />
   </component>

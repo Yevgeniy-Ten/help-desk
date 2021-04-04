@@ -43,6 +43,9 @@ const SettingsFilter = () => {
                     <Option value={"/settings/departments"}>
                         По отделу
                     </Option>
+                    <Option value={"/settings/positions"}>
+                        По должностям
+                    </Option>
                 </Select>
             </Form.Item>
             <Form.Item>

@@ -1,6 +1,7 @@
 export const getFieldError = (errors, fieldName) => {
     try {
-        return errors.errors[fieldName].message;
+        const error = errors.errors.find(err => err.path === fieldName)
+        if (error) return error.message
     } catch {
         return undefined;
     }

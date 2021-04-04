@@ -7,6 +7,6 @@
   "scripts": {
     "start": "lerna run start",
     "diff": "lerna diff",
-    "download": "lerna bootstrap --hoist"
+    "download": "lerna bootstrap "
   }
 }

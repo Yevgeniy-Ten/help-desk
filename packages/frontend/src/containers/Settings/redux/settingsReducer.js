@@ -6,7 +6,7 @@ import {
     SETTING_REQUEST_STARTED,
     SETTING_REQUEST_TOPICS,
     SETTING_CREATE_POSITION_SUCCESS,
-    SETTING_REQUEST_POSITIONS
+    SETTING_REQUEST_POSITIONS, SETTING_SET_EDITABLE_ELEMENT, CLEAR_EDITABLE_ELEMENT
 } from "./settingsTypes";
 
 const initialState = {
@@ -15,7 +15,8 @@ const initialState = {
     companies: [],
     departments: [],
     isLoading: false,
-    errors: null
+    errors: null,
+    editableSetting: null
 }
 
 
@@ -45,6 +46,14 @@ export const settingsReducer = (state = initialState, action) => {
             return {...state, isLoading: false}
         case SETTING_CREATE_POSITION_SUCCESS:
             return {...state, isLoading: false}
+        case SETTING_SET_EDITABLE_ELEMENT:
+            return {
+                ...state, editableSetting: action.element
+            }
+        case CLEAR_EDITABLE_ELEMENT:
+            return {
+                ...state, editableSetting: null
+            }
         default:
             return state
     }

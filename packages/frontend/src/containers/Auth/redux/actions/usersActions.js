@@ -7,7 +7,7 @@ import {
     REGISTER_USER_SUCCESS,
     USER_REQUEST_PENDING,
 } from "./actionTypes";
-
+import {message} from "antd"
 import {push} from "connected-react-router";
 
 export const getUserSuccess = (user) => ({type: GET_USER_SUCCESS, user});
@@ -37,8 +37,16 @@ export const registerUser = (userData) => {
         try {
             await axios.post("/users", userData);
             dispatch(push("/auth"));
+            message.success({
+                content: "Регистрация прошла успешно! Как только вы будете потверждены администратором, то сможете подавать заявки!",
+                className: "message-custom"
+            })
         } catch (e) {
-
+            if (e.response && e.response.data) {
+                dispatch(registerUserFailure(e.response.data))
+            } else {
+                dispatch(registerUserFailure({message: e.message}))
+            }
         }
     };
 };
@@ -62,7 +70,11 @@ export const loginUser = (userData) => {
             dispatch(loginUserSuccess(response.data));
             dispatch(push("/appeals"));
         } catch (e) {
-
+            if (e.response && e.response.data) {
+                dispatch(loginUserFailure(e.response.data))
+            } else {
+                dispatch(loginUserFailure({message: e.message}))
+            }
         }
     };
 };

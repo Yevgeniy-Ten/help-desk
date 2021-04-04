@@ -13,6 +13,7 @@ module.exports = {
             departmentId: 1,
             roleId: 3,
             companyId: 1,
+            isAuthorized: true,
             phoneNumber: '+77054546622'
             // createdAt: new Date(), updatedAt: new Date()
         }]

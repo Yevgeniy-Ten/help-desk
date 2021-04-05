@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         departmentId: {
             type: DataTypes.INTEGER,
-            defaultValue: null,
+            // defaultValue: null,
         },
     }, {
         timestamps: false,

@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             });
             this.belongsTo(OrgStructure, {
                 foreignKey: "orgStructureId",
-                as: "orgStructureId"
+                as: "orgStreId"
             });
             // имеет много задач если он сотрудник
             // this.hasMany(TicketTask, {

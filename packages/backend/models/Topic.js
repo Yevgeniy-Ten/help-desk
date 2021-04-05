@@ -2,7 +2,7 @@
 const {
     Model
 } = require("sequelize");
-
+const Rules = require("./Rules");
 //  ТЕМАТИКА 
 //  Общая организация проекта
 //  Бухгалтерия

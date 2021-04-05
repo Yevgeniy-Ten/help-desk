@@ -2,11 +2,6 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        let department = [
-            { title: "Отдел бухгалтерии", },
-            { title: "Отдел аналитики", },
-            { title: "Отдел тех поддержки", }
-        ]
         let rules = [
             {
                 copmanyId: 2,

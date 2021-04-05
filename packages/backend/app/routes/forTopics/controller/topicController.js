@@ -10,6 +10,21 @@ const TopicController = {
             res.status(500).json(e)
         }
     },
+    async editTopic(req, res) {
+        try {
+            const { id } = req.params
+            const topic = await Topic.findOne({
+                where: {
+                    id
+                }
+            })
+            if (!topic) return res.sendStatus(404)
+            await topic.update(req.body)
+            res.send(topic)
+        } catch (e) {
+            res.status(401).send(e);
+        }
+    },
     // async getTopicServices(req, res) {
     //     const { id: topicId } = req.params
     //     const servicesByTopic = await ServicesTopic.findAll({

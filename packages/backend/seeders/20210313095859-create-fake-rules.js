@@ -4,115 +4,118 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         let rules = [
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Стандартно",
-                topicId: 1,
                 title: "Регламент",
                 deadline: 12,
-                departmentId: 3,
+                topicId: 1,
+                departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Средний",
-                topicId: 1,
                 title: "Регламент",
                 deadline: 8,
-                departmentId: 3,
+                topicId: 1,
+                departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Срочно",
-                topicId: 1,
                 title: "Регламент",
                 deadline: 6,
-                departmentId: 3,
+                topicId: 1,
+                departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Критично",
-                topicId: 1,
                 title: "Регламент",
                 deadline: 2,
-                departmentId: 3,
-            },
-            
-            {
-                copmanyId: 3,
-                priority: "Стандартно",
-                topicId: 2,
-                title: "Регламент",
-                deadline: 24,
-                departmentId: 1,
-            },
-            {
-                copmanyId: 3,
-                priority: "Средний",
-                topicId: 2,
-                title: "Регламент",
-                deadline: 18,
-                departmentId: 1,
-            },
-            {
-                copmanyId: 3,
-                priority: "Срочно",
-                topicId: 2,
-                title: "Регламент",
-                deadline: 12,
-                departmentId: 1,
-            },
-            {
-                copmanyId: 3,
-                priority: "Критично",
-                topicId: 2,
-                title: "Регламент",
-                deadline: 6,
-                departmentId: 1,
+                topicId: 1,
+                departmentId: 1
             },
 
             {
-                copmanyId: 4,
+                copmanyId: null,
                 priority: "Стандартно",
-                topicId: 3,
-                title: "Регламент",
-                deadline: 48,
-                departmentId: 2,
-            },
-            {
-                copmanyId: 4,
-                priority: "Средний",
-                topicId: 3,
-                title: "Регламент",
-                deadline: 36,
-                departmentId: 2,
-            },
-            {
-                copmanyId: 4,
-                priority: "Срочно",
-                topicId: 3,
                 title: "Регламент",
                 deadline: 24,
-                departmentId: 2,
+                topicId: 2,
+                departmentId: 2
             },
             {
-                copmanyId: 4,
-                priority: "Критично",
-                topicId: 3,
+                copmanyId: null,
+                priority: "Средний",
+                title: "Регламент",
+                deadline: 18,
+                topicId: 2,
+                departmentId: 2
+            },
+            {
+                copmanyId: null,
+                priority: "Срочно",
                 title: "Регламент",
                 deadline: 12,
-                departmentId: 2,
+                topicId: 2,
+                departmentId: 2
+            },
+            {
+                copmanyId: null,
+                priority: "Критично",
+                title: "Регламент",
+                deadline: 6,
+                topicId: 2,
+                departmentId: 2
+            },
+
+            {
+                copmanyId: null,
+                priority: "Стандартно",
+                title: "Регламент",
+                deadline: 48,
+                topicId: 3,
+                departmentId: 3
+            },
+            {
+                copmanyId: null,
+                priority: "Средний",
+                title: "Регламент",
+                deadline: 36,
+                topicId: 3,
+                departmentId: 3
+            },
+            {
+                copmanyId: null,
+                priority: "Срочно",
+                title: "Регламент",
+                deadline: 24,
+                topicId: 3,
+                departmentId: 3
+            },
+            {
+                copmanyId: null,
+                priority: "Критично",
+                title: "Регламент",
+                deadline: 12,
+                topicId: 3,
+                departmentId: 3
             }
-            ]
-        rules = rules.map((element, i) => {
-            return {
-                copmanyId: element.copmanyId,
-                priority: element.priority,
-                topicId: element.topicId,
-                title: element.title,
-                deadline: element.deadline,
-                departmentId: element.departmentId,
-            }
-        })
-        await queryInterface.bulkInsert("rules", rules, {});
+        ]
+        let rulesCopy;
+        for (let i = 0; i < 3; i++) {
+            rulesCopy = rules.map((element) => {
+                return {
+                    copmanyId: element.copmanyId,
+                    priority: element.priority,
+                    topicId: element.topicId,
+                    title: element.title,
+                    deadline: element.deadline,
+                    departmentId: element.departmentId,
+                }
+            })
+        }
+        await queryInterface.bulkInsert("rules", rulesCopy, {});
     },
 
     down: async (queryInterface, Sequelize) => {

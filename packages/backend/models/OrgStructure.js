@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
             // принадлежит сущности должность
             this.belongsTo(Position, {
                 foreignKey: "positionId",
-                as: "position"
+                as: "positionIdOrgStre"
             })
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
-                as: "departmentOrgStre"
+                as: "departmentIdOrgStre"
             })
         }
     };

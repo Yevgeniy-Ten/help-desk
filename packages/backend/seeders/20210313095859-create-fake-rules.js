@@ -4,7 +4,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         let rules = [
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Стандартно",
                 title: "Регламент",
                 deadline: 12,
@@ -12,7 +12,7 @@ module.exports = {
                 departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Средний",
                 title: "Регламент",
                 deadline: 8,
@@ -20,7 +20,7 @@ module.exports = {
                 departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Срочно",
                 title: "Регламент",
                 deadline: 6,
@@ -28,7 +28,7 @@ module.exports = {
                 departmentId: 1
             },
             {
-                copmanyId: 2,
+                copmanyId: null,
                 priority: "Критично",
                 title: "Регламент",
                 deadline: 2,
@@ -37,7 +37,7 @@ module.exports = {
             },
 
             {
-                copmanyId: 3,
+                copmanyId: null,
                 priority: "Стандартно",
                 title: "Регламент",
                 deadline: 24,
@@ -45,7 +45,7 @@ module.exports = {
                 departmentId: 2
             },
             {
-                copmanyId: 3,
+                copmanyId: null,
                 priority: "Средний",
                 title: "Регламент",
                 deadline: 18,
@@ -53,7 +53,7 @@ module.exports = {
                 departmentId: 2
             },
             {
-                copmanyId: 3,
+                copmanyId: null,
                 priority: "Срочно",
                 title: "Регламент",
                 deadline: 12,
@@ -61,7 +61,7 @@ module.exports = {
                 departmentId: 2
             },
             {
-                copmanyId: 3,
+                copmanyId: null,
                 priority: "Критично",
                 title: "Регламент",
                 deadline: 6,
@@ -70,7 +70,7 @@ module.exports = {
             },
 
             {
-                copmanyId: 4,
+                copmanyId: null,
                 priority: "Стандартно",
                 title: "Регламент",
                 deadline: 48,
@@ -78,7 +78,7 @@ module.exports = {
                 departmentId: 3
             },
             {
-                copmanyId: 4,
+                copmanyId: null,
                 priority: "Средний",
                 title: "Регламент",
                 deadline: 36,
@@ -86,7 +86,7 @@ module.exports = {
                 departmentId: 3
             },
             {
-                copmanyId: 4,
+                copmanyId: null,
                 priority: "Срочно",
                 title: "Регламент",
                 deadline: 24,
@@ -94,7 +94,7 @@ module.exports = {
                 departmentId: 3
             },
             {
-                copmanyId: 4,
+                copmanyId: null,
                 priority: "Критично",
                 title: "Регламент",
                 deadline: 12,

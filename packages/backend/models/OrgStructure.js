@@ -5,7 +5,7 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
     class OrgStructure extends Model {
-        static associate({ Position, Department }) {
+        static associate({ Position, Department, User }) {
             // принадлежит сущности должность
             this.belongsTo(Position, {
                 foreignKey: "positionId",
@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
                 as: "departmentIdOrgStre"
+            });
+            this.hasMany(User, {
+                foreignKey: "orgStructureId",
+                as: "orgStrIdUser"
             })
         }
     };

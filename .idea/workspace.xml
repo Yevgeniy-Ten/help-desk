@@ -1,39 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/OrgStructureForm.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/UserTableContainer.jsx" afterDir="false" />
+    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил редактирование для всех справочников">
+      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/ReglamentFields.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/Routes/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/Routes/Routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/CompanyForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/CompanyForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/DepartmentForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/DepartmentForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/PositionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/PositionForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/ReglamentForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/ReglamentForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/TopicForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/TopicForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/CompanyTables/CompanyTables.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/CompanyTables/CompanyTables.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/DepartmentTable/DepartmentTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/DepartmentTable/DepartmentTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/OrgStructureTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/OrgStructureTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/PositionTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/PositionTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/ReglamentsTable/ReglamentsTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/ReglamentsTable/ReglamentsTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/Tables/TopicsTable/TopicsTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/TopicsTable/TopicsTable.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/UserDetails/UserDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/UserDetails/UserDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/UsersTable/UsersTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/UsersTable/UsersTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/UsersTable/userColumns.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/Tables/UsersTable/userColumns.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/AllUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/Users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/EditUser.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/EditUser.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersGetters/usersGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersGetters/usersGetters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AddAppealPage/AddAppealPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AddAppealPage/AddAppealPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/EditAppealPage/EditAppealPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/EditAppealPage/EditAppealPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/Register/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/getters/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/getters/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,8 +82,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.download" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.download" />
         <item itemvalue="npm.diff" />
       </list>
     </recent_temporary>
@@ -127,6 +102,9 @@
       <workItem from="1617451513114" duration="3748000" />
       <workItem from="1617519892255" duration="11737000" />
       <workItem from="1617536690390" duration="3562000" />
+      <workItem from="1617617266099" duration="917000" />
+      <workItem from="1617727132838" duration="52000" />
+      <workItem from="1617727201139" duration="3598000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

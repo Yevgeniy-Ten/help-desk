@@ -23,11 +23,15 @@ export const setEditableSetting = (element) => ({type: SETTING_SET_EDITABLE_ELEM
 export const clearEditalbleElement = () => ({type: CLEAR_EDITABLE_ELEMENT})
 export const settingRequestOrgStructure = (positions) => ({type: SETTING_ORGSTRUCTURE_SUCCESS, positions})
 
-export const fetchSettings = (settingType) => {
+export const fetchSettings = (settingType, queryParams) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(settingsRequestStart())
-            const response = await axios.get(`/${settingType}`)
+            const response = await axios.get(`/${settingType}`, {
+                params: {
+                    ...queryParams
+                }
+            })
             if (settingType === "companies") {
                 dispatch(settingsRequestCompanies(response.data))
             } else if (settingType === "departments") {
@@ -53,7 +57,7 @@ export const fetchSettingCreate = (settingType, body) => {
         try {
             dispatch(settingsRequestStart())
             await axios.post(`/${settingType}`, body)
-            fetchSettings(settingType)
+            dispatch(fetchSettings(settingType))
             dispatch(settingRequestFinished())
             message.success({
                 className: "message-custom",

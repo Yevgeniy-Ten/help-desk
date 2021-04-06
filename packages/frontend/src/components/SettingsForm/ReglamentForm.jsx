@@ -6,6 +6,7 @@ import {
     fetchSettingCreate, fetchSettings,
 } from "../../containers/Settings/redux/settingsActions";
 import {getDepartments, getTopics} from "../../containers/Settings/redux/settingGetters";
+import ReglamentFields from "./ReglamentFields";
 
 const {Option} = Select
 const ReglamentForm = () => {
@@ -50,34 +51,7 @@ const ReglamentForm = () => {
                     })}
                 </Select>
             </Form.Item>
-            <Form.Item
-                name={"departmentId"}
-                label="Отвественный отдел"
-                rules={[
-                    {
-                        required: true,
-                        message: "Заголовок обязателен!"
-                    }]}>
-                <Select placeholder="Выберите отвественный отдел" allowClear>
-                    {departments.map((department, index) => {
-                        return (
-                            <Option key={index} value={department.id}>
-                                {department.title}
-                            </Option>
-                        );
-                    })}
-                </Select>
-            </Form.Item>
-            <Form.Item
-                name={"deadline"}
-                label="Срок исполнения (часов)"
-                rules={[
-                    {
-                        required: true,
-                        message: "Заголовок обязателен!"
-                    }]}>
-                <Input placeholder={"Количество часов"}/>
-            </Form.Item>
+            <ReglamentFields departments={departments}/>
             <Form.Item>
                 <Button type="primary" htmlType="submit" size={"middle"}>
                     Создать компанию

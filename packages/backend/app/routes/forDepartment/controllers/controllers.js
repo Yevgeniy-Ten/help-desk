@@ -1,8 +1,14 @@
-const { Department } = require("../../../../models")
+const { Department, User } = require("../../../../models")
 // 
 const DepartmentController = {
     async getAllDepartment(req, res) {
         try {
+            const userId = req.user.id;
+            const user = await User.findOne({
+                where: { id: userId },
+            });
+            if (!user.departmentId) return res.status(403).send({ message: "Вы не являетесь сотрудником компании." });
+
             const department = await Department.findAll()
             if (!department.length) return res.sendStatus(404)
             res.send(department)

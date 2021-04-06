@@ -46,7 +46,7 @@ const UsersController = {
             const user = await User.findOne({
                 where: { id: userId },
             });
-            if (!user.isAuthorized) return res.status(403).send({ message:  "Вы не потверждены администратором." });
+            if (!user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);
@@ -58,16 +58,22 @@ const UsersController = {
             companyId,
             firstName,
             lastName,
-            phoneNumber
+            phoneNumber,
+            departmentId,
+            orgstructureId
         } = req.body;
+        console.log(req.body);
         const userId = req.params.id;
         const user = await User.findOne({ where: { id: userId } });
         if (!user) return res.sendStatus(404);
+        if (!user.departmentId) return res.status(403).send({ message: "Не являетеся сотрудником компании." });
         await user.update({
             companyId,
             firstName,
             lastName,
-            phoneNumber
+            phoneNumber,
+            departmentId,
+            orgStructureId: orgstructureId
         });
         res.send(user);
     },

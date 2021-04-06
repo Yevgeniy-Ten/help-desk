@@ -9,15 +9,15 @@ module.exports = (sequelize, DataTypes) => {
             // принадлежит сущности должность
             this.belongsTo(Position, {
                 foreignKey: "positionId",
-                as: "positionIdOrgStre"
+                as: "position"
             })
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
-                as: "departmentIdOrgStre"
+                as: "department"
             });
             this.hasMany(User, {
                 foreignKey: "orgStructureId",
-                as: "orgStrIdUser"
+                as: "orgStructureId"
             })
         }
     };

@@ -7,13 +7,13 @@ const OrgStructureController = {
                 const { departmentId } = req.query
                 const orgStructure = await OrgStructure.findAll({
                     where: { departmentId: departmentId },
-                    include: ["positionIdOrgStre", "departmentIdOrgStre"],
+                    include: ["position", "department"],
                 })
                 if (!orgStructure.length) return res.sendStatus(404)
                 return res.send(orgStructure)
             }
             const orgStructure = await OrgStructure.findAll({
-                include: ["positionIdOrgStre", "departmentIdOrgStre"],
+                include: ["position", "department"],
             })
             if (!orgStructure.length) return res.sendStatus(404)
             res.send(orgStructure)
@@ -26,7 +26,7 @@ const OrgStructureController = {
             const { id } = req.params
             const orgStructure = await OrgStructure.findOne({
                 where: { id },
-                include: ["positionIdOrgStre", "departmentIdOrgStre"],
+                include: ["position", "department"],
             })
             if (!orgStructure) return res.sendStatus(404)
             res.send(orgStructure)

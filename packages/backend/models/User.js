@@ -6,7 +6,7 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
-        static associate({ Appeal, Request, Department, UserRole, Company, TicketTask }) {
+        static associate({ Request, Department, UserRole, Company, OrgStructure, TicketTask }) {
             // имеет много обращений, обращения связываются через userId
             this.hasMany(Request, {
                 foreignKey: "clientId",
@@ -31,7 +31,11 @@ module.exports = (sequelize, DataTypes) => {
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
                 as: "departmentUser"
-            })
+            });
+            this.belongsTo(OrgStructure, {
+                foreignKey: "orgStructureId",
+                as: "orgStreId"
+            });
             // имеет много задач если он сотрудник
             // this.hasMany(TicketTask, {
             //     foreignKey: "employeeId",
@@ -69,8 +73,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         photo: DataTypes.STRING,
         phoneNumber: DataTypes.STRING,
-        departmentId: {
+        orgStructureId: {
             type: DataTypes.INTEGER,
+            defaultValue: null
         },
         roleId: {
             type: DataTypes.INTEGER,

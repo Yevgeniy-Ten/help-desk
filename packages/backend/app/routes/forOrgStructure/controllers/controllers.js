@@ -3,8 +3,17 @@ const { OrgStructure } = require("../../../../models")
 const OrgStructureController = {
     async getAllOrgStructure(req, res) {
         try {
+            if (req.query.departmentId) {
+                const { departmentId } = req.query
+                const orgStructure = await OrgStructure.findAll({
+                    where: { departmentId: departmentId },
+                    include: ["positionIdOrgStre", "departmentIdOrgStre"],
+                })
+                if (!orgStructure.length) return res.sendStatus(404)
+                return res.send(orgStructure)
+            }
             const orgStructure = await OrgStructure.findAll({
-                include: ["positionIdOrgStre", "departmentIdOrgStre", "clientRequest"],
+                include: ["positionIdOrgStre", "departmentIdOrgStre"],
             })
             if (!orgStructure.length) return res.sendStatus(404)
             res.send(orgStructure)
@@ -17,7 +26,7 @@ const OrgStructureController = {
             const { id } = req.params
             const orgStructure = await OrgStructure.findOne({
                 where: { id },
-                include: ["positionIdOrgStre", "departmentIdOrgStre", "clientRequest"],
+                include: ["positionIdOrgStre", "departmentIdOrgStre"],
             })
             if (!orgStructure) return res.sendStatus(404)
             res.send(orgStructure)

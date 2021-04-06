@@ -1,4 +1,4 @@
-const { Topic, ServicesTopic } = require("../../../../models")
+const { Topic, Rules, ServicesTopic } = require("../../../../models")
 
 const TopicController = {
     async getTopics(req, res) {
@@ -9,6 +9,62 @@ const TopicController = {
         } catch (e) {
             res.status(500).json(e)
         }
+    },
+    async editTopic(req, res) {
+        try {
+            const { id } = req.params
+            const topic = await Topic.findOne({
+                where: {
+                    id
+                }
+            })
+            if (!topic) return res.sendStatus(404)
+            await topic.update(req.body)
+            res.send(topic)
+        } catch (e) {
+            res.status(401).send(e);
+        }
+    },
+    async createTopic(req, res) {
+        const { title, departmentId } = req.body;
+        const titleCopy = `Регламент для ${title}`;
+        Topic.create({
+            title
+        }).then((newTopic) => {
+            if (departmentId) {
+                Rules.create({
+                    topicId: newTopic.dataValues.id,
+                    priority: "Стандартно",
+                    title: titleCopy,
+                    deadline: 24,
+                    departmentId: departmentId,
+                })
+                Rules.create({
+                    topicId: newTopic.dataValues.id,
+                    priority: "Средний",
+                    title: titleCopy,
+                    deadline: 16,
+                    departmentId: departmentId,
+                })
+                Rules.create({
+                    topicId: newTopic.dataValues.id,
+                    priority: "Срочно",
+                    title: titleCopy,
+                    deadline: 8,
+                    departmentId: departmentId,
+                })
+                Rules.create({
+                    topicId: newTopic.dataValues.id,
+                    priority: "Критично",
+                    title: titleCopy,
+                    deadline: 4,
+                    departmentId: departmentId,
+                })
+            }
+            return res.status(201).send(newTopic)
+        }).catch((errors) => {
+            res.status(400).send(errors)
+        })
     },
     // async getTopicServices(req, res) {
     //     const { id: topicId } = req.params
@@ -39,16 +95,6 @@ const TopicController = {
     //         res.status(e).send(e)
     //     }
     // },
-    async createTopic(req, res) {
-        const { title } = req.body
-        Topic.create({
-            title
-        }).then((newTopic) => {
-            return res.status(201).send(newTopic)
-        }).catch((errors) => {
-            res.status(400).send(errors)
-        })
-    }
 }
 
 module.exports = TopicController

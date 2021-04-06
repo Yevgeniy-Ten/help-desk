@@ -3,7 +3,18 @@ const { OrgStructure } = require("../../../../models")
 const OrgStructureController = {
     async getAllOrgStructure(req, res) {
         try {
-            const orgStructure = await OrgStructure.findAll()
+            if (req.query.departmentId) {
+                const { departmentId } = req.query
+                const orgStructure = await OrgStructure.findAll({
+                    where: { departmentId: departmentId },
+                    include: ["positionIdOrgStre", "departmentIdOrgStre"],
+                })
+                if (!orgStructure.length) return res.sendStatus(404)
+                return res.send(orgStructure)
+            }
+            const orgStructure = await OrgStructure.findAll({
+                include: ["positionIdOrgStre", "departmentIdOrgStre"],
+            })
             if (!orgStructure.length) return res.sendStatus(404)
             res.send(orgStructure)
         } catch (e) {
@@ -13,7 +24,10 @@ const OrgStructureController = {
     async getById(req, res) {
         try {
             const { id } = req.params
-            const orgStructure = await OrgStructure.findOne({ id })
+            const orgStructure = await OrgStructure.findOne({
+                where: { id },
+                include: ["positionIdOrgStre", "departmentIdOrgStre"],
+            })
             if (!orgStructure) return res.sendStatus(404)
             res.send(orgStructure)
         } catch (e) {
@@ -21,10 +35,11 @@ const OrgStructureController = {
         }
     },
     async create(req, res) {
-        const { positionId, departmentId } = req.body
+        const { positionId, departmentId, isMain } = req.body
         OrgStructure.create({
             positionId,
-            departmentId
+            departmentId,
+            isMain: isMain ? isMain : false
         }).then((newOrgStructure) => {
             return res.status(201).send(newOrgStructure)
         }).catch((errors) => {

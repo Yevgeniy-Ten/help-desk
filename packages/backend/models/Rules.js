@@ -2,6 +2,7 @@
 const {
     Model
 } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
     class Rules extends Model {
         static associate({ Company, Topic, Department }) {
@@ -48,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         departmentId: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            // defaultValue: null,
         },
     }, {
         timestamps: false,

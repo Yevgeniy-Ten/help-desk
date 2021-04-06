@@ -1,7 +1,7 @@
 const { Request, Rules, User } = require("../../../../models");
 module.exports = {
     async create(req, res) {
-        try {           
+        try {
             let {
                 clientId,
                 topicId,
@@ -12,7 +12,7 @@ module.exports = {
             } = req.body;
             let copmanyId = null;
             //сотрудник создал заявку от имени клиента
-            if(clientId) {
+            if (clientId) {
                 const client = await User.findOne({
                     where: {
                         id: clientId
@@ -21,8 +21,8 @@ module.exports = {
                 copmanyId = client.dataValues.companyId;
             }
             //клиент или сотрудник создал заявку от своего имени
-            if(!clientId) {
-                if(req.user.dataValues.companyId) {
+            if (!clientId) {
+                if (req.user.dataValues.companyId) {
                     copmanyId = req.user.dataValues.companyId;
                 }
             }
@@ -38,6 +38,22 @@ module.exports = {
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
+            }
+            if (!rule) {
+                const ruleCopy = await Rules.findOne({
+                    where: {
+                        topicId: topicId,
+                        priority: priority,
+                        copmanyId: null
+                    },
+                });
+                if (!ruleCopy) {
+                    return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
+                }
+                if (ruleCopy) {
+                    deadline = ruleCopy.dataValues.deadline;
+                    departmentId = ruleCopy.dataValues.departmentId;
+                }
             }
             Request.create({
                 clientId: clientId ? clientId : req.user.id,
@@ -126,7 +142,7 @@ module.exports = {
                     as: 'clientRequest',
                     attributes: ['firstName', 'lastName', 'companyId'],
                 }, 'department', 'topic']
-                
+
             })
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)

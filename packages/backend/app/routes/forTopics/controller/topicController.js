@@ -26,10 +26,6 @@ const TopicController = {
         }
     },
     async createTopic(req, res) {
-        // const rulesArr = [
-        //     {
-
-        // }]
         const { title, departmentId } = req.body;
         const titleCopy = `Регламент для ${title}`;
         Topic.create({
@@ -41,28 +37,28 @@ const TopicController = {
                     priority: "Стандартно",
                     title: titleCopy,
                     deadline: 24,
-                    // departmentId: 0,
+                    departmentId: departmentId,
                 })
                 Rules.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Средний",
                     title: titleCopy,
                     deadline: 16,
-                    // departmentId: 0,
+                    departmentId: departmentId,
                 })
                 Rules.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Срочно",
                     title: titleCopy,
                     deadline: 8,
-                    // departmentId: 0,
+                    departmentId: departmentId,
                 })
                 Rules.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Критично",
                     title: titleCopy,
                     deadline: 4,
-                    // departmentId: 0,
+                    departmentId: departmentId,
                 })
             }
             return res.status(201).send(newTopic)

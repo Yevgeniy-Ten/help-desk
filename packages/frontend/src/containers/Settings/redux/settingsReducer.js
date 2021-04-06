@@ -38,7 +38,7 @@ export const settingsReducer = (state = initialState, action) => {
         case SETTING_REQUEST_COMPANIES:
             return {...state, companies: action.companies}
         case SETTING_ORGSTRUCTURE_SUCCESS:
-            return {...state, orgStructures: action.orgStructures}
+            return {...state, orgStructures: action.orgstructures}
         case SETTING_REQUEST_REGLAMENTS:
             return {...state, reglaments: action.reglaments}
         case SETTING_REQUEST_DEPARTMENTS:

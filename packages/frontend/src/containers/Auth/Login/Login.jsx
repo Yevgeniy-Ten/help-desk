@@ -52,11 +52,11 @@ const Login = () => {
             </Form.Item>
             <Form.Item>
                 <Button loading={isLoading} type="default" block htmlType="submit" size={"middle"}>
-                    Log in
+                    Войти
                 </Button>
             </Form.Item>
             <Form.Item>
-                Or <NavLink to={"/auth/register"} style={{cursor: "pointer"}}>Register now!</NavLink>
+                Or <NavLink to={"/auth/register"} style={{cursor: "pointer"}}>Зарегистириоваться!</NavLink>
             </Form.Item>
         </Form>
     );

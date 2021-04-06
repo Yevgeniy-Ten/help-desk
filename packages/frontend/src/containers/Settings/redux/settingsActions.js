@@ -21,7 +21,7 @@ export const settingsRequestPositions = (positions) => ({type: SETTING_REQUEST_P
 export const settingDeleteSuccess = () => ({type: SETTING_DELETE_SUCCESS})
 export const setEditableSetting = (element) => ({type: SETTING_SET_EDITABLE_ELEMENT, element})
 export const clearEditalbleElement = () => ({type: CLEAR_EDITABLE_ELEMENT})
-export const settingRequestOrgStructure = (positions) => ({type: SETTING_ORGSTRUCTURE_SUCCESS, positions})
+export const settingRequestOrgStructure = (orgstructures) => ({type: SETTING_ORGSTRUCTURE_SUCCESS, orgstructures})
 
 export const fetchSettings = (settingType, queryParams) => {
     return async (dispatch, _, axios) => {
@@ -41,6 +41,7 @@ export const fetchSettings = (settingType, queryParams) => {
             } else if (settingType === "reglaments") {
                 dispatch(settingsRequestReglaments(response.data))
             } else if (settingType === "orgstructure") {
+
                 dispatch(settingRequestOrgStructure(response.data))
             } else if (settingType === "position") {
                 dispatch(settingsRequestPositions(response.data))

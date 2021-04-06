@@ -9,21 +9,22 @@ import {
     Typography,
 } from "antd";
 import {PhoneOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
-import Spinner from "../Spinner/Spinner";
 import {imageStub, apiURL} from "../../constants";
 
 const {Text} = Typography;
 const {Panel} = Collapse;
 const {Option} = Select;
-const UserDetails = ({userInfo,
+const UserDetails = ({
+                         userInfo,
                          companies,
                          departments,
                          form,
                          onFinish,
                          onChangeFields,
                          settingIsLoader,
-                         isLoading
+                         isLoading, orgStructures
                      }) => {
+    console.log(orgStructures)
     return (
         <>
             {userInfo && (
@@ -94,6 +95,21 @@ const UserDetails = ({userInfo,
                                                     <Option key={department.id + department.title}
                                                             value={department.id}>
                                                         {department.title}
+                                                    </Option>
+                                                );
+                                            })}
+                                        </Select>
+                                    </Form.Item>
+                                    <Form.Item
+                                        name={"orgstructureId"}
+                                        label="Должность"
+                                        className={"mb-sm"}>
+                                        <Select placeholder="Выберите должность" allowClear>
+                                            {orgStructures.map((orgstructure) => {
+                                                return (
+                                                    <Option key={orgstructure.id}
+                                                            value={orgstructure.id}>
+                                                        {orgstructure.position.title}
                                                     </Option>
                                                 );
                                             })}

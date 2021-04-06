@@ -16,7 +16,7 @@ const OrgStructureTable = () => {
     const dispatch = useDispatch();
     const orgStructures = useSelector(getOrgStructures);
     const isLoad = useSelector(getSettingsLoader)
-
+    console.log(orgStructures)
     useEffect(() => {
         dispatch(fetchSettings("orgstructure"))
     }, [dispatch]);
@@ -33,8 +33,8 @@ const OrgStructureTable = () => {
         },
         {
             title: "Отдел",
-            dataIndex: "position",
-            key: "position",
+            dataIndex: "department",
+            key: "department",
         },
         {
             title: "Главный",
@@ -59,7 +59,7 @@ const OrgStructureTable = () => {
         <>
             {isLoad ? <Spinner/> :
                 <Table
-                    title={() => <h4>Должности</h4>}
+                    title={() => <h4>Орг структура</h4>}
                     bordered
                     dataSource={orgStructures}
                     columns={columns}

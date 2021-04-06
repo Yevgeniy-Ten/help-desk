@@ -47,6 +47,9 @@ module.exports = {
                         copmanyId: null
                     },
                 });
+                if (!ruleCopy) {
+                    return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
+                }
                 if (ruleCopy) {
                     deadline = ruleCopy.dataValues.deadline;
                     departmentId = ruleCopy.dataValues.departmentId;

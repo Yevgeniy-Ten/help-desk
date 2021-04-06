@@ -1,19 +1,6 @@
 const { OrgStructure } = require("../../../../models")
 // 
 const OrgStructureController = {
-    // async getByDepartId(req, res) {
-    //     try {
-    //         const { departmentId } = req.query.params
-    //         const orgStructure = await OrgStructure.findOne({
-    //             where: { departmentId: departmentId },
-    //             include: ["positionIdOrgStre", "departmentIdOrgStre"],
-    //         })
-    //         if (!orgStructure) return res.sendStatus(404)
-    //         res.send(orgStructure)
-    //     } catch (e) {
-    //         res.status(500).json(e)
-    //     }
-    // },
     async getAllOrgStructure(req, res) {
         try {
             if (req.query.departmentId) {

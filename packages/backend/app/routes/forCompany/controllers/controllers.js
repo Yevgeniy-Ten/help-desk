@@ -39,15 +39,16 @@ module.exports = {
     },
     async get(req, res) {
         try {
-            const userId = req.params.id;
-            const user = await User.findOne({
-                where: { id: userId },
-                include: ["company", "departmentUser", "role"],
-            });
-            if (!user) return res.sendStatus(404);
-            console.log(user)
-            if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
-
+            if (req.query.params) {
+                const { id } = req.query.params;
+                const user = await User.findOne({
+                    where: { id: id },
+                    include: ["company", "departmentUser", "role"],
+                });
+                if (!user) return res.sendStatus(404);
+                console.log(user)
+                if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
+            }
             const company = await Company.findAll()
             if (!company.length) return res.sendStatus(404)
             res.send(company)

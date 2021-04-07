@@ -29,8 +29,8 @@ const EditUser = () => {
     }
     useEffect(() => {
         dispatch(fetchUserForUpdate(id));
-        dispatch(fetchSettings("departments", id))
-        dispatch(fetchSettings("companies", id))
+        dispatch(fetchSettings("departments", { id: id }))
+        dispatch(fetchSettings("companies", { id: id }))
     }, [dispatch, id]);
     return (
         <>

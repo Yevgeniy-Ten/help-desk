@@ -25,7 +25,8 @@ module.exports = {
             }]
         orgStructure = orgStructure.map((element, i) => {
             return {
-                title: element.title,
+                departmentId: element.departmentId,
+                positionId: element.positionId,
             }
         })
         await queryInterface.bulkInsert("org_structure", orgStructure, {});

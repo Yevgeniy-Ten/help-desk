@@ -16,33 +16,34 @@ module.exports = (sequelize, DataTypes) => {
         toJSON() {
             return {
                 ...this.get(),
-                accessAppeals: this.accessAppeals.split(","),
-                accessTickets: this.accessTickets.split(","),
-                accessUsers: this.accessUsers.split(",")
+                // accessAppeals: this.accessAppeals.split(","),
+                // accessTickets: this.accessTickets.split(","),
+                // accessUsers: this.accessUsers.split(",")
             }
         }
     };
     UserRole.init({
         name: {
-            type: DataTypes.ENUM("admin", "employee", "client", "moderator", "user"),
+            type: DataTypes.ENUM("admin", "client"),
+            // type: DataTypes.ENUM("admin", "employee", "client", "moderator", "user"),
             default: "user",
             allowNull: false
         },
-        accessAppeals: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "get,update,delete"
-        },
-        accessUsers: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "get,update,delete"
-        },
-        accessTickets: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "get,update,delete",
-        }
+        // accessAppeals: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        //     defaultValue: "get,update,delete"
+        // },
+        // accessUsers: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        //     defaultValue: "get,update,delete"
+        // },
+        // accessTickets: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        //     defaultValue: "get,update,delete",
+        // }
 
     }, {
         sequelize,

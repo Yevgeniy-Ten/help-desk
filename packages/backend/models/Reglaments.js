@@ -4,7 +4,7 @@ const {
 } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-    class Rules extends Model {
+    class Reglaments extends Model {
         static associate({ Company, Topic, Department }) {
             this.belongsTo(Company, {
                 foreignKey: "copmanyId",
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             })
         }
     };
-    Rules.init({
+    Reglaments.init({
         copmanyId: {
             type: DataTypes.INTEGER,
             defaultValue: null,
@@ -57,5 +57,5 @@ module.exports = (sequelize, DataTypes) => {
         modelName: "Reglaments",
         tableName: "reglaments",
     });
-    return Rules;
+    return Reglaments;
 };

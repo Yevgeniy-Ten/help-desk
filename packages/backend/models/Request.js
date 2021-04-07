@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "clientId",
                 as: "clientRequest"
             })
-            // this.belongsTo(User, {
-            //     foreignKey: "employeeId",
-            //     as: "employeeRequest"
-            // })
+            this.belongsTo(User, {
+                foreignKey: "employeeId",
+                as: "employeeRequest"
+            })
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
                 as: "department"
@@ -35,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             defaultValue: null,
         },
-        // employeeId: {
-        //     type: DataTypes.INTEGER,
-        //     defaultValue: null,
-        // },
+        employeeId: {
+            type: DataTypes.INTEGER,
+            defaultValue: null,
+        },
         departmentId: {
             type: DataTypes.INTEGER,
             // defaultValue: null,

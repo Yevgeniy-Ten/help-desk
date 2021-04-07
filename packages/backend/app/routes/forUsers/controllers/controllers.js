@@ -10,6 +10,7 @@ const UsersController = {
     },
     async getCurrentUser(req, res) {
         try {
+            console.log(req.user);
             if (!req.user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
             res.send(req.user)
         }
@@ -110,7 +111,7 @@ const UsersController = {
             const userId = req.params.id;
             const user = await User.findOne({
                 where: { id: userId },
-                include: ["company", "departmentUser"],
+                include: ["company", "departmentUser", "role"],
             });
             if (!user) return res.sendStatus(404);
             res.json(user);

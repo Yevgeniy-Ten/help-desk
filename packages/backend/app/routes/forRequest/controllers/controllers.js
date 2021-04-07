@@ -1,4 +1,31 @@
-const { Request, Rules, User } = require("../../../../models");
+const { Request, Reglaments, Department, OrgStructure, User } = require("../../../../models");
+const reglamentsFunc = async (copyID) => {
+
+}
+const departmentFunc = async (copyID) => {
+    const department = await Department.findOne({
+        where: {
+            id: copyID,
+        },
+    });
+    return department;
+}
+const orgStructureFunc = async (copyID) => {
+    const orgStructure = await OrgStructure.findOne({
+        where: {
+            departmentId: copyID,
+        },
+    });
+    return orgStructure;
+}
+const userFunc = async (copyID) => {
+    const user = await User.findOne({
+        where: {
+            orgStructureId: copyID,
+        },
+    });
+    return user;
+}
 module.exports = {
     async create(req, res) {
         try {
@@ -10,7 +37,9 @@ module.exports = {
                 title,
                 description,
             } = req.body;
+            console.log(req.body);
             let copmanyId = null;
+            let employeeId = null;
             //сотрудник создал заявку от имени клиента
             if (clientId) {
                 const client = await User.findOne({
@@ -26,7 +55,7 @@ module.exports = {
                     copmanyId = req.user.dataValues.companyId;
                 }
             }
-            const rule = await Rules.findOne({
+            const rule = await Reglaments.findOne({
                 where: {
                     topicId: topicId,
                     priority: priority,
@@ -35,12 +64,17 @@ module.exports = {
             });
             let deadline = null;
             let departmentId = null;
+            console.log(rule);
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
+                const department = await departmentFunc(departmentId);
+                const orgStructure = await orgStructureFunc(department.id);
+                const employee = await userFunc(orgStructure.id);
+                employeeId = employee.id;
             }
             if (!rule) {
-                const ruleCopy = await Rules.findOne({
+                const ruleCopy = await Reglaments.findOne({
                     where: {
                         topicId: topicId,
                         priority: priority,
@@ -50,9 +84,14 @@ module.exports = {
                 if (!ruleCopy) {
                     return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
                 }
+                console.log(ruleCopy);
                 if (ruleCopy) {
                     deadline = ruleCopy.dataValues.deadline;
                     departmentId = ruleCopy.dataValues.departmentId;
+                    const department = await departmentFunc(departmentId);
+                    const orgStructure = await orgStructureFunc(department.id);
+                    const employee = await userFunc(orgStructure.id);
+                    employeeId = employee.id;
                 }
             }
             Request.create({
@@ -64,6 +103,7 @@ module.exports = {
                 description,
                 deadline,
                 departmentId,
+                employeeId
             }).then(newRequest => {
                 res.status(201).send(newRequest)
             }).catch(errors => {

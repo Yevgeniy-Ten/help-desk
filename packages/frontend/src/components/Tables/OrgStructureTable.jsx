@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Spinner from "../Spinner/Spinner";
-import {Button, Form, Popconfirm, Space, Table, Typography} from "antd";
+import { Button, Form, Popconfirm, Space, Table, Typography } from "antd";
 import EditableCell from "../UI/EditableCeil";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     getEditableElement,
     getOrgStructures,
@@ -30,11 +30,13 @@ const OrgStructureTable = () => {
             title: "Должность",
             dataIndex: "position",
             key: "position",
+            render: position => position ? position.title : "null"
         },
         {
             title: "Отдел",
             dataIndex: "department",
             key: "department",
+            render: department => department ? department.title : "null"
         },
         {
             title: "Главный",
@@ -57,7 +59,7 @@ const OrgStructureTable = () => {
 
     return (
         <>
-            {isLoad ? <Spinner/> :
+            {isLoad ? <Spinner /> :
                 <Table
                     title={() => <h4>Орг структура</h4>}
                     bordered

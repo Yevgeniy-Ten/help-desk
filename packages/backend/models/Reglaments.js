@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
         static associate({ Company, Topic, Department }) {
             this.belongsTo(Company, {
                 foreignKey: "copmanyId",
-                as: "copmanyRules"
+                as: "copmany"
             })
             // принадлежит к отделу связывается через topicId
             this.belongsTo(Department, {
                 foreignKey: "departmentId",
-                as: "departmentRules"
+                as: "department"
             })
             // принадлежит к тематике связывается через topicId
             this.belongsTo(Topic, {
                 foreignKey: "topicId",
-                as: "topicRules"
+                as: "topic"
             })
         }
     };
@@ -54,8 +54,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false,
         sequelize,
-        modelName: "Rules",
-        tableName: "rules",
+        modelName: "Reglaments",
+        tableName: "reglaments",
     });
     return Rules;
 };

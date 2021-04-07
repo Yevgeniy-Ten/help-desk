@@ -1,6 +1,6 @@
-const { Rules } = require("../../../../models")
+const { Reglaments } = require("../../../../models")
 // нужно будет синхронизировать историю тиктеа
-const RulesController = {
+const ReglamentsController = {
     async createRules(req, res) {
         try {
             const {
@@ -11,7 +11,7 @@ const RulesController = {
                 deadline,
                 priority
             } = req.body
-            Rules.create({
+            Reglaments.create({
                 copmanyId,
                 topicId,
                 departmentId,
@@ -30,25 +30,26 @@ const RulesController = {
     async edit(req, res) {
         try {
             const { id } = req.params
-            const rules = await Rules.findOne({
+            const reglaments = await Reglaments.findOne({
                 where: {
                     id
                 }
             })
-            if (!rules) return res.sendStatus(404)
-            await rules.update(req.body)
-            res.send(rules)
+            if (!reglaments) return res.sendStatus(404)
+            await reglaments.update(req.body)
+            res.send(reglaments)
         } catch (e) {
             res.status(401).send(e);
         }
     },
     async getAll(req, res) {
         try {
-            const rules = await Rules.findAll({
-                include: ["topicRules", "departmentRules", "copmanyRules"],
+            const reglaments = await Reglaments.findAll({
+                include: ["topic", "department", "copmany"],
             })
-            if (!rules.length) return res.sendStatus(404)
-            res.send(rules)
+            console.log(reglaments)
+            if (!reglaments.length) return res.sendStatus(404)
+            res.send(reglaments)
         } catch (e) {
             res.status(500).send(e);
         }
@@ -56,9 +57,9 @@ const RulesController = {
     async getById(req, res) {
         try {
             const { id } = req.params
-            const rules = await Rules.findOne({ id })
-            if (!rules) return res.sendStatus(404)
-            res.send(rules)
+            const reglaments = await Reglaments.findOne({ id })
+            if (!reglaments) return res.sendStatus(404)
+            res.send(reglaments)
         } catch (errors) {
             res.status(500).send(errors);
         }
@@ -66,11 +67,11 @@ const RulesController = {
     async deleteRules(req, res) {
         try {
             const message = { message: "Delete successful" }
-            await Rules.destroy({ where: { id: req.params.id } })
+            await Reglaments.destroy({ where: { id: req.params.id } })
             return res.send(message)
         } catch (e) {
             res.status(401).send(e);
         }
     }
 }
-module.exports = RulesController
+module.exports = ReglamentsController

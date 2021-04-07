@@ -2,7 +2,7 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        let rules = [
+        let reglaments = [
             {
                 copmanyId: null,
                 priority: "Стандартно",
@@ -102,9 +102,9 @@ module.exports = {
                 departmentId: 3
             }
         ]
-        let rulesCopy;
+        let reglamentsCopy;
         for (let i = 0; i < 3; i++) {
-            rulesCopy = rules.map((element) => {
+            reglamentsCopy = reglaments.map((element) => {
                 return {
                     copmanyId: element.copmanyId,
                     priority: element.priority,
@@ -115,7 +115,7 @@ module.exports = {
                 }
             })
         }
-        await queryInterface.bulkInsert("rules", rulesCopy, {});
+        await queryInterface.bulkInsert("reglaments", reglamentsCopy, {});
     },
 
     down: async (queryInterface, Sequelize) => {

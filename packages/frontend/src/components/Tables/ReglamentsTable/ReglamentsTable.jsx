@@ -1,16 +1,16 @@
-import React, {useEffect} from "react";
-import {Button, Form, Popconfirm, Space, Table, Typography} from "antd";
+import React, { useEffect } from "react";
+import { Button, Form, Popconfirm, Space, Table, Typography } from "antd";
 import {
     clearEditalbleElement,
     fetchReglaments, fetchSettings,
     fetchSettingUpdate,
     setEditableSetting
 } from "../../../containers/Settings/redux/settingsActions";
-import {useDispatch, useSelector} from "react-redux";
-import {getEditableElement, getReglaments, getSettingsLoader} from "../../../containers/Settings/redux/settingGetters";
+import { useDispatch, useSelector } from "react-redux";
+import { getEditableElement, getReglaments, getSettingsLoader } from "../../../containers/Settings/redux/settingGetters";
 import Spinner from "../../Spinner/Spinner";
 import EditableCell from "../../UI/EditableCeil";
-import {getMergedColumns} from "../tableConstants";
+import { getMergedColumns } from "../tableConstants";
 
 
 const ReglamentsTable = () => {
@@ -21,14 +21,14 @@ const ReglamentsTable = () => {
     const isEditing = (record) => editableElement ? record.id === editableElement.id : false;
     const [form] = Form.useForm();
     const edit = (record) => {
-        form.setFieldsValue({...record})
+        form.setFieldsValue({ ...record })
         dispatch(setEditableSetting(record))
     }
     const cancel = () => dispatch(clearEditalbleElement())
     const saveEditableReglament = async () => {
         try {
             const values = await form.validateFields(); // храняться данные о редактируемых полях
-            dispatch(fetchSettingUpdate("departments", {...values}))
+            dispatch(fetchSettingUpdate("departments", { ...values }))
         } catch (errInfo) {
             console.log("Validate Failed:", errInfo);
         }
@@ -47,21 +47,21 @@ const ReglamentsTable = () => {
         },
         {
             title: "Тематика",
-            dataIndex: "topicRules",
-            key: "topicRules",
-            render: topicRules => topicRules.title
+            dataIndex: "topic",
+            key: "topic",
+            render: topic => topic ? topic.title : "null"
         },
         {
             title: "Ответсвенный отдел",
-            dataIndex: "departmentRules",
-            key: "departmentRules",
-            render: departmentRules => departmentRules.title
+            dataIndex: "department",
+            key: "department",
+            render: department => department ? department.title : "null"
         },
         {
             title: "Компания",
-            dataIndex: "copmanyRules",
-            key: "copmanyRules",
-            render: copmanyRules => copmanyRules.title
+            dataIndex: "copmany",
+            key: "copmany",
+            render: copmany => copmany ? copmany.title : "null"
         },
         {
             title: "Срок исполнения",
@@ -85,7 +85,7 @@ const ReglamentsTable = () => {
                     </Space>
                 ) : (
                     <Typography.Link disabled={editableElement}
-                                     onClick={() => edit(record)}>
+                        onClick={() => edit(record)}>
                         Редактировать
                     </Typography.Link>
                 );
@@ -98,7 +98,7 @@ const ReglamentsTable = () => {
     const mergedColumns = getMergedColumns(columns, isEditing)
     return (
         <>
-            {isLoad ? <Spinner/> :
+            {isLoad ? <Spinner /> :
                 <Form form={form} component={false}>
                     <Table
                         components={{
@@ -110,8 +110,8 @@ const ReglamentsTable = () => {
                         bordered
                         columns={mergedColumns}
                         dataSource={reglaments}
-                        scroll={{x: 1000}}
-                        pagination={{onChange: cancel}}
+                        scroll={{ x: 1000 }}
+                        pagination={{ onChange: cancel }}
                     />
                 </Form>}
         </>

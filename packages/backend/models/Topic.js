@@ -2,7 +2,7 @@
 const {
     Model
 } = require("sequelize");
-const Rules = require("./Rules");
+
 //  ТЕМАТИКА 
 //  Общая организация проекта
 //  Бухгалтерия
@@ -10,7 +10,7 @@ const Rules = require("./Rules");
 //  Отчетность
 module.exports = (sequelize, DataTypes) => {
     class Topic extends Model {
-        static associate({ Request, Solution, Department, Rules, ServicesTopic }) {
+        static associate({ Request, Solution, Department, Reglaments, ServicesTopic }) {
             // одна тематика имеет много заявок открытых по этой тематике
             this.hasMany(Request, {
                 foreignKey: "topicId",
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             //     foreignKey: "topicId",
             //     as: "department"
             // })
-            this.hasMany(Rules, {
+            this.hasMany(Reglaments, {
                 foreignKey: "topicId",
                 as: "rules"
             })

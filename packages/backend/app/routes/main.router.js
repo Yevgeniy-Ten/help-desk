@@ -6,7 +6,7 @@ const companyRoute = require("./forCompany/company.router");
 const departmentRoute = require("./forDepartment/departments.router");
 const positionRoute = require("./forPosition/position.router");
 const orgStructureRoute = require("./forOrgStructure/orgstructure.router");
-const rulesRoute = require("./forRules/rules.router");
+const reglamentsRouter = require("./forReglaments/reglaments.router");
 const mainRouter = Router();
 
 mainRouter.use("/users", userRoute);
@@ -16,7 +16,7 @@ mainRouter.use("/companies", companyRoute);
 mainRouter.use("/departments", departmentRoute);
 mainRouter.use("/position", positionRoute);
 mainRouter.use("/orgstructure", orgStructureRoute);
-mainRouter.use("/rules", rulesRoute);
+mainRouter.use("/reglaments", reglamentsRouter);
 
 
 module.exports = mainRouter;

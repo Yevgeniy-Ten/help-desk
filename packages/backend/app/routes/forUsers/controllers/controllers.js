@@ -64,9 +64,13 @@ const UsersController = {
         } = req.body;
         console.log(req.body);
         const userId = req.params.id;
-        const user = await User.findOne({ where: { id: userId } });
+        const user = await User.findOne({
+            where: { id: userId },
+            include: ["company", "departmentUser", "role"],
+        });
         if (!user) return res.sendStatus(404);
-        if (!user.departmentId) return res.status(403).send({ message: "Не являетеся сотрудником компании." });
+        console.log(user)
+        if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
         await user.update({
             companyId,
             firstName,

@@ -12,7 +12,55 @@ module.exports = {
             lastName: "esdp",
             firstName: "dev",
             password: hashPass1,
-            departmentId: 1,
+            orgStructureId: 1,
+            roleId: 1,
+            companyId: 1,
+            isAuthorized: true,
+            phoneNumber: '+77054546622'
+            // createdAt: new Date(), updatedAt: new Date()
+        },
+        {
+            email: "test1@mail.ru",
+            lastName: "esdp1",
+            firstName: "dev1",
+            password: hashPass1,
+            orgStructureId: 2,
+            roleId: 1,
+            companyId: 1,
+            isAuthorized: true,
+            phoneNumber: '+77054546622'
+            // createdAt: new Date(), updatedAt: new Date()
+        },
+        {
+            email: "test2@mail.ru",
+            lastName: "esdp2",
+            firstName: "dev2",
+            password: hashPass1,
+            orgStructureId: 3,
+            roleId: 1,
+            companyId: 1,
+            isAuthorized: true,
+            phoneNumber: '+77054546622'
+            // createdAt: new Date(), updatedAt: new Date()
+        },
+        {
+            email: "test3@mail.ru",
+            lastName: "esdp3",
+            firstName: "dev3",
+            password: hashPass1,
+            orgStructureId: 4,
+            roleId: 1,
+            companyId: 1,
+            isAuthorized: true,
+            phoneNumber: '+77054546622'
+            // createdAt: new Date(), updatedAt: new Date()
+        },
+        {
+            email: "test4@mail.ru",
+            lastName: "esdp4",
+            firstName: "dev4",
+            password: hashPass1,
+            orgStructureId: 5,
             roleId: 1,
             companyId: 1,
             isAuthorized: true,

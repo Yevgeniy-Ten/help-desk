@@ -14,6 +14,7 @@ const orgStructureFunc = async (copyID) => {
     const orgStructure = await OrgStructure.findOne({
         where: {
             departmentId: copyID,
+            isMain: true,
         },
     });
     return orgStructure;
@@ -64,12 +65,11 @@ module.exports = {
             });
             let deadline = null;
             let departmentId = null;
-            console.log(rule);
+            console.log('rule1', rule);
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
-                const department = await departmentFunc(departmentId);
-                const orgStructure = await orgStructureFunc(department.id);
+                const orgStructure = await orgStructureFunc(departmentId);
                 const employee = await userFunc(orgStructure.id);
                 employeeId = employee.id;
             }
@@ -84,13 +84,14 @@ module.exports = {
                 if (!ruleCopy) {
                     return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
                 }
-                console.log(ruleCopy);
+                console.log('rule2', ruleCopy);
                 if (ruleCopy) {
                     deadline = ruleCopy.dataValues.deadline;
                     departmentId = ruleCopy.dataValues.departmentId;
-                    const department = await departmentFunc(departmentId);
-                    const orgStructure = await orgStructureFunc(department.id);
+                    const orgStructure = await orgStructureFunc(departmentId);
+                    console.log('orgStructure', orgStructure.id);
                     const employee = await userFunc(orgStructure.id);
+                    console.log('employee', employee.id);
                     employeeId = employee.id;
                 }
             }
@@ -105,6 +106,7 @@ module.exports = {
                 departmentId,
                 employeeId
             }).then(newRequest => {
+                console.log('newRequest', newRequest)
                 res.status(201).send(newRequest)
             }).catch(errors => {
                 res.status(400).send(errors)

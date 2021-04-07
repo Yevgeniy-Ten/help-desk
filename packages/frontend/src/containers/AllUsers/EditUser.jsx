@@ -31,6 +31,9 @@ const EditUser = () => {
         dispatch(fetchUserForUpdate(id));
         dispatch(fetchSettings("departments", { id: id }))
         dispatch(fetchSettings("companies", { id: id }))
+        if(userForUpdate.orgStructure) {
+            dispatch(fetchSettings("orgstructure", { departmentId: userForUpdate.orgStructure.departmentId }))
+        }
     }, [dispatch, id]);
     return (
         <>

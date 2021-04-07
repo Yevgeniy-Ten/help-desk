@@ -4,7 +4,7 @@ const axios = require("axios");
 const UsersController = {
     async getAll(req, res) {
         const users = await User.findAll({
-            include: ["company", "departmentUser", "role"],
+            include: ["company", "role"],
         });
         res.json(users);
     },
@@ -67,7 +67,7 @@ const UsersController = {
         const userId = req.params.id;
         const user = await User.findOne({
             where: { id: userId },
-            include: ["company", "departmentUser", "role"],
+            include: ["company", "role"],
         });
         if (!user) return res.sendStatus(404);
         console.log(user)
@@ -111,8 +111,16 @@ const UsersController = {
             const userId = req.params.id;
             const user = await User.findOne({
                 where: { id: userId },
-                include: ["company", "departmentUser", "role"],
+                include: ["company", "role", "orgStructure"],
             });
+            // const user = await User.findOne({
+            //     where: { id: userId },
+            //     include: [{
+            //         model: OrgStructure,
+            //         // as: "orgStructure",
+            //         include: ['position', 'department']
+            //     }]
+            // });
             if (!user) return res.sendStatus(404);
             res.json(user);
         } catch (e) {

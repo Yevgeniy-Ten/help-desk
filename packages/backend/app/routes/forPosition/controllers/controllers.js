@@ -3,6 +3,15 @@ const { Position } = require("../../../../models")
 const PositionController = {
     async getAllPosition(req, res) {
         try {
+            // if (req.query) {
+            //     const { id } = req.query;
+            //     const user = await User.findOne({
+            //         where: { id: id },
+            //         include: ["company", "departmentUser", "role"],
+            //     });
+            //     if (!user) return res.sendStatus(404);
+            //     if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
+            // }
             const position = await Position.findAll()
             if (!position.length) return res.sendStatus(404)
             res.send(position)

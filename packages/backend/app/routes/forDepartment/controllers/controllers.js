@@ -3,14 +3,14 @@ const { Department, User } = require("../../../../models")
 const DepartmentController = {
     async getAllDepartment(req, res) {
         try {
-            // const userId = req.params.id;
-            // const user = await User.findOne({
-            //     where: { id: userId },
-            //     include: ["company", "departmentUser", "role"],
-            // });
-            // if (!user) return res.sendStatus(404);
-            // console.log(user)
-            // if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
+            const userId = req.params.id;
+            const user = await User.findOne({
+                where: { id: userId },
+                include: ["company", "departmentUser", "role"],
+            });
+            if (!user) return res.sendStatus(404);
+            console.log(user)
+            if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
 
             const department = await Department.findAll()
             if (!department.length) return res.sendStatus(404)

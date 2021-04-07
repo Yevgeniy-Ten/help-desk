@@ -70,7 +70,14 @@ const UsersController = {
         });
         if (!user) return res.sendStatus(404);
         console.log(user)
-        if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
+        if (user.role.name === "client") {
+            await user.update({
+                firstName,
+                lastName,
+                phoneNumber,
+            });
+            return res.send(user);
+        }
         await user.update({
             companyId,
             firstName,

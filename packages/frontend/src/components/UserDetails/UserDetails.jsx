@@ -24,7 +24,6 @@ const UserDetails = ({
                          settingIsLoader,
                          isLoading, orgStructures
                      }) => {
-    console.log(orgStructures)
     return (
         <>
             {userInfo && (

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     fetchSettingCreate, fetchSettings,
 } from "../../containers/Settings/redux/settingsActions";
-import {getDepartments, getTopics} from "../../containers/Settings/redux/settingGetters";
+import {getCompanies, getDepartments, getTopics} from "../../containers/Settings/redux/settingGetters";
 import ReglamentFields from "./ReglamentFields";
 
 const {Option} = Select
@@ -14,8 +14,10 @@ const ReglamentForm = () => {
     const dispatch = useDispatch()
     const topics = useSelector(getTopics)
     const departments = useSelector(getDepartments);
+    const companies = useSelector(getCompanies)
     useEffect(() => {
         dispatch(fetchSettings("topics"));
+        dispatch(fetchSettings("companies"));
         dispatch(fetchSettings("departments"));
     }, [dispatch])
     const onCreateReglament = (reglament) => dispatch(fetchSettingCreate("rules", reglament))
@@ -51,10 +53,23 @@ const ReglamentForm = () => {
                     })}
                 </Select>
             </Form.Item>
+            <Form.Item
+                name={"companyId"}
+                label="Для компании">
+                <Select placeholder="Выбрать компанию" allowClear>
+                    {companies.map((company, index) => {
+                        return (
+                            <Option key={index} value={company.id}>
+                                {company.title}
+                            </Option>
+                        );
+                    })}
+                </Select>
+            </Form.Item>
             <ReglamentFields departments={departments}/>
             <Form.Item>
                 <Button type="primary" htmlType="submit" size={"middle"}>
-                    Создать компанию
+                    Создать регламент
                 </Button>
             </Form.Item>
         </Form>

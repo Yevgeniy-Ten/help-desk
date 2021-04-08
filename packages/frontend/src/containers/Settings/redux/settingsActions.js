@@ -56,6 +56,9 @@ export const fetchSettings = (settingType, queryParams) => {
 export const fetchSettingCreate = (settingType, body) => {
     return async (dispatch, _, axios) => {
         try {
+            message.info({
+                content: "Идет проверка введенных данных!",
+            })
             dispatch(settingsRequestStart())
             await axios.post(`/${settingType}`, body)
             dispatch(fetchSettings(settingType))

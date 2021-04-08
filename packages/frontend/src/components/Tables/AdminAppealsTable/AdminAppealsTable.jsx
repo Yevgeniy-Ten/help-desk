@@ -23,6 +23,12 @@ const AdminAppealsTable = ({appeals}) => {
             render: (creator) => `${creator.firstName} ${creator.lastName}`
         },
         {
+            title: "Ответствейнный сотрудник",
+            dataIndex: "employeeRequest",
+            key: "employeeRequest",
+            render: (employeeRequest) => employeeRequest ? `${employeeRequest.firstName} ${employeeRequest.lastName}` : null
+        },
+        {
             title: "Тематика",
             dataIndex: "topic",
             key: "topic",

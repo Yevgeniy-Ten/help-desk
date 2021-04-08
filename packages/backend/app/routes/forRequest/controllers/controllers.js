@@ -1,15 +1,4 @@
 const { Request, Reglaments, Department, OrgStructure, User } = require("../../../../models");
-const reglamentsFunc = async (copyID) => {
-
-}
-const departmentFunc = async (copyID) => {
-    const department = await Department.findOne({
-        where: {
-            id: copyID,
-        },
-    });
-    return department;
-}
 const orgStructureFunc = async (copyID) => {
     const orgStructure = await OrgStructure.findOne({
         where: {
@@ -27,6 +16,7 @@ const userFunc = async (copyID) => {
     });
     return user;
 }
+
 module.exports = {
     async create(req, res) {
         try {
@@ -65,7 +55,7 @@ module.exports = {
             });
             let deadline = null;
             let departmentId = null;
-            console.log('rule1', rule);
+            // console.log('rule1', rule);
             if (rule) {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
@@ -84,14 +74,14 @@ module.exports = {
                 if (!ruleCopy) {
                     return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
                 }
-                console.log('rule2', ruleCopy);
+                // console.log('rule2', ruleCopy);
                 if (ruleCopy) {
                     deadline = ruleCopy.dataValues.deadline;
                     departmentId = ruleCopy.dataValues.departmentId;
                     const orgStructure = await orgStructureFunc(departmentId);
-                    console.log('orgStructure', orgStructure.id);
+                    // console.log('orgStructure', orgStructure.id);
                     const employee = await userFunc(orgStructure.id);
-                    console.log('employee', employee.id);
+                    // console.log('employee', employee.id);
                     employeeId = employee.id;
                 }
             }
@@ -106,7 +96,7 @@ module.exports = {
                 departmentId,
                 employeeId
             }).then(newRequest => {
-                console.log('newRequest', newRequest)
+                // console.log('newRequest', newRequest)
                 res.status(201).send(newRequest)
             }).catch(errors => {
                 res.status(400).send(errors)
@@ -177,15 +167,25 @@ module.exports = {
             //         where_ID = { where: { departmentId: user.department.dataValues.id }, }
             //     }
             // }
-            const requests = await Request.findAll({
-                where: { clientId: req.user.id },
+            let requests = [];
+            requests = await Request.findAll({
                 include: [{
                     model: User,
                     as: 'clientRequest',
                     attributes: ['firstName', 'lastName', 'companyId'],
-                }, 'department', 'topic']
-
+                }, 'department', 'topic', 'employeeRequest'],
             })
+            if(req.user.roleId === 2) {//надо изменить на client
+                requests = await Request.findAll({
+                    where: { clientId: req.user.id },
+                    include: [{
+                        model: User,
+                        as: 'clientRequest',
+                        attributes: ['firstName', 'lastName', 'companyId'],
+                    }, 'department', 'topic', 'employeeRequest'],
+                })
+            }
+            
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)
         } catch (errors) {

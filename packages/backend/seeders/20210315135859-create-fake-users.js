@@ -75,7 +75,7 @@ module.exports = {
             lastName: "user",
             firstName: "user",
             password: hashPass2,
-            departmentId: null,
+            orgStructureId: null,
             roleId: 2,
             companyId: 2,
             isAuthorized: false,

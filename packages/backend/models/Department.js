@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
                 as: "rules"
             });
             // много работников в отделе
-            this.hasMany(User, {
-                foreignKey: "departmentId",
-                as: "employeesDepartment"
-            })
+            // this.hasMany(User, {
+            //     foreignKey: "departmentId",
+            //     as: "employeesDepartment"
+            // })
             this.hasMany(Request, {
                 foreignKey: "departmentId",
                 as: "departmentRequest"

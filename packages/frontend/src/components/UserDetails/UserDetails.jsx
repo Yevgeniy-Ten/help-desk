@@ -62,6 +62,7 @@ const UserDetails = ({
                                         <Input prefix={<UserOutlined/>}/>
                                     </Form.Item>
                                 </Panel>
+                                
                                 <Panel header="Дополнительная информация" key="3">
                                     <Space direction="vertical">
                                         <Text>ID: {userInfo.id}</Text>
@@ -73,7 +74,9 @@ const UserDetails = ({
                                     <Form.Item
                                         name={"companyId"}
                                         label="Компания :"
-                                        className={"mb-sm"}>
+                                        className={"mb-sm"}
+                                        initialValue={userInfo.company && userInfo.company.id}
+                                        >
                                         <Select placeholder="Выберите компанию" allowClear>
                                             {companies.map((company) => {
                                                 return (
@@ -84,36 +87,45 @@ const UserDetails = ({
                                             })}
                                         </Select>
                                     </Form.Item>
-                                    <Form.Item
-                                        name={"departmentId"}
-                                        label="Отдел"
-                                        className={"mb-sm"}>
-                                        <Select placeholder="Выберите отдел" allowClear>
-                                            {departments.map((department) => {
-                                                return (
-                                                    <Option key={department.id + department.title}
-                                                            value={department.id}>
-                                                        {department.title}
-                                                    </Option>
-                                                );
-                                            })}
-                                        </Select>
-                                    </Form.Item>
-                                    <Form.Item
-                                        name={"orgstructureId"}
-                                        label="Должность"
-                                        className={"mb-sm"}>
-                                        <Select placeholder="Выберите должность" allowClear>
-                                            {orgStructures.map((orgstructure) => {
-                                                return (
-                                                    <Option key={orgstructure.id}
-                                                            value={orgstructure.id}>
-                                                        {orgstructure.position.title}
-                                                    </Option>
-                                                );
-                                            })}
-                                        </Select>
-                                    </Form.Item>
+                                    {userInfo.role && userInfo.role.name !== "client" && 
+                                        <>
+                                            <Form.Item
+                                                name={"departmentId"}
+                                                label="Отдел"
+                                                className={"mb-sm"}
+                                                initialValue={userInfo.orgStructure && userInfo.orgStructure.departmentId}
+                                                >
+                                                <Select placeholder="Выберите отдел" allowClear>
+                                                    {departments.map((department) => {
+                                                        return (
+                                                            <Option key={department.id + department.title}
+                                                                    value={department.id}>
+                                                                {department.title}
+                                                            </Option>
+                                                        );
+                                                    })}
+                                                </Select>
+                                            </Form.Item>
+                                            <Form.Item
+                                                name={"orgstructureId"}
+                                                label="Должность"
+                                                className={"mb-sm"}
+                                                initialValue={userInfo.orgStructure && userInfo.orgStructure.positionId}
+                                                >
+                                                <Select placeholder="Выберите должность" allowClear>
+                                                    {orgStructures.map((orgstructure) => {
+                                                        return (
+                                                            <Option key={orgstructure.id}
+                                                                    value={orgstructure.id}>
+                                                                {orgstructure.position.title}
+                                                            </Option>
+                                                        );
+                                                    })}
+                                                </Select>
+                                            </Form.Item>
+                                        </>
+                                    }
+                                    
                                 </Panel>
                             </Collapse>
                             <Button disabled={isLoading || settingIsLoader} type="primary" htmlType="submit">

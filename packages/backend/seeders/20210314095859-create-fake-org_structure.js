@@ -11,6 +11,7 @@ module.exports = {
             {
                 departmentId: 1,
                 positionId: 2,
+                isMain: false,
             },
             {
                 departmentId: 2,
@@ -20,6 +21,7 @@ module.exports = {
             {
                 departmentId: 2,
                 positionId: 4,
+                isMain: false,
             },
             {
                 departmentId: 3,

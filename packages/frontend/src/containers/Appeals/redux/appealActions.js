@@ -6,6 +6,7 @@ import {
     APPEAL_REQUEST_STARTED,
     APPEAL_UPDATE_SUCCESS
 } from "./action/appealsActionType";
+import {message} from "antd";
 
 const appealCreateSuccess = () => ({type: APPEAL_CREATE_SUCCESS})
 const appealUpdateSuccess = () => ({type: APPEAL_UPDATE_SUCCESS})
@@ -27,13 +28,22 @@ export const fetchAppeal = (id) => {
 export const fetchCreateAppeal = (appealData) => {
     return async (dispatch, _, axios) => {
         try {
+            message.info({
+                content: "Идет проверка введенных данных!"
+            })
             dispatch(appealRequestStarted());
             await axios.post("/requests", appealData);
             dispatch(push("/appeals"));
             dispatch(appealCreateSuccess())
+            message.success({
+                content: "Заяка создана!"
+            })
         } catch (e) {
             if (e.response && e.response.data) {
                 dispatch(appealRequestError(e.response.data));
+                if (e.response.data.message) {
+                    message.error({content: e.response.data.message})
+                }
             } else {
                 dispatch(appealRequestError({message: e.message}));
             }

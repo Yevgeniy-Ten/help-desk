@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/ReglamentForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/ReglamentForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/UserDetails/UserDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/UserDetails/UserDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +103,7 @@
       <workItem from="1617727201139" duration="3804000" />
       <workItem from="1617731766571" duration="1620000" />
       <workItem from="1617800759636" duration="502000" />
-      <workItem from="1617851637839" duration="489000" />
+      <workItem from="1617851637839" duration="773000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

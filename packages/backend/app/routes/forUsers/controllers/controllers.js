@@ -10,7 +10,7 @@ const UsersController = {
     },
     async getCurrentUser(req, res) {
         try {
-            console.log(req.user);
+            // console.log(req.user);
             if (!req.user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
             res.send(req.user)
         }

@@ -1,4 +1,4 @@
-const { Topic, Rules, ServicesTopic } = require("../../../../models")
+const { Topic, Reglaments, ServicesTopic } = require("../../../../models")
 
 const TopicController = {
     async getTopics(req, res) {
@@ -33,28 +33,28 @@ const TopicController = {
             title
         }).then((newTopic) => {
             if (departmentId) {
-                Rules.create({
+                Reglaments.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Стандартно",
                     title: titleCopy,
                     deadline: standart,
                     departmentId: departmentId,
                 })
-                Rules.create({
+                Reglaments.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Средний",
                     title: titleCopy,
                     deadline: middle,
                     departmentId: departmentId,
                 })
-                Rules.create({
+                Reglaments.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Срочно",
                     title: titleCopy,
                     deadline: high,
                     departmentId: departmentId,
                 })
-                Rules.create({
+                Reglaments.create({
                     topicId: newTopic.dataValues.id,
                     priority: "Критично",
                     title: titleCopy,

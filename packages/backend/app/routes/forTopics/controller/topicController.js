@@ -27,7 +27,7 @@ const TopicController = {
     },
     async createTopic(req, res) {
         const { title, departmentId, standart, middle, high, incident } = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         const titleCopy = `Регламент для ${title}`;
         Topic.create({
             title

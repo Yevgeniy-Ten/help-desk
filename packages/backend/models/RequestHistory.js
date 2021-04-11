@@ -4,9 +4,10 @@ const {
 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class RequestHistory extends Model {
-        static associate({ Request }) {
+        static associate({Request}) {
             this.belongsTo(Request, {
-                foreignKey: "requestId"
+                foreignKey: "requestId",
+                as: "request"
             })
         }
     };
@@ -14,10 +15,13 @@ module.exports = (sequelize, DataTypes) => {
         requestId: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        message: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }, {
         sequelize,
-        timestamps: false,
         modelName: "RequestHistory",
         tableName: "request_history"
     });

@@ -1,5 +1,5 @@
 "use strict";
-
+console.log("Kek")
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.bulkInsert("user_roles",

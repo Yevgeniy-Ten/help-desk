@@ -1,8 +1,21 @@
-const { User } = require("../../../../models");
-const { saveFile } = require("../../../helpers/helpers");
+const {User, OrgStructure} = require("../../../../models");
+const {saveFile} = require("../../../helpers/helpers");
 const axios = require("axios");
 const UsersController = {
     async getAll(req, res) {
+        const {departmentId} = req.query
+        if (departmentId) {
+            let orgStructures = await OrgStructure.findAll({
+                where: {
+                    departmentId
+                },
+                include: ["users"]
+            })
+            orgStructures = orgStructures.reduce((allUsers, o) => allUsers.concat(o.users), [])
+            if (!orgStructures.length) return res.sendStatus(404)
+            return res.json(orgStructures)
+        }
+
         const users = await User.findAll({
             include: ["company", "role"],
         });
@@ -24,7 +37,7 @@ const UsersController = {
     },
     async create(req, res) {
         try {
-            const { companyId, firstName, lastName, password, email, phoneNumber } = req.body;
+            const {companyId, firstName, lastName, password, email, phoneNumber} = req.body;
             if (req.files) {
                 // saveFile(req.files.photo, "users")
             }
@@ -49,9 +62,9 @@ const UsersController = {
         try {
             const userId = req.user.id;
             const user = await User.findOne({
-                where: { id: userId },
+                where: {id: userId},
             });
-            if (!user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
+            if (!user.isAuthorized) return res.status(403).send({message: "Вы не потверждены администратором."});
             res.send(req.user);
         } catch (e) {
             res.status(401).send(e);
@@ -69,7 +82,7 @@ const UsersController = {
         } = req.body;
         const userId = req.params.id;
         const user = await User.findOne({
-            where: { id: userId },
+            where: {id: userId},
             include: ["company", "role"],
         });
         if (!user) return res.sendStatus(404);
@@ -94,12 +107,12 @@ const UsersController = {
     },
     async authorizedUser(req, res) {
         const userId = req.params.id;
-        const user = await User.findOne({ where: { id: userId } });
+        const user = await User.findOne({where: {id: userId}});
         if (!user) return res.sendStatus(404);
         await user.update({
             isAuthorized: true,
         });
-        res.send({ message: "Вы авторизованы !" });
+        res.send({message: "Вы авторизованы !"});
     },
     async deleteSessions(req, res) {
         try {
@@ -113,7 +126,7 @@ const UsersController = {
         try {
             const userId = req.params.id;
             const user = await User.findOne({
-                where: { id: userId },
+                where: {id: userId},
                 include: ["company", "role", "orgStructure"],
             });
             // const user = await User.findOne({
@@ -139,12 +152,12 @@ const UsersController = {
         try {
             const response = await axios.get(debugTokenUrl);
             if (response.data.data.error)
-                return res.status(401).send({ error: "Facebook token incorrect" });
+                return res.status(401).send({error: "Facebook token incorrect"});
             if (req.body.id !== response.data.data.user_id)
-                return res.status(401).send({ error: "Wrong User ID" });
+                return res.status(401).send({error: "Wrong User ID"});
 
             let user = await User.findOne({
-                where: { facebookId: req.body.id },
+                where: {facebookId: req.body.id},
             });
 
             if (!user) {
@@ -158,7 +171,7 @@ const UsersController = {
                     token: nanoid(),
                 });
             }
-            return res.send({ message: "Login or Register successful", user });
+            return res.send({message: "Login or Register successful", user});
         } catch (e) {
             return res.status(401).send(e);
         }

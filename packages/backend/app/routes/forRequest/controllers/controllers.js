@@ -1,4 +1,4 @@
-const { Request, Reglaments, Department, OrgStructure, User } = require("../../../../models");
+const {Request, Reglaments, Department, OrgStructure, User, RequestHistory} = require("../../../../models");
 const orgStructureFunc = async (copyID) => {
     const orgStructure = await OrgStructure.findOne({
         where: {
@@ -28,67 +28,41 @@ module.exports = {
                 title,
                 description,
             } = req.body;
-            let companyId = null;
-            let employeeId = null;
-            //сотрудник создал заявку от имени клиента
-            if (clientId) {
-                const client = await User.findOne({
-                    where: {
-                        id: clientId
-                    },
-                });
-                companyId = client.dataValues.companyId;
-            }
-            //клиент или сотрудник создал заявку от своего имени
-            if (!clientId) {
-                if (req.user.dataValues.companyId) {
-                    companyId = req.user.dataValues.companyId;
-                }
-            }
-            const rule = await Reglaments.findOne({
+            const client = await User.findOne({
                 where: {
-                    topicId: topicId,
-                    priority: priority,
-                    companyId: companyId
+                    id: clientId ? clientId : req.user.id
                 },
             });
-            let deadline = null;
-            let departmentId = null;
-            // console.log('rule1', rule);
-            if (rule) {
-                deadline = rule.dataValues.deadline;
-                departmentId = rule.dataValues.departmentId;
-                const orgStructure = await orgStructureFunc(departmentId);
-                if(orgStructure) {
-                    const employee = await userFunc(orgStructure.id);
-                    employeeId = employee.id;
-                }
-            }
+            // если клиент найден то присваеиваем companyId клиента, если не найден берем companyId юзера который создает запрос
+            const companyId = client ? client.companyId : req.user.companyId && req.user.companyId
+            let rule = await Reglaments.findOne({
+                where: {topicId, priority, companyId}
+            });
             if (!rule) {
-                const ruleCopy = await Reglaments.findOne({
+                rule = await Reglaments.findOne({
                     where: {
-                        topicId: topicId,
-                        priority: priority,
+                        topicId,
+                        priority,
                         companyId: null
                     },
                 });
-                if (!ruleCopy) {
-                    return res.status(404).send({ message: "Обратитесь к поставщику услуг, по регламентам" })
-                }
-                // console.log('rule2', ruleCopy);
-                if (ruleCopy) {
-                    deadline = ruleCopy.dataValues.deadline;
-                    departmentId = ruleCopy.dataValues.departmentId;
-                    const orgStructure = await orgStructureFunc(departmentId);
-                    // console.log('orgStructure', orgStructure.id);
-                    if(orgStructure) {
-                        const employee = await userFunc(orgStructure.id);
-                        employeeId = employee.id;
-                    }
-                }
             }
+            if (!rule) return res.status(404).send({message: "Обратитесь к поставщику услуг, по регламентам"})
+            const deadline = rule.deadline;
+            const departmentId = rule.departmentId;
+            const orgStructure = await OrgStructure.findOne({
+                where: {
+                    departmentId,
+                    isMain: true,
+                },
+            });
+            const employee = await User.findOne({
+                where: {
+                    orgStructureId: orgStructure.id
+                },
+            })
             Request.create({
-                clientId: clientId ? clientId : req.user.id,
+                clientId,
                 topicId,
                 priority,
                 status,
@@ -96,7 +70,7 @@ module.exports = {
                 description,
                 deadline,
                 departmentId,
-                employeeId
+                employeeId: employee && employee.id
             }).then(newRequest => {
                 // console.log('newRequest', newRequest)
                 res.status(201).send(newRequest)
@@ -104,20 +78,35 @@ module.exports = {
                 res.status(400).send(errors)
             });
         } catch (errors) {
+            console.log(errors, "ошибка")
             res.status(500).send(errors);
         }
     },
     async getById(req, res) {
         try {
-            const { id } = req.params
+            const {id} = req.params
             const request = await Request.findOne({
-                where: { id },
+                where: {id},
                 include: ["topic", "department", "clientRequest"],
             });
             // console.log(requests);
 
             if (!request) return res.sendStatus(404)
             res.send(request)
+        } catch (errors) {
+            res.status(500).send(errors);
+        }
+    },
+    async getRequestHistory(req, res) {
+        try {
+            const {id: requestId} = req.params
+            const histories = await RequestHistory.findAll({
+                where: {
+                    requestId
+                }
+            })
+            if (!histories.length) return res.sendStatus(404)
+            res.send(histories)
         } catch (errors) {
             res.status(500).send(errors);
         }
@@ -130,11 +119,13 @@ module.exports = {
                 status,
                 deadline,
                 departmentId,
-                hourWork
+                hourWork,
+                comment,
+                employeeId,
             } = req.body;
-            const { id } = req.params
+            const {id} = req.params
             const request = await Request.findOne({
-                where: { id },
+                where: {id},
             })
             if (!request) return res.sendStatus(404)
             await request.update({
@@ -143,7 +134,8 @@ module.exports = {
                 status,
                 deadline,
                 departmentId,
-                hourWork
+                hourWork,
+                employeeId
             })
             res.send(request)
         } catch (e) {
@@ -173,18 +165,18 @@ module.exports = {
             requests = await Request.findAll({
                 include: [{
                     model: User,
-                    as: 'clientRequest',
-                    attributes: ['firstName', 'lastName', 'companyId'],
-                }, 'department', 'topic', 'employeeRequest'],
+                    as: "clientRequest",
+                    attributes: ["firstName", "lastName", "companyId"],
+                }, "department", "topic", "employeeRequest"],
             })
-            if(req.user.roleId === 2) {//надо изменить на client
+            if (req.user.roleId === 2) {//надо изменить на client
                 requests = await Request.findAll({
-                    where: { clientId: req.user.id },
+                    where: {clientId: req.user.id},
                     include: [{
                         model: User,
-                        as: 'clientRequest',
-                        attributes: ['firstName', 'lastName', 'companyId'],
-                    }, 'department', 'topic', 'employeeRequest'],
+                        as: "clientRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, "department", "topic", "employeeRequest"],
                 })
             }
             if (!requests.length) return res.sendStatus(404)

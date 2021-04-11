@@ -1,4 +1,5 @@
 require("dotenv").config()
+// "127.0.0.1"
 module.exports = {
     "development": {
         "username": process.env.MYSQL_USER || "esdp-user",

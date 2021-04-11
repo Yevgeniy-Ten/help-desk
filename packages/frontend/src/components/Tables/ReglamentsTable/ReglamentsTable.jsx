@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Form, Popconfirm, Space, Table, Typography } from "antd";
+import { Button, Form, Popconfirm, Space, Table, Typography, Tag } from "antd";
 import {
     clearEditalbleElement,
     fetchReglaments, fetchSettings,
@@ -46,25 +46,44 @@ const ReglamentsTable = () => {
             editable: true
         },
         {
-            title: "Тематика",
-            dataIndex: "topic",
-            key: "topic",
-            render: topic => topic ? topic.title : "null"
-        },
-        {
-            title: "Ответсвенный отдел",
-            dataIndex: "department",
-            key: "department",
-            render: department => department ? department.title : "null"
-        },
-        {
             title: "Компания",
             dataIndex: "copmany",
             key: "copmany",
             render: copmany => copmany ? copmany.title : "null"
         },
         {
-            title: "Срок исполнения",
+            title: "Тематика",
+            dataIndex: "topic",
+            key: "topic",
+            render: topic => topic ? topic.title : "null"
+        },
+        {
+            title: "Приоритет",
+            dataIndex: "priority",
+            key: "priority",
+            render: (priority) => {
+                let color = "green"
+                if (priority === "Срочно") {
+                    color = "gold"
+                } else if (priority === "Средний") {
+                    color = "cyan"
+                } else if (priority === "Критично") {
+                    color = "red"
+                }
+                return <Tag color={color}>
+                    {priority.toUpperCase()}
+                </Tag>
+            }
+        },
+        {
+            title: "Ответственный отдел",
+            dataIndex: "department",
+            key: "department",
+            render: department => department ? department.title : "null"
+        },
+        
+        {
+            title: "Срок исполнения (часов)",
             dataIndex: "deadline",
             key: "deadline",
             editable: true

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     class Company extends Model {
         static associate({ Reglaments, User }) {
             this.hasMany(Reglaments, {
-                foreignKey: "copmanyId",
+                foreignKey: "companyId",
                 as: "copmanyRules"
             });
             // имеет много юзерув, связывается через userId

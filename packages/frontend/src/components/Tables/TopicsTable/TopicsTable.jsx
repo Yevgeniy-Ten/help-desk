@@ -81,7 +81,7 @@ const TopicsTable = () => {
                                 cell: EditableCell,
                             },
                         }}
-                        title={() => <h4>Должности</h4>}
+                        title={() => <h4>Тематики</h4>}
                         bordered
                         dataSource={topics}
                         columns={mergedColumns}

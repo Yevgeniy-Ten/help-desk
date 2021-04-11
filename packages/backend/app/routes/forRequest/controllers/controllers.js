@@ -28,8 +28,7 @@ module.exports = {
                 title,
                 description,
             } = req.body;
-            console.log(req.body);
-            let copmanyId = null;
+            let companyId = null;
             let employeeId = null;
             //сотрудник создал заявку от имени клиента
             if (clientId) {
@@ -38,19 +37,19 @@ module.exports = {
                         id: clientId
                     },
                 });
-                copmanyId = client.dataValues.companyId;
+                companyId = client.dataValues.companyId;
             }
             //клиент или сотрудник создал заявку от своего имени
             if (!clientId) {
                 if (req.user.dataValues.companyId) {
-                    copmanyId = req.user.dataValues.companyId;
+                    companyId = req.user.dataValues.companyId;
                 }
             }
             const rule = await Reglaments.findOne({
                 where: {
                     topicId: topicId,
                     priority: priority,
-                    copmanyId: copmanyId
+                    companyId: companyId
                 },
             });
             let deadline = null;
@@ -60,15 +59,17 @@ module.exports = {
                 deadline = rule.dataValues.deadline;
                 departmentId = rule.dataValues.departmentId;
                 const orgStructure = await orgStructureFunc(departmentId);
-                const employee = await userFunc(orgStructure.id);
-                employeeId = employee.id;
+                if(orgStructure) {
+                    const employee = await userFunc(orgStructure.id);
+                    employeeId = employee.id;
+                }
             }
             if (!rule) {
                 const ruleCopy = await Reglaments.findOne({
                     where: {
                         topicId: topicId,
                         priority: priority,
-                        copmanyId: null
+                        companyId: null
                     },
                 });
                 if (!ruleCopy) {
@@ -80,9 +81,10 @@ module.exports = {
                     departmentId = ruleCopy.dataValues.departmentId;
                     const orgStructure = await orgStructureFunc(departmentId);
                     // console.log('orgStructure', orgStructure.id);
-                    const employee = await userFunc(orgStructure.id);
-                    // console.log('employee', employee.id);
-                    employeeId = employee.id;
+                    if(orgStructure) {
+                        const employee = await userFunc(orgStructure.id);
+                        employeeId = employee.id;
+                    }
                 }
             }
             Request.create({
@@ -185,7 +187,6 @@ module.exports = {
                     }, 'department', 'topic', 'employeeRequest'],
                 })
             }
-            
             if (!requests.length) return res.sendStatus(404)
             res.send(requests)
         } catch (errors) {

@@ -3,7 +3,6 @@ import {Button, Space, Table, Tag} from "antd";
 import {NavLink} from "react-router-dom";
 
 const AdminAppealsTable = ({appeals}) => {
-    console.log(appeals)
     const appealColumns = [
         {
             title: "Дата создания",
@@ -23,38 +22,21 @@ const AdminAppealsTable = ({appeals}) => {
             render: (creator) => `${creator.firstName} ${creator.lastName}`
         },
         {
-            title: "Ответствейнный сотрудник",
-            dataIndex: "employeeRequest",
-            key: "employeeRequest",
-            render: (employeeRequest) => employeeRequest ? `${employeeRequest.firstName} ${employeeRequest.lastName}` : null
-        },
-        {
             title: "Тематика",
             dataIndex: "topic",
             key: "topic",
             render: topic => topic.title
         },
         {
-            title: "Ответственный отдел",
-            dataIndex: "department",
-            key: "department",
-            render: department => department.title
-        },
-        {
-            title: "Статус",
-            dataIndex: "status",
-            key: "status",
-        },
-        {
             title: "Приоритет",
             dataIndex: "priority",
             key: "priority",
             render: (priority) => {
-                let color = "cyan"
+                let color = "green"
                 if (priority === "Срочно") {
-                    color = "volcano"
-                } else if (priority === "Средний") {
                     color = "gold"
+                } else if (priority === "Средний") {
+                    color = "cyan"
                 } else if (priority === "Критично") {
                     color = "red"
                 }
@@ -64,9 +46,31 @@ const AdminAppealsTable = ({appeals}) => {
             }
         },
         {
-            title: "Затрачено",
+            title: "Статус",
+            dataIndex: "status",
+            key: "status",
+        },
+        {
+            title: "Ответственный отдел",
+            dataIndex: "department",
+            key: "department",
+            render: department => department.title
+        },
+        {
+            title: "Ответствейнный сотрудник",
+            dataIndex: "employeeRequest",
+            key: "employeeRequest",
+            render: (employeeRequest) => employeeRequest ? `${employeeRequest.firstName} ${employeeRequest.lastName}` : null
+        },
+        {
+            title: "Срок исполнения (часов)",
+            dataIndex: "deadline",
+            key: "deadline",
+        },
+        {
+            title: "Затрачено (часов)",
             dataIndex: "hourWork",
-            render: (hourWork) => `${hourWork} часов`
+            key: "hourWork",
         },
         {
             title: "Действия",

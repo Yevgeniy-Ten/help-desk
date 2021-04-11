@@ -79,6 +79,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         roleId: {
             type: DataTypes.INTEGER,
+            defaultValue: 2 //client
         },
         isAuthorized: {
             type: DataTypes.BOOLEAN,

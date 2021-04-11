@@ -29,7 +29,7 @@ const ReglamentFields = ({departments}) => {
                 rules={[
                     {
                         required: true,
-                        message: "Заголовок обязателен!"
+                        message: "Срок исполнения обязателен!"
                     }]}>
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>
@@ -39,7 +39,7 @@ const ReglamentFields = ({departments}) => {
                 rules={[
                     {
                         required: true,
-                        message: "Заголовок обязателен!"
+                        message: "Срок исполнения обязателен!"
                     }]}>
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>
@@ -49,7 +49,7 @@ const ReglamentFields = ({departments}) => {
                 rules={[
                     {
                         required: true,
-                        message: "Заголовок обязателен!"
+                        message: "Срок исполнения обязателен!"
                     }]}>
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>
@@ -59,7 +59,7 @@ const ReglamentFields = ({departments}) => {
                 rules={[
                     {
                         required: true,
-                        message: "Заголовок обязателен!"
+                        message: "Срок исполнения обязателен!"
                     }]}>
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>

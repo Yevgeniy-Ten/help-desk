@@ -4,7 +4,7 @@ import {Button, Form, Input, Select} from "antd";
 import {prioritets} from "../../constants"
 const {Option} = Select;
 
-const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin,isLoaded}) => {
+const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, user, users, isLoaded}) => {
     const [form] = Form.useForm();
     return (
         <Form form={form}
@@ -27,7 +27,9 @@ const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, isAdmin,isLoa
                     })}
                 </Select>
             </Form.Item>
-            {/*{isAdmin && <AppealAdminFields/>}*/}
+            {user && user.role && user.role.name==="admin" &&
+                <AppealAdminFields users={users}/>
+            }
             <Form.Item
                 name={"title"}
                 label="Заголовок обращения"

@@ -56,11 +56,11 @@ export const fetchUserForUpdate = (id) => {
         }
     }
 }
-export const fetchAllUsers = () => {
+export const fetchAllUsers = (departmentId) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(getAllUsersPending())
-            const response = await axios.get("/users")
+            const response = await axios.get(`/users`)
             dispatch(getAllUsersSuccess(response.data))
         } catch (e) {
             dispatch(getAllUsersError())

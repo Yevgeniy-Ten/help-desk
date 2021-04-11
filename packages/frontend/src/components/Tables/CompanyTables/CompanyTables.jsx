@@ -48,12 +48,12 @@ const CompanyTables = () => {
             key: "title",
             editable: true
         },
-        {
-            title: "Сотрудников",
-            dataIndex: "employees",
-            key: "employees",
-            render: (employess) => employess ? employess : 0
-        },
+        // {
+        //     title: "Сотрудников",
+        //     dataIndex: "employees",
+        //     key: "employees",
+        //     render: (employess) => employess ? employess : 0
+        // },
         {
             title: "Действия",
             key: "actions",

@@ -1,4 +1,4 @@
-const { Department, User } = require("../../../../models")
+const { Department } = require("../../../../models")
 // 
 const DepartmentController = {
     async getAllDepartment(req, res) {
@@ -14,9 +14,9 @@ const DepartmentController = {
             //     if (user.role.name === "client") return res.status(403).send({ message: "Не являетеся сотрудником компании." });
             // }
 
-            const department = await Department.findAll()
-            if (!department.length) return res.sendStatus(404)
-            res.send(department)
+            const departments = await Department.findAll()
+            if (!departments.length) return res.sendStatus(404)
+            res.send(departments)
         } catch (e) {
             res.status(500).send(e);
         }

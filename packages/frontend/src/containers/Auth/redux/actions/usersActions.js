@@ -21,13 +21,9 @@ export const clearUserState = () => ({type: CLEAR_USER_STATE});
 export const getUser = () => {
     return async (dispatch, _, axios) => {
         try {
-            // loader
-            // dispatch(getUserPending())
             const response = await axios.get("/users/current");
             dispatch(getUserSuccess(response.data));
         } catch (e) {
-            // dispatch(getUserError(e.response.data))
-            // dispatch(globalError())
         }
     };
 };

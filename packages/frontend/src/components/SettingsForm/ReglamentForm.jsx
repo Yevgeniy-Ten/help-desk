@@ -20,7 +20,7 @@ const ReglamentForm = () => {
         dispatch(fetchSettings("companies"));
         dispatch(fetchSettings("departments"));
     }, [dispatch])
-    const onCreateReglament = (reglament) => dispatch(fetchSettingCreate("rules", reglament))
+    const onCreateReglament = (reglament) => dispatch(fetchSettingCreate("reglaments", reglament))
     return (
         <Form form={form}
               name="add-appeal"

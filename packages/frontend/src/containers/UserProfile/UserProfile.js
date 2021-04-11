@@ -10,9 +10,9 @@ const UserProfile = () => {
         <div className={styles.card}>
             <div className={styles.card__info}>
                 <h2>{user.firstName} {user.lastName}</h2>
-                <p>Сотрудник компании: Beeline</p>
+                <p>Сотрудник компании: {user && user.company && user.company.title}</p>
                 <p>{user.isAuthorized ? "Потвержден администратором" : "Выполняется проверка вашего профиля"}</p>
-                <p>Сотрудник отдела: Бухгалетрия</p>
+                <p>Сотрудник отдела: </p>
             </div>
             <div>
                 <Avatar size={128}

@@ -7,7 +7,7 @@ const OrgStructureController = {
             orgStructure = await OrgStructure.findAll({
                 include: ["position", "department"],
             })
-            if (req.query) {
+            if (req.query && req.query.departmentId) {
                 const { departmentId } = req.query;
                 orgStructure = await OrgStructure.findAll({
                     where: { departmentId: departmentId },

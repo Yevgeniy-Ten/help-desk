@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     class Reglaments extends Model {
         static associate({ Company, Topic, Department }) {
             this.belongsTo(Company, {
-                foreignKey: "copmanyId",
-                as: "copmany"
+                foreignKey: "companyId",
+                as: "company"
             })
             // принадлежит к отделу связывается через topicId
             this.belongsTo(Department, {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Reglaments.init({
-        copmanyId: {
+        companyId: {
             type: DataTypes.INTEGER,
             defaultValue: null,
         },

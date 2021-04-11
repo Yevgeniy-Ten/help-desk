@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
-import {Row, Col, Breadcrumb, Spin} from "antd"
+import {Row, Col, Breadcrumb, Button} from "antd"
 import {fetchAppealFilters, fetchAppeals} from "../redux/action/appealsAction";
 import {getAppealsState} from "../redux/getters/getters";
 import AppealsFilter from "../../../components/AppealsFilter/AppealsFilter";
@@ -8,6 +8,7 @@ import AppealsTable from "../../../components/Tables/AppealsTable/AppealsTable";
 import AdminAppealsTable from "../../../components/Tables/AdminAppealsTable/AdminAppealsTable";
 import {getUser} from "../../Auth/redux/getters/getters";
 import Spinner from "../../../components/Spinner/Spinner";
+import { NavLink } from "react-router-dom";
 
 const AllAppeals = () => {
     const dispatch = useDispatch();
@@ -27,6 +28,11 @@ const AllAppeals = () => {
     return (
         <Row style={{padding: "10px 20px"}}>
             <Col span={24} className={"mb-sm"}>
+                <Button key="2">
+                    <NavLink to="/appeals/add">Новая заявка</NavLink>
+                </Button>
+            </Col>
+            <Col span={24} className={"mb-sm"}>
                 <Breadcrumb>
                     <Breadcrumb.Item>Заявки</Breadcrumb.Item>
                 </Breadcrumb>
@@ -34,7 +40,7 @@ const AllAppeals = () => {
             <Col span={17}>
                 {loading ? <Spinner/> : (
                     <>
-                        {isAdmin ? <AdminAppealsTable appeals={appeals}/>
+                        {(user && user.role && user.role.name==="admin") ? <AdminAppealsTable appeals={appeals}/>
                         : <AppealsTable appeals={appeals}/>}
                     </>
                     )

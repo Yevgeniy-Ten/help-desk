@@ -1,50 +1,18 @@
 import React from "react";
 import {Form, Select} from "antd";
-import {prioritets} from "../../constants"
+import {statuses} from "../../constants"
 const {Option} = Select
-const AppealAdminFields = () => {
-    const users = [{
-        id: 1,
-        name: "Евгений"
-    }]
-    
-    const status = [{
-        name: "Открытый",
-        value: "isOpen"
-    },
-        {
-            name: "Выполняется",
-            value: "isWorked"
-        }, {
-
-            name: "Завершено",
-            value: "isFinished"
-        }]
+const AppealAdminFields = ({users}) => {
     return (
         <>
             <Form.Item
-                name={"topicId"}
-                label="От лица клиента"
-                rules={[{required: true}]}>
+                name={"clientId"}
+                label="От лица клиента">
                 <Select placeholder="От кого:" allowClear>
-                    {users.map((user) => {
+                    {users && users.map((user) => {
                         return (
                             <Option key={user.id} value={user.id}>
-                                {user.name}
-                            </Option>
-                        );
-                    })}
-                </Select>
-            </Form.Item>
-            <Form.Item
-                name={"priority"}
-                label="Приоритет"
-                rules={[{required: true}]}>
-                <Select placeholder="Приоритет" allowClear>
-                    {prioritets.map((prioritet) => {
-                        return (
-                            <Option key={prioritet.value} value={prioritet.value}>
-                                {prioritet.name}
+                                {user.firstName} {user.lastName}
                             </Option>
                         );
                     })}
@@ -55,7 +23,7 @@ const AppealAdminFields = () => {
                 label="Статус"
                 rules={[{required: true}]}>
                 <Select placeholder="Статус" allowClear>
-                    {status.map((status) => {
+                    {statuses.map((status) => {
                         return (
                             <Option key={status.value} value={status.value}>
                                 {status.name}

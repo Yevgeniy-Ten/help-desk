@@ -10,9 +10,13 @@ const UsersController = {
     },
     async getCurrentUser(req, res) {
         try {
-            // console.log(req.user);
             if (!req.user.isAuthorized) return res.status(403).send({ message: "Вы не потверждены администратором." });
-            res.send(req.user)
+            const user = await User.findOne({
+                where: { id: req.user.id },
+                include: ["company", "role", "orgStructure"],
+            });
+            // res.send(req.user)
+            res.send(user)
         }
         catch (e) {
             res.status(401).send(e);
@@ -63,16 +67,15 @@ const UsersController = {
             departmentId,
             orgstructureId
         } = req.body;
-        console.log(req.body);
         const userId = req.params.id;
         const user = await User.findOne({
             where: { id: userId },
             include: ["company", "role"],
         });
         if (!user) return res.sendStatus(404);
-        console.log(user)
         if (user.role.name === "client") {
             await user.update({
+                companyId,
                 firstName,
                 lastName,
                 phoneNumber,

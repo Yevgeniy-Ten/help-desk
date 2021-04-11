@@ -4,25 +4,46 @@ const ReglamentsController = {
     async createRules(req, res) {
         try {
             const {
-                copmanyId,
+                companyId,
                 topicId,
                 departmentId,
                 title,
-                deadline,
-                priority
+                priority,
+                standart, middle, high, incident
             } = req.body
-            Reglaments.create({
-                copmanyId,
+            await Reglaments.create({
+                companyId,
                 topicId,
                 departmentId,
                 title,
-                deadline,
+                deadline: standart,
                 priority
-            }).then(newRules => {
-                res.status(201).send(newRules)
-            }).catch(errors => {
-                res.status(400).send(errors)
             })
+            await Reglaments.create({
+                companyId,
+                topicId,
+                departmentId,
+                title,
+                deadline: middle,
+                priority
+            })
+            await Reglaments.create({
+                companyId,
+                topicId,
+                departmentId,
+                title,
+                deadline: high,
+                priority
+            })
+            await Reglaments.create({
+                companyId,
+                topicId,
+                departmentId,
+                title,
+                deadline: incident,
+                priority
+            })
+            res.sendStatus(201)
         } catch (errors) {
             res.status(500).send(errors)
         }
@@ -45,9 +66,8 @@ const ReglamentsController = {
     async getAll(req, res) {
         try {
             const reglaments = await Reglaments.findAll({
-                include: ["topic", "department", "copmany"],
+                include: ["topic", "department", "company"],
             })
-            console.log(reglaments)
             if (!reglaments.length) return res.sendStatus(404)
             res.send(reglaments)
         } catch (e) {

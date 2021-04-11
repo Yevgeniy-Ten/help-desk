@@ -10,7 +10,6 @@ export const instance = axios.create({
   baseURL: apiURL,
   withCredentials: "include",
 });
-
 export const prioritets = [
   {
     name: "Критично",
@@ -27,5 +26,19 @@ export const prioritets = [
   {
     name: "Срочно",
     value: "Срочно",
+  },
+];
+export const statuses = [
+  {
+    name: "Открыто",
+    value: "Открыто",
+  },
+  {
+    name: "Выполняется",
+    value: "Выполняется",
+  },
+  {
+    name: "Выполнено",
+    value: "Выполнено",
   },
 ];

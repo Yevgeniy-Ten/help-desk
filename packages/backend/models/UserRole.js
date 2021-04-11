@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.ENUM("admin", "client"),
             // type: DataTypes.ENUM("admin", "employee", "client", "moderator", "user"),
-            default: "user",
+            // default: "user",
             allowNull: false
         },
         // accessAppeals: {

@@ -56,11 +56,15 @@ export const fetchUserForUpdate = (id) => {
         }
     }
 }
-export const fetchAllUsers = (departmentId) => {
+export const fetchAllUsers = (queryParams) => {
     return async (dispatch, _, axios) => {
         try {
             dispatch(getAllUsersPending())
-            const response = await axios.get(`/users`)
+            const response = await axios.get(`/users`, {
+                params: {
+                    ...queryParams
+                }
+            })
             dispatch(getAllUsersSuccess(response.data))
         } catch (e) {
             dispatch(getAllUsersError())

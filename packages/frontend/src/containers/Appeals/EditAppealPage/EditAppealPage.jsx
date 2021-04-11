@@ -22,14 +22,14 @@ const EditAppealPage = () => {
         dispatch(fetchSettings("departments"))
         // dispatch(fetchAllUsers())
         if(appeal && appeal.departmentId) {
-            dispatch(fetchAllUsers(appeal.departmentId))
+            dispatch(fetchAllUsers({ departmentId: appeal.departmentId}))
         }
         dispatch(fetchAppeal(appealId))
     }, [dispatch]);
     const onChangeFields = (value) => {
         if (value.departmentId) {
             if(appeal && appeal.departmentId) {
-                dispatch(fetchAllUsers(appeal.departmentId))
+                dispatch(fetchAllUsers({ departmentId: appeal.departmentId}))
             }
         }
     }

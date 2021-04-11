@@ -41,7 +41,6 @@ export const fetchSettings = (settingType, queryParams) => {
             } else if (settingType === "reglaments") {
                 dispatch(settingsRequestReglaments(response.data))
             } else if (settingType === "orgstructure") {
-
                 dispatch(settingRequestOrgStructure(response.data))
             } else if (settingType === "position") {
                 dispatch(settingsRequestPositions(response.data))

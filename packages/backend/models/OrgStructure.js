@@ -5,7 +5,7 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
     class OrgStructure extends Model {
-        static associate({ Position, Department, User }) {
+        static associate({ Position, Department, User}) {
             // принадлежит сущности должность
             this.belongsTo(Position, {
                 foreignKey: "positionId",
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             });
             this.hasMany(User, {
                 foreignKey: "orgStructureId",
-                as: "orgStructureId"
+                as: "users"
             })
         }
     };
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         isMain: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
-        },
+        }
     }, {
         sequelize,
         timestamps: false,

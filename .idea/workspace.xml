@@ -3,8 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/AllUsers/redux/usersAction/usersActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/OrgStructure.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/OrgStructure.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Reglaments.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Reglaments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Request.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210312132156-create-fake-user-roles.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210312132156-create-fake-user-roles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +46,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -45,7 +59,7 @@
       <recent name="$PROJECT_DIR$/packages" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.download">
+  <component name="RunManager" selected="npm.start">
     <configuration name="diff" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -104,6 +118,8 @@
       <workItem from="1617731766571" duration="1620000" />
       <workItem from="1617800759636" duration="502000" />
       <workItem from="1617851637839" duration="773000" />
+      <workItem from="1618120355289" duration="6270000" />
+      <workItem from="1618127050741" duration="5702000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>
@@ -141,5 +157,9 @@
     <MESSAGE value="#12 Добавил редактирование для всех справочников" />
     <MESSAGE value="#12 Добавил игнорирование idea" />
     <option name="LAST_COMMIT_MESSAGE" value="#12 Добавил игнорирование idea" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

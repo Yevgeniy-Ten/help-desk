@@ -5,7 +5,7 @@
     "lerna": "^4.0.0"
   },
   "scripts": {
-    "start": "lerna run start",
+    "start": "lerna run start --stream",
     "diff": "lerna diff",
     "download": "lerna bootstrap "
   }

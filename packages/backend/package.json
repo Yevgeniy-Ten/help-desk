@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "nodemon server.js"
+    "start:prod": "node server.js",
+    "start": "nodemon server.js",
+    "fixtures": "sequelize db:seed:all"
   },
   "author": "yevgeniy ten <foodila@hotmail.com> (http://localhost/)",
   "license": "ISC",

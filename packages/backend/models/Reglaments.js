@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Reglaments.init({
-        copmanyId: {
+        companyId: {
             type: DataTypes.INTEGER,
             defaultValue: null,
         },
@@ -42,10 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         deadline: {
             type: DataTypes.INTEGER,
-            // type: DataTypes.DATE,
-            // defaultValue: Date.now(),
-            defaultValue: 0,
-            // allowNull: false
+            allowNull: false
         },
         departmentId: {
             type: DataTypes.INTEGER,

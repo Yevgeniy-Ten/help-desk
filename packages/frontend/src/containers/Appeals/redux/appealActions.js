@@ -51,13 +51,19 @@ export const fetchCreateAppeal = (appealData) => {
     }
 };
 
-export const fetchPutAppeal = (appealData) => {
+export const fetchPutAppeal = (id, appealData) => {
     return async (dispatch, _, axios) => {
         try {
+            message.info({
+                content:"Идет проверка данных!"
+            })
             dispatch(appealRequestStarted());
-            await axios.put(`/requests/${appealData.id}`, appealData);
+            await axios.put(`/requests/${id}`, appealData);
             dispatch(appealUpdateSuccess())
             dispatch(push("/appeals"));
+            message.success({
+                content:"Круто!"
+            })
         } catch (e) {
             if (e.response && e.response.data) {
                 dispatch(appealRequestError(e.response.data));

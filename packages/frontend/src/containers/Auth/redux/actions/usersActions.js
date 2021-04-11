@@ -24,6 +24,7 @@ export const getUser = () => {
             const response = await axios.get("/users/current");
             dispatch(getUserSuccess(response.data));
         } catch (e) {
+            console.log(e)
         }
     };
 };

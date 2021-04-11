@@ -25,6 +25,7 @@ const AllAppeals = () => {
     const filterChangeHandler = (e) => {
         // обработчик на изменение назначений
     }
+    console.log(user)
     return (
         <Row style={{padding: "10px 20px"}}>
             <Col span={24} className={"mb-sm"}>

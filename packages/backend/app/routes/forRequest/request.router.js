@@ -3,8 +3,8 @@ const {create, edit, getAll, getById, getRequestHistory} = require("./controller
 const auth = require("../../middlewares/auth")
 const appealRouter = express.Router();
 appealRouter.get("/", auth, getAll);
+appealRouter.get("/history",  getRequestHistory);
 appealRouter.get("/:id", auth, getById);
-appealRouter.get("/history/:id", auth, getRequestHistory);
 appealRouter.post("/", auth, create);
 appealRouter.put("/:id", auth, edit);
 

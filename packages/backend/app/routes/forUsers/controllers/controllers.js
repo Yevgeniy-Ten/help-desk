@@ -28,7 +28,6 @@ const UsersController = {
                 where: { id: req.user.id },
                 include: ["company", "role", "orgStructure"],
             });
-            // res.send(req.user)
             res.send(user)
         }
         catch (e) {
@@ -63,9 +62,9 @@ const UsersController = {
             const userId = req.user.id;
             const user = await User.findOne({
                 where: {id: userId},
+                include: ["company", "role", "orgStructure"],
             });
-            if (!user.isAuthorized) return res.status(403).send({message: "Вы не потверждены администратором."});
-            res.send(req.user);
+            res.send(user);
         } catch (e) {
             res.status(401).send(e);
         }

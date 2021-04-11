@@ -4,6 +4,18 @@
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/passport.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/passport.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/CreateForms/EditAppealForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/CreateForms/EditAppealForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AllAppeals/AllAppeals.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AllAppeals/AllAppeals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/EditAppealPage/EditAppealPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/EditAppealPage/EditAppealPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Auth/redux/actions/usersActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +118,8 @@
       <workItem from="1617851637839" duration="773000" />
       <workItem from="1618120355289" duration="6270000" />
       <workItem from="1618127050741" duration="6820000" />
+      <workItem from="1618137511028" duration="2882000" />
+      <workItem from="1618140458918" duration="5073000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

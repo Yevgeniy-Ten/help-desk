@@ -1,21 +1,4 @@
 const {Request, Reglaments, Department, OrgStructure, User, RequestHistory} = require("../../../../models");
-const orgStructureFunc = async (copyID) => {
-    const orgStructure = await OrgStructure.findOne({
-        where: {
-            departmentId: copyID,
-            isMain: true,
-        },
-    });
-    return orgStructure;
-}
-const userFunc = async (copyID) => {
-    const user = await User.findOne({
-        where: {
-            orgStructureId: copyID,
-        },
-    });
-    return user;
-}
 
 module.exports = {
     async create(req, res) {
@@ -56,13 +39,16 @@ module.exports = {
                     isMain: true,
                 },
             });
-            const employee = await User.findOne({
-                where: {
-                    orgStructureId: orgStructure.id
-                },
-            })
+            let employee = null
+            if (orgStructure) {
+                employee = await User.findOne({
+                    where: {
+                        orgStructureId: orgStructure.id
+                    },
+                })
+            }
             Request.create({
-                clientId,
+                clientId: client.id,
                 topicId,
                 priority,
                 status,
@@ -71,14 +57,17 @@ module.exports = {
                 deadline,
                 departmentId,
                 employeeId: employee && employee.id
-            }).then(newRequest => {
-                // console.log('newRequest', newRequest)
+            }).then(async newRequest => {
+                delete newRequest.dataValues.id
+                await RequestHistory.create({
+                    ...newRequest.dataValues,
+                    comment: "Заявка создана!"
+                })
                 res.status(201).send(newRequest)
             }).catch(errors => {
                 res.status(400).send(errors)
             });
         } catch (errors) {
-            console.log(errors, "ошибка")
             res.status(500).send(errors);
         }
     },
@@ -89,8 +78,6 @@ module.exports = {
                 where: {id},
                 include: ["topic", "department", "clientRequest"],
             });
-            // console.log(requests);
-
             if (!request) return res.sendStatus(404)
             res.send(request)
         } catch (errors) {
@@ -99,12 +86,18 @@ module.exports = {
     },
     async getRequestHistory(req, res) {
         try {
-            const {id: requestId} = req.params
-            const histories = await RequestHistory.findAll({
-                where: {
-                    requestId
-                }
-            })
+            const {id: requestId} = req.query
+            let histories = null
+
+            if (requestId) {
+                histories = await RequestHistory.findAll({
+                    where: {
+                        requestId
+                    }
+                })
+            } else {
+                histories = await RequestHistory.findAll()
+            }
             if (!histories.length) return res.sendStatus(404)
             res.send(histories)
         } catch (errors) {
@@ -120,7 +113,7 @@ module.exports = {
                 deadline,
                 departmentId,
                 hourWork,
-                comment,
+                comment: employeeComment,
                 employeeId,
             } = req.body;
             const {id} = req.params
@@ -128,6 +121,7 @@ module.exports = {
                 where: {id},
             })
             if (!request) return res.sendStatus(404)
+            const prevRequest = {...request.dataValues}
             await request.update({
                 topicId,
                 priority,
@@ -137,39 +131,37 @@ module.exports = {
                 hourWork,
                 employeeId
             })
-            res.send(request)
+            const comment = Object.keys(request.dataValues).reduce((comment, key) => {
+                if (request.dataValues[key] !== prevRequest[key] && key !== "createdAt" && key !== "updatedAt") {
+                    comment += `${key} сменился c ${request.previous(key)} на ${request.getDataValue(key)} \n`
+                }
+                return comment
+            }, `${employeeComment ? employeeComment + "\n" : ""}`)
+            delete request.dataValues.id
+            await RequestHistory.create({
+                requestId: id,
+                comment,
+                ...request.dataValues
+            })
+            res.sendStatus(200)
         } catch (e) {
             res.status(401).send(e);
         }
     },
     async getAll(req, res) {
         try {
-            // let client_ID = null;
-            // let where_ID;
-            // const user = await User.findOne({
-            //     where: {
-            //         id: req.user.id
-            //     },
-            //     include: ["role", "department"],
-            // });
-            // console.log(user);
-            // if (user) {
-            //     if (user.role.dataValues.name === "client") {
-            //         where_ID = { where: { clientId: req.user.id }, }
-            //         // client_ID = req.user.id
-            //     } else {
-            //         where_ID = { where: { departmentId: user.department.dataValues.id }, }
-            //     }
-            // }
+            // queryParams=== filters!
             let requests = [];
-            requests = await Request.findAll({
-                include: [{
-                    model: User,
-                    as: "clientRequest",
-                    attributes: ["firstName", "lastName", "companyId"],
-                }, "department", "topic", "employeeRequest"],
-            })
-            if (req.user.roleId === 2) {//надо изменить на client
+
+            if (req.user.roleId !== 2) {
+                requests = await Request.findAll({
+                    include: [{
+                        model: User,
+                        as: "clientRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, "department", "topic", "employeeRequest"],
+                })
+            } else {
                 requests = await Request.findAll({
                     where: {clientId: req.user.id},
                     include: [{

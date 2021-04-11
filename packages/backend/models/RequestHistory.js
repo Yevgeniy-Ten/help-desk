@@ -16,7 +16,36 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        message: {
+        employeeId: {
+            type: DataTypes.INTEGER,
+            defaultValue: null,
+        },
+        departmentId: {
+            type: DataTypes.INTEGER,
+        },
+        priority: {
+            type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
+            defaultValue: "Стандартно",
+            allowNull: false
+        },
+        status: {
+            type: DataTypes.ENUM("Открыто", "Выполняется", "Выполнено"),
+            defaultValue: "Открыто",
+            allowNull: false
+        },
+        deadline: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        hourWork: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        topicId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        comment: {
             type: DataTypes.STRING,
             allowNull: false
         }

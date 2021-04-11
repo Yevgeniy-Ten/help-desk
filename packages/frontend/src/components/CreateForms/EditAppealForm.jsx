@@ -17,7 +17,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                 name={"topicId"}
                 label="Тематика обращения"
                 rules={[{required: true}]}
-                initialValue={appealFields && appealFields.topicId}
+                initialValue={appealFields.topicId}
                 >
                 <Select placeholder="Выберите тематику обращения" allowClear>
                     {topics.map((topic, index) => {
@@ -33,7 +33,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                 name={"priority"}
                 label="Приоритет"
                 rules={[{required: true}]}
-                initialValue={appealFields && appealFields.priority}
+                initialValue={appealFields.priority}
                 >
                 <Select placeholder="Приоритет" allowClear>
                     {prioritets.map((prioritet) => {
@@ -49,7 +49,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                 name={"status"}
                 label="Статус"
                 rules={[{required: true}]}
-                initialValue={appealFields && appealFields.status}
+                initialValue={appealFields.status}
                 >
                 <Select placeholder="Выберите cтатус обращения" allowClear>
                     {statuses.map((status) => {
@@ -64,14 +64,14 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
             <Form.Item
                 name={"title"}
                 label="Заголовок обращения"
-                initialValue={appealFields && appealFields.title}
+                initialValue={appealFields.title}
                 >
                 <Input disabled/>
             </Form.Item>
             <Form.Item
                 name={"departmentId"}
                 label="Отдел"
-                initialValue={appealFields && appealFields.department && appealFields.department.id}
+                initialValue={appealFields.department && appealFields.department.id}
                 >
                 <Select placeholder="Выберите отдел" allowClear>
                     {departments.map((department) => {
@@ -87,7 +87,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
             <Form.Item
                 name={"employeeId"}
                 label="Ответствейнный сотрудник"
-                initialValue={appealFields && appealFields.employeeId}
+                initialValue={appealFields.employeeId}
                 >
                 <Select placeholder="Выберите ответствейнного сотрудника" allowClear>
                     {employees && employees.map((employee) => {
@@ -108,7 +108,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                         required: true,
                         message: "Срок исполнения обязательна!"
                     }]}
-                initialValue={appealFields && appealFields.deadline}   
+                initialValue={appealFields.deadline}
                 >
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>
@@ -120,7 +120,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                         required: true,
                         message: "Трудозатраты обязательна!"
                     }]}
-                initialValue={appealFields && appealFields.hourWork}
+                initialValue={appealFields.hourWork}
                 >
                 <Input placeholder={"Количество затраченных часов"}/>
             </Form.Item>

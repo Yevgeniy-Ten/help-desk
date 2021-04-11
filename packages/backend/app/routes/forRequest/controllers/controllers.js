@@ -58,9 +58,15 @@ module.exports = {
                 departmentId,
                 employeeId: employee && employee.id
             }).then(async newRequest => {
-                delete newRequest.dataValues.id
                 await RequestHistory.create({
-                    ...newRequest.dataValues,
+                    requestId: newRequest.dataValues.id,
+                    topicId,
+                    priority,
+                    status,
+                    deadline: newRequest.dataValues.deadline,
+                    departmentId: newRequest.dataValues.departmentId,
+                    employeeId: newRequest.dataValues.departmentId,
+                    hourWork: newRequest.dataValues.hourWork,
                     comment: "Заявка создана!"
                 })
                 res.status(201).send(newRequest)

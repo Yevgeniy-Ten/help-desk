@@ -119,7 +119,9 @@ module.exports = {
                 status,
                 deadline,
                 departmentId,
-                hourWork
+                hourWork,
+                comment,
+                employeeId,
             } = req.body;
             const {id} = req.params
             const request = await Request.findOne({
@@ -132,7 +134,8 @@ module.exports = {
                 status,
                 deadline,
                 departmentId,
-                hourWork
+                hourWork,
+                employeeId
             })
             res.send(request)
         } catch (e) {

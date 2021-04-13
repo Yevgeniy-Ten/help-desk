@@ -4,10 +4,11 @@ import {getTopics, getDepartments} from "../../Settings/redux/settingGetters";
 import {useParams} from "react-router-dom";
 import EditAppealForm from "../../../components/CreateForms/EditAppealForm";
 import {fetchAppeal, fetchPutAppeal} from "../redux/appealActions";
-import {getAppealCurrent} from "../redux/appealGetters";
+import {getAppealCurrent, getAppealStateLoader} from "../redux/appealGetters";
 import {fetchSettings} from "../../Settings/redux/settingsActions";
 import {fetchAllUsers} from "../../AllUsers/redux/usersAction/usersActions";
 import {getUsersState} from "../../AllUsers/redux/usersGetters/usersGetters";
+import Spinner from "../../../components/Spinner/Spinner";
 
 const EditAppealPage = () => {
     const dispatch = useDispatch()
@@ -15,18 +16,18 @@ const EditAppealPage = () => {
     const departments = useSelector(getDepartments)
     const {users} = useSelector(getUsersState, shallowEqual)
     const appeal = useSelector(getAppealCurrent)
+    const loading = useSelector(getAppealStateLoader)    
     const {id: appealId} = useParams()
     useEffect(() => {
-        if (!appeal) {
+        // if (!appeal) {
             dispatch(fetchAppeal(appealId))
-        }
+        // }
         dispatch(fetchSettings("topics"));
         dispatch(fetchSettings("departments"))
         if (appeal && appeal.departmentId) {
-            console.log("get request department")
             dispatch(fetchAllUsers({departmentId: appeal.departmentId}))
         }
-    }, [dispatch, appeal, appealId]);
+    }, [dispatch, appealId]);
     const onChangeFields = (value) => {
         if (value.departmentId) {
             if (appeal && appeal.departmentId) {
@@ -39,13 +40,18 @@ const EditAppealPage = () => {
     }
     return (
         <>
-            {appeal ? <EditAppealForm
-                appealFields={appeal}
-                topics={topics}
-                departments={departments}
-                employees={users}
-                onChangeFields={onChangeFields}
-                onSaveAppeal={onSaveAppeal}/> : <p>Заявка не найдена</p>}
+            {loading ? <Spinner/> : 
+                <>
+                {appeal ? <EditAppealForm
+                            appealFields={appeal}
+                            topics={topics}
+                            departments={departments}
+                            employees={users}
+                            onChangeFields={onChangeFields}
+                            onSaveAppeal={onSaveAppeal}/> 
+                            : <p>Заявка не найдена</p>}
+                </>
+            }
         </>
     );
 };

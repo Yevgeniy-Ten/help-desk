@@ -11,6 +11,7 @@ import Users from "../containers/AllUsers/Users";
 import Settings from "../containers/Settings/Settings";
 import FAQ from "../containers/FAQ/FAQ";
 import EditUser from "../containers/AllUsers/EditUser";
+import Audit from "../containers/Audit/Audit";
 
 const Routes = () => {
     const user = useSelector(getUser)
@@ -19,6 +20,7 @@ const Routes = () => {
             <ProtectedRoute isAllowed={user} exact redirectTo={"/auth"} path="/" component={UserProfile}/>
             <ProtectedRoute isAllowed={user} redirectTo={"/auth"} path="/appeals" component={Appeals}/>
             <ProtectedRoute isAllowed={user} redirectTo={"/auth"} path="/requests/history" component={History}/>
+            <ProtectedRoute isAllowed={user} redirectTo={"/auth"} path="/requests/audit" component={Audit}/>
             <ProtectedRoute isAllowed={user} redirectTo={"/auth"} path="/users" component={Users}/>
             <ProtectedRoute isAllowed={user} redirectTo={"/auth"} path="/settings" component={Settings}/>
             <ProtectedRoute isAllowed={!user} redirectTo={"/appeals"} path="/auth" component={Auth}/>

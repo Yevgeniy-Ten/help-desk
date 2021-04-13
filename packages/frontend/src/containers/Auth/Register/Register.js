@@ -90,6 +90,10 @@ const Register = () => {
                 name={"companyId"}
                 label="Компания"
                 className={"mb-sm"}
+                rules={[{
+                    required: true,
+                    message: "Выберите компанию"
+                }]}
             >
                 <Select placeholder="Выберите компанию" allowClear>
                     {companies.map((company) => {

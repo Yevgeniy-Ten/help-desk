@@ -3,7 +3,6 @@ import {
     HISTORY_REQUEST_ERROR, 
     HISTORY_REQUEST_STARTED
 } from "./historyType";
-import {push} from "connected-react-router";
 
 const historyStarted = () => ({type: HISTORY_REQUEST_STARTED});
 const historyError = (errors) => ({type: HISTORY_REQUEST_ERROR, errors});
@@ -15,7 +14,6 @@ export const fetchHistory = () => {
         try {
             const response = await axios.get("/requests/history");
             dispatch(historyGetSuccess(response.data))
-            dispatch(push("/requests/history"))
         } catch (err) {
             dispatch(historyError(err));
         }

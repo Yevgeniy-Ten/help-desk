@@ -17,9 +17,9 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
     },
     {
       title: "Из отдела",
-      dataIndex: "departmentUser",
-      key: "departmentUser",
-      render: (department) => (department ? department.title : "Не выбрано"),
+      dataIndex: "orgStructure",
+      key: "orgStructure",
+      render: (orgStructure) => (orgStructure ? orgStructure.departmentId : "Не выбрано"),
     },
     {
       title: "Роль",

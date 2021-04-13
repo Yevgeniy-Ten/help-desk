@@ -17,7 +17,7 @@ const UsersController = {
         }
 
         const users = await User.findAll({
-            include: ["company", "role"],
+            include: ["company", "role", "orgStructure"],
         });
         res.json(users);
     },

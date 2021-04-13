@@ -1,7 +1,8 @@
 import React from "react";
 import AppealAdminFields from "./AppealAdminFields";
-import {Button, Form, Input, Select} from "antd";
+import {Button, Form, Input, Select, Upload} from "antd";
 import {prioritets} from "../../constants"
+import { UploadOutlined } from "@ant-design/icons";
 const {Option} = Select;
 
 const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, user, users, isLoaded}) => {
@@ -63,14 +64,13 @@ const CreateAppealForm = ({topics, onFieldsChange, onCreateAppeal, user, users, 
                     allowClear={true}
                 />
             </Form.Item>
-
-            {/*<Form.Item name={"upload"} >*/}
-            {/*    <FileInput*/}
-            {/*        name="files"*/}
-            {/*        onChange={onFilesChange}*/}
-            {/*        inputType={false}*/}
-            {/*    />*/}
-            {/*</Form.Item>*/}
+            <Form.Item>
+                <Upload>
+                    <Button>
+                        <UploadOutlined /> Click to Upload
+                    </Button>
+                </Upload>
+            </Form.Item>
             <Form.Item>
                 <Button disabled={isLoaded} type="primary" htmlType="submit" size={"middle"}>
                     Создать заявку

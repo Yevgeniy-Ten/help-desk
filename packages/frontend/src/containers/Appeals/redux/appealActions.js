@@ -62,7 +62,7 @@ export const fetchPutAppeal = (id, appealData) => {
             dispatch(appealUpdateSuccess())
             dispatch(push("/appeals"));
             message.success({
-                content:"Круто!"
+                content:"Изменения сохранены!"
             })
         } catch (e) {
             if (e.response && e.response.data) {

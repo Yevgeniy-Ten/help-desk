@@ -8,7 +8,7 @@ import DateFilter from "../UI/DateFilter/DateFilter";
 import AdminAppealsFilter from "./AdminAppealsFilter";
 
 
-const AppealsFilter = ({filterSubmitHandler, filterChangeHandler, isAdmin,loading}) => {
+const AppealsFilter = ({user, filterSubmitHandler, filterChangeHandler, isAdmin,loading}) => {
     const [form] = Form.useForm();
 
     return (
@@ -30,8 +30,7 @@ const AppealsFilter = ({filterSubmitHandler, filterChangeHandler, isAdmin,loadin
                 name={"date"}>
                 <DateFilter/>
             </Form.Item>
-            {isAdmin && <AdminAppealsFilter/>}
-
+            {(user && user.role && user.role.name==="admin") && <AdminAppealsFilter/>}
             <Form.Item>
                 <Button disabled={loading} type="primary" htmlType="submit" size={"large"}>
                     Потвердить

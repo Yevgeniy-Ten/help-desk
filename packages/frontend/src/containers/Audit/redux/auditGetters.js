@@ -1,0 +1,1 @@
+export const getAudit = (state) => state.audit

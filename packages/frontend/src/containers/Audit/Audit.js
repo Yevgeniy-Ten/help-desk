@@ -80,9 +80,9 @@ const Audit = () => {
                                         <Collapse>
                                             <Panel header="По приоритету" key="priority">
                                                 <Form.Item 
-                                                name={item.name + "priority-standard"} 
+                                                name={item.name + "priority-standart"} 
                                                 label="Стандартно" 
-                                                initialValue={item.requests.priority.standard}
+                                                initialValue={item.requests.priority.standart}
                                                 >
                                                     <Input disabled/>
                                                 </Form.Item>

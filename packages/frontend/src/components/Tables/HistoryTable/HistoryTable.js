@@ -49,9 +49,9 @@ const HistoryTable = ({history}) => {
         },
         {
             title: "Ответствейнный сотрудник",
-            dataIndex: "employeeRequest",
-            key: "employeeRequest",
-            render: (employeeRequest) => employeeRequest ? `${employeeRequest.firstName} ${employeeRequest.lastName}` : null
+            dataIndex: "employeeId",
+            key: "employeeId",
+            // render: (employeeId) => employeeId ? `${employeeId.firstName} ${employeeId.lastName}` : null
         },
         {
             title: "Срок исполнения (часов)",

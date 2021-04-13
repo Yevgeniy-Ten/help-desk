@@ -128,7 +128,7 @@ module.exports = {
                 if (!user.clientRequest.length) return requestReport
                 requestReport.count += user.clientRequest.length
                 for (request of user.clientRequest){
-                    switch (requestReport.priority) {
+                    switch (request.priority) {
                         case "Стандартно":
                             requestReport.priority.standart += 1
                             break

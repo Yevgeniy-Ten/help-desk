@@ -50,7 +50,7 @@ const AllAppeals = () => {
             <Col push={1} span={5}>
                 <AppealsFilter
                     loading={loading}
-                    isAdmin={isAdmin}
+                    user={user}
                     filterChangeHandler={filterChangeHandler}
                     filterSubmitHandler={filterFormHandler}/>
             </Col>

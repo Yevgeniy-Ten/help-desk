@@ -10,9 +10,10 @@ module.exports = (sequelize, DataTypes) => {
                 as: "copmanyRules"
             });
             // имеет много юзерув, связывается через userId
+            // clientRequest
             this.hasMany(User, {
                 foreignKey: "companyId",
-                as: "employees"
+                as: "users"
             });
         }
     };

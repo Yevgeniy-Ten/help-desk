@@ -1,4 +1,4 @@
-const {Request, Reglaments, Department, OrgStructure, User, RequestHistory} = require("../../../../models");
+const {Request, Reglaments, OrgStructure, User, RequestHistory, Company} = require("../../../../models");
 
 module.exports = {
     async create(req, res) {
@@ -110,6 +110,71 @@ module.exports = {
             res.status(500).send(errors);
         }
     },
+    async getRequestsAudit(req, res) {
+        let audit = await Company.findAll({
+            include: [{
+                model: User,
+                as: "users",
+                include: ["clientRequest"]
+            }]
+        })
+        audit = audit.reduce((a, companyWithUsers) => {
+            const companyInfo = {
+                name: companyWithUsers.title,
+                users: companyWithUsers.users.length
+            }
+            // company {users:[user: clientRequest:[ ]  }
+            const requests = companyWithUsers.users.reduce((requestReport, user) => {
+                if (!user.clientRequest.length) return requestReport
+                requestReport.count += user.clientRequest.length
+                for (request of user.clientRequest){
+                    switch (requestReport.priority) {
+                        case "Стандартно":
+                            requestReport.priority.standart += 1
+                            break
+                        case "Критично":
+                            requestReport.priority.critical += 1
+                            break
+                        case "Средний":
+                            requestReport.priority.medium += 1
+                            break
+                        case "Срочно":
+                            requestReport.priority.urgent += 1
+                            break
+                    }
+                    switch (request.status) {
+                        case "Открыто":
+                            requestReport.status.open += 1
+                            break
+                        case "Выполняется":
+                            requestReport.status.inProgress += 1
+                            break
+                        case "Выполнено":
+                            requestReport.status.done += 1
+                            break
+                    }
+                }
+                return requestReport
+            }, {
+                count: 0,
+                status: {
+                    open: 0,
+                    inProgress: 0,
+                    done: 0
+                },
+                priority: {
+                    standart: 0,
+                    medium: 0,
+                    urgent: 0,
+                    critical: 0
+                }
+            })
+            companyInfo["requests"] = requests
+            a.push(companyInfo)
+            return a
+        }, [])
+        res.send(audit)
+    },
     async edit(req, res) {
         try {
             const {
@@ -139,7 +204,7 @@ module.exports = {
             })
             const comment = Object.keys(request.dataValues).reduce((comment, key) => {
                 if (request.dataValues[key] !== prevRequest[key] && key !== "createdAt" && key !== "updatedAt") {
-                    comment += `${key} сменился c ${request.previous(key)} на ${request.getDataValue(key)} \n`
+                    comment += `${key} сменился c ${prevRequest[key]} на ${request.getDataValue(key)} \n`
                 }
                 return comment
             }, `${employeeComment ? employeeComment + "\n" : ""}`)

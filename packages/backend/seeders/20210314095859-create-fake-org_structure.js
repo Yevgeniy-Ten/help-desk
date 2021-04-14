@@ -6,27 +6,27 @@ module.exports = {
             {
                 departmentId: 1,
                 positionId: 1,
-                isMain: true,
+                isMain: 1,
             },
             {
                 departmentId: 1,
                 positionId: 2,
-                isMain: false,
+                isMain: 0,
             },
             {
                 departmentId: 2,
                 positionId: 3,
-                isMain: true,
+                isMain: 1,
             },
             {
                 departmentId: 2,
                 positionId: 4,
-                isMain: false,
+                isMain: 0,
             },
             {
                 departmentId: 3,
                 positionId: 5,
-                isMain: true,
+                isMain: 1,
             }]
         orgStructure = orgStructure.map((element, i) => {
             return {

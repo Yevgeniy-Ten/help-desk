@@ -17,6 +17,8 @@ module.exports = {
             },
             {
                 title: "Сис. админ",
+            },            {
+                title: "помошник Сис. админа",
             }]
         position = position.map((element, i) => {
             return {

@@ -32,6 +32,7 @@ module.exports = {
             return {
                 departmentId: element.departmentId,
                 positionId: element.positionId,
+                isMain: element.isMain,
             }
         })
         await queryInterface.bulkInsert("org_structure", orgStructure, {});

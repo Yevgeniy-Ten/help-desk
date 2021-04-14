@@ -8,8 +8,8 @@ const ReglamentsController = {
                 topicId,
                 departmentId,
                 title,
+                standart, middle, high, incident,
                 priority,
-                standart, middle, high, incident
             } = req.body
             await Reglaments.create({
                 companyId,
@@ -17,7 +17,7 @@ const ReglamentsController = {
                 departmentId,
                 title,
                 deadline: standart,
-                priority
+                priority: "Стандартно"
             })
             await Reglaments.create({
                 companyId,
@@ -25,7 +25,7 @@ const ReglamentsController = {
                 departmentId,
                 title,
                 deadline: middle,
-                priority
+                priority: "Средний"
             })
             await Reglaments.create({
                 companyId,
@@ -33,7 +33,7 @@ const ReglamentsController = {
                 departmentId,
                 title,
                 deadline: high,
-                priority
+                priority: "Срочно"
             })
             await Reglaments.create({
                 companyId,
@@ -41,7 +41,7 @@ const ReglamentsController = {
                 departmentId,
                 title,
                 deadline: incident,
-                priority
+                priority: "Критично"
             })
             res.sendStatus(201)
         } catch (errors) {

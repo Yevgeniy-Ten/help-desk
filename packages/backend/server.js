@@ -1,5 +1,5 @@
 const express = require("express")
-const PORT = 3003
+const PORT = process.env.BACK_PORT || 3003
 const { sequelize } = require("./models")
 const middlewares = require("./app/middlewares/appMiddleware.js")
 const app = express()

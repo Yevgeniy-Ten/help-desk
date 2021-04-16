@@ -1,11 +1,11 @@
-version: '3.8'
+version: '3.7'
 
 services:
   db:
     image: mysql:8.0.23
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 27012
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
@@ -24,8 +24,11 @@ services:
       MYSQL_USER: "${MYSQL_USER}"
       FRONT_HOST: frontend
       MYSQL_HOST: db
+      FRONT_PORT: "${FRONT_PORT}"
     ports:
     - "${BACK_PORT}:${BACK_PORT}"
+    depends_on:
+      - db
   frontend:
     build:
       ./packages/frontend
@@ -36,3 +39,8 @@ services:
       REACT_APP_BACK_HOST: backend
     ports:
     - "${FRONT_PORT}:${FRONT_PORT}"
+    depends_on:
+      - backend
+      - db
+#    only:
+#      - master

@@ -1,11 +1,21 @@
-stages:
-  - deploy
+image: docker:19.03.0
 
-deploy:
-  stage: deploy
+variables:
+  DOCKER_DRIVER: overlay2
+  # Create the certificates inside this directory for both the server
+  # and client. The certificates used by the client will be created in
+  # /certs/client so we only need to share this directory with the
+  # volume mount in config.toml.
+  DOCKER_TLS_CERTDIR: "/certs"
+
+services:
+  - docker:19.03.0-dind
+
+before_script:
+  - docker info
+
+build_image:
   script:
-    - docker-compose -v
-    - docker-compose up --abort-on-container-exit
-  only:
-    - merge_requests
-    - master
+    - docker build .
+    - docker-compose build
+    - docker-compose up -d

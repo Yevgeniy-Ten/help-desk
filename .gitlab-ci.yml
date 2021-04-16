@@ -1,14 +1,10 @@
 stages:
-  - off_old_version
   - deploy
-off_old_vesrion:
-  stage: off_old_version
-  script:
-    - docker-compose down
+
 deploy:
   stage: deploy
   script:
-    - docker-compose up
+    - docker-compose up --abort-on-container-exit
   only:
     - merge_requests
     - master

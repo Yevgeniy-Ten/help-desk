@@ -4,6 +4,7 @@ stages:
 deploy:
   stage: deploy
   script:
+    - ls -la
     - docker-compose up --abort-on-container-exit
   only:
     - merge_requests

@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/frontend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/config/general.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/config/general.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" afterPath="$PROJECT_DIR$/text.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +125,7 @@
       <workItem from="1618140458918" duration="5364000" />
       <workItem from="1618302352582" duration="3643000" />
       <workItem from="1618478762231" duration="11127000" />
-      <workItem from="1618566913079" duration="5539000" />
+      <workItem from="1618566913079" duration="7638000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

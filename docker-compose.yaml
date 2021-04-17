@@ -17,11 +17,11 @@ services:
     build:
       ./packages/frontend
     restart: always
+    network_mode: "host"
     environment:
       REACT_APP_BACK_PORT: "${BACK_PORT}"
       REACT_APP_FRONT_PORT: "${FRONT_PORT}"
-      REACT_APP_BACK_HOST: backend
-    ports:
-    - "${FRONT_PORT}:${FRONT_PORT}"
+    # ports:
+    # - "${FRONT_PORT}:${FRONT_PORT}"
     depends_on:
       - backend

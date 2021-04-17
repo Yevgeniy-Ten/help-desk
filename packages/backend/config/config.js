@@ -10,11 +10,6 @@ module.exports = {
         "dialect": "mysql",
         "logging": true,
         "port": process.env.SQL_PORT || 3306,
-        pool: {
-            max: 5,
-            min: 0,
-            idle: 10000
-        },
     },
     "test": {
         "username": "root",

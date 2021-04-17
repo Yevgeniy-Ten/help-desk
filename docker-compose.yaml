@@ -11,14 +11,14 @@ services:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
     volumes:
       - ./database:/var/lib/mysql
-    ports:
-      - "${MYSQL_PORT}:3306"
+#    ports:
+#      - "${MYSQL_PORT}:3306"
   backend:
     build:
       ./packages/backend
-    restart: on-failure:10
+    restart: always
     environment:
-      SQL_PORT: "${MYSQL_PORT}"
+#      SQL_PORT: "${MYSQL_PORT}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"

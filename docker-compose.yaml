@@ -4,8 +4,8 @@ services:
   backend:
     build:
       ./packages/backend
-      networks:
-          - default
+    networks:
+      - host
     restart: always
     environment:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"

@@ -25,5 +25,3 @@ services:
       REACT_APP_BACK_HOST: backend
     # ports:
     # - "${FRONT_PORT}:${FRONT_PORT}"
-    depends_on:
-      - backend

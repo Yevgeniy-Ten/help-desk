@@ -24,7 +24,6 @@ step-deploy-prod:
     - master
     - merge_requests
   script:
-    - sudo apt install docker-compose
     - docker-compose build --no-cache
     - docker-compose up -d
 

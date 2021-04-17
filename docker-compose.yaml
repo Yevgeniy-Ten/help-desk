@@ -12,7 +12,7 @@ services:
     volumes:
       - ./database:/var/lib/mysql
     ports:
-      - "${MYSQL_PORT}:${MYSQL_PORT}"
+      - "${MYSQL_PORT}:3306"
   backend:
     build:
       ./packages/backend

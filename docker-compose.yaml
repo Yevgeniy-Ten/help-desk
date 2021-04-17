@@ -11,6 +11,7 @@ services:
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
       FRONT_PORT: "${FRONT_PORT}"
+      FRONT_HOST: frontend
     # ports:
     # - "${BACK_PORT}:${BACK_PORT}"
   frontend:

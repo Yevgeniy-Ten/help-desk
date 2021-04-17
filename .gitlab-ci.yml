@@ -9,7 +9,7 @@ build_image:
   stage: deploy
   script:
     - docker-compose build
-    - docker-compose up -d
+    - docker-compose up
   only:
     - master
     - merge_requests

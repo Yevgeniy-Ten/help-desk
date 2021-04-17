@@ -1,29 +1,17 @@
 image: tmaier/docker-compose:latest
 
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+
 services:
-  - name: docker:dind
-    entrypoint: ["env", "-u", "DOCKER_HOST"]
-    command: ["dockerd-entrypoint.sh"]
-  variables:
-    DOCKER_HOST: tcp://docker:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
+  - docker:19.03.0-dind
 stages:
   - deploy
-    # variables:
-#   DOCKER_DRIVER: overlay2
-#   # Create the certificates inside this directory for both the server
-#   # and client. The certificates used by the client will be created in
-#   # /certs/client so we only need to share this directory with the
-#   # volume mount in config.toml.
-#   DOCKER_TLS_CERTDIR: "/certs"
+
 before_script:
   - docker info
   - docker-compose --version
-
-# services:
-#   - docker:19.03.0-dind
-
 
 step-deploy-prod:
   stage: deploy
@@ -34,8 +22,4 @@ step-deploy-prod:
     - docker-compose build --no-cache
     - docker-compose up
 
-#build_image:
-#  script:
-#    - docker build .
-#    - docker-compose build
-#    - docker-compose up -d
+

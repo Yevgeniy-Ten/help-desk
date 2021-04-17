@@ -1,6 +1,10 @@
-# image: docker:19.03.0
+image: docker
 
-# variables:
+services:
+  - docker:dind
+stages:
+  - deploy
+    # variables:
 #   DOCKER_DRIVER: overlay2
 #   # Create the certificates inside this directory for both the server
 #   # and client. The certificates used by the client will be created in
@@ -14,8 +18,18 @@
 # before_script:
 #   - docker info
 
-build_image:
+step-deploy-prod:
+  stage: deploy
+  only:
+    - master
+    - merge_requests
   script:
-    - docker build .
-    - docker-compose build
+    - sudo apt install docker-compose
+    - docker-compose build --no-cache
     - docker-compose up -d
+
+#build_image:
+#  script:
+#    - docker build .
+#    - docker-compose build
+#    - docker-compose up -d

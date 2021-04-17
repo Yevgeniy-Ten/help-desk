@@ -1,11 +1,15 @@
+stages:
+  - deploy
+
 before_script:
   - docker info
   - docker-compose -v
 
 build_image:
+  stage: deploy
   script:
-    - docker build -t my-docker-image .
-    - docker run my-docker-image /script/to/run/tests
+    - docker-compose build
+    - docker-compose up -d
   only:
     - master
     - merge_requests

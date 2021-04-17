@@ -2,7 +2,6 @@ stages:
   - deploy
 
 before_script:
-  - mysql --version
   - docker info
   - docker-compose -v
 

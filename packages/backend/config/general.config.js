@@ -10,5 +10,5 @@ module.exports = {
         appSecret: "",
     },
     constants: [],
-    webURL: `http://localhost":${process.env.FRONT_PORT || 3000}`
+    webURL: `http://${process.env.FRONT_HOST || "localhost"}:${process.env.FRONT_PORT || 3000}`
 };

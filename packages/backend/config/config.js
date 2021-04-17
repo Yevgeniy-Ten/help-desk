@@ -5,7 +5,7 @@ module.exports = {
         "username": process.env.MYSQL_USER || "esdp-user",
         "password": process.env.MYSQL_PASSWORD || "esdp-user",
         "database": process.env.MYSQL_DATABASE || "database_esdp",
-        "host": process.env.FRONT_HOST || "127.0.0.1",
+        "host": "127.0.0.1",
         "dialect": "mysql",
         "logging": true,
     },

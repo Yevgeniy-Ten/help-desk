@@ -29,6 +29,6 @@ module.exports = [
   }),
   fileUpload({ createParentPath: true }),
   express.json(),
-  cors(),
+  cors(corsOptions),
   express.static("public"),
 ];

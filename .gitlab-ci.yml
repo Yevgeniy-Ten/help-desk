@@ -15,16 +15,14 @@ stages:
 # services:
 #   - docker:19.03.0-dind
 
-before_script:
-  - apk add --update python py-pip python-dev && pip install docker-compose # install docker-compose
-  - docker version
-  - docker-compose version
+
 step-deploy-prod:
   stage: deploy
   only:
     - master
     - merge_requests
   script:
+    - apk add --no-cache docker-compose
     - docker-compose build --no-cache
     - docker-compose up -d
 

@@ -1,17 +1,6 @@
-image: tmaier/docker-compose:latest
 
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
-
-services:
-  - docker:19.03.0-dind
 stages:
   - deploy
-
-before_script:
-  - docker info
-  - docker-compose --version
 
 step-deploy-prod:
   stage: deploy
@@ -19,7 +8,8 @@ step-deploy-prod:
     - master
     - merge_requests
   script:
-    - docker-compose build --no-cache
-    - docker-compose up
+    - docker info
+#    - docker-compose build --no-cache
+#    - docker-compose up
 
 

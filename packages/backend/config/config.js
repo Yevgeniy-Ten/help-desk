@@ -1,6 +1,6 @@
 require("dotenv").config()
 // "127.0.0.1"
-console.log(process.env.MYSQL_PORT, "ПОРТ ПРОБРОСИЛСЯ")
+console.log(process.env.SQL_PORT, "ПОРТ ПРОБРОСИЛСЯ")
 module.exports = {
     "development": {
         "username": process.env.MYSQL_USER || "esdp-user",
@@ -9,7 +9,7 @@ module.exports = {
         "host": "127.0.0.1",
         "dialect": "mysql",
         "logging": true,
-        "port": process.env.MYSQL_PORT || 3306,
+        "port": process.env.SQL_PORT || 3306,
         pool: {
             max: 5,
             min: 0,

@@ -1,15 +1,7 @@
+before_script:
+  - docker info
 
-stages:
-  - deploy
-
-step-deploy-prod:
-  stage: deploy
-  only:
-    - master
-    - merge_requests
+build_image:
   script:
-    - docker info
-#    - docker-compose build --no-cache
-#    - docker-compose up
-
-
+    - docker build -t my-docker-image .
+    - docker run my-docker-image /script/to/run/tests

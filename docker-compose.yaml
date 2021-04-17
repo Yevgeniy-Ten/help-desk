@@ -22,8 +22,6 @@ services:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
-      FRONT_HOST: frontend
-#      MYSQL_HOST: db не видит базу
       FRONT_PORT: "${FRONT_PORT}"
     ports:
     - "${BACK_PORT}:${BACK_PORT}"

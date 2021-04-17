@@ -16,7 +16,7 @@ services:
   backend:
     build:
       ./packages/backend
-    restart: always
+    restart: on-failure:10
     environment:
       SQL_PORT: "${MYSQL_PORT}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"

@@ -4,8 +4,6 @@ services:
   backend:
     build:
       ./packages/backend
-    networks:
-      - default
     restart: always
     environment:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
@@ -26,7 +24,3 @@ services:
     - "${FRONT_PORT}:${FRONT_PORT}"
     depends_on:
       - backend
-networks:
-  default:
-    external:
-      name: host

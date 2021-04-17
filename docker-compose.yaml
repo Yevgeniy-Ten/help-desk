@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
       FRONT_PORT: "${FRONT_PORT}"
-      FRONT_HOST: frontend
+      FRONT_HOST: "${HOST}"
     # ports:
     # - "${BACK_PORT}:${BACK_PORT}"
   frontend:
@@ -22,6 +22,6 @@ services:
     environment:
       REACT_APP_BACK_PORT: "${BACK_PORT}"
       REACT_APP_FRONT_PORT: "${FRONT_PORT}"
-      REACT_APP_BACK_HOST: backend
+      REACT_APP_BACK_HOST: "${HOST}"
     # ports:
     # - "${FRONT_PORT}:${FRONT_PORT}"

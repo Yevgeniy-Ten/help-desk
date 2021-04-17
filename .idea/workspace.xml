@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/constants.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +127,7 @@
       <workItem from="1618478762231" duration="11127000" />
       <workItem from="1618566913079" duration="8554000" />
       <workItem from="1618649211492" duration="13169000" />
-      <workItem from="1618675257151" duration="87000" />
+      <workItem from="1618675257151" duration="295000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

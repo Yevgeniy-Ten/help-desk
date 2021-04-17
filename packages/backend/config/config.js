@@ -7,7 +7,8 @@ module.exports = {
         "database": process.env.MYSQL_DATABASE || "database_esdp",
         "host": process.env.MYSQL_HOST || "127.0.0.1",
         "dialect": "mysql",
-        "logging": true
+        "logging": true,
+        port: process.env.MYSQL_PORT || 3306
     },
     "test": {
         "username": "root",

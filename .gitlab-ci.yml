@@ -15,9 +15,10 @@ stages:
 # services:
 #   - docker:19.03.0-dind
 
-# before_script:
-#   - docker info
-
+before_script:
+  - apk add --update python py-pip python-dev && pip install docker-compose # install docker-compose
+  - docker version
+  - docker-compose version
 step-deploy-prod:
   stage: deploy
   only:

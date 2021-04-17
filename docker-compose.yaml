@@ -4,8 +4,8 @@ services:
   backend:
     build:
       ./packages/backend
+      network: "host"
     restart: always
-    network_mode: "host"
     environment:
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"

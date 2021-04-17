@@ -1,33 +1,17 @@
 version: '3.7'
 
 services:
-  db:
-    image: mysql:8.0.23
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
-      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-      MYSQL_USER: "${MYSQL_USER}"
-      MYSQL_DATABASE: "${MYSQL_DATABASE}"
-    volumes:
-      - ./database:/var/lib/mysql
-    ports:
-      - "${MYSQL_PORT}:3306"
   backend:
     build:
       ./packages/backend
     restart: always
     environment:
-      SQL_PORT: "${MYSQL_PORT}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
       MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
       FRONT_PORT: "${FRONT_PORT}"
     ports:
     - "${BACK_PORT}:${BACK_PORT}"
-    depends_on:
-      - db
-    entrypoint: ./wait-for-it.sh db:3006
   frontend:
     build:
       ./packages/frontend
@@ -40,6 +24,3 @@ services:
     - "${FRONT_PORT}:${FRONT_PORT}"
     depends_on:
       - backend
-      - db
-#    only:
-#      - master

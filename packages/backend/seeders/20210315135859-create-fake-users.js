@@ -12,9 +12,9 @@ module.exports = {
         const hashPass5 = await bcrypt.hash(pass2, 10)
         const hashPass6 = await bcrypt.hash(pass2, 10)
         const users = [{
-            email: "test@mail.ru",
-            lastName: "esdp",
-            firstName: "dev",
+            email: "yelena@mail.ru",
+            lastName: "Yelene",
+            firstName: "Yelena",
             password: hashPass1,
             orgStructureId: 1,
             roleId: 1,
@@ -24,7 +24,7 @@ module.exports = {
             // createdAt: new Date(), updatedAt: new Date()
         },
         {
-            email: "test1@mail.ru",
+            email: "ten@mail.ru",
             lastName: "esdp1",
             firstName: "dev1",
             password: hashPass3,
@@ -36,7 +36,7 @@ module.exports = {
             // createdAt: new Date(), updatedAt: new Date()
         },
         {
-            email: "test2@mail.ru",
+            email: "nurlan@mail.ru",
             lastName: "esdp2",
             firstName: "dev2",
             password: hashPass4,
@@ -48,7 +48,7 @@ module.exports = {
             // createdAt: new Date(), updatedAt: new Date()
         },
         {
-            email: "test3@mail.ru",
+            email: "aza@mail.ru",
             lastName: "esdp3",
             firstName: "dev3",
             password: hashPass5,
@@ -60,7 +60,7 @@ module.exports = {
             // createdAt: new Date(), updatedAt: new Date()
         },
         {
-            email: "test4@mail.ru",
+            email: "kuat@mail.ru",
             lastName: "esdp4",
             firstName: "dev4",
             password: hashPass6,

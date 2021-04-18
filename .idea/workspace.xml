@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea" />
+    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
+      <change afterPath="$PROJECT_DIR$/packages/backend/.eslintignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/helpers/helpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/helpers/helpers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/middlewares/appMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/middlewares/appMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forCompany/company.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forCompany/company.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forCompany/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forCompany/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forDepartment/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forDepartment/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forOrgStructure/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forOrgStructure/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forPosition/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forPosition/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/request.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forTopics/controller/topicController.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forTopics/controller/topicController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forTopics/topic.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forTopics/topic.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/users.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/users.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/main.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/main.router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/futureModels/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/futureModels/Chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Company.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Company.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Department.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Department.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/OrgStructure.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/OrgStructure.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Position.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Position.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Reglaments.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Reglaments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Request.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/RequestHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/RequestTask.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/RequestTask.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Solution.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Solution.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/Topic.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/Topic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/UserRole.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/UserRole.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/passport.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/passport.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210312132156-create-fake-user-roles.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210312132156-create-fake-user-roles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210312132157-create-fake-topic.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210312132157-create-fake-topic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-company.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-company.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-department.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-department.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-rules.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210313095859-create-fake-rules.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210313135959-create-fake-request.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210313135959-create-fake-request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210314094859-create-fake-position.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210314094859-create-fake-position.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210314095859-create-fake-org_structure.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210314095859-create-fake-org_structure.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/seeders/20210315135859-create-fake-users.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/seeders/20210315135859-create-fake-users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/yarn.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +75,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/backend" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -42,7 +90,7 @@
       <recent name="$PROJECT_DIR$/packages" />
     </key>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose.yaml.frontend: Compose Deployment">
+  <component name="RunManager" selected="npm.lint">
     <configuration name="docker-compose.yaml.frontend: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
@@ -76,6 +124,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/packages/backend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="lint" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -88,8 +146,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yaml.frontend: Compose Deployment" />
+        <item itemvalue="npm.lint" />
         <item itemvalue="npm.start" />
+        <item itemvalue="Docker.docker-compose.yaml.frontend: Compose Deployment" />
         <item itemvalue="npm.download" />
         <item itemvalue="npm.diff" />
       </list>
@@ -125,6 +184,9 @@
       <workItem from="1618649211492" duration="13169000" />
       <workItem from="1618675257151" duration="355000" />
       <workItem from="1618675711870" duration="483000" />
+      <workItem from="1618757535886" duration="3854000" />
+      <workItem from="1618762021030" duration="2594000" />
+      <workItem from="1618764688263" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

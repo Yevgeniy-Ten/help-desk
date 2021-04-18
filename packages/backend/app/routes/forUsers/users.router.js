@@ -1,6 +1,7 @@
 const express = require("express");
 const UsersController = require("./controllers/controllers");
-const auth = require("../../middlewares/auth")
+const auth = require("../../middlewares/auth");
+
 const userRouter = express.Router();
 const passport = require("passport");
 
@@ -9,11 +10,11 @@ userRouter.get("/", UsersController.getAll);
 userRouter.get("/current", auth, UsersController.getCurrentUser);
 userRouter.put("/authorize/:id", UsersController.authorizedUser);
 userRouter.put("/:id", auth, UsersController.updateUser);
-userRouter.get("/:id", UsersController.getUser);// получение юзера по id
+userRouter.get("/:id", UsersController.getUser); // получение юзера по id
 userRouter.post("/sessions", (req, res) => {
-  passport.authenticate("local-signin", function (err, user, info) {
+  passport.authenticate("local-signin", (err, user, info) => {
     if (info) return res.status(400).send({ ...info });
-    else UsersController.createSessions(req, res);
+    UsersController.createSessions(req, res);
   })(req, res);
 });
 userRouter.delete("/sessions", UsersController.deleteSessions);

@@ -8,7 +8,10 @@ orgStructureRouter.get("/", [auth], OrgStructureController.getAllOrgStructure);
 orgStructureRouter.get("/:id", [auth], OrgStructureController.getById);
 orgStructureRouter.post("/", [auth], OrgStructureController.create);
 orgStructureRouter.put("/:id", [auth], OrgStructureController.edit);
-orgStructureRouter.delete("/:id", [auth], OrgStructureController.deleteOrgStructure);
-
+orgStructureRouter.delete(
+  "/:id",
+  [auth],
+  OrgStructureController.deleteOrgStructure
+);
 
 module.exports = orgStructureRouter;

@@ -10,5 +10,4 @@ reglamentsRouter.post("/", [auth], ReglamentsController.createRules);
 reglamentsRouter.put("/:id", [auth], ReglamentsController.edit);
 reglamentsRouter.delete("/:id", [auth], ReglamentsController.deleteRules);
 
-
 module.exports = reglamentsRouter;

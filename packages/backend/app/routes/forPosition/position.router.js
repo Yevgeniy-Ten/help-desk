@@ -10,5 +10,4 @@ positionRouter.post("/", [auth], PositionController.create);
 positionRouter.put("/:id", [auth], PositionController.edit);
 positionRouter.delete("/:id", [auth], PositionController.deletePosition);
 
-
 module.exports = positionRouter;

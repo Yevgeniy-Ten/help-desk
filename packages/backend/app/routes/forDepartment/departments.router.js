@@ -10,5 +10,4 @@ departmentRouter.post("/", [auth], DepartmentController.create);
 departmentRouter.put("/:id", [auth], DepartmentController.edit);
 departmentRouter.delete("/:id", [auth], DepartmentController.deleteDepartment);
 
-
 module.exports = departmentRouter;

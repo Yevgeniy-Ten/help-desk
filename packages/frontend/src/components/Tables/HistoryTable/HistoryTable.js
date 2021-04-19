@@ -1,5 +1,6 @@
 import React from "react";
 import {Table, Tag} from "antd";
+import { getHourWork } from "../../../helpers/helpers";
 
 const HistoryTable = ({history}) => {
     const historyColumns = [
@@ -62,6 +63,7 @@ const HistoryTable = ({history}) => {
             title: "Затрачено (часов)",
             dataIndex: "hourWork",
             key: "hourWork",
+            // render: (hourWork) => getHourWork(hourWork)
         },
         {
             title: "Комментарии",

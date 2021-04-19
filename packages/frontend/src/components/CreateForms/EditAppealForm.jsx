@@ -1,9 +1,13 @@
 import React from "react";
-import {Button, Form, Input, Select} from "antd";
+import {Button, Form, Input, Select, TimePicker} from "antd";
 import { statuses, prioritets } from "../../constants";
+import { getHourWork } from "../../helpers/helpers";
+import { PlusOutlined } from "@ant-design/icons";
+import {useToggle} from "../../hooks/useToggle";
 
 const {Option} = Select
 const EditAppealForm = ({appealFields, topics, departments, employees, onChangeFields, onSaveAppeal}) => {
+    const [hourWorkEditShow, toggleHourWorkEditIsShow] = useToggle()
     const [form] = Form.useForm();
     return (
         <Form form={form}
@@ -113,17 +117,30 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                 <Input placeholder={"Количество часов"}/>
             </Form.Item>
             <Form.Item
-                name={"hourWork"}
+                name={"intialHourWork"}
                 label="Затрачено (часов)"
                 rules={[
                     {
                         required: true,
                         message: "Трудозатраты обязательна!"
                     }]}
-                initialValue={appealFields.hourWork}
+                // initialValue={getHourWork(appealFields.hourWork)}
                 >
-                <Input placeholder={"Количество затраченных часов"}/>
+                <Input placeholder={"Количество затраченных часов"} disabled/>
             </Form.Item>
+            {/* {hourWorkEditShow &&
+                <Form.Item
+                name={"hourWork"}
+                label="Добавить часы на трудозатраты"
+                >
+                    <TimePicker/>
+                </Form.Item>
+            }
+            <Form.Item>
+                <Button type="dashed" onClick={toggleHourWorkEditIsShow} block icon={<PlusOutlined/>}>
+                    {hourWorkEditShow ? "Отменить изменение трудозатрат" : "Добавить часы в трудозатраты"}
+                </Button>
+            </Form.Item> */}
             <Form.Item
                 name={"comment"}
                 label="Комментарии"

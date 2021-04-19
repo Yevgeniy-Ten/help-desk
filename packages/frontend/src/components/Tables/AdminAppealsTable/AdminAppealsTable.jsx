@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Space, Table, Tag} from "antd";
 import {NavLink} from "react-router-dom";
+import { getHourWork } from "../../../helpers/helpers";
 
 const AdminAppealsTable = ({appeals}) => {
     const appealColumns = [
@@ -71,6 +72,7 @@ const AdminAppealsTable = ({appeals}) => {
             title: "Затрачено (часов)",
             dataIndex: "hourWork",
             key: "hourWork",
+            // render: (hourWork) => getHourWork(hourWork)
         },
         {
             title: "Действия",

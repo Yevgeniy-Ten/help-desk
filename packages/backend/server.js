@@ -14,7 +14,14 @@ middlewares.forEach((middleWare) => app.use(middleWare));
 require("./passport")(passport);
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({
+    cookie: {
+      secret: "some-key",
+      resave: false,
+      saveUninitialized: false,
+      secure: false,
+    },
+  }));
 app.use(mainRouter);
 
 const start = async () => {

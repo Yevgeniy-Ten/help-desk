@@ -124,11 +124,11 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                         required: true,
                         message: "Трудозатраты обязательна!"
                     }]}
-                // initialValue={getHourWork(appealFields.hourWork)}
+                initialValue={getHourWork(appealFields.hourWork)}
                 >
                 <Input placeholder={"Количество затраченных часов"} disabled/>
             </Form.Item>
-            {/* {hourWorkEditShow &&
+            {hourWorkEditShow &&
                 <Form.Item
                 name={"hourWork"}
                 label="Добавить часы на трудозатраты"
@@ -140,7 +140,7 @@ const EditAppealForm = ({appealFields, topics, departments, employees, onChangeF
                 <Button type="dashed" onClick={toggleHourWorkEditIsShow} block icon={<PlusOutlined/>}>
                     {hourWorkEditShow ? "Отменить изменение трудозатрат" : "Добавить часы в трудозатраты"}
                 </Button>
-            </Form.Item> */}
+            </Form.Item>
             <Form.Item
                 name={"comment"}
                 label="Комментарии"

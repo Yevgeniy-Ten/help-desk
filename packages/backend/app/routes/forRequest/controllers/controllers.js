@@ -106,8 +106,6 @@ module.exports = {
             const {id: requestId} = req.query
             const {date: dateFilter} = req.query
             let histories = null
-            console.log(req.query);
-
             // if (!requestId && dateFilter) {
             //     console.log(dateFilter);
             //     histories = await RequestHistory.findAll({

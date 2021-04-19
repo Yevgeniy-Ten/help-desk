@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/middlewares/appMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/middlewares/appMiddleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +144,9 @@
       <workItem from="1618757535886" duration="3854000" />
       <workItem from="1618762021030" duration="2594000" />
       <workItem from="1618764688263" duration="10000" />
-      <workItem from="1618830900644" duration="885000" />
+      <workItem from="1618830900644" duration="1988000" />
+      <workItem from="1618836778500" duration="2975000" />
+      <workItem from="1618850209981" duration="101000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

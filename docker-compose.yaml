@@ -12,6 +12,7 @@ services:
       MYSQL_USER: "${MYSQL_USER}"
       FRONT_PORT: "${FRONT_PORT}"
       FRONT_HOST: "${HOST}"
+      HOST: "${HOST}"
     # ports:
     # - "${BACK_PORT}:${BACK_PORT}"
   frontend:

@@ -1,24 +1,15 @@
 const express = require("express");
-const session = require("express-session")
-
 const PORT = process.env.BACK_PORT || 3003;
 const passport = require("passport");
 const {sequelize} = require("./models");
 const middlewares = require("./app/middlewares/appMiddleware.js");
 
-const g = "sadasd";
 const app = express();
 const mainRouter = require("./app/routes/main.router");
 
 middlewares.forEach((middleWare) => app.use(middleWare));
 // passport using
 require("./passport")(passport);
-app.use(session({
-    secret: "some-key",
-    cookie: {
-        domain: "157.90.227.17"
-    }
-}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mainRouter);

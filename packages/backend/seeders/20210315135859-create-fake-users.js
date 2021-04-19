@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     const pass1 = "123456";
     const pass2 = "123456";
     const hashPass1 = await bcrypt.hash(pass1, 10);
@@ -87,5 +87,5 @@ module.exports = {
     await queryInterface.bulkInsert("users", users, {});
   },
 
-  down: async (queryInterface, Sequelize) => {},
+  down: async () => {},
 };

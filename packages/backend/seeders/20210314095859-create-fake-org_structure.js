@@ -27,7 +27,7 @@ module.exports = {
         isMain: 1,
       },
     ];
-    orgStructure = orgStructure.map((element, i) => ({
+    orgStructure = orgStructure.map((element) => ({
       departmentId: element.departmentId,
       positionId: element.positionId,
       isMain: element.isMain,

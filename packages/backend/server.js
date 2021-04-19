@@ -5,7 +5,6 @@ const passport = require("passport");
 const { sequelize } = require("./models");
 const middlewares = require("./app/middlewares/appMiddleware.js");
 
-const g = "sadasd";
 const app = express();
 const mainRouter = require("./app/routes/main.router");
 

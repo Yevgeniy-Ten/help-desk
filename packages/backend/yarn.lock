@@ -1174,7 +1174,7 @@
   "integrity" "sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz"
   "version" "4.0.0"
-  optionalDependencies:
+  dependencies:
     "graceful-fs" "^4.1.6"
 
 "keyv@^3.0.0":
@@ -1331,7 +1331,7 @@
   dependencies:
     "moment" ">= 2.9.0"
 
-"moment@^2.26.0", "moment@>= 2.9.0":
+"moment@^2.26.0", "moment@^2.29.1", "moment@>= 2.9.0":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -1808,7 +1808,7 @@
   "resolved" "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-6.1.0.tgz"
   "version" "6.1.0"
 
-"sequelize@^6.5.0", "sequelize@>= 6.1.0":
+"sequelize@^6.5.0":
   "integrity" "sha512-owBt8fnzVy8E1OvyCyfCdVk7OOLyPVrBCMEf+CvRReC5oCyo+UqeXCtwaex9L6LM9ifZ1i3TG3sFeM5MgLK0CQ=="
   "resolved" "https://registry.npmjs.org/sequelize/-/sequelize-6.5.0.tgz"
   "version" "6.5.0"

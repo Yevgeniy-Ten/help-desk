@@ -3091,6 +3091,11 @@
   "resolved" "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
   "version" "1.0.1"
 
+"nvm@^0.0.4":
+  "integrity" "sha1-OKF46dMbKDUIyS0VydqGHRqSELw="
+  "resolved" "https://registry.npmjs.org/nvm/-/nvm-0.0.4.tgz"
+  "version" "0.0.4"
+
 "oauth-sign@~0.9.0":
   "integrity" "sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ=="
   "resolved" "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz"

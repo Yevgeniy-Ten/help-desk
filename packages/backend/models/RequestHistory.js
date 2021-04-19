@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         status: {
-            type: DataTypes.ENUM("Открыто", "Выполняется", "Выполнено"),
+            type: DataTypes.ENUM("Открыто", "Выполняется", "Приостановлено", "Выполнено"),
             defaultValue: "Открыто",
             allowNull: false
         },
@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         hourWork: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        addHourWork: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
         },
         topicId: {
             type: DataTypes.INTEGER,

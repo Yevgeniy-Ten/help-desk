@@ -19,9 +19,7 @@ const EditAppealPage = () => {
     const loading = useSelector(getAppealStateLoader)    
     const {id: appealId} = useParams()
     useEffect(() => {
-        // if (!appeal) {
-            dispatch(fetchAppeal(appealId))
-        // }
+        dispatch(fetchAppeal(appealId))
         dispatch(fetchSettings("topics"));
         dispatch(fetchSettings("departments"))
         if (appeal && appeal.departmentId) {

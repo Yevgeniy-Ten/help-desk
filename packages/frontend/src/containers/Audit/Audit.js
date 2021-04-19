@@ -69,6 +69,13 @@ const Audit = () => {
                                                     <Input disabled/>
                                                 </Form.Item>
                                                 <Form.Item 
+                                                name={item.name + "status-suspend"} 
+                                                label="Приостановлено" 
+                                                initialValue={item.requests.status.suspend}
+                                                >
+                                                    <Input disabled/>
+                                                </Form.Item>
+                                                <Form.Item 
                                                 name={item.name + "status-done"} 
                                                 label="Выполнено" 
                                                 initialValue={item.requests.status.done}

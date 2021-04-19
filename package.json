@@ -8,5 +8,8 @@
     "start": "lerna run start --stream",
     "diff": "lerna diff",
     "download": "lerna bootstrap "
+  },
+  "dependencies": {
+    "nvm": "^0.0.4"
   }
 }

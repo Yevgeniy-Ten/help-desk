@@ -8,11 +8,15 @@ const historyStarted = () => ({type: HISTORY_REQUEST_STARTED});
 const historyError = (errors) => ({type: HISTORY_REQUEST_ERROR, errors});
 const historyGetSuccess = (history) => ({type: HISTORY_GET_SUCCESS, history});
 
-export const fetchHistory = () => {
+export const fetchHistory = (queryParams) => {
     return async (dispatch, _, axios) => {
         dispatch(historyStarted());
         try {
-            const response = await axios.get("/requests/history");
+            const response = await axios.get("/requests/history", {
+                params: {
+                    ...queryParams
+                }
+            });
             dispatch(historyGetSuccess(response.data))
         } catch (err) {
             dispatch(historyError(err));

@@ -1,4 +1,6 @@
 const {Request, Reglaments, OrgStructure, User, RequestHistory, Company} = require("../../../../models");
+const hourWorkUpdate = require("../../../helpers/helpers");
+let moment = require('moment'); 
 
 module.exports = {
     async create(req, res) {
@@ -82,10 +84,19 @@ module.exports = {
             const {id} = req.params
             const request = await Request.findOne({
                 where: {id},
-                include: ["topic", "department", "clientRequest"],
+                include: [{
+                        model: User,
+                        as: "clientRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, {
+                        model: User,
+                        as: "employeeRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, "topic", "department"],
             });
             if (!request) return res.sendStatus(404)
-            res.send(request)
+            requestUpdate = hourWorkUpdate([request]);
+            res.send(requestUpdate[0])
         } catch (errors) {
             res.status(500).send(errors);
         }
@@ -93,16 +104,45 @@ module.exports = {
     async getRequestHistory(req, res) {
         try {
             const {id: requestId} = req.query
+            const {date: dateFilter} = req.query
             let histories = null
+            console.log(req.query);
 
-            if (requestId) {
+            // if (!requestId && dateFilter) {
+            //     console.log(dateFilter);
+            //     histories = await RequestHistory.findAll({
+            //         updatedAt: { 
+            //             "$between": [dateFilter[0],dateFilter[1]]
+            //         },
+            //         // $or: [{
+            //         order: [
+            //             ['requestId', 'ASC'],
+            //         ]
+            //     })
+            // } 
+            if (requestId && !dateFilter) {
                 histories = await RequestHistory.findAll({
                     where: {
                         requestId
-                    }
+                    },
                 })
-            } else {
-                histories = await RequestHistory.findAll()
+            } 
+            if (requestId && dateFilter) {
+                histories = await RequestHistory.findAll({
+                    where: {
+                        requestId
+                    },
+                    updated_at: { 
+                        "$between": [dateFilter[0],dateFilter[1]]
+                    },
+                })
+            } 
+            if(!requestId && !dateFilter) {
+                histories = await RequestHistory.findAll({
+                    order: [
+                        ['requestId', 'ASC'],
+                    ]
+                })
             }
             if (!histories.length) return res.sendStatus(404)
             res.send(histories)
@@ -149,6 +189,9 @@ module.exports = {
                         case "Выполняется":
                             requestReport.status.inProgress += 1
                             break
+                        case "Приостановлено":
+                            requestReport.status.suspend += 1
+                            break
                         case "Выполнено":
                             requestReport.status.done += 1
                             break
@@ -160,6 +203,7 @@ module.exports = {
                 status: {
                     open: 0,
                     inProgress: 0,
+                    suspend: 0,
                     done: 0
                 },
                 priority: {
@@ -187,11 +231,17 @@ module.exports = {
                 comment: employeeComment,
                 employeeId,
             } = req.body;
+            let milliseconds = 0;
+            if(hourWork) {
+                let hourWorkArray = moment(hourWork).format('HH:mm:ss').split(':');
+                milliseconds = (hourWorkArray[0] * 3600000) + (hourWorkArray[1] * 60000) + (hourWorkArray[2] * 1000);
+            }
             const {id} = req.params
             const request = await Request.findOne({
                 where: {id},
             })
             if (!request) return res.sendStatus(404)
+            let addHourWork = request.hourWork + milliseconds;
             const prevRequest = {...request.dataValues}
             await request.update({
                 topicId,
@@ -199,7 +249,7 @@ module.exports = {
                 status,
                 deadline,
                 departmentId,
-                hourWork,
+                hourWork: addHourWork,
                 employeeId
             })
             const comment = Object.keys(request.dataValues).reduce((comment, key) => {
@@ -212,6 +262,7 @@ module.exports = {
             await RequestHistory.create({
                 requestId: id,
                 comment,
+                addHourWork: milliseconds,
                 ...request.dataValues
             })
             res.sendStatus(200)
@@ -230,7 +281,11 @@ module.exports = {
                         model: User,
                         as: "clientRequest",
                         attributes: ["firstName", "lastName", "companyId"],
-                    }, "department", "topic", "employeeRequest"],
+                    }, {
+                        model: User,
+                        as: "employeeRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, "topic", "department"],
                 })
             } else {
                 requests = await Request.findAll({
@@ -239,11 +294,16 @@ module.exports = {
                         model: User,
                         as: "clientRequest",
                         attributes: ["firstName", "lastName", "companyId"],
-                    }, "department", "topic", "employeeRequest"],
+                    }, {
+                        model: User,
+                        as: "employeeRequest",
+                        attributes: ["firstName", "lastName", "companyId"],
+                    }, "topic", "department"],
                 })
             }
             if (!requests.length) return res.sendStatus(404)
-            res.send(requests)
+            requestUpdate = hourWorkUpdate(requests);
+            res.send(requestUpdate)
         } catch (errors) {
             res.status(500).send(errors);
         }

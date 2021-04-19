@@ -144,79 +144,25 @@ module.exports = {
                     ]
                 })
             }
-            switch (request.status) {
-              case "Открыто":
-                requestReport.status.open += 1;
-                break;
-              case "Выполняется":
-                requestReport.status.inProgress += 1;
-                break;
-              case "Выполнено":
-                requestReport.status.done += 1;
-                break;
-            }
-<<<<<<< HEAD
-          }
-          return requestReport;
-        },
-        {
-          count: 0,
-          status: {
-            open: 0,
-            inProgress: 0,
-            done: 0,
-          },
-          priority: {
-            standart: 0,
-            medium: 0,
-            urgent: 0,
-            critical: 0,
-          },
+            if (!histories.length) return res.sendStatus(404)
+            res.send(histories)
+        } catch (errors) {
+            res.status(500).send(errors);
         }
-      );
-      companyInfo.requests = requests;
-      a.push(companyInfo);
-      return a;
-    }, []);
-    res.send(audit);
-  },
-  async edit(req, res) {
-    try {
-      const {
-        topicId,
-        priority,
-        status,
-        deadline,
-        departmentId,
-        hourWork,
-        comment: employeeComment,
-        employeeId,
-      } = req.body;
-      const { id } = req.params;
-      const request = await Request.findOne({
-        where: { id },
-      });
-      if (!request) return res.sendStatus(404);
-      const prevRequest = { ...request.dataValues };
-      await request.update({
-        topicId,
-        priority,
-        status,
-        deadline,
-        departmentId,
-        hourWork,
-        employeeId,
-      });
-      const comment = Object.keys(request.dataValues).reduce((comment, key) => {
-        if (
-          request.dataValues[key] !== prevRequest[key] &&
-          key !== "createdAt" &&
-          key !== "updatedAt"
-        ) {
-          comment += `${key} сменился c ${
-            prevRequest[key]
-          } на ${request.getDataValue(key)} \n`;
-=======
+    },
+    async getRequestsAudit(req, res) {
+        let audit = await Company.findAll({
+            include: [{
+                model: User,
+                as: "users",
+                include: ["clientRequest"]
+            }]
+        })
+        audit = audit.reduce((a, companyWithUsers) => {
+            const companyInfo = {
+                name: companyWithUsers.title,
+                users: companyWithUsers.users.length
+            }
             // company {users:[user: clientRequest:[ ]  }
             const requests = companyWithUsers.users.reduce((requestReport, user) => {
                 if (!user.clientRequest.length) return requestReport
@@ -360,58 +306,6 @@ module.exports = {
             res.send(requestUpdate)
         } catch (errors) {
             res.status(500).send(errors);
->>>>>>> 25-auto-hourwork-back
         }
-        return comment;
-      }, `${employeeComment ? `${employeeComment}\n` : ""}`);
-      delete request.dataValues.id;
-      await RequestHistory.create({
-        requestId: id,
-        comment,
-        ...request.dataValues,
-      });
-      res.sendStatus(200);
-    } catch (e) {
-      res.status(401).send(e);
     }
-  },
-  async getAll(req, res) {
-    try {
-      // queryParams=== filters!
-      let requests = [];
-
-      if (req.user.roleId !== 2) {
-        requests = await Request.findAll({
-          include: [
-            {
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            },
-            "department",
-            "topic",
-            "employeeRequest",
-          ],
-        });
-      } else {
-        requests = await Request.findAll({
-          where: { clientId: req.user.id },
-          include: [
-            {
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            },
-            "department",
-            "topic",
-            "employeeRequest",
-          ],
-        });
-      }
-      if (!requests.length) return res.sendStatus(404);
-      res.send(requests);
-    } catch (errors) {
-      res.status(500).send(errors);
-    }
-  },
 };

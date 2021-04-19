@@ -63,7 +63,7 @@ const HistoryTable = ({history}) => {
             title: "Затрачено (часов)",
             dataIndex: "hourWork",
             key: "hourWork",
-            // render: (hourWork) => getHourWork(hourWork)
+            render: (hourWork) => getHourWork(hourWork)
         },
         {
             title: "Комментарии",

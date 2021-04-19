@@ -27,7 +27,6 @@ const hourWorkUpdate = (requests) => {
             done: "Выполнено"
         }
         for(let i = 0; i < histories.length; i++) {
-            console.log("addHourWork", histories[i].addHourWork)
             if(histories[i].addHourWork > 0) {
                 hourWork += histories[i].addHourWork;
             }

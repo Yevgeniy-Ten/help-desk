@@ -72,7 +72,7 @@ const AdminAppealsTable = ({appeals}) => {
             title: "Затрачено (часов)",
             dataIndex: "hourWork",
             key: "hourWork",
-            // render: (hourWork) => getHourWork(hourWork)
+            render: (hourWork) => getHourWork(hourWork)
         },
         {
             title: "Действия",

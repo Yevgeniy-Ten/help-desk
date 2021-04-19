@@ -14,8 +14,6 @@ const History = () => {
         dispatch(fetchHistory());
     }, [dispatch]);
     const filterFormHandler = (filters) => {
-        // диспатчим фильтры на сервер чтобы получить фильтрованные истории
-        // dispatch(fetchAppealFilters(filters))
         dispatch(fetchHistory(filters));
     }
     const filterChangeHandler = (e) => {

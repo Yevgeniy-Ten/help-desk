@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: false
+            // allowNull: false
         },
         status: {
             type: DataTypes.ENUM("Открыто", "Выполняется", "Приостановлено", "Выполнено"),

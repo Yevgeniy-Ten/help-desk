@@ -16,9 +16,7 @@ require("./passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session({
     cookie: {
-      secret: "some-key",
-      resave: false,
-      saveUninitialized: false,
+      domain: '157.90.227.17',
       secure: false,
     },
   }));

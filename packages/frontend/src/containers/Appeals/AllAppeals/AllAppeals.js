@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector, shallowEqual} from "react-redux";
 import {Row, Col, Breadcrumb, Button} from "antd"
 import {fetchAppealFilters, fetchAppeals} from "../redux/action/appealsAction";
@@ -9,8 +9,17 @@ import AdminAppealsTable from "../../../components/Tables/AdminAppealsTable/Admi
 import {getUser} from "../../Auth/redux/getters/getters";
 import Spinner from "../../../components/Spinner/Spinner";
 import { NavLink } from "react-router-dom";
+import {
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+    } from '@ant-design/icons';
 
 const AllAppeals = () => {
+    const [collapsed, setCollapsed] = useState(false)
+    const toggle = () => {
+        setCollapsed(!collapsed);
+    };
+
     const dispatch = useDispatch();
     const user = useSelector(getUser)
     const isAdmin = true
@@ -37,7 +46,7 @@ const AllAppeals = () => {
                     <Breadcrumb.Item>Заявки</Breadcrumb.Item>
                 </Breadcrumb>
             </Col>
-            <Col span={17}>
+            <Col span={!collapsed ? 23 : 18}>
                 {loading ? <Spinner/> : (
                     <>
                         {(user && user.role && user.role.name==="admin") ? <AdminAppealsTable appeals={appeals}/>
@@ -46,7 +55,15 @@ const AllAppeals = () => {
                     )
                 }
             </Col>
-            <Col push={1} span={5}>
+            <Col span={0.5} className="p-2" >
+                {collapsed ? 
+                <MenuUnfoldOutlined onClick={toggle} className="filter-icon"/> : 
+                <MenuFoldOutlined onClick={toggle} className="filter-icon"/>}
+            </Col>
+            <Col 
+            // push={1} 
+            span={!collapsed ? 0 : 5}
+            >
                 <AppealsFilter
                     loading={loading}
                     user={user}

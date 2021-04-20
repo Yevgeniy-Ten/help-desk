@@ -4,3 +4,12 @@
 .mb-0 {
     margin-bottom: 0;
 }
+.p-2 {
+    padding: 10px;
+}
+.filter-icon {
+    font-size: 24px;
+}
+.filter-icon:hover {
+    color: #1890ff;
+}

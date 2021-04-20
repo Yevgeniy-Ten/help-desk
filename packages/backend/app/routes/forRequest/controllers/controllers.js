@@ -270,35 +270,50 @@ module.exports = {
     },
     async getAll(req, res) {
         try {
-            // queryParams=== filters!
             let requests = [];
+            let priorities = ["Критично", "Срочно", "Средний", "Стандартно"];
 
             if (req.user.roleId !== 2) {
-                requests = await Request.findAll({
-                    include: [{
-                        model: User,
-                        as: "clientRequest",
-                        attributes: ["firstName", "lastName", "companyId"],
-                    }, {
-                        model: User,
-                        as: "employeeRequest",
-                        attributes: ["firstName", "lastName", "companyId"],
-                    }, "topic", "department"],
-                })
+                for (let index = 0; index < priorities.length; index++) {
+                    let requestsByPriority = await Request.findAll({
+                        where: {priority: priorities[index]},
+                        include: [{
+                            model: User,
+                            as: "clientRequest",
+                            attributes: ["firstName", "lastName", "companyId"],
+                        }, {
+                            model: User,
+                            as: "employeeRequest",
+                            attributes: ["firstName", "lastName", "companyId"],
+                        }, "topic", "department"],
+                    })
+                    requestsByPriority.forEach(request => {
+                        requests.push(request)
+                    })
+                }
             } else {
-                requests = await Request.findAll({
-                    where: {clientId: req.user.id},
-                    include: [{
-                        model: User,
-                        as: "clientRequest",
-                        attributes: ["firstName", "lastName", "companyId"],
-                    }, {
-                        model: User,
-                        as: "employeeRequest",
-                        attributes: ["firstName", "lastName", "companyId"],
-                    }, "topic", "department"],
-                })
+                for (let index = 0; index < priorities.length; index++) {
+                    let requestsByPriority = await Request.findAll({
+                        where: {
+                            clientId: req.user.id,
+                            priority: priorities[index]
+                        },
+                        include: [{
+                            model: User,
+                            as: "clientRequest",
+                            attributes: ["firstName", "lastName", "companyId"],
+                        }, {
+                            model: User,
+                            as: "employeeRequest",
+                            attributes: ["firstName", "lastName", "companyId"],
+                        }, "topic", "department"],
+                    })
+                    requestsByPriority.forEach(request => {
+                        requests.push(request)
+                    })
+                }
             }
+            console.log(requests);   
             if (!requests.length) return res.sendStatus(404)
             requestUpdate = hourWorkUpdate(requests);
             res.send(requestUpdate)

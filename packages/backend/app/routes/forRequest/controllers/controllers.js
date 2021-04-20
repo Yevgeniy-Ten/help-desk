@@ -226,13 +226,14 @@ module.exports = {
                 deadline,
                 departmentId,
                 hourWork,
+                minuteWork,
+                secondWork,
                 comment: employeeComment,
                 employeeId,
             } = req.body;
             let milliseconds = 0;
-            if(hourWork) {
-                let hourWorkArray = moment(hourWork).format('HH:mm:ss').split(':');
-                milliseconds = (hourWorkArray[0] * 3600000) + (hourWorkArray[1] * 60000) + (hourWorkArray[2] * 1000);
+            if(hourWork || minuteWork || secondWork) {
+                milliseconds = (hourWork * 3600000) + (minuteWork * 60000) + (secondWork * 1000);
             }
             const {id} = req.params
             const request = await Request.findOne({
@@ -313,7 +314,6 @@ module.exports = {
                     })
                 }
             }
-            console.log(requests);   
             if (!requests.length) return res.sendStatus(404)
             requestUpdate = hourWorkUpdate(requests);
             res.send(requestUpdate)

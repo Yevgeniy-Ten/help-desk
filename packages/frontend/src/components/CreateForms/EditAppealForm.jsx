@@ -1,10 +1,17 @@
 import React from "react";
-import { Button, Form, Input, Select, TimePicker } from "antd";
+import { Button, Form, Input, Select, Row, Col } from "antd";
 import { statuses, prioritets } from "../../constants";
 import { getHourWork } from "../../helpers/helpers";
 import { PlusOutlined } from "@ant-design/icons";
 import { useToggle } from "../../hooks/useToggle";
 
+const getTime = (index) => {
+  const time = [];
+  for (let i = 0; i < index; i++) {
+    time.push(i);
+  }
+  return time;
+};
 const { Option } = Select;
 const EditAppealForm = ({
   appealFields,
@@ -141,9 +148,49 @@ const EditAppealForm = ({
         <Input placeholder="Количество затраченных часов" disabled={true} />
       </Form.Item>
       {hourWorkEditShow && (
-        <Form.Item name="hourWork" label="Добавить часы на трудозатраты">
-          <TimePicker />
-        </Form.Item>
+        <>
+          <Row>
+            <Col span={8}>
+              <Form.Item name="hourWork" label="HH" initialValue={0}>
+                <Select placeholder="HH" allowClear={true}>
+                  {getTime(24).map((hour, i) => {
+                    return (
+                      <Option key={i} value={hour}>
+                        {hour}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name="minuteWork" label="mm" initialValue={0}>
+                <Select placeholder="mm" allowClear={true}>
+                  {getTime(60).map((minute, i) => {
+                    return (
+                      <Option key={i} value={minute}>
+                        {minute}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name="secondWork" label="ss" initialValue={0}>
+                <Select placeholder="ss" allowClear={true}>
+                  {getTime(60).map((second, i) => {
+                    return (
+                      <Option key={i} value={second}>
+                        {second}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+        </>
       )}
       <Form.Item>
         <Button

@@ -22,13 +22,11 @@ const AllAppeals = () => {
 
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const isAdmin = true;
   const { appeals, loading } = useSelector(getAppealsState, shallowEqual);
   useEffect(() => {
     dispatch(fetchAppeals());
   }, [dispatch]);
   const filterFormHandler = (filters) => {
-    // диспатчим фильтры на сервер чтобы получить фильтрованные заявки
     dispatch(fetchAppealFilters(filters));
   };
   const filterChangeHandler = (e) => {
@@ -66,10 +64,7 @@ const AllAppeals = () => {
           <MenuFoldOutlined onClick={toggle} className="filter-icon" />
         )}
       </Col>
-      <Col
-        // push={1}
-        span={!collapsed ? 0 : 5}
-      >
+      <Col span={!collapsed ? 0 : 5}>
         <AppealsFilter
           loading={loading}
           user={user}

@@ -8,13 +8,13 @@ import {
   AXIOS_USERS_SUCCESS,
   AXIOS_USER_ERROR,
   AXIOS_USER_PENDING,
-  AXIOS_USER_SUCCESS,
+  AXIOS_USER_SUCCESS
 } from "../usersAction/usersTypes";
 
 const initialState = {
   users: [],
   isLoading: false,
-  userForUpdate: null,
+  userForUpdate: null
 };
 
 const usersReducer = (state = initialState, action) => {

@@ -1,1 +1,3 @@
-export const getAudit = (state) => state.audit
+export const getAudit = (state) => {
+  return state.audit;
+};

@@ -1,3 +1,9 @@
-export const getUser = (state) => state.user.user
-export const getUserState = (state) => state.user
-export const getUsersState = (state) => state.users
+export const getUser = (state) => {
+  return state.user.user;
+};
+export const getUserState = (state) => {
+  return state.user;
+};
+export const getUsersState = (state) => {
+  return state.users;
+};

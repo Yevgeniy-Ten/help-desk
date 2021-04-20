@@ -1,8 +1,24 @@
-export const getTopics = (state) => state.settings.topics
-export const getReglaments = (state) => state.settings.reglaments
-export const getCompanies = (state) => state.settings.companies
-export const getDepartments = (state) => state.settings.departments
-export const getSettingsLoader = (state) => state.settings.isLoading
-export const getPositions = (state) => state.settings.positions
-export const getEditableElement = (state) => state.settings.editableSetting
-export const getOrgStructures = (state) => state.settings.orgStructures
+export const getTopics = (state) => {
+  return state.settings.topics;
+};
+export const getReglaments = (state) => {
+  return state.settings.reglaments;
+};
+export const getCompanies = (state) => {
+  return state.settings.companies;
+};
+export const getDepartments = (state) => {
+  return state.settings.departments;
+};
+export const getSettingsLoader = (state) => {
+  return state.settings.isLoading;
+};
+export const getPositions = (state) => {
+  return state.settings.positions;
+};
+export const getEditableElement = (state) => {
+  return state.settings.editableSetting;
+};
+export const getOrgStructures = (state) => {
+  return state.settings.orgStructures;
+};

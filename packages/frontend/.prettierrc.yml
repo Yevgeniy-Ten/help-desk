@@ -1,0 +1,8 @@
+tabWidth: 2
+printWidth: 80
+semi: true
+trailingComma: none
+singleQuote: false
+bracketSpacing: true
+arrowParens: always
+parser: flow

@@ -7,30 +7,38 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
     {
       title: "Имя Фамилия",
       key: "full_name",
-      render: (user) => `${user.firstName} ${user.lastName}`,
+      render: (user) => {
+        return `${user.firstName} ${user.lastName}`;
+      }
     },
     {
       title: "Компания",
       dataIndex: "company",
       key: "company",
-      render: (company) => (company ? company.title : "Не выбрано"),
+      render: (company) => {
+        return company ? company.title : "Не выбрано";
+      }
     },
     {
       title: "Из отдела",
       dataIndex: "orgStructure",
       key: "orgStructure",
-      render: (orgStructure) => (orgStructure ? orgStructure.departmentId : "Не выбрано"),
+      render: (orgStructure) => {
+        return orgStructure ? orgStructure.departmentId : "Не выбрано";
+      }
     },
     {
       title: "Роль",
       dataIndex: "role",
       key: "role",
-      render: (role) => (role ? role.name : "Нет роли"),
+      render: (role) => {
+        return role ? role.name : "Нет роли";
+      }
     },
     {
       title: "Электронная почта",
       dataIndex: "email",
-      key: "email",
+      key: "email"
     },
     {
       title: "Действия",
@@ -49,11 +57,11 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
             <NavLink to={`/users/edit/${user.id}`}>
               <Button type="dashed">Редактировать</Button>
             </NavLink>
-            <Button danger>Удалить</Button>
+            <Button danger={true}>Удалить</Button>
           </Space>
         );
-      },
-    },
+      }
+    }
   ];
   return <Table columns={usersColumns} dataSource={users} />;
 };

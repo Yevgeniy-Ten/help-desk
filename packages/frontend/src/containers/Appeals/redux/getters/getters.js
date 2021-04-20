@@ -1,1 +1,3 @@
-export const getAppealsState = (state) => state.appeals;
+export const getAppealsState = (state) => {
+  return state.appeals;
+};

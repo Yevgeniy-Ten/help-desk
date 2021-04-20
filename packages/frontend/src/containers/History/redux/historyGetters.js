@@ -1,1 +1,3 @@
-export const getHistory = (state) => state.history
+export const getHistory = (state) => {
+  return state.history;
+};

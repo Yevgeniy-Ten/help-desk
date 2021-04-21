@@ -84,7 +84,7 @@ const ReportingControllers = {
             async function somefun() {
               const response = await sequelize.query(
                 `SELECT priority, count(*) as COUNTER
-              FROM database_esdp.request
+              FROM database-esdp.request
               GROUP BY priority;`,
                 { raw: true, type: sequelize.QueryTypes.SELECT }
               );

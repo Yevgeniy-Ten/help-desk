@@ -83,9 +83,10 @@ const ReportingControllers = {
             ];
             async function somefun() {
               const response = await sequelize.query(
-                `use database-esdp;SELECT priority, count(*) as COUNTER
-              FROM request
-              GROUP BY priority;`,
+                `USE database-esdp;
+                SELECT priority, COUNT(counter)
+                FROM request
+                GROUP BY priority;`,
                 { raw: true, type: sequelize.QueryTypes.SELECT }
               );
               worksheet.columns = [

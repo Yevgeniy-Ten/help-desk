@@ -3,7 +3,7 @@ import { Breadcrumb, Col, Row, Collapse, Form, Input } from "antd";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 import { getAudit } from "./redux/auditGetters";
-import { fetchAudit } from "./redux/auditActions";
+import { fetchAudit, fetchGetFile } from "./redux/auditActions";
 
 const { Panel } = Collapse;
 
@@ -22,7 +22,11 @@ const Audit = () => {
   return (
     <Row style={{ padding: "10px 20px" }}>
       <Col span={24} className="mb-sm">
+        
         <Breadcrumb>
+        <Button onClick={()=>{
+                        dispatch(fetchGetFile())
+                    }}>Download</Button>
           <Breadcrumb.Item>Аудит:</Breadcrumb.Item>
         </Breadcrumb>
       </Col>

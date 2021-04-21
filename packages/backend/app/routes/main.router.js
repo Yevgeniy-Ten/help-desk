@@ -7,7 +7,7 @@ const departmentRoute = require("./forDepartment/departments.router");
 const positionRoute = require("./forPosition/position.router");
 const orgStructureRoute = require("./forOrgStructure/orgstructure.router");
 const reglamentsRouter = require("./forReglaments/reglaments.router");
-
+const reportingRouter = require("./forReporting/reporting.router");
 const mainRouter = Router();
 
 mainRouter.use("/users", userRoute);
@@ -18,5 +18,6 @@ mainRouter.use("/departments", departmentRoute);
 mainRouter.use("/position", positionRoute);
 mainRouter.use("/orgstructure", orgStructureRoute);
 mainRouter.use("/reglaments", reglamentsRouter);
+mainRouter.use("/reporting", reportingRouter);
 
 module.exports = mainRouter;

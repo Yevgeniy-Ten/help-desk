@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Breadcrumb, Col, Row, Collapse, Form, Input,Button } from "antd";
+import { Breadcrumb, Col, Row, Collapse, Form, Input, Button } from "antd";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 import { getAudit } from "./redux/auditGetters";
@@ -22,11 +22,14 @@ const Audit = () => {
   return (
     <Row style={{ padding: "10px 20px" }}>
       <Col span={24} className="mb-sm">
-        
         <Breadcrumb>
-        <Button onClick={()=>{
-                        dispatch(fetchGetFile())
-                    }}>Download</Button>
+          <Button
+            onClick={() => {
+              dispatch(fetchGetFile());
+            }}
+          >
+            Download
+          </Button>
           <Breadcrumb.Item>Аудит:</Breadcrumb.Item>
         </Breadcrumb>
       </Col>

@@ -58,6 +58,7 @@ rules: {
   "import/prefer-default-export": 0,
   "import/order": 0,
   "import/no-extraneous-dependencies": 0,
+  "import/no-unresolved": [0, {commonjs: true, amd: true}],
   "jsx-quotes": [1,"prefer-double"],
   "no-ternary": 0,
   "no-nested-ternary": 0,

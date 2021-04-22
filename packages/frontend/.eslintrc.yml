@@ -41,7 +41,7 @@ rules: {
   "react/jsx-curly-brace-presence":[1,{ "props": "never", "children": "never" }],
   "react/jsx-curly-brace-availability": [0,{ "props": "ignore", "children": "ignore" }],
   "react-hooks/rules-of-hooks": 2,
-  "react-hooks/exhaustive-deps": 1,
+  "react-hooks/exhaustive-deps": 0,
   "react/react-in-jsx-scope": 0,
   "react/jsx-props-no-spreading": 0,
   "react/jsx-key": 0,

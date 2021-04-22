@@ -15,7 +15,7 @@ const DetailAppealPage = () => {
   };
   useEffect(() => {
     dispatch(fetchAppeal(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
   return (
     <div style={{ padding: "10px 20px" }}>
       {appeal ? <AppealDetails appeal={appeal} /> : <p>Заявка не найдена</p>}

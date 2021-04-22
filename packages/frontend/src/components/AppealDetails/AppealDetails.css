@@ -3,3 +3,17 @@
     justify-content: space-between;
     height: 20px;
 }
+
+.detail-block {
+    padding: 3%;
+}
+
+.detail-block__chat {
+    border: 1px solid rgba(59,59,59,0.5); 
+    border-radius: 3px;
+    padding: 15px;
+    background: #fff;
+}
+.detail-block__chat:hover {
+    border-color: #40a9ff;
+}

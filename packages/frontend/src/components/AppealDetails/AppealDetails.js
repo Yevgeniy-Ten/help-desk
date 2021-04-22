@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Space } from "antd";
+import { Button, Card } from "antd";
 import { NavLink } from "react-router-dom";
 import "./AppealDetails.css";
 

@@ -24,7 +24,7 @@ const Settings = () => {
 
   return (
     <Row style={{ padding: "10px 20px" }}>
-      <Col span={24} className={"mb-sm"}>
+      <Col span={24} className="mb-sm">
         <Breadcrumb>
           <Breadcrumb.Item>Справочники:</Breadcrumb.Item>
         </Breadcrumb>
@@ -45,16 +45,13 @@ const Settings = () => {
             </Col> */}
       <Col span={!collapsed ? 23 : 18}>
         <Switch>
-          <Route path={"/settings/topics"} component={TopicsTable} />
-          <Route path={"/settings/companies"} component={CompanyTables} />
-          <Route path={"/settings/reglaments"} component={ReglamentsTable} />
-          <Route path={"/settings/departments"} component={DepartmentTable} />
-          <Route path={"/settings/positions"} component={PositionTable} />
-          <Route
-            path={"/settings/orgstructure"}
-            component={OrgStructureTable}
-          />
-          <Redirect to={"/settings/topics"} />
+          <Route path="/settings/topics" component={TopicsTable} />
+          <Route path="/settings/companies" component={CompanyTables} />
+          <Route path="/settings/reglaments" component={ReglamentsTable} />
+          <Route path="/settings/departments" component={DepartmentTable} />
+          <Route path="/settings/positions" component={PositionTable} />
+          <Route path="/settings/orgstructure" component={OrgStructureTable} />
+          <Redirect to="/settings/topics" />
         </Switch>
       </Col>
       <Col span={0.5} className="p-2">
@@ -69,13 +66,13 @@ const Settings = () => {
       </Col>
       <Col span={24}>
         <Switch>
-          <Route path={"/settings/topics"} component={TopicForm} />
-          <Route path={"/settings/companies"} component={CompanyForm} />
-          <Route path={"/settings/reglaments"} component={ReglamentForm} />
-          <Route path={"/settings/departments"} component={DepartmentForm} />
-          <Route path={"/settings/positions"} component={PositionForm} />
-          <Route path={"/settings/orgstructure"} component={OrgStructureForm} />
-          <Redirect to={"/settings/topics"} />
+          <Route path="/settings/topics" component={TopicForm} />
+          <Route path="/settings/companies" component={CompanyForm} />
+          <Route path="/settings/reglaments" component={ReglamentForm} />
+          <Route path="/settings/departments" component={DepartmentForm} />
+          <Route path="/settings/positions" component={PositionForm} />
+          <Route path="/settings/orgstructure" component={OrgStructureForm} />
+          <Redirect to="/settings/topics" />
         </Switch>
       </Col>
     </Row>

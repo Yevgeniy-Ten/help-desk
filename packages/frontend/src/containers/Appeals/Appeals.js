@@ -11,7 +11,8 @@ const Appeals = () => {
       <Route exact={true} path="/appeals" component={AllAppeals} />
       <Route exact={true} path="/appeals/add" component={AddAppealPage} />
       <Route exact={true} path="/appeals/:id" component={DetailAppealPage} />
-      <Route exact={true} path="/appeals/:id/edit" component={EditAppealPage} />
+      <Route exact={true} path="/appeals/:id/edit" component={AllAppeals} />
+      {/* <Route exact={true} path="/appeals/:id/edit" component={EditAppealPage} /> */}
       <Redirect to="/appeals" />
     </Switch>
   );

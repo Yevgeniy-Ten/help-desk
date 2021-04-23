@@ -19,7 +19,8 @@ const EditAppealForm = ({
   departments,
   employees,
   onChangeFields,
-  onSaveAppeal
+  onSaveAppeal,
+  onCloseEditAppealForm
 }) => {
   const [hourWorkEditShow, toggleHourWorkEditIsShow] = useToggle();
   const [form] = Form.useForm();

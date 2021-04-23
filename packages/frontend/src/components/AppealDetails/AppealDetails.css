@@ -1,6 +1,13 @@
+.btn-block {
+    display: flex;
+    justify-content: space-between;
+    height: 20px;
+}
+
 .detail-block {
     padding: 3%;
 }
+
 .detail-block__chat {
     border: 1px solid rgba(59,59,59,0.5); 
     border-radius: 3px;

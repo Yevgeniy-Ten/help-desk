@@ -32,13 +32,16 @@ const AdminAppealsTable = ({ appeals }) => {
   const { users } = useSelector(getUsersState, shallowEqual);
   const loading = useSelector(getAppealStateLoader);
   const appeal = useSelector(getAppealCurrent);
+  const [state, setState] = useState({
+    selectedRowKeys: []
+  });
   const [dataEdit, setDataEdit] = useState({
     topics: null,
     appeal: null,
     departments: null,
     users: null
   });
-  const Edit = (id) => {
+  const editAppeal = (id) => {
     setAppealId(id);
     dispatch(fetchAppeal(id));
     const dataAppeal = {
@@ -65,6 +68,14 @@ const AdminAppealsTable = ({ appeals }) => {
     await dispatch(fetchPutAppeal(appealId, appeal));
     setVisible(false);
     await dispatch(fetchAppeals());
+  };
+  const onSelectRowChange = (selectedRowKeys, selectedRows) => {
+    console.log(
+      `selectedRowKeys: ${selectedRowKeys}`,
+      "selectedRows: ",
+      selectedRows
+    );
+    setState({ selectedRowKeys });
   };
   useEffect(() => {
     dispatch(fetchSettings("topics"));
@@ -166,7 +177,7 @@ const AdminAppealsTable = ({ appeals }) => {
             <Button
               type="link"
               onClick={(id) => {
-                return Edit(record.id);
+                return editAppeal(record.id);
               }}
             >
               Редактировать
@@ -177,12 +188,22 @@ const AdminAppealsTable = ({ appeals }) => {
       }
     }
   ];
+  const { selectedRowKeys } = state;
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectRowChange
+  };
   return (
     <>
       <Table
+        rowSelection={rowSelection}
         scroll={{ x: 1100 }}
         columns={appealColumns}
         dataSource={appeals}
+        rowKey={(record) => {
+          return record.id;
+        }}
       />
       <Drawer
         width={640}

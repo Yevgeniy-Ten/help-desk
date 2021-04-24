@@ -14,7 +14,7 @@ const OrgStructureTable = () => {
   const dispatch = useDispatch();
   const orgStructures = useSelector(getOrgStructures);
   const isLoad = useSelector(getSettingsLoader);
-  console.log(orgStructures);
+
   useEffect(() => {
     dispatch(fetchSettings("orgstructure"));
   }, [dispatch]);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, Tag, Drawer } from "antd";
+import { Button, Space, Table, Tag, Drawer, Popconfirm } from "antd";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getHourWork } from "../../../helpers/helpers";
@@ -33,7 +33,8 @@ const AdminAppealsTable = ({ appeals }) => {
   const loading = useSelector(getAppealStateLoader);
   const appeal = useSelector(getAppealCurrent);
   const [state, setState] = useState({
-    selectedRowKeys: []
+    selectedRowKeys: [],
+    selectedRows: []
   });
   const [dataEdit, setDataEdit] = useState({
     topics: null,
@@ -75,7 +76,18 @@ const AdminAppealsTable = ({ appeals }) => {
       "selectedRows: ",
       selectedRows
     );
-    setState({ selectedRowKeys });
+    const selectedRowsCopy = selectedRows.map((row) => {
+      const { id } = row;
+      return { id };
+    });
+    setState({ selectedRowKeys, selectedRowsCopy });
+    console.log(state);
+  };
+  const handleDeleteAppeals = (key) => {
+    // const dataSource = [...this.state.dataSource];
+    // setState({
+    //   dataSource: dataSource.filter((item) => item.key !== key),
+    // });
   };
   useEffect(() => {
     dispatch(fetchSettings("topics"));
@@ -182,7 +194,14 @@ const AdminAppealsTable = ({ appeals }) => {
             >
               Редактировать
             </Button>
-            <Button danger={true}>Удалить</Button>
+            <Popconfirm
+              title="Удалить, вы уверены?"
+              onConfirm={() => {
+                return handleDeleteAppeals(record.key);
+              }}
+            >
+              <Button danger={true}>Удалить</Button>
+            </Popconfirm>
           </Space>
         );
       }

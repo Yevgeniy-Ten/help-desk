@@ -10,7 +10,8 @@ import {
 } from "../../../containers/Settings/redux/settingGetters";
 import {
   fetchAppeal,
-  fetchPutAppeal
+  fetchPutAppeal,
+  fetchDeleteAppeal
 } from "../../../containers/Appeals/redux/appealActions";
 import {
   getAppealCurrent,
@@ -80,14 +81,30 @@ const AdminAppealsTable = ({ appeals }) => {
       const { id } = row;
       return { id };
     });
-    setState({ selectedRowKeys, selectedRowsCopy });
+    setState({ selectedRowKeys, selectedRows: selectedRowsCopy });
     console.log(state);
   };
-  const handleDeleteAppeals = (key) => {
-    // const dataSource = [...this.state.dataSource];
-    // setState({
-    //   dataSource: dataSource.filter((item) => item.key !== key),
-    // });
+  // eslint-disable-next-line consistent-return
+  const handleDeleteAppeals = async (idAppeal) => {
+    let appealsIdArray = [];
+    appealsIdArray = state.selectedRows;
+    if (appealsIdArray.length > 1) {
+      let count = 0;
+      appealsIdArray.forEach((element) => {
+        if (element.id !== idAppeal) {
+          count++;
+        }
+        if (count === appealsIdArray.length) {
+          appealsIdArray.push({ id: idAppeal });
+        }
+      });
+      await dispatch(fetchDeleteAppeal(idAppeal, appealsIdArray));
+      await dispatch(fetchAppeals());
+      // eslint-disable-next-line no-return-await
+      return;
+    }
+    await dispatch(fetchDeleteAppeal(idAppeal, null));
+    await dispatch(fetchAppeals());
   };
   useEffect(() => {
     dispatch(fetchSettings("topics"));
@@ -197,7 +214,7 @@ const AdminAppealsTable = ({ appeals }) => {
             <Popconfirm
               title="Удалить, вы уверены?"
               onConfirm={() => {
-                return handleDeleteAppeals(record.key);
+                return handleDeleteAppeals(record.id);
               }}
             >
               <Button danger={true}>Удалить</Button>

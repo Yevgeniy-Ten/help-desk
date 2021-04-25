@@ -83,3 +83,27 @@ export const fetchPutAppeal = (id, appealData) => {
     }
   };
 };
+
+export const fetchDeleteAppeal = (id, appealData) => {
+  return async (dispatch, _, axios) => {
+    try {
+      message.info({
+        content: "Идет удаление!"
+      });
+      dispatch(appealRequestStarted());
+      console.log(id, appealData);
+      await axios.delete(`/requests/${id}`, { data: appealData });
+      dispatch(appealUpdateSuccess());
+      dispatch(push("/appeals"));
+      message.success({
+        content: "Изменения сохранены!"
+      });
+    } catch (e) {
+      if (e.response && e.response.data) {
+        dispatch(appealRequestError(e.response.data));
+      } else {
+        dispatch(appealRequestError({ message: e.message }));
+      }
+    }
+  };
+};

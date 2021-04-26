@@ -367,11 +367,52 @@ module.exports = {
         idAppealsArr = req.body;
         if (Array.isArray(idAppealsArr)) {
           idAppealsArr.forEach(async (element) => {
+            //       await RequestHistory.create({
+            //         requestId: element.id,
+            //         topicId: element.topicId,
+            //         priority: element.status,
+            //         status: element.status,
+            //         deadline: element.deadline,
+            //         departmentId: element.departmentId,
+            //         employeeId: element.employeeId,
+            //         hourWork: element.hourWork,
+            //         comment:
+            //           "Заявка удалена!" +
+            //           "\n" +
+            //           `со статусом ${element.status}` +
+            //           "\n" +
+            //           "Удалил:" +
+            //           "\n" +
+            //           req.user.firstName +
+            //           "\n" +
+            //           req.user.lastName
+            // });
             await Request.destroy({ where: { id: element.id } });
           });
           return res.send({ message: "Заявки удалены!" });
         }
       }
+      // const request = await Request.findOne({
+      //   where: { id: req.params.id }
+      // });
+      // if (!request) return res.sendStatus(404);
+
+      // await RequestHistory.create({
+      //   requestId: request.id,
+      //   topicId: request.topicId,
+      //   priority: request.priority,
+      //   status: request.status,
+      //   deadline: request.deadline,
+      //   departmentId: request.departmentId,
+      //   employeeId: request.employeeId,
+      //   hourWork: request.hourWork,
+      //   comment: `Заявка удалена!\n
+      //     со статусом ${request.status}\n
+      //     Удалил:\n
+      //     ${req.user.firstName}\n
+      //     ${req.user.lastName}`
+      // });
+
       await Request.destroy({ where: { id: req.params.id } });
       return res.send({ message: "Заявка удалена!" });
     } catch (e) {

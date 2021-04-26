@@ -8,38 +8,44 @@ const SettingsFilter = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const filterSubmitHandler = (value) => {
-    dispatch(push(value.status));
-  };
+  // const filterSubmitHandler = (value) => {
+  //   dispatch(push(value.status));
+  // };
 
+  const onChangeSelect = (value) => {
+    setTimeout(() => {
+      dispatch(push(value));
+    }, 700);
+  };
   return (
     <Form
       form={form}
       name="form-filter"
-      layout={"vertical"}
-      onFinish={filterSubmitHandler}
+      layout="vertical"
+      // onFinish={filterSubmitHandler}
     >
       <h3>Фильтр</h3>
       <hr />
-      <Form.Item name={"status"} label="По статусу">
+      <Form.Item name="status" label="По статусу">
         <Select
           placeholder="Справочник"
-          defaultValue={"/settings/topics"}
-          name={"setting"}
+          defaultValue="/settings/topics"
+          name="setting"
+          onChange={onChangeSelect}
         >
-          <Option value={"/settings/topics"}>По тематикам</Option>
-          <Option value={"/settings/companies"}>По компаниям</Option>
-          <Option value={"/settings/reglaments"}>По регламенту</Option>
-          <Option value={"/settings/departments"}>По отделу</Option>
-          <Option value={"/settings/positions"}>По должностям</Option>
-          <Option value={"/settings/orgstructure"}>По орг. структуре</Option>
+          <Option value="/settings/topics">По тематикам</Option>
+          <Option value="/settings/companies">По компаниям</Option>
+          <Option value="/settings/reglaments">По регламенту</Option>
+          <Option value="/settings/departments">По отделу</Option>
+          <Option value="/settings/positions">По должностям</Option>
+          <Option value="/settings/orgstructure">По орг. структуре</Option>
         </Select>
       </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" size={"large"}>
+      {/* <Form.Item> */}
+      {/* <Button type="primary" htmlType="submit" size="large" disabled={true}>
           Потвердить
-        </Button>
-      </Form.Item>
+        </Button> */}
+      {/* </Form.Item> */}
     </Form>
   );
 };

@@ -72,25 +72,20 @@ const AdminAppealsTable = ({ appeals }) => {
     await dispatch(fetchAppeals());
   };
   const onSelectRowChange = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRows);
-    const selectedRowsCopy = selectedRows.map((row) => {
-      const { id } = row;
-      return { id };
-    });
-    setState({ selectedRowKeys, selectedRows: selectedRowsCopy });
+    setState({ selectedRowKeys, selectedRows });
   };
   // eslint-disable-next-line consistent-return
-  const handleDeleteAppeals = async (idAppeal) => {
+  const handleDeleteAppeals = async (appeal) => {
     let appealsIdArray = [];
     appealsIdArray = state.selectedRows;
     if (appealsIdArray.length > 1) {
       let count = 0;
       appealsIdArray.forEach((element) => {
-        if (element.id !== idAppeal) {
+        if (element.id !== appeal.id) {
           count++;
         }
         if (count === appealsIdArray.length) {
-          appealsIdArray.push({ id: idAppeal });
+          appealsIdArray.push(appeal);
         }
       });
       await dispatch(fetchDeleteAppeal(null, appealsIdArray));
@@ -98,7 +93,7 @@ const AdminAppealsTable = ({ appeals }) => {
       // eslint-disable-next-line no-return-await
       return;
     }
-    await dispatch(fetchDeleteAppeal(idAppeal, null));
+    await dispatch(fetchDeleteAppeal(appeal.id, null));
     await dispatch(fetchAppeals());
   };
   useEffect(() => {
@@ -209,7 +204,7 @@ const AdminAppealsTable = ({ appeals }) => {
             <Popconfirm
               title="Удалить, вы уверены?"
               onConfirm={() => {
-                return handleDeleteAppeals(record.id);
+                return handleDeleteAppeals(record);
               }}
             >
               <Button danger={true}>Удалить</Button>

@@ -5,7 +5,7 @@ module.exports = {
     try {
       const { title } = req.body;
       Company.create({
-        title,
+        title
       })
         .then((newCompany) => {
           res.status(201).send(newCompany);
@@ -31,7 +31,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const company = await Company.findOne({
-        where: { id },
+        where: { id }
       });
       if (!company) return res.sendStatus(404);
       await company.update(req.body);
@@ -47,7 +47,7 @@ module.exports = {
         console.log(req.query.params);
         const user = await User.findOne({
           where: { id },
-          include: ["company", "departmentUser", "role"],
+          include: ["company", "departmentUser", "role"]
         });
         if (!user) return res.sendStatus(404);
         if (user.role.name === "client")
@@ -70,5 +70,5 @@ module.exports = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };

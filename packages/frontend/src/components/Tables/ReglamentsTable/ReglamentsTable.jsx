@@ -36,7 +36,7 @@ const ReglamentsTable = () => {
   const saveEditableReglament = async () => {
     try {
       const values = await form.validateFields(); // храняться данные о редактируемых полях
-      dispatch(fetchSettingUpdate("departments", { ...values }));
+      dispatch(fetchSettingUpdate("reglaments", { ...values }));
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }

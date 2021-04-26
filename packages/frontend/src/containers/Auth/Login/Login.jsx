@@ -68,7 +68,7 @@ const Login = () => {
       <Form.Item>
         или{" "}
         <NavLink to="/auth/register" style={{ cursor: "pointer" }}>
-          Зарегистириоваться!
+          Зарегистрироваться!
         </NavLink>
       </Form.Item>
     </Form>

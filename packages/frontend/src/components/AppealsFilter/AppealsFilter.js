@@ -7,7 +7,8 @@ const AppealsFilter = ({
   user,
   filterSubmitHandler,
   filterChangeHandler,
-  isAdmin,
+  companies,
+  departments,
   loading
 }) => {
   const [form] = Form.useForm();
@@ -29,7 +30,7 @@ const AppealsFilter = ({
         <DateFilter />
       </Form.Item>
       {user && user.role && user.role.name === "admin" && (
-        <AdminAppealsFilter />
+        <AdminAppealsFilter companies={companies} departments={departments} />
       )}
       <Form.Item>
         <Button

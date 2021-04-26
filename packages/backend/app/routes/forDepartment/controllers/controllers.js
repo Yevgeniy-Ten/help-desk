@@ -34,7 +34,7 @@ const DepartmentController = {
   async create(req, res) {
     const { title } = req.body;
     Department.create({
-      title,
+      title
     })
       .then((newDepartment) => res.status(201).send(newDepartment))
       .catch((errors) => {
@@ -44,11 +44,8 @@ const DepartmentController = {
   async edit(req, res) {
     try {
       const { id } = req.params;
-      const department = await Department.findOne({
-        where: {
-          id,
-        },
-      });
+      console.log("id", req.params);
+      const department = await Department.findOne({ id });
       if (!department) return res.sendStatus(404);
       await department.update(req.body);
       res.send(department);
@@ -58,12 +55,12 @@ const DepartmentController = {
   },
   async deleteDepartment(req, res) {
     try {
-      const message = { message: "Delete successful" };
+      const message = { message: "Удалено успешно" };
       await Department.destroy({ where: { id: req.params.id } });
       return res.send(message);
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = DepartmentController;

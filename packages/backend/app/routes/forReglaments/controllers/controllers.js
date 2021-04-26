@@ -12,7 +12,7 @@ const ReglamentsController = {
         middle,
         high,
         incident,
-        priority,
+        priority
       } = req.body;
       await Reglaments.create({
         companyId,
@@ -20,7 +20,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: standart,
-        priority: "Стандартно",
+        priority: "Стандартно"
       });
       await Reglaments.create({
         companyId,
@@ -28,7 +28,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: middle,
-        priority: "Средний",
+        priority: "Средний"
       });
       await Reglaments.create({
         companyId,
@@ -36,7 +36,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: high,
-        priority: "Срочно",
+        priority: "Срочно"
       });
       await Reglaments.create({
         companyId,
@@ -44,21 +44,17 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: incident,
-        priority: "Критично",
+        priority: "Критично"
       });
       res.sendStatus(201);
     } catch (errors) {
       res.status(500).send(errors);
     }
   },
-  async edit(req, res) {
+  async editReglaments(req, res) {
     try {
-      const { id } = req.params;
-      const reglaments = await Reglaments.findOne({
-        where: {
-          id,
-        },
-      });
+      const id = req.params.id;
+      const reglaments = await Reglaments.findOne({ where: { id: id } });
       if (!reglaments) return res.sendStatus(404);
       await reglaments.update(req.body);
       res.send(reglaments);
@@ -69,7 +65,7 @@ const ReglamentsController = {
   async getAll(req, res) {
     try {
       const reglaments = await Reglaments.findAll({
-        include: ["topic", "department", "company"],
+        include: ["topic", "department", "company"]
       });
       if (!reglaments.length) return res.sendStatus(404);
       res.send(reglaments);
@@ -95,6 +91,6 @@ const ReglamentsController = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = ReglamentsController;

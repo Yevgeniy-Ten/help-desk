@@ -72,6 +72,7 @@ const AdminAppealsTable = ({ appeals }) => {
     await dispatch(fetchAppeals());
   };
   const onSelectRowChange = (selectedRowKeys, selectedRows) => {
+    console.log(selectedRows);
     const selectedRowsCopy = selectedRows.map((row) => {
       const { id } = row;
       return { id };

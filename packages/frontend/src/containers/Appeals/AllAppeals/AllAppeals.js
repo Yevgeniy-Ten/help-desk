@@ -13,6 +13,11 @@ import { getUser } from "../../Auth/redux/getters/getters";
 import Spinner from "../../../components/Spinner/Spinner";
 import { NavLink } from "react-router-dom";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { fetchSettings } from "../../Settings/redux/settingsActions";
+import {
+  getCompanies,
+  getDepartments
+} from "../../Settings/redux/settingGetters";
 
 const AllAppeals = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,8 +28,12 @@ const AllAppeals = () => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const { appeals, loading } = useSelector(getAppealsState, shallowEqual);
+  const companies = useSelector(getCompanies);
+  const departments = useSelector(getDepartments);
   useEffect(() => {
     dispatch(fetchAppeals());
+    dispatch(fetchSettings("companies"));
+    dispatch(fetchSettings("departments"));
   }, [dispatch]);
   const filterFormHandler = (filters) => {
     dispatch(fetchAppealFilters(filters));
@@ -68,6 +77,8 @@ const AllAppeals = () => {
         <AppealsFilter
           loading={loading}
           user={user}
+          companies={companies}
+          departments={departments}
           filterChangeHandler={filterChangeHandler}
           filterSubmitHandler={filterFormHandler}
         />

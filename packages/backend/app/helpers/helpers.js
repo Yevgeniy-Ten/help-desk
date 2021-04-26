@@ -1,4 +1,5 @@
 const { nanoid } = require("nanoid");
+const {RequestHistory} = require("../../models");
 
 module.exports = {
     saveFile: function (file, type) {
@@ -9,47 +10,70 @@ module.exports = {
             console.log("File uploaded");
         });
     },
-};
-
-const {RequestHistory} = require("../../models");
-const hourWorkUpdate = (requests) => {
-    requests.forEach(async request => {
-        const histories = await RequestHistory.findAll({
-            where: {
-                requestId: request.id
-            },
-        })
-        let hourWork = 0;
-        const status = {
-            open: "Открыто", 
-            inProgress: "Выполняется", 
-            suspend: "Приостановлено", 
-            done: "Выполнено"
+    buildQuery: function (query, priority) {
+        let whereClause = {};
+        
+        if(query && query.id) {
+            whereClause.id = query.id;
         }
-        for(let i = 0; i < histories.length; i++) {
-            if(histories[i].addHourWork > 0) {
-                hourWork += histories[i].addHourWork;
+        if(query && query.requestId) {
+            whereClause.requestId = query.requestId;
+        }
+        if(priority) {
+            whereClause.priority = priority;
+        }
+        if(query && query.status) {
+            whereClause.status = query.status;
+        }
+        if(query && query.departmentId) {
+            whereClause.departmentId = query.departmentId;
+        }
+        if(query && query.date) {
+            // whereClause.date = query.date;
+        }
+        if(query && query.companyId) {
+            // whereClause.companyId = query.companyId;
+        }
+        
+        return whereClause;
+    },
+    hourWorkUpdate: function (requests) {
+        requests.forEach(async request => {
+            const histories = await RequestHistory.findAll({
+                where: {
+                    requestId: request.id
+                },
+            })
+            let hourWork = 0;
+            const status = {
+                open: "Открыто", 
+                inProgress: "Выполняется", 
+                suspend: "Приостановлено", 
+                done: "Выполнено"
             }
-            if(histories[i].status !== status.inProgress) {
-                continue;
-            }
-            let currentDate = new Date();
-            if(histories[i].status === status.inProgress && i + 1 >= histories.length) {
-                hourWork += currentDate - histories[i].updatedAt;
-            }
-            for(let j = i + 1; j < histories.length; j++) {
-                if(histories[i].status === status.inProgress && (histories[j].status === status.inProgress || histories[j].status === status.suspend || histories[j].status === status.done)) {
-                    hourWork += histories[j].updatedAt - histories[i].updatedAt;
-                    break;
+            for(let i = 0; i < histories.length; i++) {
+                if(histories[i].addHourWork > 0) {
+                    hourWork += histories[i].addHourWork;
+                }
+                if(histories[i].status !== status.inProgress) {
+                    continue;
+                }
+                let currentDate = new Date();
+                if(histories[i].status === status.inProgress && i + 1 >= histories.length) {
+                    hourWork += currentDate - histories[i].updatedAt;
+                }
+                for(let j = i + 1; j < histories.length; j++) {
+                    if(histories[i].status === status.inProgress && (histories[j].status === status.inProgress || histories[j].status === status.suspend || histories[j].status === status.done)) {
+                        hourWork += histories[j].updatedAt - histories[i].updatedAt;
+                        break;
+                    }
                 }
             }
-        }
-        await request.update({
-            hourWork
-        })
-    });
-    
-    return requests;
+            await request.update({
+                hourWork
+            })
+        });
+        
+        return requests;
+    }
 };
-
-module.exports = hourWorkUpdate;

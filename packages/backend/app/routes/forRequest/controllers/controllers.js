@@ -362,10 +362,18 @@ module.exports = {
   },
   async deleteRequest(req, res) {
     try {
-      const message = { message: "Удалено!" };
-
+      if (req.body) {
+        let idAppealsArr = [];
+        idAppealsArr = req.body;
+        if (Array.isArray(idAppealsArr)) {
+          idAppealsArr.forEach(async (element) => {
+            await Request.destroy({ where: { id: element.id } });
+          });
+          return res.send({ message: "Заявки удалены!" });
+        }
+      }
       await Request.destroy({ where: { id: req.params.id } });
-      return res.send(message);
+      return res.send({ message: "Заявка удалена!" });
     } catch (e) {
       res.status(401).send(e);
     }

@@ -149,7 +149,7 @@ const Register = () => {
         </Button>
       </Form.Item>
       <Form.Item className="mb-sm">
-        Или <NavLink to="/auth">Войти в систему</NavLink>
+        или <NavLink to="/auth">Войти в систему</NavLink>
       </Form.Item>
     </Form>
   );

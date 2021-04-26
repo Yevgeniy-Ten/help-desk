@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, Tag, Drawer } from "antd";
+import { Button, Space, Table, Tag, Drawer, Popconfirm } from "antd";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getHourWork } from "../../../helpers/helpers";
@@ -10,7 +10,8 @@ import {
 } from "../../../containers/Settings/redux/settingGetters";
 import {
   fetchAppeal,
-  fetchPutAppeal
+  fetchPutAppeal,
+  fetchDeleteAppeal
 } from "../../../containers/Appeals/redux/appealActions";
 import {
   getAppealCurrent,
@@ -32,13 +33,17 @@ const AdminAppealsTable = ({ appeals }) => {
   const { users } = useSelector(getUsersState, shallowEqual);
   const loading = useSelector(getAppealStateLoader);
   const appeal = useSelector(getAppealCurrent);
+  const [state, setState] = useState({
+    selectedRowKeys: [],
+    selectedRows: []
+  });
   const [dataEdit, setDataEdit] = useState({
     topics: null,
     appeal: null,
     departments: null,
     users: null
   });
-  const Edit = (id) => {
+  const editAppeal = (id) => {
     setAppealId(id);
     dispatch(fetchAppeal(id));
     const dataAppeal = {
@@ -64,6 +69,41 @@ const AdminAppealsTable = ({ appeals }) => {
   const onSaveAppeal = async (appeal) => {
     await dispatch(fetchPutAppeal(appealId, appeal));
     setVisible(false);
+    await dispatch(fetchAppeals());
+  };
+  const onSelectRowChange = (selectedRowKeys, selectedRows) => {
+    console.log(
+      `selectedRowKeys: ${selectedRowKeys}`,
+      "selectedRows: ",
+      selectedRows
+    );
+    const selectedRowsCopy = selectedRows.map((row) => {
+      const { id } = row;
+      return { id };
+    });
+    setState({ selectedRowKeys, selectedRows: selectedRowsCopy });
+    console.log(state);
+  };
+  // eslint-disable-next-line consistent-return
+  const handleDeleteAppeals = async (idAppeal) => {
+    let appealsIdArray = [];
+    appealsIdArray = state.selectedRows;
+    if (appealsIdArray.length > 1) {
+      let count = 0;
+      appealsIdArray.forEach((element) => {
+        if (element.id !== idAppeal) {
+          count++;
+        }
+        if (count === appealsIdArray.length) {
+          appealsIdArray.push({ id: idAppeal });
+        }
+      });
+      await dispatch(fetchDeleteAppeal(idAppeal, appealsIdArray));
+      await dispatch(fetchAppeals());
+      // eslint-disable-next-line no-return-await
+      return;
+    }
+    await dispatch(fetchDeleteAppeal(idAppeal, null));
     await dispatch(fetchAppeals());
   };
   useEffect(() => {
@@ -166,23 +206,40 @@ const AdminAppealsTable = ({ appeals }) => {
             <Button
               type="link"
               onClick={(id) => {
-                return Edit(record.id);
+                return editAppeal(record.id);
               }}
             >
               Редактировать
             </Button>
-            <Button danger={true}>Удалить</Button>
+            <Popconfirm
+              title="Удалить, вы уверены?"
+              onConfirm={() => {
+                return handleDeleteAppeals(record.id);
+              }}
+            >
+              <Button danger={true}>Удалить</Button>
+            </Popconfirm>
           </Space>
         );
       }
     }
   ];
+  const { selectedRowKeys } = state;
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectRowChange
+  };
   return (
     <>
       <Table
+        rowSelection={rowSelection}
         scroll={{ x: 1100 }}
         columns={appealColumns}
         dataSource={appeals}
+        rowKey={(record) => {
+          return record.id;
+        }}
       />
       <Drawer
         width={640}

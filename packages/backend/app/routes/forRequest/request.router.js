@@ -6,6 +6,7 @@ const {
   getById,
   getRequestHistory,
   getRequestsAudit,
+  deleteRequest
 } = require("./controllers/controllers");
 const auth = require("../../middlewares/auth");
 
@@ -16,5 +17,6 @@ appealRouter.get("/audit", getRequestsAudit);
 appealRouter.get("/:id", auth, getById);
 appealRouter.post("/", auth, create);
 appealRouter.put("/:id", auth, edit);
+// appealRouter.delete("/:id", auth, deleteRequest);
 
 module.exports = appealRouter;

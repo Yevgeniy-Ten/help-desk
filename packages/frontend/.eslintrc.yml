@@ -74,7 +74,7 @@ rules: {
   "arrow-parens": [2, "always"],
   "prefer-arrow-callback": 0,
   "template-curly-spacing": [2, "never"],
-  "object-curly-spacing": [2, "always", { "arraysInObjects": false , "objectsInObjects": false }],
+  "object-curly-spacing": [2, "always", { "arraysInObjects": true , "objectsInObjects": true }],
   "jsx-a11y/click-events-have-key-events": 0,  
   "jsx-a11y/alt-text": [ 2, {
     "elements": [ "img", "object", "area", "input[type=\"image\"]" ],

@@ -361,6 +361,13 @@ module.exports = {
     }
   },
   async deleteRequest(req, res) {
-    // console.log()
+    try {
+      const message = { message: "Удалено!" };
+
+      await Request.destroy({ where: { id: req.params.id } });
+      return res.send(message);
+    } catch (e) {
+      res.status(401).send(e);
+    }
   }
 };

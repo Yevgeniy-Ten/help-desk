@@ -44,7 +44,6 @@ const DepartmentController = {
   async edit(req, res) {
     try {
       const { id } = req.params;
-      console.log("id", req.params);
       const department = await Department.findOne({ id });
       if (!department) return res.sendStatus(404);
       await department.update(req.body);

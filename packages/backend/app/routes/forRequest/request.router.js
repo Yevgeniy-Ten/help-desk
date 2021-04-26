@@ -17,6 +17,7 @@ appealRouter.get("/audit", getRequestsAudit);
 appealRouter.get("/:id", auth, getById);
 appealRouter.post("/", auth, create);
 appealRouter.put("/:id", auth, edit);
-// appealRouter.delete("/:id", auth, deleteRequest);
+appealRouter.delete("/", auth, deleteRequest);
+appealRouter.delete("/:id", auth, deleteRequest);
 
 module.exports = appealRouter;

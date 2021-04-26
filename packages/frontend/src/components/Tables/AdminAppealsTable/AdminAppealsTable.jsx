@@ -72,17 +72,12 @@ const AdminAppealsTable = ({ appeals }) => {
     await dispatch(fetchAppeals());
   };
   const onSelectRowChange = (selectedRowKeys, selectedRows) => {
-    console.log(
-      `selectedRowKeys: ${selectedRowKeys}`,
-      "selectedRows: ",
-      selectedRows
-    );
+    console.log(selectedRows);
     const selectedRowsCopy = selectedRows.map((row) => {
       const { id } = row;
       return { id };
     });
     setState({ selectedRowKeys, selectedRows: selectedRowsCopy });
-    console.log(state);
   };
   // eslint-disable-next-line consistent-return
   const handleDeleteAppeals = async (idAppeal) => {
@@ -98,7 +93,7 @@ const AdminAppealsTable = ({ appeals }) => {
           appealsIdArray.push({ id: idAppeal });
         }
       });
-      await dispatch(fetchDeleteAppeal(idAppeal, appealsIdArray));
+      await dispatch(fetchDeleteAppeal(null, appealsIdArray));
       await dispatch(fetchAppeals());
       // eslint-disable-next-line no-return-await
       return;

@@ -3,7 +3,6 @@ const events = require("events")
 const emitter = new events.EventEmitter();
 const chatController = {
     async getChatMessages(req, res) {
-
         emitter.once("newMessage", (message) => {
             res.json(message)
         })

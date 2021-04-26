@@ -8,6 +8,7 @@ const {
 } = require("../../../../models");
 const hourWorkUpdate = require("../../../helpers/helpers");
 let moment = require("moment");
+const helpers = require("../../../helpers/helpers");
 
 module.exports = {
   async create(req, res) {
@@ -114,7 +115,7 @@ module.exports = {
         ]
       });
       if (!request) return res.sendStatus(404);
-      requestUpdate = hourWorkUpdate([request]);
+      requestUpdate = helpers.hourWorkUpdate([request]);
       res.send(requestUpdate[0]);
     } catch (errors) {
       res.status(500).send(errors);
@@ -122,43 +123,18 @@ module.exports = {
   },
   async getRequestHistory(req, res) {
     try {
-      const { id: requestId } = req.query;
-      const { date: dateFilter } = req.query;
-      let histories = null;
-      // if (!requestId && dateFilter) {
-      //     console.log(dateFilter);
-      //     histories = await RequestHistory.findAll({
-      //         updatedAt: {
-      //             "$between": [dateFilter[0],dateFilter[1]]
-      //         },
-      //         // $or: [{
-      //         order: [
-      //             ['requestId', 'ASC'],
-      //         ]
-      //     })
-      // }
-      if (requestId && !dateFilter) {
+      const { requestId } = req.query;
+      const { date } = req.query;
+      let histories = [];
+      if(requestId || date) {
         histories = await RequestHistory.findAll({
-          where: {
-            requestId
-          }
-        });
+          where: helpers.buildQuery(req.query, null)
+        })  
+        return res.send(histories);
       }
-      if (requestId && dateFilter) {
-        histories = await RequestHistory.findAll({
-          where: {
-            requestId
-          },
-          updated_at: {
-            $between: [dateFilter[0], dateFilter[1]]
-          }
-        });
-      }
-      if (!requestId && !dateFilter) {
-        histories = await RequestHistory.findAll({
-          order: [["requestId", "ASC"]]
-        });
-      }
+      histories = await RequestHistory.findAll({
+        order: [["requestId", "ASC"]]
+      });
       if (!histories.length) return res.sendStatus(404);
       res.send(histories);
     } catch (errors) {
@@ -302,62 +278,101 @@ module.exports = {
     try {
       let requests = [];
       let priorities = ["Критично", "Срочно", "Средний", "Стандартно"];
+      let requestsByPriority = [];
 
+      const {id: requestId} = req.query
+      const {priority: priority} = req.query
+      
       if (req.user.roleId !== 2) {
+        if(requestId) {
+          let request = await Request.findAll({
+            where: helpers.buildQuery(req.query, priority),
+            include: [{
+              model: User,
+              as: "clientRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, {
+              model: User,
+              as: "employeeRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, "topic", "department"],
+          })  
+          return res.send(request)
+        }
+        if(priority) {
+          let requests = await Request.findAll({
+            where: helpers.buildQuery(req.query, priority),
+            include: [{
+              model: User,
+              as: "clientRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, {
+              model: User,
+              as: "employeeRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, "topic", "department"],
+          })  
+          return res.send(requests)
+        }
         for (let index = 0; index < priorities.length; index++) {
-          let requestsByPriority = await Request.findAll({
-            where: { priority: priorities[index] },
-            include: [
-              {
-                model: User,
-                as: "clientRequest",
-                attributes: ["firstName", "lastName", "companyId"]
-              },
-              {
-                model: User,
-                as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"]
-              },
-              "topic",
-              "department"
-            ]
-          });
-          requestsByPriority.forEach((request) => {
-            requests.push(request);
-          });
+          requestsByPriority = await Request.findAll({
+            where: helpers.buildQuery(req.query, priorities[index]),
+            include: [{
+              model: User,
+              as: "clientRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, {
+              model: User,
+              as: "employeeRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, "topic", "department"],
+          })
+          requestsByPriority.forEach(request => {
+            requests.push(request)
+          })
         }
       } else {
+        if(requestId) {
+          let request = await Request.findAll({
+            where: helpers.buildQuery(req.query, null),
+            include: [{
+              model: User,
+              as: "clientRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, {
+              model: User,
+              as: "employeeRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, "topic", "department"],
+          })  
+          return res.send(request)
+        }
         for (let index = 0; index < priorities.length; index++) {
-          let requestsByPriority = await Request.findAll({
+          requestsByPriority = await Request.findAll({
             where: {
               clientId: req.user.id,
               priority: priorities[index]
             },
-            include: [
-              {
-                model: User,
-                as: "clientRequest",
-                attributes: ["firstName", "lastName", "companyId"]
-              },
-              {
-                model: User,
-                as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"]
-              },
-              "topic",
-              "department"
-            ]
-          });
-          requestsByPriority.forEach((request) => {
-            requests.push(request);
-          });
+            include: [{
+              model: User,
+              as: "clientRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, {
+              model: User,
+              as: "employeeRequest",
+              attributes: ["firstName", "lastName", "companyId"],
+            }, "topic", "department"],
+          })
+          requestsByPriority.forEach(request => {
+            requests.push(request)
+          })
         }
       }
-      if (!requests.length) return res.sendStatus(404);
-      requestUpdate = hourWorkUpdate(requests);
-      res.send(requestUpdate);
+      if (!requests.length) return res.sendStatus(404)
+      requestUpdate = helpers.hourWorkUpdate(requests);
+      res.send(requestUpdate)
     } catch (errors) {
-      res.status(500).send(errors);
+        res.status(500).send(errors);
     }
   },
   async deleteRequest(req, res) {

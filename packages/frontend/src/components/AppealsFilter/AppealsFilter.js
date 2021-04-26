@@ -26,9 +26,9 @@ const AppealsFilter = ({
       <Form.Item name="id" label="Поиск по идентификатору">
         <Input placeholder="Выбранные идентефикаторы" />
       </Form.Item>
-      <Form.Item label="По дате" name="date">
+      {/* <Form.Item label="По дате" name="date">
         <DateFilter />
-      </Form.Item>
+      </Form.Item> */}
       {user && user.role && user.role.name === "admin" && (
         <AdminAppealsFilter companies={companies} departments={departments} />
       )}

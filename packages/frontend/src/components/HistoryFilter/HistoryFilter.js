@@ -19,12 +19,12 @@ const HistoryFilter = ({
     >
       <h3>Фильтр</h3>
       <hr />
-      <Form.Item name="id" label="Поиск по идентификатору">
+      <Form.Item name="requestId" label="Поиск по идентификатору">
         <Input placeholder="Выбранные идентефикаторы" />
       </Form.Item>
-      <Form.Item label="По дате" name="date">
+      {/* <Form.Item label="По дате" name="date">
         <DateFilter />
-      </Form.Item>
+      </Form.Item> */}
 
       <Form.Item>
         <Button

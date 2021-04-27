@@ -6,7 +6,6 @@ const {
   RequestHistory,
   Company
 } = require("../../../../models");
-const hourWorkUpdate = require("../../../helpers/helpers");
 let moment = require("moment");
 const helpers = require("../../../helpers/helpers");
 

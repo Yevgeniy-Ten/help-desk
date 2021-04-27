@@ -236,6 +236,7 @@ const AdminAppealsTable = ({ appeals }) => {
               onConfirm={() => {
                 return handleDeleteAppeals("CheckedAppeals");
               }}
+              disabled={btnDisabled}
             >
               <Button danger={true} disabled={btnDisabled}>
                 Удалить выбранные

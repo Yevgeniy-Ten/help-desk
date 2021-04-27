@@ -66,6 +66,7 @@ const AdminAppealsTable = ({ appeals }) => {
   };
   const closeEditAppealFormDrawer = () => {
     setVisible(false);
+    history.push(`/appeals`);
   };
   const onSaveAppeal = async (appeal) => {
     await dispatch(fetchPutAppeal(appealId, appeal));

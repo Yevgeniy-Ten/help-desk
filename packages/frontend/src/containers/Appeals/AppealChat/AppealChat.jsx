@@ -11,7 +11,7 @@ const AppealChat = ({ messages, onCreateMessage }) => {
         </h2>
         <div className="detail-block__chat">
           {messages.map((message) => {
-            const isClient = message.role === "client";
+            const isClient = !!message.clientId;
             return (
               <Col
                 span={24}

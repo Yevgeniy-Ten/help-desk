@@ -1,8 +1,4 @@
-const {
-    Request,
-    User,
-    Chat
-} = require("../../../../models");
+const { Chat } = require("../../../../models");
 const events = require("events")
 
 const emitter = new events.EventEmitter();

@@ -28,6 +28,7 @@ const AdminAppealsTable = ({ appeals }) => {
   const history = useHistory();
   const [appealId, setAppealId] = useState("");
   const [visible, setVisible] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const topics = useSelector(getTopics);
   const departments = useSelector(getDepartments);
   const { users } = useSelector(getUsersState, shallowEqual);
@@ -73,23 +74,20 @@ const AdminAppealsTable = ({ appeals }) => {
   };
   const onSelectRowChange = (selectedRowKeys, selectedRows) => {
     setState({ selectedRowKeys, selectedRows });
+    if (selectedRows.length > 1) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
   };
   // eslint-disable-next-line consistent-return
   const handleDeleteAppeals = async (appeal) => {
     let appealsIdArray = [];
-    appealsIdArray = state.selectedRows;
-    if (appealsIdArray.length > 1) {
-      let count = 0;
-      appealsIdArray.forEach((element) => {
-        if (element.id !== appeal.id) {
-          count++;
-        }
-        if (count === appealsIdArray.length) {
-          appealsIdArray.push(appeal);
-        }
-      });
+    if (appeal === "CheckedAppeals") {
+      appealsIdArray = state.selectedRows;
       await dispatch(fetchDeleteAppeal(null, appealsIdArray));
       await dispatch(fetchAppeals());
+      setBtnDisabled(true);
       // eslint-disable-next-line no-return-await
       return;
     }
@@ -229,6 +227,20 @@ const AdminAppealsTable = ({ appeals }) => {
         dataSource={appeals}
         rowKey={(record) => {
           return record.id;
+        }}
+        title={() => {
+          return (
+            <Popconfirm
+              title="Удалить выбранные, вы уверены?"
+              onConfirm={() => {
+                return handleDeleteAppeals("CheckedAppeals");
+              }}
+            >
+              <Button danger={true} disabled={btnDisabled}>
+                Удалить выбранные
+              </Button>
+            </Popconfirm>
+          );
         }}
       />
       <Drawer

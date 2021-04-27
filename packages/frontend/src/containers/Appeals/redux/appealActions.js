@@ -87,20 +87,21 @@ export const fetchPutAppeal = (id, appealData) => {
 export const fetchDeleteAppeal = (id, appealData) => {
   return async (dispatch, _, axios) => {
     try {
+      let mssg = "Заявка удалена!";
       let urlRequest = `/requests/${id}`;
       if (!id) {
         urlRequest = `/requests`;
+        mssg = "Заявки удалены!";
       }
       message.info({
         content: "Идет удаление!"
       });
       dispatch(appealRequestStarted());
-      console.log(id, appealData);
       await axios.delete(urlRequest, { data: appealData });
       dispatch(appealUpdateSuccess());
       dispatch(push("/appeals"));
       message.success({
-        content: "Изменения сохранены!"
+        content: mssg
       });
     } catch (e) {
       if (e.response && e.response.data) {

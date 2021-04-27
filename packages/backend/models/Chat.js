@@ -3,18 +3,18 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Chat extends Model {
         static associate({ User, Request }) {
-            this.belongsTo(User, {
-                foreignKey: "clientId",
-                as: "clientChat"
-            });
-            this.belongsTo(User, {
-                foreignKey: "employeeId",
-                as: "employeeChat"
-            });
-            this.belongsTo(Request, {
-                foreignKey: "requestId",
-                as: "request"
-            });
+            // this.belongsTo(User, {
+            //     foreignKey: "clientId",
+            //     as: "clientChat"
+            // });
+            // this.belongsTo(User, {
+            //     foreignKey: "employeeId",
+            //     as: "employeeChat"
+            // });
+            // this.belongsTo(Request, {
+            //     foreignKey: "requestId",
+            //     as: "request"
+            // });
         }
     };
     Chat.init({

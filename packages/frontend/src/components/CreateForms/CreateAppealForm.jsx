@@ -15,6 +15,10 @@ const CreateAppealForm = ({
   isLoaded
 }) => {
   const [form] = Form.useForm();
+  const onFinishHandler = (data) => {
+    onCreateAppeal(data);
+    form.resetFields();
+  };
   return (
     <Form
       form={form}
@@ -22,7 +26,7 @@ const CreateAppealForm = ({
       onFieldsChange={onFieldsChange}
       className="appeal-form"
       layout="vertical"
-      onFinish={onCreateAppeal}
+      onFinish={onFinishHandler}
     >
       <Form.Item
         name="topicId"

@@ -61,10 +61,13 @@ export const settingsRequestPositions = (positions) => {
 export const settingDeleteSuccess = () => {
   return { type: SETTING_DELETE_SUCCESS };
 };
-export const setEditableSetting = (element) => {
+export const setEditableSetting = (type, settingId) => {
   return {
     type: SETTING_SET_EDITABLE_ELEMENT,
-    element
+    payload: {
+      type,
+      settingId
+    }
   };
 };
 export const clearEditalbleElement = () => {

@@ -3,6 +3,10 @@ import { Button, Col, Form, Input, Row, Card } from "antd";
 
 const AppealChat = ({ messages, onCreateMessage }) => {
   const [form] = Form.useForm();
+  const onFinishHandler = (message) => {
+    onCreateMessage(message);
+    form.resetFields();
+  };
   return (
     <Row>
       <Col span={24}>
@@ -42,7 +46,7 @@ const AppealChat = ({ messages, onCreateMessage }) => {
           })}
         </div>
         <Form
-          onFinish={onCreateMessage}
+          onFinish={onFinishHandler}
           form={form}
           name="send-message"
           layout="vertical"

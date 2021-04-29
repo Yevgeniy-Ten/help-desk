@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AppealChat/AppealChat.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AppealChat/AppealChat.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/DetailAppealPage/DetailAppealPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/DetailAppealPage/DetailAppealPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsActionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsActionType.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealGetters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,14 +19,14 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsAction.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/DetailAppealPage/DetailAppealPage.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/backend/app/routes/forChats/controller/controller.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/AppealChat/AppealChat.jsx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsActionType.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsAction.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/backend/app/routes/forChats/chat.router.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/action/appealsActionType.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealReducer.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/packages/frontend/src/containers/Appeals/DetailAppealPage/DetailAppealPage.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1qYx1Y8mv7ULvwP1fa0jkLswo0z" />
   <component name="ProjectViewState">
@@ -164,6 +153,7 @@
       <workItem from="1618836778500" duration="2975000" />
       <workItem from="1618850209981" duration="101000" />
       <workItem from="1619526092374" duration="4009000" />
+      <workItem from="1619667651486" duration="82000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

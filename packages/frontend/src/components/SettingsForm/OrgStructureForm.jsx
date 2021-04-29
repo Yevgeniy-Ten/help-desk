@@ -21,6 +21,7 @@ const OrgStructureForm = () => {
   const departments = useSelector(getDepartments);
   const onCreateOrgStructure = (values) => {
     dispatch(fetchSettingCreate("orgstructure", values));
+    form.resetFields();
   };
   useEffect(() => {
     dispatch(fetchSettings("departments"));

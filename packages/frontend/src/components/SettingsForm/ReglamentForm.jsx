@@ -26,6 +26,7 @@ const ReglamentForm = () => {
     dispatch(fetchSettings("departments"));
   }, [dispatch]);
   const onCreateReglament = (reglament) => {
+    form.resetFields();
     return dispatch(fetchSettingCreate("reglaments", reglament));
   };
   return (

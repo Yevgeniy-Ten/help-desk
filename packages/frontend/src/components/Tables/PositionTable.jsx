@@ -21,28 +21,11 @@ const PositionTable = () => {
   const dispatch = useDispatch();
   const positions = useSelector(getPositions);
   const isLoad = useSelector(getSettingsLoader);
-  const editableElement = useSelector(getEditableElement);
-  const isEditing = (record) => {
-    return editableElement ? record.id === editableElement.id : false;
-  };
-  const edit = (record) => {
-    form.setFieldsValue({ ...record });
-    dispatch(setEditableSetting(record));
-  };
-  const cancel = () => {
-    return dispatch(clearEditalbleElement());
-  };
+
   useEffect(() => {
     dispatch(fetchSettings("position"));
   }, [dispatch]);
-  const saveEditablePosition = async () => {
-    try {
-      const values = await form.validateFields(); // храняться данные о редактируемых полях
-      dispatch(fetchSettingUpdate("position", { ...values }));
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+
   const columns = [
     {
       title: "Идентификатор",

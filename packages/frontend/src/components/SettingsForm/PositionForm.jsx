@@ -7,8 +7,10 @@ import { fetchSettingCreate } from "../../containers/Settings/redux/settingsActi
 const PositionForm = () => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  const onCreatePosition = (position) =>
+  const onCreatePosition = (position) => {
     dispatch(fetchSettingCreate("position", position));
+    form.resetFields();
+  };
   return (
     <Form
       form={form}

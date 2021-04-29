@@ -7,8 +7,10 @@ import { fetchSettingCreate } from "../../containers/Settings/redux/settingsActi
 const DepartmentForm = () => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  const onCreateDepartment = (department) =>
+  const onCreateDepartment = (department) => {
     dispatch(fetchSettingCreate("departments", department));
+    form.resetFields();
+  };
   return (
     <Form
       form={form}

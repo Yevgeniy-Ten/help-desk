@@ -45,7 +45,52 @@ export const settingsReducer = (state = initialState, action) => {
     case SETTING_REQUEST_POSITIONS:
       return { ...state, positions: action.positions };
     case SETTING_SET_EDITABLE_ELEMENT:
-      return { ...state, editableSetting: action.element };
+      switch (action.payload.type) {
+        case "topics":
+          return {
+            ...state,
+            editableSetting: state.topics.find(
+              (topic) => topic.id === action.payload.settingId
+            )
+          };
+        case "reglaments":
+          return {
+            ...state,
+            editableSetting: state.reglaments.find(
+              (reglament) => reglament.id === action.payload.settingId
+            )
+          };
+        case "orgstructures":
+          return {
+            ...state,
+            editableSetting: state.orgStructures.find(
+              (orgS) => orgS.id === action.payload.settingId
+            )
+          };
+        case "companies":
+          return {
+            ...state,
+            editableSetting: state.companies.find(
+              (company) => company.id === action.payload.settingId
+            )
+          };
+        case "departments":
+          return {
+            ...state,
+            editableSetting: state.departments.find(
+              (department) => department.id === action.payload.settingId
+            )
+          };
+        case "positions":
+          return {
+            ...state,
+            editableSetting: state.positions.find(
+              (position) => position.id === action.payload.settingId
+            )
+          };
+        default:
+          return state;
+      }
     case CLEAR_EDITABLE_ELEMENT:
       return { ...state, editableSetting: null };
     default:

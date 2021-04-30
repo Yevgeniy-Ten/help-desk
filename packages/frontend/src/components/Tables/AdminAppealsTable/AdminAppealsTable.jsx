@@ -109,7 +109,7 @@ const AdminAppealsTable = ({ appeals }) => {
       key: "createdAt",
       defaultSortOrder: "descend",
       sorter: (a, b) => {
-        return a.createdAt - b.createdAt;
+        return a.createdAt.valueOf() > b.createdAt.valueOf();
       },
       render: (createdAt) => {
         return new Date(createdAt).toLocaleDateString();

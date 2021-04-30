@@ -107,6 +107,10 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Дата создания",
       dataIndex: "createdAt",
       key: "createdAt",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => {
+        return a.createdAt - b.createdAt;
+      },
       render: (createdAt) => {
         return new Date(createdAt).toLocaleDateString();
       }
@@ -114,7 +118,11 @@ const AdminAppealsTable = ({ appeals }) => {
     {
       title: "ID заявки",
       dataIndex: "id",
-      key: "id"
+      key: "id",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => {
+        return a.id - b.id;
+      }
     },
     {
       title: "Заявка от",
@@ -136,6 +144,27 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Приоритет",
       dataIndex: "priority",
       key: "priority",
+      filters: [
+        {
+          text: "Стандартно",
+          value: "Стандартно"
+        },
+        {
+          text: "Средний",
+          value: "Средний"
+        },
+        {
+          text: "Срочно",
+          value: "Срочно"
+        },
+        {
+          text: "Критично",
+          value: "Критично"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.priority.indexOf(value) === 0;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -152,7 +181,28 @@ const AdminAppealsTable = ({ appeals }) => {
     {
       title: "Статус",
       dataIndex: "status",
-      key: "status"
+      key: "status",
+      filters: [
+        {
+          text: "Открыто",
+          value: "Открыто"
+        },
+        {
+          text: "Выполняется",
+          value: "Выполняется"
+        },
+        {
+          text: "Приостановлено",
+          value: "Приостановлено"
+        },
+        {
+          text: "Выполнено",
+          value: "Выполнено"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.status.indexOf(value) === 0;
+      }
     },
     {
       title: "Ответственный отдел",
@@ -163,7 +213,7 @@ const AdminAppealsTable = ({ appeals }) => {
       }
     },
     {
-      title: "Ответствейнный сотрудник",
+      title: "Ответственный сотрудник",
       dataIndex: "employeeRequest",
       key: "employeeRequest",
       render: (employeeRequest) => {

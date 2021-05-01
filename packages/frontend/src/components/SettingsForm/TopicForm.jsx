@@ -38,6 +38,7 @@ const TopicForm = ({ topicId, onCloseEditor }) => {
     }
   }, [reglamentIsShow, dispatch]);
   useEffect(() => {
+    form.resetFields();
     dispatch(setEditableSetting("topics", topicId));
     if (topicForEdit) {
       form.setFieldsValue(topicForEdit);

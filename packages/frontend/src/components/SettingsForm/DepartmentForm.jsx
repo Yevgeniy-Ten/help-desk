@@ -24,6 +24,7 @@ const DepartmentForm = ({ departmentId, onCloseEditor }) => {
   };
 
   useEffect(() => {
+    form.resetFields();
     dispatch(setEditableSetting("departments", departmentId));
     if (departmentForEdit) {
       form.setFieldsValue(departmentForEdit);

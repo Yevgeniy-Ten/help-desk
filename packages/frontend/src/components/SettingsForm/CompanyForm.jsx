@@ -26,6 +26,7 @@ const CompanyForm = ({ companyId, onCloseEditor }) => {
   };
 
   useEffect(() => {
+    form.resetFields();
     dispatch(setEditableSetting("companies", companyId));
     if (companyForEdit) {
       form.setFieldsValue(companyForEdit);

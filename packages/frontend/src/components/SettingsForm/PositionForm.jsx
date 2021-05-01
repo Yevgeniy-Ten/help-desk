@@ -24,6 +24,7 @@ const PositionForm = ({ positionId, onCloseEditor }) => {
     }
   };
   useEffect(() => {
+    form.resetFields();
     dispatch(setEditableSetting("positions", positionId));
     if (positionForEdit) {
       form.setFieldsValue(positionForEdit);

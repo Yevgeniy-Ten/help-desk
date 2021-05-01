@@ -47,6 +47,7 @@ const OrgStructureForm = ({ onCloseEditor, orgstructureId }) => {
     onCloseEditor();
   };
   useEffect(() => {
+    form.resetFields();
     dispatch(fetchSettings("departments"));
     dispatch(fetchSettings("position"));
   }, [dispatch]);

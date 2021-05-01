@@ -17,7 +17,7 @@ import {
 import ReglamentFields from "./ReglamentFields";
 
 const { Option } = Select;
-const ReglamentForm = ({ reglamentId }) => {
+const ReglamentForm = ({ reglamentId, onCloseEditor }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
   const topics = useSelector(getTopics);
@@ -73,6 +73,7 @@ const ReglamentForm = ({ reglamentId }) => {
     } else {
       await dispatch(fetchSettingCreate("reglaments", reglament));
     }
+    onCloseEditor();
   };
   return (
     <Form

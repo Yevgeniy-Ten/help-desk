@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Popconfirm, Space, Table, Typography, Tag } from "antd";
 import {
   clearEditalbleElement,
@@ -17,13 +17,14 @@ import Spinner from "../../Spinner/Spinner";
 import EditableCell from "../../UI/EditableCeil";
 import { getMergedColumns } from "../tableConstants";
 
-const ReglamentsTable = ({ onShowEditor }) => {
+const ReglamentsTable = ({
+  onShowEditor,
+  onChangeCurrentPage,
+  currentPage
+}) => {
   const dispatch = useDispatch();
   const reglaments = useSelector(getReglaments);
   const isLoad = useSelector(getSettingsLoader);
-  // const editableElement = useSelector(getEditableElement);
-  // dispatch(fetchSettingUpdate("reglaments", { ...values }));
-
   const columns = [
     {
       title: "Идентификатор",
@@ -114,6 +115,10 @@ const ReglamentsTable = ({ onShowEditor }) => {
           )}
           bordered={true}
           columns={columns}
+          pagination={{
+            defaultCurrent: currentPage,
+            onChange: (current) => onChangeCurrentPage(current)
+          }}
           dataSource={reglaments}
           scroll={{ x: 1000 }}
         />
@@ -121,5 +126,4 @@ const ReglamentsTable = ({ onShowEditor }) => {
     </>
   );
 };
-
 export default ReglamentsTable;

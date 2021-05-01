@@ -26,6 +26,8 @@ const Settings = () => {
     type: null,
     idForEdit: null
   });
+  const [currentReglamentPage, setCurrentReglamentPage] = useState(1);
+  console.log(currentReglamentPage);
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
   const onShowSettingEditor = (type, idForEdit) => {
     setSettingTypeIsOpen({
@@ -82,6 +84,8 @@ const Settings = () => {
             render={(props) => (
               <ReglamentsTable
                 {...props}
+                currentPage={currentReglamentPage}
+                onChangeCurrentPage={setCurrentReglamentPage}
                 onShowEditor={(idForEdit) =>
                   onShowSettingEditor("reglaments", idForEdit)
                 }

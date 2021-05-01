@@ -107,7 +107,7 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Дата создания",
       dataIndex: "createdAt",
       key: "createdAt",
-      defaultSortOrder: "descend",
+      // defaultSortOrder: "descend",
       sorter: (a, b) => {
         return a.createdAt.valueOf() > b.createdAt.valueOf();
       },
@@ -119,7 +119,7 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "ID заявки",
       dataIndex: "id",
       key: "id",
-      defaultSortOrder: "descend",
+      // defaultSortOrder: "descend",
       sorter: (a, b) => {
         return a.id - b.id;
       }

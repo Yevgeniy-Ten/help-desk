@@ -1,64 +1,64 @@
+const moment = require("moment");
 const {
   Request,
   Reglaments,
   OrgStructure,
   User,
   RequestHistory,
-  Company
+  Company,
 } = require("../../../../models");
-let moment = require("moment");
 const helpers = require("../../../helpers/helpers");
 
 module.exports = {
   async create(req, res) {
     try {
-      let {
+      const {
         clientId,
         topicId,
         priority,
         status,
         title,
-        description
+        description,
       } = req.body;
       const client = await User.findOne({
         where: {
-          id: clientId ? clientId : req.user.id
-        }
+          id: clientId || req.user.id,
+        },
       });
       // если клиент найден то присваеиваем companyId клиента, если не найден берем companyId юзера который создает запрос
       const companyId = client
         ? client.companyId
         : req.user.companyId && req.user.companyId;
       let rule = await Reglaments.findOne({
-        where: { topicId, priority, companyId }
+        where: { topicId, priority, companyId },
       });
       if (!rule) {
         rule = await Reglaments.findOne({
           where: {
             topicId,
             priority,
-            companyId: null
-          }
+            companyId: null,
+          },
         });
       }
       if (!rule)
         return res
           .status(404)
           .send({ message: "Обратитесь к поставщику услуг, по регламентам" });
-      const deadline = rule.deadline;
-      const departmentId = rule.departmentId;
+      const { deadline } = rule;
+      const { departmentId } = rule;
       const orgStructure = await OrgStructure.findOne({
         where: {
           departmentId,
-          isMain: true
-        }
+          isMain: true,
+        },
       });
       let employee = null;
       if (orgStructure) {
         employee = await User.findOne({
           where: {
-            orgStructureId: orgStructure.id
-          }
+            orgStructureId: orgStructure.id,
+          },
         });
       }
       Request.create({
@@ -70,7 +70,7 @@ module.exports = {
         description,
         deadline,
         departmentId,
-        employeeId: employee && employee.id
+        employeeId: employee && employee.id,
       })
         .then(async (newRequest) => {
           await RequestHistory.create({
@@ -82,7 +82,7 @@ module.exports = {
             departmentId: newRequest.dataValues.departmentId,
             employeeId: newRequest.dataValues.departmentId,
             hourWork: newRequest.dataValues.hourWork,
-            comment: "Заявка создана!"
+            comment: "Заявка создана!",
           });
           res.status(201).send(newRequest);
         })
@@ -102,16 +102,16 @@ module.exports = {
           {
             model: User,
             as: "clientRequest",
-            attributes: ["firstName", "lastName", "companyId"]
+            attributes: ["firstName", "lastName", "companyId"],
           },
           {
             model: User,
             as: "employeeRequest",
-            attributes: ["firstName", "lastName", "companyId"]
+            attributes: ["firstName", "lastName", "companyId"],
           },
           "topic",
-          "department"
-        ]
+          "department",
+        ],
       });
       if (!request) return res.sendStatus(404);
       requestUpdate = helpers.hourWorkUpdate([request]);
@@ -125,14 +125,14 @@ module.exports = {
       const { requestId } = req.query;
       const { date } = req.query;
       let histories = [];
-      if(requestId || date) {
+      if (requestId || date) {
         histories = await RequestHistory.findAll({
-          where: helpers.buildQuery(req.query, null)
-        })  
+          where: helpers.buildQuery(req.query, null),
+        });
         return res.send(histories);
       }
       histories = await RequestHistory.findAll({
-        order: [["requestId", "ASC"]]
+        order: [["requestId", "ASC"]],
       });
       if (!histories.length) return res.sendStatus(404);
       res.send(histories);
@@ -146,14 +146,14 @@ module.exports = {
         {
           model: User,
           as: "users",
-          include: ["clientRequest"]
-        }
-      ]
+          include: ["clientRequest"],
+        },
+      ],
     });
     audit = audit.reduce((a, companyWithUsers) => {
       const companyInfo = {
         name: companyWithUsers.title,
-        users: companyWithUsers.users.length
+        users: companyWithUsers.users.length,
       };
       // company {users:[user: clientRequest:[ ]  }
       const requests = companyWithUsers.users.reduce(
@@ -198,17 +198,17 @@ module.exports = {
             open: 0,
             inProgress: 0,
             suspend: 0,
-            done: 0
+            done: 0,
           },
           priority: {
             standart: 0,
             medium: 0,
             urgent: 0,
-            critical: 0
-          }
+            critical: 0,
+          },
         }
       );
-      companyInfo["requests"] = requests;
+      companyInfo.requests = requests;
       a.push(companyInfo);
       return a;
     }, []);
@@ -226,7 +226,7 @@ module.exports = {
         minuteWork,
         secondWork,
         comment: employeeComment,
-        employeeId
+        employeeId,
       } = req.body;
       let milliseconds = 0;
       if (hourWork || minuteWork || secondWork) {
@@ -235,10 +235,10 @@ module.exports = {
       }
       const { id } = req.params;
       const request = await Request.findOne({
-        where: { id }
+        where: { id },
       });
       if (!request) return res.sendStatus(404);
-      let addHourWork = request.hourWork + milliseconds;
+      const addHourWork = request.hourWork + milliseconds;
       const prevRequest = { ...request.dataValues };
       await request.update({
         topicId,
@@ -247,7 +247,7 @@ module.exports = {
         deadline,
         departmentId,
         hourWork: addHourWork,
-        employeeId
+        employeeId,
       });
       const comment = Object.keys(request.dataValues).reduce((comment, key) => {
         if (
@@ -260,13 +260,13 @@ module.exports = {
           } на ${request.getDataValue(key)} \n`;
         }
         return comment;
-      }, `${employeeComment ? employeeComment + "\n" : ""}`);
+      }, `${employeeComment ? `${employeeComment}\n` : ""}`);
       delete request.dataValues.id;
       await RequestHistory.create({
         requestId: id,
         comment,
         addHourWork: milliseconds,
-        ...request.dataValues
+        ...request.dataValues,
       });
       res.sendStatus(200);
     } catch (e) {
@@ -275,103 +275,128 @@ module.exports = {
   },
   async getAll(req, res) {
     try {
-      let requests = [];
-      let priorities = ["Критично", "Срочно", "Средний", "Стандартно"];
+      const requests = [];
+      const priorities = ["Критично", "Срочно", "Средний", "Стандартно"];
       let requestsByPriority = [];
 
-      const {id: requestId} = req.query
-      const {priority: priority} = req.query
-      
+      const { id: requestId } = req.query;
+      const { priority } = req.query;
+
       if (req.user.roleId !== 2) {
-        if(requestId) {
-          let request = await Request.findAll({
+        if (requestId) {
+          const request = await Request.findAll({
             where: helpers.buildQuery(req.query, priority),
-            include: [{
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, {
-              model: User,
-              as: "employeeRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, "topic", "department"],
-          })  
-          return res.send(request)
+            include: [
+              {
+                model: User,
+                as: "clientRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department",
+            ],
+          });
+          return res.send(request);
         }
-        if(priority) {
-          let requests = await Request.findAll({
+        if (priority) {
+          const requests = await Request.findAll({
             where: helpers.buildQuery(req.query, priority),
-            include: [{
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, {
-              model: User,
-              as: "employeeRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, "topic", "department"],
-          })  
-          return res.send(requests)
+            include: [
+              {
+                model: User,
+                as: "clientRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department",
+            ],
+          });
+          return res.send(requests);
         }
         for (let index = 0; index < priorities.length; index++) {
           requestsByPriority = await Request.findAll({
             where: helpers.buildQuery(req.query, priorities[index]),
-            include: [{
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, {
-              model: User,
-              as: "employeeRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, "topic", "department"],
-          })
-          requestsByPriority.forEach(request => {
-            requests.push(request)
-          })
+            include: [
+              {
+                model: User,
+                as: "clientRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department",
+            ],
+          });
+          requestsByPriority.forEach((request) => {
+            requests.push(request);
+          });
         }
       } else {
-        if(requestId) {
-          let request = await Request.findAll({
+        if (requestId) {
+          const request = await Request.findAll({
             where: helpers.buildQuery(req.query, null),
-            include: [{
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, {
-              model: User,
-              as: "employeeRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, "topic", "department"],
-          })  
-          return res.send(request)
+            include: [
+              {
+                model: User,
+                as: "clientRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department",
+            ],
+          });
+          return res.send(request);
         }
         for (let index = 0; index < priorities.length; index++) {
           requestsByPriority = await Request.findAll({
             where: {
               clientId: req.user.id,
-              priority: priorities[index]
+              priority: priorities[index],
             },
-            include: [{
-              model: User,
-              as: "clientRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, {
-              model: User,
-              as: "employeeRequest",
-              attributes: ["firstName", "lastName", "companyId"],
-            }, "topic", "department"],
-          })
-          requestsByPriority.forEach(request => {
-            requests.push(request)
-          })
+            include: [
+              {
+                model: User,
+                as: "clientRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department",
+            ],
+          });
+          requestsByPriority.forEach((request) => {
+            requests.push(request);
+          });
         }
       }
-      if (!requests.length) return res.sendStatus(404)
+      if (!requests.length) return res.sendStatus(404);
       requestUpdate = helpers.hourWorkUpdate(requests);
-      res.send(requestUpdate)
+      res.send(requestUpdate);
     } catch (errors) {
-        res.status(500).send(errors);
+      res.status(500).send(errors);
     }
   },
   async deleteRequest(req, res) {
@@ -432,5 +457,5 @@ module.exports = {
     } catch (e) {
       res.status(401).send(e);
     }
-  }
+  },
 };

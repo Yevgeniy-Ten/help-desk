@@ -16,9 +16,12 @@ import OrgStructureTable from "../../components/Tables/OrgStructureTable";
 import OrgStructureForm from "../../components/SettingsForm/OrgStructureForm";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useToggle } from "../../hooks/useToggle";
+import { clearEditalbleElement } from "./redux/settingsActions";
+import { useDispatch } from "react-redux";
 
 const Settings = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
   const [settingTypeIsOpen, setSettingTypeIsOpen] = useState({
     type: null,
     idForEdit: null
@@ -28,6 +31,14 @@ const Settings = () => {
     setSettingTypeIsOpen({
       type,
       idForEdit
+    });
+    toggleDrawerIsOpen();
+  };
+  const closeDrawerWithResetSettingFields = () => {
+    dispatch(clearEditalbleElement());
+    setSettingTypeIsOpen({
+      type: null,
+      idForEdit: null
     });
     toggleDrawerIsOpen();
   };
@@ -105,7 +116,7 @@ const Settings = () => {
               <OrgStructureTable
                 {...props}
                 onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("orgstructure", idForEdit)
+                  onShowSettingEditor("orgstructures", idForEdit)
                 }
               />
             )}
@@ -124,21 +135,12 @@ const Settings = () => {
         <SettingsFilter />
       </Col>
       <Col span={24}>
-        <Switch>
-          <Route path="/settings/reglaments" component={ReglamentForm} />
-          <Route path="/settings/departments" component={DepartmentForm} />
-          <Route path="/settings/positions" component={PositionForm} />
-          <Route path="/settings/orgstructure" component={OrgStructureForm} />
-          <Redirect to="/settings/topics" />
-        </Switch>
-      </Col>
-      <Col span={24}>
         <Drawer
-          title="Форма тематики"
+          title="Форма"
           width={500}
           placement="right"
           closable={true}
-          onClose={toggleDrawerIsOpen}
+          onClose={closeDrawerWithResetSettingFields}
           visible={drawerIsOpen}
         >
           {settingTypeIsOpen.type === "topics" && (
@@ -151,6 +153,30 @@ const Settings = () => {
             <CompanyForm
               onCloseEditor={toggleDrawerIsOpen}
               companyId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "positions" && (
+            <PositionForm
+              onCloseEditor={toggleDrawerIsOpen}
+              positionId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "departments" && (
+            <DepartmentForm
+              onCloseEditor={toggleDrawerIsOpen}
+              departmentId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "reglaments" && (
+            <ReglamentForm
+              onCloseEditor={toggleDrawerIsOpen}
+              reglamentId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "orgstructures" && (
+            <OrgStructureForm
+              onCloseEditor={toggleDrawerIsOpen}
+              orgstructureId={settingTypeIsOpen.idForEdit}
             />
           )}
         </Drawer>

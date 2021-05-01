@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "antd/es/form/Form";
-import { Button, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
-import { fetchSettingCreate } from "../../containers/Settings/redux/settingsActions";
+import { Button, Drawer, Form, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSettingCreate,
+  fetchSettingUpdate,
+  setEditableSetting
+} from "../../containers/Settings/redux/settingsActions";
+import { getEditableElement } from "../../containers/Settings/redux/settingGetters";
 
-const PositionForm = () => {
+const PositionForm = ({ positionId, onCloseEditor }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  const onCreatePosition = (position) => {
-    dispatch(fetchSettingCreate("position", position));
-    form.resetFields();
+  const positionForEdit = useSelector(getEditableElement);
+  const onCreatePosition = async (position) => {
+    if (positionForEdit) {
+      await dispatch(fetchSettingUpdate("position", position));
+      onCloseEditor();
+    } else {
+      await dispatch(fetchSettingCreate("position", position));
+      form.resetFields();
+      onCloseEditor();
+    }
   };
+  useEffect(() => {
+    dispatch(setEditableSetting("positions", positionId));
+    if (positionForEdit) {
+      form.setFieldsValue(positionForEdit);
+    }
+  }, [positionId, dispatch, positionForEdit]);
   return (
     <Form
       form={form}
@@ -33,7 +51,7 @@ const PositionForm = () => {
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" size={"middle"}>
-          Создать должность
+          {positionForEdit ? "Обновить" : "Создать должность"}
         </Button>
       </Form.Item>
     </Form>

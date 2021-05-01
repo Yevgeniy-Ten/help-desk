@@ -12,12 +12,11 @@ import { getEditableElement } from "../../containers/Settings/redux/settingGette
 const CompanyForm = ({ companyId, onCloseEditor }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  dispatch(fetchSettingUpdate("position", { ...values }));
 
   const companyForEdit = useSelector(getEditableElement); // для редактирования
   const onCreateCompany = async (company) => {
     if (companyForEdit) {
-      await dispatch(fetchSettingUpdate("companies", { ...company }));
+      await dispatch(fetchSettingUpdate("companies", company));
       onCloseEditor();
     } else {
       await dispatch(fetchSettingCreate("companies", company));

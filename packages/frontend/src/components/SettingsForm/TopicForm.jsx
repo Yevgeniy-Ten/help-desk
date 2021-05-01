@@ -22,7 +22,7 @@ const TopicForm = ({ topicId, onCloseEditor }) => {
   const dispatch = useDispatch();
   const onCreateTopic = async (topic) => {
     if (topicForEdit) {
-      await dispatch(fetchSettingUpdate("topics", { ...topic }));
+      await dispatch(fetchSettingUpdate("topics", topic));
       onCloseEditor();
     } else {
       await dispatch(fetchSettingCreate("topics", topic));

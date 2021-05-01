@@ -56,8 +56,76 @@ export const settingsReducer = (state = initialState, action) => {
         case "reglaments":
           return {
             ...state,
-            editableSetting: state.reglaments.find(
-              (reglament) => reglament.id === action.payload.settingId
+            // eslint-disable-next-line array-callback-return
+            editableSetting: state.reglaments.reduce(
+              (regForEdit, reg) => {
+                if (!regForEdit) {
+                  return regForEdit;
+                }
+                if (!regForEdit.companyId) {
+                  if (
+                    regForEdit.topicId === reg.topicId &&
+                    regForEdit.departmentId &&
+                    reg.departmentId
+                  ) {
+                    switch (reg.priority) {
+                      case "Средний":
+                        return {
+                          ...regForEdit,
+                          middle: reg.deadline
+                        };
+                      case "Критично":
+                        return {
+                          ...regForEdit,
+                          incident: reg.deadline
+                        };
+                      case "Стандартно":
+                        return {
+                          ...regForEdit,
+                          standart: reg.deadline
+                        };
+                      default:
+                        return {
+                          ...regForEdit,
+                          high: reg.deadline
+                        };
+                    }
+                  }
+                }
+                if (
+                  regForEdit.topicId === reg.topicId &&
+                  regForEdit.departmentId &&
+                  reg.departmentId &&
+                  regForEdit.companyId === reg.companyId
+                ) {
+                  switch (reg.priority) {
+                    case "Средний":
+                      return {
+                        ...regForEdit,
+                        middle: reg.deadline
+                      };
+                    case "Критично":
+                      return {
+                        ...regForEdit,
+                        incident: reg.deadline
+                      };
+                    case "Стандартно":
+                      return {
+                        ...regForEdit,
+                        standart: reg.deadline
+                      };
+                    default:
+                      return {
+                        ...regForEdit,
+                        high: reg.deadline
+                      };
+                  }
+                }
+                return regForEdit;
+              },
+              state.reglaments.find(
+                (reglament) => reglament.id === action.payload.settingId
+              )
             )
           };
         case "orgstructures":

@@ -141,13 +141,16 @@ export const fetchSettingDelete = (settingType, id) => {
   };
 };
 
-export const fetchSettingUpdate = (settingType, record) => {
+export const fetchSettingUpdate = (settingType, record, id) => {
   return async (dispatch, getState, axios) => {
     try {
       const updatedSetting = {
         ...getState().settings.editableSetting,
         ...record
       };
+      if (id) {
+        updatedSetting.id = id;
+      }
       dispatch(settingsRequestStart());
       await axios.put(`${settingType}/${updatedSetting.id}`, updatedSetting);
       dispatch(clearEditalbleElement());

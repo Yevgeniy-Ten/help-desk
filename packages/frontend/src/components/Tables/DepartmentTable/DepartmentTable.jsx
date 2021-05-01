@@ -16,33 +16,14 @@ import Spinner from "../../Spinner/Spinner";
 import { getMergedColumns } from "../tableConstants";
 import EditableCell from "../../UI/EditableCeil";
 
-const DepartmentTable = () => {
+const DepartmentTable = ({ onShowEditor }) => {
   const dispatch = useDispatch();
   const departments = useSelector(getDepartments);
   const isLoad = useSelector(getSettingsLoader);
-  const editableElement = useSelector(getEditableElement);
-  const isEditing = (record) => {
-    return editableElement ? record.id === editableElement.id : false;
-  };
-  const [form] = Form.useForm();
-  const edit = (record) => {
-    form.setFieldsValue({ ...record });
-    dispatch(setEditableSetting(record));
-  };
-  const cancel = () => {
-    return dispatch(clearEditalbleElement());
-  };
   useEffect(() => {
     dispatch(fetchSettings("departments"));
   }, [dispatch]);
-  const saveEditableDepartment = async () => {
-    try {
-      const values = await form.validateFields(); // храняться данные о редактируемых полях
-      dispatch(fetchSettingUpdate("departments", { ...values }));
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+
   const columns = [
     {
       title: "Идентификатор",
@@ -67,21 +48,10 @@ const DepartmentTable = () => {
       title: "Действия",
       key: "actions",
       render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <Space>
-            <Button onClick={saveEditableDepartment}>
-              Сохранить изменения
-            </Button>
-            <Popconfirm title="Вы уверены?" onConfirm={cancel}>
-              <Button danger={true}>Отмена</Button>
-            </Popconfirm>
-          </Space>
-        ) : (
+        return (
           <Typography.Link
-            disabled={editableElement}
             onClick={() => {
-              return edit(record);
+              return onShowEditor(record.id);
             }}
           >
             Редактировать
@@ -90,28 +60,25 @@ const DepartmentTable = () => {
       }
     }
   ];
-  const mergedColumns = getMergedColumns(columns, isEditing);
+
   return (
     <>
       {isLoad ? (
         <Spinner />
       ) : (
-        <Form form={form} component={false}>
-          <Table
-            components={{
-              body: {
-                cell: EditableCell
-              }
-            }}
-            title={() => {
-              return <h4>Отделы</h4>;
-            }}
-            bordered={true}
-            dataSource={departments}
-            columns={mergedColumns}
-            pagination={{ onChange: cancel }}
-          />
-        </Form>
+        <Table
+          title={() => (
+            <div className={"flex-between"}>
+              <h4>Отделы</h4>
+              <Button type={"primary"} onClick={onShowEditor}>
+                Новый отдел
+              </Button>
+            </div>
+          )}
+          bordered={true}
+          dataSource={departments}
+          columns={columns}
+        />
       )}
     </>
   );

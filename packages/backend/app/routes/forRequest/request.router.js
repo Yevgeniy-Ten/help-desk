@@ -6,7 +6,7 @@ const {
   getById,
   getRequestHistory,
   getRequestsAudit,
-  deleteRequest
+  deleteRequest,
 } = require("./controllers/controllers");
 const auth = require("../../middlewares/auth");
 

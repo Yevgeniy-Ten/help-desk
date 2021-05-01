@@ -10,7 +10,7 @@ import {
 } from "../../containers/Settings/redux/settingGetters";
 import { fetchSettings } from "../../containers/Settings/redux/settingsActions";
 
-const OrgStructureTable = () => {
+const OrgStructureTable = ({ onShowEditor }) => {
   const dispatch = useDispatch();
   const orgStructures = useSelector(getOrgStructures);
   const isLoad = useSelector(getSettingsLoader);
@@ -53,9 +53,9 @@ const OrgStructureTable = () => {
       key: "actions",
       render: (_, record) => {
         return (
-          <Space>
-            <Button danger={true}>Удалить</Button>
-          </Space>
+          <Typography.Link onClick={() => onShowEditor(record.id)}>
+            Редактировать
+          </Typography.Link>
         );
       }
     }
@@ -67,9 +67,14 @@ const OrgStructureTable = () => {
         <Spinner />
       ) : (
         <Table
-          title={() => {
-            return <h4>Орг структура</h4>;
-          }}
+          title={() => (
+            <div className={"flex-between"}>
+              <h4>Орг структура</h4>
+              <Button type={"primary"} onClick={onShowEditor}>
+                Новая орг структура
+              </Button>
+            </div>
+          )}
           bordered={true}
           dataSource={orgStructures}
           columns={columns}

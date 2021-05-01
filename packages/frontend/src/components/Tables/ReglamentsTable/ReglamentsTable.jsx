@@ -17,30 +17,13 @@ import Spinner from "../../Spinner/Spinner";
 import EditableCell from "../../UI/EditableCeil";
 import { getMergedColumns } from "../tableConstants";
 
-const ReglamentsTable = () => {
+const ReglamentsTable = ({ onShowEditor }) => {
   const dispatch = useDispatch();
   const reglaments = useSelector(getReglaments);
   const isLoad = useSelector(getSettingsLoader);
-  const editableElement = useSelector(getEditableElement);
-  const isEditing = (record) => {
-    return editableElement ? record.id === editableElement.id : false;
-  };
-  const [form] = Form.useForm();
-  const edit = (record) => {
-    form.setFieldsValue({ ...record });
-    dispatch(setEditableSetting(record));
-  };
-  const cancel = () => {
-    return dispatch(clearEditalbleElement());
-  };
-  const saveEditableReglament = async () => {
-    try {
-      const values = await form.validateFields(); // храняться данные о редактируемых полях
-      dispatch(fetchSettingUpdate("reglaments", { ...values }));
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  // const editableElement = useSelector(getEditableElement);
+  // dispatch(fetchSettingUpdate("reglaments", { ...values }));
+
   const columns = [
     {
       title: "Идентификатор",
@@ -55,10 +38,9 @@ const ReglamentsTable = () => {
     },
     {
       title: "Компания",
-      dataIndex: "copmany",
-      key: "copmany",
-      render: (copmany) => {
-        return copmany ? copmany.title : "null";
+      dataIndex: "company",
+      render: (company) => {
+        return company ? company.title : "Регламент по умолчанию";
       }
     },
     {
@@ -105,21 +87,8 @@ const ReglamentsTable = () => {
       title: "Действия",
       key: "actions",
       render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <Space>
-            <Button onClick={saveEditableReglament}>Сохранить изменения</Button>
-            <Popconfirm title="Вы уверены?" onConfirm={cancel}>
-              <Button danger={true}>Отмена</Button>
-            </Popconfirm>
-          </Space>
-        ) : (
-          <Typography.Link
-            disabled={editableElement}
-            onClick={() => {
-              return edit(record);
-            }}
-          >
+        return (
+          <Typography.Link onClick={() => onShowEditor(record.id)}>
             Редактировать
           </Typography.Link>
         );
@@ -129,29 +98,25 @@ const ReglamentsTable = () => {
   useEffect(() => {
     dispatch(fetchSettings("reglaments"));
   }, [dispatch]);
-  const mergedColumns = getMergedColumns(columns, isEditing);
   return (
     <>
       {isLoad ? (
         <Spinner />
       ) : (
-        <Form form={form} component={false}>
-          <Table
-            components={{
-              body: {
-                cell: EditableCell
-              }
-            }}
-            title={() => {
-              return <h4>Регламенты</h4>;
-            }}
-            bordered={true}
-            columns={mergedColumns}
-            dataSource={reglaments}
-            scroll={{ x: 1000 }}
-            pagination={{ onChange: cancel }}
-          />
-        </Form>
+        <Table
+          title={() => (
+            <div className={"flex-between"}>
+              <h4>Регламенты</h4>
+              <Button type={"primary"} onClick={onShowEditor}>
+                Новый регламент
+              </Button>
+            </div>
+          )}
+          bordered={true}
+          columns={columns}
+          dataSource={reglaments}
+          scroll={{ x: 1000 }}
+        />
       )}
     </>
   );

@@ -34,7 +34,7 @@ const DepartmentController = {
   async create(req, res) {
     const { title } = req.body;
     Department.create({
-      title
+      title,
     })
       .then((newDepartment) => res.status(201).send(newDepartment))
       .catch((errors) => {
@@ -60,6 +60,6 @@ const DepartmentController = {
     } catch (e) {
       res.status(401).send(e);
     }
-  }
+  },
 };
 module.exports = DepartmentController;

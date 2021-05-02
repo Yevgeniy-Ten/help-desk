@@ -53,6 +53,9 @@ const HistoryTable = ({ history }) => {
       onFilter: (value, record) => {
         return record.priority.indexOf(value) === 0;
       },
+      sorter: (a, b) => {
+        return a.priority.length - b.priority.length;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -90,6 +93,9 @@ const HistoryTable = ({ history }) => {
       ],
       onFilter: (value, record) => {
         return record.status.indexOf(value) === 0;
+      },
+      sorter: (a, b) => {
+        return a.status.length - b.status.length;
       }
     },
     {

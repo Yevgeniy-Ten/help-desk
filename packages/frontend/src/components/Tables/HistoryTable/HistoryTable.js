@@ -12,7 +12,14 @@ const HistoryTable = ({ history }) => {
         return a.createdAt.valueOf() > b.createdAt.valueOf();
       },
       render: (createdAt) => {
-        return new Date(createdAt).toLocaleDateString();
+        return new Date(createdAt).toLocaleDateString("ru", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric"
+        });
       }
     },
     {

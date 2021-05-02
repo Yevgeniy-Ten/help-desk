@@ -15,7 +15,8 @@ const AppealChat = ({ messages, onCreateMessage }) => {
         </h2>
         <div
           style={{
-            maxHeight: "400px",
+            minHeight: "60vh",
+            maxHeight: "70vh",
             overflowY: "auto",
             background: "#fff",
             padding: "15px"
@@ -51,7 +52,7 @@ const AppealChat = ({ messages, onCreateMessage }) => {
           name="send-message"
           layout="vertical"
         >
-          <Row justify="space-between" align="middle" wrap={true}>
+          <Row justify="space-between" align="bottom" wrap={true}>
             <Col xs={{ span: 24 }} lg={{ span: 22 }}>
               <Form.Item
                 name="message"
@@ -62,12 +63,18 @@ const AppealChat = ({ messages, onCreateMessage }) => {
                     message: "Напишите сообщение!"
                   }
                 ]}
+                style={{ marginBottom: 0, marginTop: "10px" }}
               >
                 <Input placeholder="Напишите ваше сообщение" />
               </Form.Item>
             </Col>
             <Col xs={{ span: 24 }} lg={{ span: 2 }}>
-              <Button type="primary" htmlType="submit" size="middle">
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="middle"
+                style={{ width: "100%" }}
+              >
                 Отправить
               </Button>
             </Col>

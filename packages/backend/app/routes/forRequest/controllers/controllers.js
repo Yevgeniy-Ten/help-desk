@@ -378,10 +378,10 @@ module.exports = {
               "department"
             ],
           });
+          requestsByPriority.forEach((request) => {
+            requests.push(request);
+          });
         }
-        requestsByPriority.forEach((request) => {
-          requests.push(request);
-        });
       } else {
         if (requestId) {
           const request = await Request.findAll({
@@ -424,10 +424,10 @@ module.exports = {
               "department"
             ],
           });
+          requestsByPriority.forEach((request) => {
+            requests.push(request);
+          });
         }
-        requestsByPriority.forEach((request) => {
-          requests.push(request);
-        });
       }
       if (!requests.length) return res.sendStatus(404);
       requestUpdate = helpers.hourWorkUpdate(requests);

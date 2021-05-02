@@ -22,6 +22,7 @@ import { getUsersState } from "../../../containers/AllUsers/redux/usersGetters/u
 import { fetchSettings } from "../../../containers/Settings/redux/settingsActions";
 import { fetchAppeals } from "../../../containers/Appeals/redux/action/appealsAction";
 import Spinner from "../../Spinner/Spinner";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const AdminAppealsTable = ({ appeals }) => {
   const dispatch = useDispatch();
@@ -279,6 +280,20 @@ const AdminAppealsTable = ({ appeals }) => {
               <Button danger={true}>Удалить</Button>
             </Popconfirm>
           </Space>
+        );
+      }
+    },
+    {
+      title: "Просмотрено",
+      dataIndex: "isViewed",
+      key: "isViewed",
+      render: (isViewed) => {
+        return isViewed ? (
+          <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
+        ) : (
+          <EyeInvisibleOutlined
+            style={{ fontSize: "24px", color: "#ff4d4f" }}
+          />
         );
       }
     }

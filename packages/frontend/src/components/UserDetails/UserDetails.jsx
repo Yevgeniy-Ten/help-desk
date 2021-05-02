@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Collapse, Form, Input, Button, Space, Select, Typography } from "antd";
 import { PhoneOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { imageStub, apiURL } from "../../constants";
@@ -145,6 +146,9 @@ const UserDetails = ({
               >
                 Обновить данные
               </Button>
+              <NavLink to="/users">
+                <Button type="dashed">Отмена</Button>
+              </NavLink>
             </Space>
           </Form>
           <Space direction="vertical">

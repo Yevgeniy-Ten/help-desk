@@ -139,6 +139,9 @@ const AdminAppealsTable = ({ appeals }) => {
       // onFilter: (value, record) => {
       //   return record.clientRequest.company.indexOf(value) === 0;
       // },
+      sorter: (a, b) => {
+        return a.clientRequest.length - b.clientRequest.length;
+      },
       render: (clientRequest) => {
         return clientRequest.company ? clientRequest.company.title : null;
       }

@@ -140,7 +140,7 @@ const AdminAppealsTable = ({ appeals }) => {
       //   return record.clientRequest.company.indexOf(value) === 0;
       // },
       sorter: (a, b) => {
-        return a.clientRequest.length - b.clientRequest.length;
+        return a.clientRequest.companyId - b.clientRequest.companyId;
       },
       render: (clientRequest) => {
         return clientRequest.company ? clientRequest.company.title : null;

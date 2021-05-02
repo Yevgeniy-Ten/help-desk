@@ -8,6 +8,9 @@ const HistoryTable = ({ history }) => {
       title: "Дата создания",
       dataIndex: "createdAt",
       key: "createdAt",
+      sorter: (a, b) => {
+        return a.createdAt.valueOf() > b.createdAt.valueOf();
+      },
       render: (createdAt) => {
         return new Date(createdAt).toLocaleDateString();
       }
@@ -15,7 +18,10 @@ const HistoryTable = ({ history }) => {
     {
       title: "ID заявки",
       dataIndex: "requestId",
-      key: "requestId"
+      key: "requestId",
+      sorter: (a, b) => {
+        return a.requestId - b.requestId;
+      }
     },
     {
       title: "Тематика",
@@ -26,6 +32,27 @@ const HistoryTable = ({ history }) => {
       title: "Приоритет",
       dataIndex: "priority",
       key: "priority",
+      filters: [
+        {
+          text: "Стандартно",
+          value: "Стандартно"
+        },
+        {
+          text: "Средний",
+          value: "Средний"
+        },
+        {
+          text: "Срочно",
+          value: "Срочно"
+        },
+        {
+          text: "Критично",
+          value: "Критично"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.priority.indexOf(value) === 0;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -42,7 +69,28 @@ const HistoryTable = ({ history }) => {
     {
       title: "Статус",
       dataIndex: "status",
-      key: "status"
+      key: "status",
+      filters: [
+        {
+          text: "Открыто",
+          value: "Открыто"
+        },
+        {
+          text: "Выполняется",
+          value: "Выполняется"
+        },
+        {
+          text: "Приостановлено",
+          value: "Приостановлено"
+        },
+        {
+          text: "Выполнено",
+          value: "Выполнено"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.status.indexOf(value) === 0;
+      }
     },
     {
       title: "Ответственный отдел",

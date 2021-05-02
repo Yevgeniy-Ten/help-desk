@@ -133,6 +133,17 @@ const AdminAppealsTable = ({ appeals }) => {
       }
     },
     {
+      title: "От компании",
+      dataIndex: "clientRequest",
+      key: "clientRequest",
+      // onFilter: (value, record) => {
+      //   return record.clientRequest.company.indexOf(value) === 0;
+      // },
+      render: (clientRequest) => {
+        return clientRequest.company ? clientRequest.company.title : null;
+      }
+    },
+    {
       title: "Тематика",
       dataIndex: "topic",
       key: "topic",

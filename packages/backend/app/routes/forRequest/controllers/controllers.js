@@ -281,8 +281,33 @@ module.exports = {
 
       const { id: requestId } = req.query;
       const { priority } = req.query;
+      const { companyId } = req.query;
 
       if (req.user.roleId !== 2) {
+        if (companyId) {
+          const requests = await Request.findAll({
+            where: helpers.buildQuery(req.query, priority),
+            include: [{
+              model: User,
+              as: "clientRequest",
+              where:  {companyId: companyId},
+              include: [{
+                model: Company,
+                as: "company",
+              }],
+              attributes: ["firstName", "lastName", "companyId"],
+              }, 
+              {
+                model: User,
+                as: "employeeRequest",
+                attributes: ["firstName", "lastName", "companyId"],
+              },
+              "topic",
+              "department"
+            ],
+          });
+          return res.send(requests);
+        }
         if (requestId) {
           const request = await Request.findAll({
             where: helpers.buildQuery(req.query, priority),
@@ -290,6 +315,10 @@ module.exports = {
               {
                 model: User,
                 as: "clientRequest",
+                include: [{
+                  model: Company,
+                  as: "company",
+                }],
                 attributes: ["firstName", "lastName", "companyId"],
               },
               {
@@ -298,7 +327,7 @@ module.exports = {
                 attributes: ["firstName", "lastName", "companyId"],
               },
               "topic",
-              "department",
+              "department"
             ],
           });
           return res.send(request);
@@ -310,6 +339,10 @@ module.exports = {
               {
                 model: User,
                 as: "clientRequest",
+                include: [{
+                  model: Company,
+                  as: "company",
+                }],
                 attributes: ["firstName", "lastName", "companyId"],
               },
               {
@@ -318,7 +351,7 @@ module.exports = {
                 attributes: ["firstName", "lastName", "companyId"],
               },
               "topic",
-              "department",
+              "department"
             ],
           });
           return res.send(requests);
@@ -330,6 +363,10 @@ module.exports = {
               {
                 model: User,
                 as: "clientRequest",
+                include: [{
+                  model: Company,
+                  as: "company",
+                }],
                 attributes: ["firstName", "lastName", "companyId"],
               },
               {
@@ -338,13 +375,13 @@ module.exports = {
                 attributes: ["firstName", "lastName", "companyId"],
               },
               "topic",
-              "department",
+              "department"
             ],
           });
-          requestsByPriority.forEach((request) => {
-            requests.push(request);
-          });
         }
+        requestsByPriority.forEach((request) => {
+          requests.push(request);
+        });
       } else {
         if (requestId) {
           const request = await Request.findAll({
@@ -361,7 +398,7 @@ module.exports = {
                 attributes: ["firstName", "lastName", "companyId"],
               },
               "topic",
-              "department",
+              "department"
             ],
           });
           return res.send(request);
@@ -384,13 +421,13 @@ module.exports = {
                 attributes: ["firstName", "lastName", "companyId"],
               },
               "topic",
-              "department",
+              "department"
             ],
           });
-          requestsByPriority.forEach((request) => {
-            requests.push(request);
-          });
         }
+        requestsByPriority.forEach((request) => {
+          requests.push(request);
+        });
       }
       if (!requests.length) return res.sendStatus(404);
       requestUpdate = helpers.hourWorkUpdate(requests);

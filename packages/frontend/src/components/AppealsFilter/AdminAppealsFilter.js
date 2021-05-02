@@ -30,7 +30,7 @@ const AdminAppealsFilter = ({ companies, departments }) => {
         </Select>
       </Form.Item>
       <Form.Item name="companyId" label="Компания">
-        <Select placeholder="Компания" allowClear={true} disabled={true}>
+        <Select placeholder="Компания" allowClear={true}>
           {companies.map((company) => {
             return (
               <Option key={company.id} value={company.id}>

@@ -1,5 +1,5 @@
 const { nanoid } = require("nanoid");
-const { RequestHistory } = require("../../models");
+const { RequestHistory, User } = require("../../models");
 
 module.exports = {
   saveFile(file, type) {
@@ -30,9 +30,6 @@ module.exports = {
     }
     if (query && query.date) {
       // whereClause.date = query.date;
-    }
-    if (query && query.companyId) {
-      // whereClause.companyId = query.companyId;
     }
 
     return whereClause;

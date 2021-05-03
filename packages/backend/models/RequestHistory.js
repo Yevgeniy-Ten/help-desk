@@ -9,18 +9,19 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
   RequestHistory.init(
     {
       requestId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      employeeId: {
-        type: DataTypes.INTEGER,
+      employeeName: {
+        type: DataTypes.STRING,
         defaultValue: null,
       },
-      departmentId: {
-        type: DataTypes.INTEGER,
+      departmentTitle: {
+        type: DataTypes.STRING,
       },
       priority: {
         type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
@@ -49,8 +50,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      topicId: {
-        type: DataTypes.INTEGER,
+      topicTitle: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       comment: {

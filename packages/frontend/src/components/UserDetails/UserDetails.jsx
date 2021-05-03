@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Collapse, Form, Input, Button, Space, Select, Typography } from "antd";
 import { PhoneOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import { imageStub, apiURL } from "../../constants";
+import { imageStub, apiURL, instance } from "../../constants";
+import { useDispatch } from "react-redux";
 
 const { Text } = Typography;
 const { Panel } = Collapse;
@@ -18,6 +19,14 @@ const UserDetails = ({
   isLoading,
   orgStructures
 }) => {
+  const [userRoles, setUserRoles] = useState([]);
+
+  const dispatch = useDispatch();
+  useEffect(async () => {
+    const response = await instance.get("/userRoles");
+    setUserRoles(response.data);
+  }, [dispatch]);
+  console.log(userInfo);
   return (
     <>
       {userInfo && (
@@ -124,12 +133,33 @@ const UserDetails = ({
                           allowClear={true}
                         >
                           {orgStructures.map((orgstructure) => {
+                            console.log(orgstructure);
                             return (
                               <Option
                                 key={orgstructure.id}
                                 value={orgstructure.id}
                               >
                                 {orgstructure.position.title}
+                              </Option>
+                            );
+                          })}
+                        </Select>
+                      </Form.Item>
+                      <Form.Item
+                        name="userRoleId"
+                        label="Роль"
+                        className="mb-sm"
+                        initialValue={userInfo.role.id}
+                      >
+                        <Select
+                          placeholder="Выберите должность"
+                          allowClear={true}
+                        >
+                          {userRoles.map((userRole) => {
+                            console.log(userRole);
+                            return (
+                              <Option key={userRole.id} value={userRole.id}>
+                                {userRole.name}
                               </Option>
                             );
                           })}

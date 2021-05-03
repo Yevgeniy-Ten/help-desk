@@ -91,7 +91,9 @@ const UsersController = {
       phoneNumber,
       departmentId,
       orgstructureId,
+      userRoleId,
     } = req.body;
+    console.log(userRoleId);
     const userId = req.params.id;
     const user = await User.findOne({
       where: { id: userId },
@@ -104,6 +106,7 @@ const UsersController = {
         firstName,
         lastName,
         phoneNumber,
+        roleId: userRoleId,
       });
       return res.send(user);
     }
@@ -114,6 +117,7 @@ const UsersController = {
       phoneNumber,
       departmentId,
       orgStructureId: orgstructureId,
+      roleId: userRoleId,
     });
     res.send(user);
   },

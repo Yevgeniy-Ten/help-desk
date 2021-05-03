@@ -124,17 +124,21 @@ const AdminAppealsTable = ({ appeals }) => {
         });
       }
     },
-        {
+    {
       title: "Просмотрено",
       dataIndex: "isViewed",
       key: "isViewed",
       render: (isViewed) => {
         return isViewed ? (
-          <EyeOutlined style={{ fontSize: "24px", color: "#99c578", }} />
+          <div style={{ textAlign: "center" }}>
+            <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
+          </div>
         ) : (
-          <EyeInvisibleOutlined
-            style={{ fontSize: "24px", color: "#ff4d4f" }}
-          />
+          <div style={{ textAlign: "center" }}>
+            <EyeInvisibleOutlined
+              style={{ fontSize: "24px", color: "#ff4d4f" }}
+            />
+          </div>
         );
       }
     },

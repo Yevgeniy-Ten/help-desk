@@ -128,6 +128,21 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Просмотрено",
       dataIndex: "isViewed",
       key: "isViewed",
+      filters: [
+        {
+          text: "Просмотрено",
+          value: true
+        },
+        {
+          text: "Не просмотрено",
+          value: false
+        }
+      ],
+      onFilter: (value, record) => {
+        if (record.isViewed === value) {
+          return true;
+        }
+      },
       render: (isViewed) => {
         return isViewed ? (
           <div style={{ textAlign: "center" }}>

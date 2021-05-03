@@ -124,6 +124,20 @@ const AdminAppealsTable = ({ appeals }) => {
         });
       }
     },
+        {
+      title: "Просмотрено",
+      dataIndex: "isViewed",
+      key: "isViewed",
+      render: (isViewed) => {
+        return isViewed ? (
+          <EyeOutlined style={{ fontSize: "24px", color: "#99c578", }} />
+        ) : (
+          <EyeInvisibleOutlined
+            style={{ fontSize: "24px", color: "#ff4d4f" }}
+          />
+        );
+      }
+    },
     {
       title: "ID заявки",
       dataIndex: "id",
@@ -288,20 +302,6 @@ const AdminAppealsTable = ({ appeals }) => {
               <Button danger={true}>Удалить</Button>
             </Popconfirm>
           </Space>
-        );
-      }
-    },
-    {
-      title: "Просмотрено",
-      dataIndex: "isViewed",
-      key: "isViewed",
-      render: (isViewed) => {
-        return isViewed ? (
-          <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
-        ) : (
-          <EyeInvisibleOutlined
-            style={{ fontSize: "24px", color: "#ff4d4f" }}
-          />
         );
       }
     }

@@ -23,9 +23,9 @@ const UserTableContainer = () => {
         <Spinner />
       ) : (
         <>
-          <NavLink to="/users/create">
+          {/* <NavLink to="/users/create">
             <Button>Создать пользователя</Button>
-          </NavLink>
+          </NavLink> */}
 
           <UsersTable onAuthorizeUser={onAuthorizeUser} users={users} />
         </>

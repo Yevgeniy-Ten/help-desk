@@ -35,11 +35,11 @@ const DepartmentForm = ({ departmentId, onCloseEditor }) => {
       form={form}
       onFinish={onCreateDepartment}
       name="add-department"
-      className={"appeal-form"}
-      layout={"vertical"}
+      className="appeal-form"
+      layout="vertical"
     >
       <Form.Item
-        name={"title"}
+        name="title"
         label="Имя отдела"
         rules={[
           {
@@ -48,10 +48,10 @@ const DepartmentForm = ({ departmentId, onCloseEditor }) => {
           }
         ]}
       >
-        <Input placeholder={"Имя отдела"} />
+        <Input placeholder="Имя отдела" />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" size={"middle"}>
+        <Button type="primary" htmlType="submit" size="middle">
           {departmentForEdit && onCloseEditor ? "Обновить" : "Создать отдел"}
         </Button>
       </Form.Item>

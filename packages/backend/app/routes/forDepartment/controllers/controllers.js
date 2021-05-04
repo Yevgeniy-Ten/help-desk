@@ -24,7 +24,11 @@ const DepartmentController = {
   async getById(req, res) {
     try {
       const { id } = req.params;
-      const department = await Department.findOne({ id });
+      const department = await Department.findOne({
+        where: {
+          id
+        }
+      });
       if (!department) return res.sendStatus(404);
       res.send(department);
     } catch (e) {
@@ -34,7 +38,7 @@ const DepartmentController = {
   async create(req, res) {
     const { title } = req.body;
     Department.create({
-      title,
+      title
     })
       .then((newDepartment) => res.status(201).send(newDepartment))
       .catch((errors) => {
@@ -44,7 +48,11 @@ const DepartmentController = {
   async edit(req, res) {
     try {
       const { id } = req.params;
-      const department = await Department.findOne({ id });
+      const department = await Department.findOne({
+        where: {
+          id
+        }
+      });
       if (!department) return res.sendStatus(404);
       await department.update(req.body);
       res.send(department);
@@ -60,6 +68,6 @@ const DepartmentController = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = DepartmentController;

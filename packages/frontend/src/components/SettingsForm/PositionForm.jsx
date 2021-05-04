@@ -14,6 +14,7 @@ const PositionForm = ({ positionId, onCloseEditor }) => {
   const dispatch = useDispatch();
   const positionForEdit = useSelector(getEditableElement);
   const onCreatePosition = async (position) => {
+    console.log(position);
     if (positionForEdit) {
       await dispatch(fetchSettingUpdate("position", position));
       onCloseEditor();

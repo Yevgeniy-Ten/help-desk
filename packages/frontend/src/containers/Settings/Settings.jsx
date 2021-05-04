@@ -27,7 +27,7 @@ const Settings = () => {
     idForEdit: null
   });
   const [currentReglamentPage, setCurrentReglamentPage] = useState(1);
-  console.log(currentReglamentPage);
+
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
   const onShowSettingEditor = (type, idForEdit) => {
     setSettingTypeIsOpen({

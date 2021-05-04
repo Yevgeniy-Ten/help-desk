@@ -45,7 +45,7 @@ const HistoryTable = ({ history }) => {
     },
     {
       title: "Ответственный отдел",
-      dataIndex: "departmentId",
+      dataIndex: "departmentTitle",
       key: "departmentTitle"
     },
     {

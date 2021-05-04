@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       departmentTitle: {
         type: DataTypes.STRING,
+        defaultValue: null,
       },
       priority: {
         type: DataTypes.ENUM("Срочно", "Средний", "Стандартно", "Критично"),
@@ -52,11 +53,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       topicTitle: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
       },
       comment: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
       },
     },
     {

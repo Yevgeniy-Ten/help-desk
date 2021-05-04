@@ -77,11 +77,11 @@ module.exports = {
         .then(async (newRequest) => {
           await RequestHistory.create({
             requestId: newRequest.dataValues.id,
-            topicTitle: rule.topic.title,
+            topicTitle: rule && rule.topic.title,
             priority,
             status,
             deadline: newRequest.dataValues.deadline,
-            departmentTitle: rule.department.title,
+            departmentTitle: rule && rule.department.title,
             employeeName: employee
               ? `${employee.firstName} ${employee.lastName}`
               : "Не назначено",
@@ -235,7 +235,7 @@ module.exports = {
       let milliseconds = 0;
       if (hourWork || minuteWork || secondWork) {
         milliseconds =
-          hourWork * 3600000 + minuteWork * 60000 + secondWork * 1000;
+        hourWork * 3600000 + minuteWork * 60000 + secondWork * 1000;
       }
       const { id } = req.params;
       const request = await Request.findOne({
@@ -253,7 +253,7 @@ module.exports = {
         departmentId,
         hourWork: addHourWork,
         employeeId
-      });
+      }, {include: ["department", "topic", "employeeRequest"]});
       const comment = Object.keys(request.dataValues).reduce((comment, key) => {
         if (
           request.dataValues[key] !== prevRequest[key] &&
@@ -266,12 +266,23 @@ module.exports = {
         }
         return comment;
       }, `${employeeComment ? `${employeeComment}\n` : ""}`);
-      delete request.dataValues.id;
+      const requestCopy = await Request.findOne({
+        where: { id },
+        include: ["department", "topic", "employeeRequest"]
+      });
       await RequestHistory.create({
         requestId: id,
         comment,
         addHourWork: milliseconds,
-        ...request.dataValues
+        departmentTitle: requestCopy.department && requestCopy.department.dataValues.title,
+        topicTitle: requestCopy.topic && requestCopy.topic.dataValues.title,
+        employeeName: requestCopy.employeeRequest
+          ? `${requestCopy.employeeRequest.dataValues.firstName} ${requestCopy.employeeRequest.dataValues.lastName}`
+          : "Не назначено",
+        deadline: requestCopy.dataValues.deadline,
+        hourWork: requestCopy.dataValues.hourWork,
+        status: requestCopy.dataValues.status,
+        priority: requestCopy.dataValues.priority,
       });
       res.sendStatus(200);
     } catch (e) {

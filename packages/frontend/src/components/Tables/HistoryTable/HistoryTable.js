@@ -33,8 +33,7 @@ const HistoryTable = ({ history }) => {
     },
     {
       title: "Тематика",
-      dataIndex: "topicId",
-      key: "topicId"
+      dataIndex: "topicTitle"
     },
     {
       title: "Приоритет",
@@ -108,13 +107,12 @@ const HistoryTable = ({ history }) => {
     },
     {
       title: "Ответственный отдел",
-      dataIndex: "departmentId",
-      key: "departmentId"
+      dataIndex: "departmentTitle",
+      key: "departmentTitle"
     },
     {
       title: "Ответствейнный сотрудник",
-      dataIndex: "employeeId",
-      key: "employeeId"
+      dataIndex: "employeeName"
       // render: (employeeId) => employeeId ? `${employeeId.firstName} ${employeeId.lastName}` : null
     },
     {

@@ -5,7 +5,7 @@ const {
   OrgStructure,
   User,
   RequestHistory,
-  Company,
+  Company
 } = require("../../../../models");
 const helpers = require("../../../helpers/helpers");
 
@@ -18,12 +18,12 @@ module.exports = {
         priority,
         status,
         title,
-        description,
+        description
       } = req.body;
       const client = await User.findOne({
         where: {
-          id: clientId || req.user.id,
-        },
+          id: clientId || req.user.id
+        }
       });
       // если клиент найден то присваеиваем companyId клиента, если не найден берем companyId юзера который создает запрос
       const companyId = client
@@ -31,14 +31,16 @@ module.exports = {
         : req.user.companyId && req.user.companyId;
       let rule = await Reglaments.findOne({
         where: { topicId, priority, companyId },
+        include: ["department", "topic"]
       });
       if (!rule) {
         rule = await Reglaments.findOne({
           where: {
             topicId,
             priority,
-            companyId: null,
+            companyId: null
           },
+          include: ["department", "topic"]
         });
       }
       if (!rule)
@@ -50,15 +52,15 @@ module.exports = {
       const orgStructure = await OrgStructure.findOne({
         where: {
           departmentId,
-          isMain: true,
-        },
+          isMain: true
+        }
       });
       let employee = null;
       if (orgStructure) {
         employee = await User.findOne({
           where: {
-            orgStructureId: orgStructure.id,
-          },
+            orgStructureId: orgStructure.id
+          }
         });
       }
       Request.create({
@@ -70,19 +72,21 @@ module.exports = {
         description,
         deadline,
         departmentId,
-        employeeId: employee && employee.id,
+        employeeId: employee && employee.id
       })
         .then(async (newRequest) => {
           await RequestHistory.create({
             requestId: newRequest.dataValues.id,
-            topicId,
+            topicTitle: rule && rule.topic.title,
             priority,
             status,
             deadline: newRequest.dataValues.deadline,
-            departmentId: newRequest.dataValues.departmentId,
-            employeeId: newRequest.dataValues.departmentId,
+            departmentTitle: rule && rule.department.title,
+            employeeName: employee
+              ? `${employee.firstName} ${employee.lastName}`
+              : "Не назначено",
             hourWork: newRequest.dataValues.hourWork,
-            comment: "Заявка создана!",
+            comment: "Заявка создана!"
           });
           res.status(201).send(newRequest);
         })
@@ -102,16 +106,16 @@ module.exports = {
           {
             model: User,
             as: "clientRequest",
-            attributes: ["firstName", "lastName", "companyId"],
+            attributes: ["firstName", "lastName", "companyId"]
           },
           {
             model: User,
             as: "employeeRequest",
-            attributes: ["firstName", "lastName", "companyId"],
+            attributes: ["firstName", "lastName", "companyId"]
           },
           "topic",
-          "department",
-        ],
+          "department"
+        ]
       });
       if (!request) return res.sendStatus(404);
       await request.update({
@@ -130,12 +134,12 @@ module.exports = {
       let histories = [];
       if (requestId || date) {
         histories = await RequestHistory.findAll({
-          where: helpers.buildQuery(req.query, null),
+          where: helpers.buildQuery(req.query, null)
         });
         return res.send(histories);
       }
       histories = await RequestHistory.findAll({
-        order: [["requestId", "ASC"]],
+        order: [["requestId", "ASC"]]
       });
       if (!histories.length) return res.sendStatus(404);
       res.send(histories);
@@ -149,14 +153,14 @@ module.exports = {
         {
           model: User,
           as: "users",
-          include: ["clientRequest"],
-        },
-      ],
+          include: ["clientRequest"]
+        }
+      ]
     });
     audit = audit.reduce((a, companyWithUsers) => {
       const companyInfo = {
         name: companyWithUsers.title,
-        users: companyWithUsers.users.length,
+        users: companyWithUsers.users.length
       };
       // company {users:[user: clientRequest:[ ]  }
       const requests = companyWithUsers.users.reduce(
@@ -201,14 +205,14 @@ module.exports = {
             open: 0,
             inProgress: 0,
             suspend: 0,
-            done: 0,
+            done: 0
           },
           priority: {
             standart: 0,
             medium: 0,
             urgent: 0,
-            critical: 0,
-          },
+            critical: 0
+          }
         }
       );
       companyInfo.requests = requests;
@@ -229,16 +233,17 @@ module.exports = {
         minuteWork,
         secondWork,
         comment: employeeComment,
-        employeeId,
+        employeeId
       } = req.body;
       let milliseconds = 0;
       if (hourWork || minuteWork || secondWork) {
         milliseconds =
-          hourWork * 3600000 + minuteWork * 60000 + secondWork * 1000;
+        hourWork * 3600000 + minuteWork * 60000 + secondWork * 1000;
       }
       const { id } = req.params;
       const request = await Request.findOne({
         where: { id },
+        include: ["department", "topic", "employeeRequest"]
       });
       if (!request) return res.sendStatus(404);
       const addHourWork = request.hourWork + milliseconds;
@@ -250,8 +255,8 @@ module.exports = {
         deadline,
         departmentId,
         hourWork: addHourWork,
-        employeeId,
-      });
+        employeeId
+      }, {include: ["department", "topic", "employeeRequest"]});
       const comment = Object.keys(request.dataValues).reduce((comment, key) => {
         if (
           request.dataValues[key] !== prevRequest[key] &&
@@ -264,12 +269,23 @@ module.exports = {
         }
         return comment;
       }, `${employeeComment ? `${employeeComment}\n` : ""}`);
-      delete request.dataValues.id;
+      const requestCopy = await Request.findOne({
+        where: { id },
+        include: ["department", "topic", "employeeRequest"]
+      });
       await RequestHistory.create({
         requestId: id,
         comment,
         addHourWork: milliseconds,
-        ...request.dataValues,
+        departmentTitle: requestCopy.department && requestCopy.department.dataValues.title,
+        topicTitle: requestCopy.topic && requestCopy.topic.dataValues.title,
+        employeeName: requestCopy.employeeRequest
+          ? `${requestCopy.employeeRequest.dataValues.firstName} ${requestCopy.employeeRequest.dataValues.lastName}`
+          : "Не назначено",
+        deadline: requestCopy.dataValues.deadline,
+        hourWork: requestCopy.dataValues.hourWork,
+        status: requestCopy.dataValues.status,
+        priority: requestCopy.dataValues.priority,
       });
       res.sendStatus(200);
     } catch (e) {
@@ -327,7 +343,7 @@ module.exports = {
               {
                 model: User,
                 as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               "topic",
               "department"
@@ -351,7 +367,7 @@ module.exports = {
               {
                 model: User,
                 as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               "topic",
               "department"
@@ -375,7 +391,7 @@ module.exports = {
               {
                 model: User,
                 as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               "topic",
               "department"
@@ -393,12 +409,12 @@ module.exports = {
               {
                 model: User,
                 as: "clientRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               {
                 model: User,
                 as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               "topic",
               "department"
@@ -410,18 +426,18 @@ module.exports = {
           requestsByPriority = await Request.findAll({
             where: {
               clientId: req.user.id,
-              priority: priorities[index],
+              priority: priorities[index]
             },
             include: [
               {
                 model: User,
                 as: "clientRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               {
                 model: User,
                 as: "employeeRequest",
-                attributes: ["firstName", "lastName", "companyId"],
+                attributes: ["firstName", "lastName", "companyId"]
               },
               "topic",
               "department"
@@ -497,5 +513,5 @@ module.exports = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };

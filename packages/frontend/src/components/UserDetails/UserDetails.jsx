@@ -145,28 +145,25 @@ const UserDetails = ({
                           })}
                         </Select>
                       </Form.Item>
-                      <Form.Item
-                        name="userRoleId"
-                        label="Роль"
-                        className="mb-sm"
-                        initialValue={userInfo.role.id}
-                      >
-                        <Select
-                          placeholder="Выберите должность"
-                          allowClear={true}
-                        >
-                          {userRoles.map((userRole) => {
-                            console.log(userRole);
-                            return (
-                              <Option key={userRole.id} value={userRole.id}>
-                                {userRole.name}
-                              </Option>
-                            );
-                          })}
-                        </Select>
-                      </Form.Item>
                     </>
                   )}
+                  <Form.Item
+                    name="userRoleId"
+                    label="Роль"
+                    className="mb-sm"
+                    initialValue={userInfo.role.id}
+                  >
+                    <Select placeholder="Выберите роль" allowClear={true}>
+                      {userRoles.map((userRole) => {
+                        console.log(userRole);
+                        return (
+                          <Option key={userRole.id} value={userRole.id}>
+                            {userRole.name}
+                          </Option>
+                        );
+                      })}
+                    </Select>
+                  </Form.Item>
                 </Panel>
               </Collapse>
               <Button

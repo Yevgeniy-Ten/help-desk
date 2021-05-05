@@ -30,6 +30,7 @@ const Settings = () => {
 
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
   const onShowSettingEditor = (type, idForEdit) => {
+    dispatch(clearEditalbleElement());
     setSettingTypeIsOpen({
       type,
       idForEdit

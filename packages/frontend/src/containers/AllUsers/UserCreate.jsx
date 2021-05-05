@@ -121,11 +121,11 @@ const UserCreate = () => {
           block={true}
           htmlType="submit"
           size="middle"
-          className="element-width ml-sm"
+          className="element-width"
         >
           Создать
         </Button>
-        <Button type="dashed" href="/users" className="element-width">
+        <Button type="dashed" href="/users" className="element-width ml-sm">
           Отмена
         </Button>
       </Form.Item>

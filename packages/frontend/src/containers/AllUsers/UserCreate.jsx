@@ -16,7 +16,7 @@ const UserCreate = () => {
   );
   const companies = useSelector(getCompanies);
   const submitFormHandler = (values) => {
-    dispatch(registerUser(values));
+    dispatch(registerUser(values, "/users"));
   };
   return (
     <Form

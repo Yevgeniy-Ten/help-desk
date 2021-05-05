@@ -23,7 +23,7 @@ const Register = () => {
   );
   const companies = useSelector(getCompanies);
   const submitFormHandler = (values) => {
-    dispatch(registerUser(values));
+    dispatch(registerUser(values, "/auth"));
   };
   useEffect(() => {
     if (registerError && registerError.message) {

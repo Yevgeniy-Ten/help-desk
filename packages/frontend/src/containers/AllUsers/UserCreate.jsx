@@ -125,9 +125,11 @@ const UserCreate = () => {
         >
           Создать
         </Button>
-        <Button type="dashed" href="/users" className="element-width ml-sm">
-          Отмена
-        </Button>
+        <NavLink to="/users">
+          <Button type="dashed" className="element-width ml-sm">
+            Отмена
+          </Button>
+        </NavLink>
       </Form.Item>
     </Form>
   );

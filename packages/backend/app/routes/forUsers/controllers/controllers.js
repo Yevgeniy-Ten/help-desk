@@ -8,9 +8,9 @@ const UsersController = {
     if (departmentId) {
       let orgStructures = await OrgStructure.findAll({
         where: {
-          departmentId,
+          departmentId
         },
-        include: ["users"],
+        include: ["users"]
       });
       orgStructures = orgStructures.reduce(
         (allUsers, o) => allUsers.concat(o.users),
@@ -21,7 +21,7 @@ const UsersController = {
     }
 
     const users = await User.findAll({
-      include: ["company", "role", "orgStructure"],
+      include: ["company", "role", "orgStructure"]
     });
     res.json(users);
   },
@@ -33,7 +33,7 @@ const UsersController = {
           .send({ message: "Вы не потверждены администратором." });
       const user = await User.findOne({
         where: { id: req.user.id },
-        include: ["company", "role", "orgStructure"],
+        include: ["company", "role", "orgStructure"]
       });
       res.send(user);
     } catch (e) {
@@ -48,7 +48,7 @@ const UsersController = {
         lastName,
         password,
         email,
-        phoneNumber,
+        phoneNumber
       } = req.body;
       if (req.files) {
         // saveFile(req.files.photo, "users")
@@ -59,7 +59,7 @@ const UsersController = {
         lastName,
         password,
         email,
-        phoneNumber,
+        phoneNumber
       })
         .then((result) => {
           res.sendStatus(201);
@@ -75,7 +75,7 @@ const UsersController = {
       const userId = req.user.id;
       const user = await User.findOne({
         where: { id: userId },
-        include: ["company", "role", "orgStructure"],
+        include: ["company", "role", "orgStructure"]
       });
       res.send(user);
     } catch (e) {
@@ -91,13 +91,13 @@ const UsersController = {
       phoneNumber,
       departmentId,
       orgstructureId,
-      userRoleId,
+      userRoleId
     } = req.body;
-    console.log(userRoleId);
+    // console.log(userRoleId);
     const userId = req.params.id;
     const user = await User.findOne({
       where: { id: userId },
-      include: ["company", "role"],
+      include: ["company", "role"]
     });
     if (!user) return res.sendStatus(404);
     if (user.role.name === "client") {
@@ -106,7 +106,7 @@ const UsersController = {
         firstName,
         lastName,
         phoneNumber,
-        roleId: userRoleId,
+        roleId: userRoleId
       });
       return res.send(user);
     }
@@ -117,7 +117,7 @@ const UsersController = {
       phoneNumber,
       departmentId,
       orgStructureId: orgstructureId,
-      roleId: userRoleId,
+      roleId: userRoleId
     });
     res.send(user);
   },
@@ -126,7 +126,7 @@ const UsersController = {
     const user = await User.findOne({ where: { id: userId } });
     if (!user) return res.sendStatus(404);
     await user.update({
-      isAuthorized: true,
+      isAuthorized: true
     });
     res.send({ message: "Вы авторизованы !" });
   },
@@ -143,7 +143,7 @@ const UsersController = {
       const userId = req.params.id;
       const user = await User.findOne({
         where: { id: userId },
-        include: ["company", "role", "orgStructure"],
+        include: ["company", "role", "orgStructure"]
       });
       // const user = await User.findOne({
       //     where: { id: userId },
@@ -172,7 +172,7 @@ const UsersController = {
         return res.status(401).send({ error: "Wrong User ID" });
 
       let user = await User.findOne({
-        where: { facebookId: req.body.id },
+        where: { facebookId: req.body.id }
       });
 
       if (!user) {
@@ -183,13 +183,13 @@ const UsersController = {
           email: req.body.email,
           facebookId: req.body.id,
           avatarImage: req.body.picture.data.url,
-          token: nanoid(),
+          token: nanoid()
         });
       }
       return res.send({ message: "Login or Register successful", user });
     } catch (e) {
       return res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = UsersController;

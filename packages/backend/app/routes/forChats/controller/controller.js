@@ -7,11 +7,11 @@ const chatController = {
     const { requestId } = req.query;
     try {
       const chats = await Chat.findAll({
-        where: { requestId },
+        where: { requestId }
       });
       res.send(chats);
     } catch (error) {
-      res.status(500).send(errors);
+      res.status(500).send(error);
     }
   },
   async getChatMessage(req, res) {
@@ -30,7 +30,7 @@ const chatController = {
         Chat.create({
           employeeId: req.user.id,
           requestId,
-          message,
+          message
         })
           .then((newMessage) => {
             emitter.emit("newMessage", newMessage);
@@ -42,7 +42,7 @@ const chatController = {
         Chat.create({
           clientId: req.user.id,
           requestId,
-          message,
+          message
         })
           .then((newMessage) => {
             emitter.emit("newMessage", newMessage);
@@ -53,9 +53,9 @@ const chatController = {
       }
       res.sendStatus(200);
     } catch (error) {
-      res.status(500).send(errors);
+      res.status(500).send(error);
     }
-  },
+  }
 };
 
 module.exports = chatController;

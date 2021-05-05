@@ -12,7 +12,7 @@ const ReglamentsController = {
         middle,
         high,
         incident,
-        priority,
+        priority
       } = req.body;
       await Reglaments.create({
         companyId,
@@ -20,7 +20,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: standart,
-        priority: "Стандартно",
+        priority: "Стандартно"
       });
       await Reglaments.create({
         companyId,
@@ -28,7 +28,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: middle,
-        priority: "Средний",
+        priority: "Средний"
       });
       await Reglaments.create({
         companyId,
@@ -36,7 +36,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: high,
-        priority: "Срочно",
+        priority: "Срочно"
       });
       await Reglaments.create({
         companyId,
@@ -44,7 +44,7 @@ const ReglamentsController = {
         departmentId,
         title,
         deadline: incident,
-        priority: "Критично",
+        priority: "Критично"
       });
       res.sendStatus(201);
     } catch (errors) {
@@ -55,14 +55,14 @@ const ReglamentsController = {
     try {
       const { id } = req.params;
       const reglament = await Reglaments.findOne({
-        where: { id },
+        where: { id }
       });
       if (!reglament) return res.sendStatus(404);
       const reglamentIsExist = await Reglaments.findOne({
         where: {
           topicId: req.body.topicId,
-          companyId: req.body.companyId,
-        },
+          companyId: req.body.companyId
+        }
       });
       if (reglamentIsExist.topicId !== reglament.topicId) {
         return res.status(400).json({ message: "Регламент уже существует" });
@@ -71,8 +71,8 @@ const ReglamentsController = {
         where: {
           companyId: reglament.companyId ? reglament.companyId : null,
           topicId: reglament.topicId,
-          departmentId: reglament.departmentId,
-        },
+          departmentId: reglament.departmentId
+        }
       });
       if (!reglaments.length) return res.sendStatus(404);
       for (const reg of reglaments) {
@@ -82,7 +82,7 @@ const ReglamentsController = {
             await reg.update({
               ...req.body,
               priority: "Срочно",
-              deadline: req.body.high,
+              deadline: req.body.high
             });
             break;
           case "Критично":
@@ -90,7 +90,7 @@ const ReglamentsController = {
             await reg.update({
               ...req.body,
               priority: "Критично",
-              deadline: req.body.incident,
+              deadline: req.body.incident
             });
             break;
           case "Средний":
@@ -98,7 +98,7 @@ const ReglamentsController = {
             await reg.update({
               ...req.body,
               priority: "Средний",
-              deadline: req.body.middle,
+              deadline: req.body.middle
             });
             break;
           default:
@@ -106,7 +106,7 @@ const ReglamentsController = {
             await reg.update({
               ...req.body,
               priority: "Стандартно",
-              deadline: req.body.standart,
+              deadline: req.body.standart
             });
         }
       }
@@ -118,7 +118,7 @@ const ReglamentsController = {
   async getAll(req, res) {
     try {
       const reglaments = await Reglaments.findAll({
-        include: ["topic", "department", "company"],
+        include: ["topic", "department", "company"]
       });
       if (!reglaments.length) return res.sendStatus(404);
       res.send(reglaments);
@@ -129,7 +129,11 @@ const ReglamentsController = {
   async getById(req, res) {
     try {
       const { id } = req.params;
-      const reglaments = await Reglaments.findOne({ id });
+      const reglaments = await Reglaments.findOne({
+        where: {
+          id
+        }
+      });
       if (!reglaments) return res.sendStatus(404);
       res.send(reglaments);
     } catch (errors) {
@@ -144,6 +148,6 @@ const ReglamentsController = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = ReglamentsController;

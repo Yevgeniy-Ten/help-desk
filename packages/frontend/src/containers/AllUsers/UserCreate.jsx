@@ -125,8 +125,8 @@ const UserCreate = () => {
         >
           Создать
         </Button>
-        <NavLink to="/users">
-          <Button type="dashed" className="element-width ml-sm">
+        <NavLink to="/users" className="ml-sm">
+          <Button type="default" className="element-width">
             Отмена
           </Button>
         </NavLink>

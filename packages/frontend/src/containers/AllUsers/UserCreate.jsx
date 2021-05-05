@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Select, message } from "antd";
 import { getUserState } from "../Auth/redux/getters/getters";
@@ -113,15 +114,19 @@ const UserCreate = () => {
       >
         <Input.Password placeholder="Пароль" />
       </Form.Item>
-      <Form.Item className="mb-sm">
+      <Form.Item className="mb-sm element-center">
         <Button
           loading={isLoading}
           type="default"
           block={true}
           htmlType="submit"
           size="middle"
+          className="element-width"
         >
           Создать
+        </Button>
+        <Button type="dashed" href="/users" className="element-width">
+          Отмена
         </Button>
       </Form.Item>
     </Form>

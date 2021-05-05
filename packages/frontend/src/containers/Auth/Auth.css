@@ -13,3 +13,11 @@
 .auth-form-width {
     min-width: 300px;
 }
+
+.element-center{
+    text-align: center;
+}
+
+.element-width{
+    max-width: fit-content;
+}

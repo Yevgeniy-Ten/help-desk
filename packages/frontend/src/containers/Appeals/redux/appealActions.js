@@ -4,7 +4,10 @@ import {
   APPEAL_GET_SUCCESS,
   APPEAL_REQUEST_ERROR,
   APPEAL_REQUEST_STARTED,
-  APPEAL_UPDATE_SUCCESS
+  APPEAL_UPDATE_SUCCESS,
+  APPEAL_CREATE_CHAT_MESSAGE,
+  APPEAL_GET_CHAT_MESSAGE,
+  APPEAL_GET_CHAT_MESSAGES
 } from "./action/appealsActionType";
 import { message } from "antd";
 
@@ -20,10 +23,61 @@ const getAppealSuccess = (appeal) => {
 const appealRequestStarted = () => {
   return { type: APPEAL_REQUEST_STARTED };
 };
+const appealChatMessageCreateSuccess = () => {
+  return { type: APPEAL_CREATE_CHAT_MESSAGE };
+};
+const appealChatMessageGetSuccess = (message) => {
+  return { type: APPEAL_GET_CHAT_MESSAGE, message };
+};
+const appealChatMessagesGetSuccess = (messages) => {
+  return { type: APPEAL_GET_CHAT_MESSAGES, messages };
+};
 const appealRequestError = (errors) => {
   return { type: APPEAL_REQUEST_ERROR, errors };
 };
-
+export const getAppealChatMessage = (requestId) => {
+  return async (dispatch, _, axios) => {
+    try {
+      const response = await axios.get("/chats/message", {
+        params: { requestId }
+      });
+      dispatch(appealChatMessageGetSuccess(response.data));
+      dispatch(getAppealChatMessage(requestId));
+    } catch (e) {
+      dispatch(appealRequestError(e.response.data));
+    }
+  };
+};
+export const getAppealChatMessages = (requestId) => {
+  return async (dispatch, _, axios) => {
+    try {
+      dispatch(appealRequestStarted());
+      const response = await axios.get("/chats", {
+        params: {
+          requestId
+        }
+      });
+      dispatch(appealChatMessagesGetSuccess(response.data));
+    } catch (e) {
+      dispatch(appealRequestError(e.response.data));
+    }
+  };
+};
+export const appealCreateMessage = (message, requestId) => {
+  return async (dispatch, _, axios) => {
+    try {
+      dispatch(appealRequestStarted());
+      await axios.post("/chats", message, {
+        params: {
+          requestId
+        }
+      });
+      dispatch(appealChatMessageCreateSuccess());
+    } catch (e) {
+      dispatch(appealRequestError(e.response.data));
+    }
+  };
+};
 export const fetchAppeal = (id) => {
   return async (dispatch, _, axios) => {
     try {
@@ -73,6 +127,35 @@ export const fetchPutAppeal = (id, appealData) => {
       dispatch(push("/appeals"));
       message.success({
         content: "Изменения сохранены!"
+      });
+    } catch (e) {
+      if (e.response && e.response.data) {
+        dispatch(appealRequestError(e.response.data));
+      } else {
+        dispatch(appealRequestError({ message: e.message }));
+      }
+    }
+  };
+};
+
+export const fetchDeleteAppeal = (id, appealData) => {
+  return async (dispatch, _, axios) => {
+    try {
+      let mssg = "Заявка удалена!";
+      let urlRequest = `/requests/${id}`;
+      if (!id) {
+        urlRequest = `/requests`;
+        mssg = "Заявки удалены!";
+      }
+      message.info({
+        content: "Идет удаление!"
+      });
+      dispatch(appealRequestStarted());
+      await axios.delete(urlRequest, { data: appealData });
+      dispatch(appealUpdateSuccess());
+      dispatch(push("/appeals"));
+      message.success({
+        content: mssg
       });
     } catch (e) {
       if (e.response && e.response.data) {

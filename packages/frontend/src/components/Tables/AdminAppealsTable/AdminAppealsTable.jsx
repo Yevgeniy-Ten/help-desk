@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Space, Table, Tag, Drawer } from "antd";
+import { Button, Space, Table, Tag, Drawer, Popconfirm } from "antd";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getHourWork } from "../../../helpers/helpers";
@@ -10,7 +10,8 @@ import {
 } from "../../../containers/Settings/redux/settingGetters";
 import {
   fetchAppeal,
-  fetchPutAppeal
+  fetchPutAppeal,
+  fetchDeleteAppeal
 } from "../../../containers/Appeals/redux/appealActions";
 import {
   getAppealCurrent,
@@ -21,24 +22,30 @@ import { getUsersState } from "../../../containers/AllUsers/redux/usersGetters/u
 import { fetchSettings } from "../../../containers/Settings/redux/settingsActions";
 import { fetchAppeals } from "../../../containers/Appeals/redux/action/appealsAction";
 import Spinner from "../../Spinner/Spinner";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const AdminAppealsTable = ({ appeals }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [appealId, setAppealId] = useState("");
   const [visible, setVisible] = useState(false);
+  const [btnDisabled, setBtnDisabled] = useState(true);
   const topics = useSelector(getTopics);
   const departments = useSelector(getDepartments);
   const { users } = useSelector(getUsersState, shallowEqual);
   const loading = useSelector(getAppealStateLoader);
   const appeal = useSelector(getAppealCurrent);
+  const [state, setState] = useState({
+    selectedRowKeys: [],
+    selectedRows: []
+  });
   const [dataEdit, setDataEdit] = useState({
     topics: null,
     appeal: null,
     departments: null,
     users: null
   });
-  const Edit = (id) => {
+  const editAppeal = (id) => {
     setAppealId(id);
     dispatch(fetchAppeal(id));
     const dataAppeal = {
@@ -60,10 +67,33 @@ const AdminAppealsTable = ({ appeals }) => {
   };
   const closeEditAppealFormDrawer = () => {
     setVisible(false);
+    history.push(`/appeals`);
   };
   const onSaveAppeal = async (appeal) => {
     await dispatch(fetchPutAppeal(appealId, appeal));
     setVisible(false);
+    await dispatch(fetchAppeals());
+  };
+  const onSelectRowChange = (selectedRowKeys, selectedRows) => {
+    setState({ selectedRowKeys, selectedRows });
+    if (selectedRows.length > 1) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  };
+  // eslint-disable-next-line consistent-return
+  const handleDeleteAppeals = async (appeal) => {
+    let appealsIdArray = [];
+    if (appeal === "CheckedAppeals") {
+      appealsIdArray = state.selectedRows;
+      await dispatch(fetchDeleteAppeal(null, appealsIdArray));
+      await dispatch(fetchAppeals());
+      setBtnDisabled(true);
+      // eslint-disable-next-line no-return-await
+      return;
+    }
+    await dispatch(fetchDeleteAppeal(appeal.id, null));
     await dispatch(fetchAppeals());
   };
   useEffect(() => {
@@ -78,14 +108,63 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Дата создания",
       dataIndex: "createdAt",
       key: "createdAt",
+      // defaultSortOrder: "descend",
+      sorter: (a, b) => {
+        if (a.createdAt.valueOf() > b.createdAt.valueOf()) return 1;
+        if (a.createdAt.valueOf() < b.createdAt.valueOf()) return -1;
+      },
       render: (createdAt) => {
-        return new Date(createdAt).toLocaleDateString();
+        return new Date(createdAt).toLocaleDateString("ru", {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric"
+        });
+      }
+    },
+    {
+      title: "Просмотрено",
+      dataIndex: "isViewed",
+      key: "isViewed",
+      filters: [
+        {
+          text: "Просмотрено",
+          value: true
+        },
+        {
+          text: "Не просмотрено",
+          value: false
+        }
+      ],
+      onFilter: (value, record) => {
+        if (record.isViewed === value) {
+          return true;
+        }
+      },
+      render: (isViewed) => {
+        return isViewed ? (
+          <div style={{ textAlign: "center" }}>
+            <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
+          </div>
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            <EyeInvisibleOutlined
+              style={{ fontSize: "24px", color: "#ff4d4f" }}
+            />
+          </div>
+        );
       }
     },
     {
       title: "ID заявки",
       dataIndex: "id",
-      key: "id"
+      key: "id",
+      // defaultSortOrder: "descend",
+      sorter: (a, b) => {
+        return a.id - b.id;
+      }
     },
     {
       title: "Заявка от",
@@ -93,6 +172,20 @@ const AdminAppealsTable = ({ appeals }) => {
       key: "clientRequest",
       render: (creator) => {
         return `${creator.firstName} ${creator.lastName}`;
+      }
+    },
+    {
+      title: "От компании",
+      dataIndex: "clientRequest",
+      key: "clientRequest",
+      // onFilter: (value, record) => {
+      //   return record.clientRequest.company.indexOf(value) === 0;
+      // },
+      sorter: (a, b) => {
+        return a.clientRequest.companyId - b.clientRequest.companyId;
+      },
+      render: (clientRequest) => {
+        return clientRequest.company ? clientRequest.company.title : null;
       }
     },
     {
@@ -107,6 +200,30 @@ const AdminAppealsTable = ({ appeals }) => {
       title: "Приоритет",
       dataIndex: "priority",
       key: "priority",
+      filters: [
+        {
+          text: "Стандартно",
+          value: "Стандартно"
+        },
+        {
+          text: "Средний",
+          value: "Средний"
+        },
+        {
+          text: "Срочно",
+          value: "Срочно"
+        },
+        {
+          text: "Критично",
+          value: "Критично"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.priority.indexOf(value) === 0;
+      },
+      sorter: (a, b) => {
+        return a.priority.length - b.priority.length;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -123,7 +240,31 @@ const AdminAppealsTable = ({ appeals }) => {
     {
       title: "Статус",
       dataIndex: "status",
-      key: "status"
+      key: "status",
+      filters: [
+        {
+          text: "Открыто",
+          value: "Открыто"
+        },
+        {
+          text: "Выполняется",
+          value: "Выполняется"
+        },
+        {
+          text: "Приостановлено",
+          value: "Приостановлено"
+        },
+        {
+          text: "Выполнено",
+          value: "Выполнено"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.status.indexOf(value) === 0;
+      },
+      sorter: (a, b) => {
+        return a.status.length - b.status.length;
+      }
     },
     {
       title: "Ответственный отдел",
@@ -134,7 +275,7 @@ const AdminAppealsTable = ({ appeals }) => {
       }
     },
     {
-      title: "Ответствейнный сотрудник",
+      title: "Ответственный сотрудник",
       dataIndex: "employeeRequest",
       key: "employeeRequest",
       render: (employeeRequest) => {
@@ -166,23 +307,55 @@ const AdminAppealsTable = ({ appeals }) => {
             <Button
               type="link"
               onClick={(id) => {
-                return Edit(record.id);
+                return editAppeal(record.id);
               }}
             >
               Редактировать
             </Button>
-            <Button danger={true}>Удалить</Button>
+            <Popconfirm
+              title="Удалить, вы уверены?"
+              onConfirm={() => {
+                return handleDeleteAppeals(record);
+              }}
+            >
+              <Button danger={true}>Удалить</Button>
+            </Popconfirm>
           </Space>
         );
       }
     }
   ];
+  const { selectedRowKeys } = state;
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectRowChange
+  };
   return (
     <>
       <Table
+        rowSelection={rowSelection}
         scroll={{ x: 1100 }}
         columns={appealColumns}
         dataSource={appeals}
+        rowKey={(record) => {
+          return record.id;
+        }}
+        title={() => {
+          return (
+            <Popconfirm
+              title="Удалить выбранные, вы уверены?"
+              onConfirm={() => {
+                return handleDeleteAppeals("CheckedAppeals");
+              }}
+              disabled={btnDisabled}
+            >
+              <Button danger={true} disabled={btnDisabled}>
+                Удалить выбранные
+              </Button>
+            </Popconfirm>
+          );
+        }}
       />
       <Drawer
         width={640}

@@ -22,6 +22,7 @@ const History = () => {
   const filterFormHandler = (filters) => {
     dispatch(fetchHistory(filters));
   };
+  console.log(history);
   const filterChangeHandler = (e) => {
     // обработчик на изменение назначений
   };

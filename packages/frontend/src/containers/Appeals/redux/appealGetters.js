@@ -7,3 +7,6 @@ export const getAppealCurrent = (state) => {
 export const getAppealStateLoader = (state) => {
   return state.appeal.isLoading;
 };
+export const getAppealMessages = (state) => {
+  return state.appeal.messages;
+};

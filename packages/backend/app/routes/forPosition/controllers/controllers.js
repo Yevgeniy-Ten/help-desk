@@ -22,7 +22,11 @@ const PositionController = {
   async getById(req, res) {
     try {
       const { id } = req.params;
-      const position = await Position.findOne({ id });
+      const position = await Position.findOne({
+        where: {
+          id
+        }
+      });
       if (!position) return res.sendStatus(404);
       res.send(position);
     } catch (e) {
@@ -32,7 +36,7 @@ const PositionController = {
   async create(req, res) {
     const { title } = req.body;
     Position.create({
-      title,
+      title
     })
       .then((newPosition) => res.status(201).send(newPosition))
       .catch((errors) => {
@@ -44,8 +48,8 @@ const PositionController = {
       const { id } = req.params;
       const position = await Position.findOne({
         where: {
-          id,
-        },
+          id
+        }
       });
       if (!position) return res.sendStatus(404);
       await position.update(req.body);
@@ -62,6 +66,6 @@ const PositionController = {
     } catch (e) {
       res.status(401).send(e);
     }
-  },
+  }
 };
 module.exports = PositionController;

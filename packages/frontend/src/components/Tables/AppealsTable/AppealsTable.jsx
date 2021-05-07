@@ -20,20 +20,17 @@ const AppealsTable = ({ appeals }) => {
     {
       title: "Тематика",
       dataIndex: "topic",
-      key: "topic",
       render: (topic) => {
         return topic.title;
       }
     },
     {
       title: "Статус",
-      dataIndex: "status",
-      key: "status"
+      dataIndex: "status"
     },
     {
       title: "Приоритет",
       dataIndex: "priority",
-      key: "priority",
       render: (priority) => {
         let color = "cyan";
         if (priority === "Срочно") {
@@ -49,8 +46,7 @@ const AppealsTable = ({ appeals }) => {
     },
     {
       title: "Срок исполнения (часов)",
-      dataIndex: "deadline",
-      key: "deadline"
+      dataIndex: "deadline"
     },
     {
       title: "Действия",

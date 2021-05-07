@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Breadcrumb, Col, Row } from "antd";
+import { Breadcrumb, Col, Drawer, Row } from "antd";
 import { Switch, Route, Redirect } from "react-router-dom";
 import TopicForm from "../../components/SettingsForm/TopicForm";
 import CompanyForm from "../../components/SettingsForm/CompanyForm";
@@ -15,9 +15,36 @@ import PositionForm from "../../components/SettingsForm/PositionForm";
 import OrgStructureTable from "../../components/Tables/OrgStructureTable";
 import OrgStructureForm from "../../components/SettingsForm/OrgStructureForm";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { useToggle } from "../../hooks/useToggle";
+import { clearEditalbleElement } from "./redux/settingsActions";
+import { useDispatch } from "react-redux";
 
 const Settings = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
+  const [settingTypeIsOpen, setSettingTypeIsOpen] = useState({
+    type: null,
+    idForEdit: null
+  });
+  const [currentReglamentPage, setCurrentReglamentPage] = useState(1);
+
+  const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
+  const onShowSettingEditor = (type, idForEdit) => {
+    dispatch(clearEditalbleElement());
+    setSettingTypeIsOpen({
+      type,
+      idForEdit
+    });
+    toggleDrawerIsOpen();
+  };
+  const closeDrawerWithResetSettingFields = () => {
+    dispatch(clearEditalbleElement());
+    setSettingTypeIsOpen({
+      type: null,
+      idForEdit: null
+    });
+    toggleDrawerIsOpen();
+  };
   const toggle = () => {
     setCollapsed(!collapsed);
   };
@@ -29,28 +56,76 @@ const Settings = () => {
           <Breadcrumb.Item>Справочники:</Breadcrumb.Item>
         </Breadcrumb>
       </Col>
-      {/* <Col span={17}>
-                <Switch>
-                    <Route path={"/settings/topics"} component={TopicsTable}/>
-                    <Route path={"/settings/companies"} component={CompanyTables}/>
-                    <Route path={"/settings/reglaments"} component={ReglamentsTable}/>
-                    <Route path={"/settings/departments"} component={DepartmentTable}/>
-                    <Route path={"/settings/positions"} component={PositionTable}/>
-                    <Route path={"/settings/orgstructure"} component={OrgStructureTable}/>
-                    <Redirect to={"/settings/topics"}/>
-                </Switch>
-            </Col>
-            <Col push={1} span={5}>
-                <SettingsFilter/>
-            </Col> */}
       <Col span={!collapsed ? 23 : 18}>
         <Switch>
-          <Route path="/settings/topics" component={TopicsTable} />
-          <Route path="/settings/companies" component={CompanyTables} />
-          <Route path="/settings/reglaments" component={ReglamentsTable} />
-          <Route path="/settings/departments" component={DepartmentTable} />
-          <Route path="/settings/positions" component={PositionTable} />
-          <Route path="/settings/orgstructure" component={OrgStructureTable} />
+          <Route
+            path="/settings/topics"
+            render={(props) => (
+              <TopicsTable
+                {...props}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("topics", idForEdit)
+                }
+              />
+            )}
+          />
+          <Route
+            path="/settings/companies"
+            render={(props) => (
+              <CompanyTables
+                {...props}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("companies", idForEdit)
+                }
+              />
+            )}
+          />
+          <Route
+            path="/settings/reglaments"
+            render={(props) => (
+              <ReglamentsTable
+                {...props}
+                currentPage={currentReglamentPage}
+                onChangeCurrentPage={setCurrentReglamentPage}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("reglaments", idForEdit)
+                }
+              />
+            )}
+          />
+          <Route
+            path="/settings/departments"
+            render={(props) => (
+              <DepartmentTable
+                {...props}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("departments", idForEdit)
+                }
+              />
+            )}
+          />
+          <Route
+            path="/settings/positions"
+            render={(props) => (
+              <PositionTable
+                {...props}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("positions", idForEdit)
+                }
+              />
+            )}
+          />
+          <Route
+            path="/settings/orgstructure"
+            render={(props) => (
+              <OrgStructureTable
+                {...props}
+                onShowEditor={(idForEdit) =>
+                  onShowSettingEditor("orgstructures", idForEdit)
+                }
+              />
+            )}
+          />
           <Redirect to="/settings/topics" />
         </Switch>
       </Col>
@@ -65,15 +140,51 @@ const Settings = () => {
         <SettingsFilter />
       </Col>
       <Col span={24}>
-        <Switch>
-          <Route path="/settings/topics" component={TopicForm} />
-          <Route path="/settings/companies" component={CompanyForm} />
-          <Route path="/settings/reglaments" component={ReglamentForm} />
-          <Route path="/settings/departments" component={DepartmentForm} />
-          <Route path="/settings/positions" component={PositionForm} />
-          <Route path="/settings/orgstructure" component={OrgStructureForm} />
-          <Redirect to="/settings/topics" />
-        </Switch>
+        <Drawer
+          title="Форма"
+          width={500}
+          placement="right"
+          closable={true}
+          onClose={closeDrawerWithResetSettingFields}
+          visible={drawerIsOpen}
+        >
+          {settingTypeIsOpen.type === "topics" && (
+            <TopicForm
+              onCloseEditor={toggleDrawerIsOpen}
+              topicId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "companies" && (
+            <CompanyForm
+              onCloseEditor={toggleDrawerIsOpen}
+              companyId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "positions" && (
+            <PositionForm
+              onCloseEditor={toggleDrawerIsOpen}
+              positionId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "departments" && (
+            <DepartmentForm
+              onCloseEditor={toggleDrawerIsOpen}
+              departmentId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "reglaments" && (
+            <ReglamentForm
+              onCloseEditor={toggleDrawerIsOpen}
+              reglamentId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+          {settingTypeIsOpen.type === "orgstructures" && (
+            <OrgStructureForm
+              onCloseEditor={toggleDrawerIsOpen}
+              orgstructureId={settingTypeIsOpen.idForEdit}
+            />
+          )}
+        </Drawer>
       </Col>
     </Row>
   );

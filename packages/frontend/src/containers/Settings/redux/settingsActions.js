@@ -61,10 +61,13 @@ export const settingsRequestPositions = (positions) => {
 export const settingDeleteSuccess = () => {
   return { type: SETTING_DELETE_SUCCESS };
 };
-export const setEditableSetting = (element) => {
+export const setEditableSetting = (type, settingId) => {
   return {
     type: SETTING_SET_EDITABLE_ELEMENT,
-    element
+    payload: {
+      type,
+      settingId
+    }
   };
 };
 export const clearEditalbleElement = () => {
@@ -138,13 +141,16 @@ export const fetchSettingDelete = (settingType, id) => {
   };
 };
 
-export const fetchSettingUpdate = (settingType, record) => {
+export const fetchSettingUpdate = (settingType, record, id) => {
   return async (dispatch, getState, axios) => {
     try {
       const updatedSetting = {
         ...getState().settings.editableSetting,
         ...record
       };
+      if (id) {
+        updatedSetting.id = id;
+      }
       dispatch(settingsRequestStart());
       await axios.put(`${settingType}/${updatedSetting.id}`, updatedSetting);
       dispatch(clearEditalbleElement());

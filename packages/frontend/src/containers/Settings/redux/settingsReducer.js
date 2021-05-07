@@ -45,7 +45,120 @@ export const settingsReducer = (state = initialState, action) => {
     case SETTING_REQUEST_POSITIONS:
       return { ...state, positions: action.positions };
     case SETTING_SET_EDITABLE_ELEMENT:
-      return { ...state, editableSetting: action.element };
+      switch (action.payload.type) {
+        case "topics":
+          return {
+            ...state,
+            editableSetting: state.topics.find(
+              (topic) => topic.id === action.payload.settingId
+            )
+          };
+        case "reglaments":
+          return {
+            ...state,
+            // eslint-disable-next-line array-callback-return
+            editableSetting: state.reglaments.reduce(
+              (regForEdit, reg) => {
+                if (!regForEdit) {
+                  return regForEdit;
+                }
+                if (!regForEdit.companyId) {
+                  if (
+                    regForEdit.topicId === reg.topicId &&
+                    regForEdit.departmentId &&
+                    reg.departmentId
+                  ) {
+                    switch (reg.priority) {
+                      case "Средний":
+                        return {
+                          ...regForEdit,
+                          middle: reg.deadline
+                        };
+                      case "Критично":
+                        return {
+                          ...regForEdit,
+                          incident: reg.deadline
+                        };
+                      case "Стандартно":
+                        return {
+                          ...regForEdit,
+                          standart: reg.deadline
+                        };
+                      default:
+                        return {
+                          ...regForEdit,
+                          high: reg.deadline
+                        };
+                    }
+                  }
+                }
+                if (
+                  regForEdit.topicId === reg.topicId &&
+                  regForEdit.departmentId &&
+                  reg.departmentId &&
+                  regForEdit.companyId === reg.companyId
+                ) {
+                  switch (reg.priority) {
+                    case "Средний":
+                      return {
+                        ...regForEdit,
+                        middle: reg.deadline
+                      };
+                    case "Критично":
+                      return {
+                        ...regForEdit,
+                        incident: reg.deadline
+                      };
+                    case "Стандартно":
+                      return {
+                        ...regForEdit,
+                        standart: reg.deadline
+                      };
+                    default:
+                      return {
+                        ...regForEdit,
+                        high: reg.deadline
+                      };
+                  }
+                }
+                return regForEdit;
+              },
+              state.reglaments.find(
+                (reglament) => reglament.id === action.payload.settingId
+              )
+            )
+          };
+        case "orgstructures":
+          return {
+            ...state,
+            editableSetting: state.orgStructures.find(
+              (orgS) => orgS.id === action.payload.settingId
+            )
+          };
+        case "companies":
+          return {
+            ...state,
+            editableSetting: state.companies.find(
+              (company) => company.id === action.payload.settingId
+            )
+          };
+        case "departments":
+          return {
+            ...state,
+            editableSetting: state.departments.find(
+              (department) => department.id === action.payload.settingId
+            )
+          };
+        case "positions":
+          return {
+            ...state,
+            editableSetting: state.positions.find(
+              (position) => position.id === action.payload.settingId
+            )
+          };
+        default:
+          return state;
+      }
     case CLEAR_EDITABLE_ELEMENT:
       return { ...state, editableSetting: null };
     default:

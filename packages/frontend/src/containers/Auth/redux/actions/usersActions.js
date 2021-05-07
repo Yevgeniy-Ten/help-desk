@@ -49,11 +49,11 @@ export const getUser = () => {
   };
 };
 
-export const registerUser = (userData) => {
+export const registerUser = (userData, pathPush) => {
   return async (dispatch, _, axios) => {
     try {
       await axios.post("/users", userData);
-      dispatch(push("/auth"));
+      dispatch(push(pathPush));
       message.success({
         content:
           "Регистрация прошла успешно! Как только вы будете потверждены администратором, то сможете подавать заявки!",

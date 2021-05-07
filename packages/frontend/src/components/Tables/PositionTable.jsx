@@ -2,47 +2,22 @@ import React, { useEffect } from "react";
 import { Table, Form, Typography, Popconfirm, Button, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getEditableElement,
   getPositions,
   getSettingsLoader
 } from "../../containers/Settings/redux/settingGetters";
-import {
-  clearEditalbleElement,
-  fetchSettings,
-  fetchSettingUpdate,
-  setEditableSetting
-} from "../../containers/Settings/redux/settingsActions";
+import { fetchSettings } from "../../containers/Settings/redux/settingsActions";
 import Spinner from "../Spinner/Spinner";
-import EditableCell from "../UI/EditableCeil";
-import { getMergedColumns } from "./tableConstants";
 
-const PositionTable = () => {
+const PositionTable = ({ onShowEditor }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const positions = useSelector(getPositions);
   const isLoad = useSelector(getSettingsLoader);
-  const editableElement = useSelector(getEditableElement);
-  const isEditing = (record) => {
-    return editableElement ? record.id === editableElement.id : false;
-  };
-  const edit = (record) => {
-    form.setFieldsValue({ ...record });
-    dispatch(setEditableSetting(record));
-  };
-  const cancel = () => {
-    return dispatch(clearEditalbleElement());
-  };
+
   useEffect(() => {
     dispatch(fetchSettings("position"));
   }, [dispatch]);
-  const saveEditablePosition = async () => {
-    try {
-      const values = await form.validateFields(); // храняться данные о редактируемых полях
-      dispatch(fetchSettingUpdate("position", { ...values }));
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+
   const columns = [
     {
       title: "Идентификатор",
@@ -59,21 +34,8 @@ const PositionTable = () => {
       title: "Действия",
       key: "actions",
       render: (_, record) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <Space>
-            <Button onClick={saveEditablePosition}>Сохранить изменения</Button>
-            <Popconfirm title="Вы уверены?" onConfirm={cancel}>
-              <Button danger={true}>Отмена</Button>
-            </Popconfirm>
-          </Space>
-        ) : (
-          <Typography.Link
-            disabled={editableElement}
-            onClick={() => {
-              return edit(record);
-            }}
-          >
+        return (
+          <Typography.Link onClick={() => onShowEditor(record.id)}>
             Редактировать
           </Typography.Link>
         );
@@ -81,7 +43,6 @@ const PositionTable = () => {
     }
   ];
 
-  const mergedColumns = getMergedColumns(columns, isEditing);
   return (
     <>
       {isLoad ? (
@@ -89,18 +50,17 @@ const PositionTable = () => {
       ) : (
         <Form form={form} component={false}>
           <Table
-            components={{
-              body: {
-                cell: EditableCell
-              }
-            }}
-            title={() => {
-              return <h4>Должности</h4>;
-            }}
+            title={() => (
+              <div className={"flex-between"}>
+                <h4>Должности</h4>
+                <Button type={"primary"} onClick={onShowEditor}>
+                  Новая должность
+                </Button>
+              </div>
+            )}
+            columns={columns}
             bordered={true}
             dataSource={positions}
-            columns={mergedColumns}
-            pagination={{ onChange: cancel }}
           />
         </Form>
       )}

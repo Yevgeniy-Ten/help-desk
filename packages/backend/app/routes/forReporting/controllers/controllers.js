@@ -1,3 +1,4 @@
+const excel = require("exceljs");
 const {
   RequestHistory,
   User,
@@ -11,12 +12,10 @@ const {
   sequelize,
 } = require("../../../../models");
 
-const excel = require("exceljs");
-
 const ReportingControllers = {
   async getRequestHistory(req, res) {
     try {
-      let arrayModelsName = [
+      const arrayModelsName = [
         "User",
         "Company",
         "RequestHistory",
@@ -26,7 +25,7 @@ const ReportingControllers = {
         "Request",
         "Topic",
       ];
-      let arrayModels = [
+      const arrayModels = [
         User,
         Company,
         RequestHistory,
@@ -36,14 +35,14 @@ const ReportingControllers = {
         Request,
         Topic,
       ];
-      let workbook = new excel.Workbook();
+      const workbook = new excel.Workbook();
 
       for (let i = 0; i < arrayModelsName.length; i++) {
         arrayModels[i].findAll({ raw: true }).then((objData) => {
-          let worksheet = workbook.addWorksheet(arrayModelsName[i]);
-          let columns = [];
+          const worksheet = workbook.addWorksheet(arrayModelsName[i]);
+          const columns = [];
           Object.keys(objData[0]).forEach((key) => {
-            columns.push({ header: key.toUpperCase(), key: key, width: 30 });
+            columns.push({ header: key.toUpperCase(), key, width: 30 });
           });
           worksheet.columns = columns;
           worksheet.addRows(objData);
@@ -65,7 +64,6 @@ const ReportingControllers = {
                 };
               }
             }
-            return;
           });
 
           // for(let i=0;i<worksheet.columns.length-1;i++) {
@@ -73,7 +71,7 @@ const ReportingControllers = {
           // }
 
           if (i === arrayModelsName.length - 1) {
-            let worksheet = workbook.addWorksheet("АУДИТ");
+            const worksheet = workbook.addWorksheet("АУДИТ");
 
             const requestPriority = [
               "Стандартно",
@@ -102,7 +100,7 @@ const ReportingControllers = {
                 "attachment;filename=" + "tutorials.xlsx"
               );
 
-              return workbook.xlsx.write(res).then(function () {
+              return workbook.xlsx.write(res).then(() => {
                 res.status(200).end();
               });
             }
@@ -111,7 +109,7 @@ const ReportingControllers = {
         });
       }
     } catch (err) {
-      console.log("this is the error, " + err);
+      console.log(`this is the error, ${err}`);
     }
   },
 };

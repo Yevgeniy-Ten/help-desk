@@ -40,6 +40,7 @@ export const fetchAppeals = () => {
 
 export const fetchAppealFilters = (params) => {
   return async (dispatch, _, axios) => {
+    dispatch(appealsRequestStarted());
     try {
       const response = await axios.get("/requests", { params });
       // приходят филтрованные поля

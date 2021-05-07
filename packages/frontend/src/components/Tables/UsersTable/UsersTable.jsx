@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Table, Divider } from "antd";
 import { NavLink } from "react-router-dom";
 
 const UsersTable = ({ users, onAuthorizeUser }) => {
@@ -63,7 +63,23 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       }
     }
   ];
-  return <Table columns={usersColumns} dataSource={users} />;
+  return (
+    <Table
+      title={() => (
+        <>
+          <div className={"flex-between"}>
+            <h3>Контакты</h3>
+            <NavLink to="/users/create">
+              <Button type="primary">Создать пользователя</Button>
+            </NavLink>
+          </div>
+        </>
+      )}
+      bordered={true}
+      columns={usersColumns}
+      dataSource={users}
+    />
+  );
 };
 
 export default UsersTable;

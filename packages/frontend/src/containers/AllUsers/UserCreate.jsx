@@ -1,20 +1,14 @@
 import React, { useEffect } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getUserState } from "../redux/getters/getters";
-import { registerUser } from "../redux/actions/usersActions";
 import { NavLink } from "react-router-dom";
-import FileInput from "../../../components/UploadFile/FileInput";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Button, Form, Input, Select, message } from "antd";
-import { getCompanies } from "../../Settings/redux/settingGetters";
-
-import {
-  fetchCompanies,
-  fetchSettings
-} from "../../Settings/redux/settingsActions";
-import { getFieldError } from "../../../helpers/helpers";
+import { getUserState } from "../Auth/redux/getters/getters";
+import { getCompanies } from "../Settings/redux/settingGetters";
+import { getFieldError } from "../../helpers/helpers";
+import { registerUser } from "../Auth/redux/actions/usersActions";
 
 const { Option } = Select;
-const Register = () => {
+const UserCreate = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { registerError, isLoading, isRegisterSuccess } = useSelector(
@@ -23,31 +17,17 @@ const Register = () => {
   );
   const companies = useSelector(getCompanies);
   const submitFormHandler = (values) => {
-    dispatch(registerUser(values, "/auth"));
+    dispatch(registerUser(values, "/users"));
   };
-  useEffect(() => {
-    if (registerError && registerError.message) {
-      message.error({
-        content: registerError.message,
-        className: "message-custom"
-      });
-    }
-  }, [registerError]);
-  const onFilesChange = (filesList) => {
-    form.setFieldsValue({ upload: filesList });
-  };
-  useEffect(() => {
-    dispatch(fetchSettings("companies"));
-  }, [dispatch]);
-  console.log(getFieldError(registerError, "email"));
   return (
     <Form
       form={form}
       onFinish={submitFormHandler}
       name="register"
       layout="vertical"
+      style={{ maxWidth: "70%" }}
     >
-      <h1>Форма регистрации</h1>
+      <h1>Форма создания</h1>
       <hr />
       <Form.Item
         label="Имя"
@@ -55,7 +35,7 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: "Введите ваше имя"
+            message: "Введите имя пользователя"
           }
         ]}
         className="mb-sm"
@@ -68,7 +48,7 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: "Введите вашу фамилию"
+            message: "Введите фамилию пользователя"
           }
         ]}
         className="mb-sm"
@@ -83,12 +63,12 @@ const Register = () => {
         rules={[
           {
             required: true,
-            message: "Пожалуйста введит свою почту!"
+            message: "Пожалуйста введит почту пользователя!"
           }
         ]}
         className="mb-sm"
       >
-        <Input placeholder="Ваша почта:" />
+        <Input placeholder="Почта пользователя:" />
       </Form.Item>
       <Form.Item
         name="phoneNumber"
@@ -134,25 +114,25 @@ const Register = () => {
       >
         <Input.Password placeholder="Пароль" />
       </Form.Item>
-      <Form.Item className="mb-sm" name="upload">
-        <FileInput name="upload" onChange={onFilesChange} inputType={true} />
-      </Form.Item>
-      <Form.Item className="mb-sm">
+      <Form.Item className="mb-sm element-center">
         <Button
           loading={isLoading}
           type="default"
           block={true}
           htmlType="submit"
           size="middle"
+          className="element-width"
         >
-          Зарегистирироваться
+          Создать
         </Button>
-      </Form.Item>
-      <Form.Item className="mb-sm">
-        или <NavLink to="/auth">Войти в систему</NavLink>
+        <NavLink to="/users" className="ml-sm">
+          <Button type="default" className="element-width">
+            Отмена
+          </Button>
+        </NavLink>
       </Form.Item>
     </Form>
   );
 };
 
-export default Register;
+export default UserCreate;

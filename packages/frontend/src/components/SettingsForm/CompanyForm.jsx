@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
-import { useDispatch } from "react-redux";
-import { fetchSettingCreate } from "../../containers/Settings/redux/settingsActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSettingCreate,
+  fetchSettingUpdate,
+  setEditableSetting
+} from "../../containers/Settings/redux/settingsActions";
+import { getEditableElement } from "../../containers/Settings/redux/settingGetters";
 
-const CompanyForm = () => {
+const CompanyForm = ({ companyId, onCloseEditor }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
-  const onCreateCompany = (company) =>
-    dispatch(fetchSettingCreate("companies", company));
+
+  const companyForEdit = useSelector(getEditableElement); // для редактирования
+  const onCreateCompany = async (company) => {
+    if (companyForEdit) {
+      await dispatch(fetchSettingUpdate("companies", company));
+      onCloseEditor();
+    } else {
+      await dispatch(fetchSettingCreate("companies", company));
+      form.resetFields();
+      onCloseEditor();
+    }
+  };
+
+  useEffect(() => {
+    form.resetFields();
+    dispatch(setEditableSetting("companies", companyId));
+    if (companyForEdit) {
+      form.setFieldsValue(companyForEdit);
+    }
+  }, [companyId, dispatch, companyForEdit]);
   return (
     <Form
       form={form}
@@ -31,7 +54,7 @@ const CompanyForm = () => {
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit" size={"middle"}>
-          Создать компанию
+          {companyForEdit ? "Обновить" : "Создать компанию"}
         </Button>
       </Form.Item>
     </Form>

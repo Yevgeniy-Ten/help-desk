@@ -1,45 +1,61 @@
 Feature("register-user");
 
-Scenario("Успешная регистрация!", ({I}) => {
-    Given(/^я нахожусь на странице "(.*?)"$/, () => {
-        // From "features/user-register.feature" {"line":5,"column":5}
-        throw new Error("Not implemented yet");
-    });
-    Given("ввожу имя пользователя {string} в поле с айдишником {string}", () => {
-        // From "features/user-register.feature" {"line":6,"column":5}
-        throw new Error("Not implemented yet");
-    });
-    Then("ввожу фамилию пользователя {string} в поле с айдишником {string}", () => {
-        // From "features/user-register.feature" {"line":7,"column":5}
-        throw new Error("Not implemented yet");
-    });
-    Given("почта пользователя {string} будет введено в поле с айди {string}", () => {
-        // From "features/user-register.feature" {"line":8,"column":5}
-        throw new Error("Not implemented yet");
-    });
-    Then("введу телефон пользователя {string} в поле с айди {string}", () => {
-        // From "features/user-register.feature" {"line":9,"column":5}
-        throw new Error("Not implemented yet");
-    });
-    Then("выберу компанию {string} от которой регистрируется пользователь из списка компаний", () => {
-        // From "features/user-register.feature" {"line":10,"column":5}
-        throw new Error("Not implemented yet");
-    });
+Scenario("Успешная регистрация!", ({ I }) => {
+  Given(/^я нахожусь на странице "(.*?)"$/, () => {
+    I.amOnPage("/auth/register");
+    I.waitForElement("form", 10);
+  });
+  When(
+    "ввожу имя пользователя {string} в поле с айдишником {string}",
+    (value, fieldName) => {
+      I.fillField({ id: fieldName }, value);
+    }
+  );
+  When(
+    "ввожу фамилию пользователя {string} в поле с айди {string}",
+    (value, fieldName) => {
+      I.fillField({ id: fieldName }, value);
+    }
+  );
+  When(
+    "почта пользователя {string} будет введено в поле с айди {string}",
+    (value, fieldName) => {
+      I.fillField({ id: fieldName }, value);
+    }
+  );
+  When(
+    "введу телефон пользователя {string} в поле  с айди {string}",
+    (value, fieldName) => {
+      I.fillField({ id: fieldName }, value);
+    }
+  );
 
-    Then("придумав пароль пользователя к примеру {string} введу его в поле с айди {string}", () => {
-        // From "features/user-register.feature" {"line":11,"column":5}
-        throw new Error("Not implemented yet");
-    });
+  When("нажму селект компании {string}", (button) => {
+    I.click({ id: button });
+    I.wait(1);
+  });
+  When(
+    "выберу компанию {string} из списка компаний {string}",
+    (text, elementDiv) => {
+      I.wait(1);
+      const element = locate(elementDiv).withAttr({ name: text });
+      I.click(element);
+    }
+  );
 
+  When(
+    "придумав пароль пользователя к примеру {string} введу его в поле с айди {string}",
+    (value, fieldName) => {
+      I.fillField({ id: fieldName }, value);
+    }
+  );
 
-    When("я нажимаю на кнопку с текстом {string}", () => {
-        // From "features/user-register.feature" {"line":12,"column":5}
-        throw new Error("Not implemented yet");
-    });
+  When("я нажимаю на кнопку с текстом {string}", (button) => {
+    I.click(button);
+    I.wait(1);
+  });
 
-    Then("я вижу текст {string} об успешной регистрации!\"", () => {
-        // From "features/user-register.feature" {"line":13,"column":5}
-        throw new Error("Not implemented yet");
-    });
-
+  Then('я вижу текст {string} об успешной регистрации!"', (text) => {
+    I.see(text);
+  });
 });

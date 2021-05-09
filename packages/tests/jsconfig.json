@@ -1,5 +1,7 @@
 {
-  "compilerOptions": {
-    "allowJs": true
-  }
+  // "compilerOptions": {
+  //   "target": "ES6",
+  //   "allowJs": true
+  // },
+  "exclude": ["node_modules"]
 }

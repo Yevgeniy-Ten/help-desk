@@ -38,7 +38,7 @@ Scenario("Успешная регистрация!", ({ I }) => {
     "выберу компанию {string} из списка компаний {string}",
     (text, elementDiv) => {
       I.wait(1);
-      const element = locate(elementDiv).withAttr({ name: text });
+      const element = locate(elementDiv).withAttr({ title: text });
       I.click(element);
     }
   );

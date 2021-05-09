@@ -41,7 +41,7 @@ Scenario("Создание заявки от клиента", ({ I }) => {
     "выберу тематику заявки {string} из списка тематик {string}",
     (text, elementDiv) => {
       I.wait(1);
-      const element = locate(elementDiv).withAttr({ name: text });
+      const element = locate(elementDiv).withAttr({ title: text });
       I.click(element);
     }
   );
@@ -55,7 +55,7 @@ Scenario("Создание заявки от клиента", ({ I }) => {
     (text, elementDiv) => {
       // From "features/create-request.feature" {"line":16,"column":5}
       I.wait(1);
-      const element = locate(elementDiv).withAttr({ name: text });
+      const element = locate(elementDiv).withAttr({ title: text });
       I.click(element);
     }
   );
@@ -69,7 +69,7 @@ Scenario("Создание заявки от клиента", ({ I }) => {
     (text, elementDiv) => {
       // From "features/create-request.feature" {"line":16,"column":5}
       I.wait(1);
-      const element = locate(elementDiv).withAttr({ name: text });
+      const element = locate(elementDiv).withAttr({ title: text });
       I.click(element);
     }
   );
@@ -91,7 +91,7 @@ Scenario("Создание заявки от клиента", ({ I }) => {
     (text, elementDiv) => {
       // From "features/create-request.feature" {"line":16,"column":5}
       I.wait(1);
-      const element = locate(elementDiv).withAttr({ name: text });
+      const element = locate(elementDiv).withAttr({ title: text });
       I.click(element);
     }
   );

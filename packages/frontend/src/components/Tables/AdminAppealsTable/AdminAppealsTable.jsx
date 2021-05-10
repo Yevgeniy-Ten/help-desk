@@ -144,13 +144,13 @@ const AdminAppealsTable = ({ appeals }) => {
       },
       render: (isViewed) => {
         return isViewed ? (
-          <div style={{ textAlign: "center", color: "#99c578" }}>
-            <p>Просмотрено</p>
-          </div>
+          <span style={{ textAlign: "center", color: "#99c578" }}>
+            Просмотрено
+          </span>
         ) : (
-          <div style={{ textAlign: "center", color: "#ff4d4f" }}>
-            <p>Не просмотрено</p>
-          </div>
+          <span style={{ textAlign: "center", color: "#ff4d4f" }}>
+            Не просмотрено
+          </span>
         );
       }
     },

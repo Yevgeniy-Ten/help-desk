@@ -22,7 +22,6 @@ import { getUsersState } from "../../../containers/AllUsers/redux/usersGetters/u
 import { fetchSettings } from "../../../containers/Settings/redux/settingsActions";
 import { fetchAppeals } from "../../../containers/Appeals/redux/action/appealsAction";
 import Spinner from "../../Spinner/Spinner";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const AdminAppealsTable = ({ appeals }) => {
   const dispatch = useDispatch();
@@ -145,14 +144,12 @@ const AdminAppealsTable = ({ appeals }) => {
       },
       render: (isViewed) => {
         return isViewed ? (
-          <div style={{ textAlign: "center" }}>
-            <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
+          <div style={{ textAlign: "center", color: "#99c578" }}>
+            <p>Просмотрено</p>
           </div>
         ) : (
-          <div style={{ textAlign: "center" }}>
-            <EyeInvisibleOutlined
-              style={{ fontSize: "24px", color: "#ff4d4f" }}
-            />
+          <div style={{ textAlign: "center", color: "#ff4d4f" }}>
+            <p>Не просмотрено</p>
           </div>
         );
       }

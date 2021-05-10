@@ -65,7 +65,6 @@ const UsersController = {
                 phoneNumber
             })
                 .then((result) => {
-                    console.log(result.email, "kek")
                     const emailEncodeForUrl = encodeDecode.encode(result.email)
                     const confirmURL = `${CONFIRM_URL}${emailEncodeForUrl}`
                     MessageSender.sendVerifyMessage(result.email, confirmURL)

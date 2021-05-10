@@ -13,6 +13,7 @@ services:
       FRONT_PORT: "${FRONT_PORT}"
       FRONT_HOST: "${HOST}"
       HOST: "${HOST}"
+      BACK_PORT: "${BACK_PORT}"
     # ports:
     # - "${BACK_PORT}:${BACK_PORT}"
   frontend:

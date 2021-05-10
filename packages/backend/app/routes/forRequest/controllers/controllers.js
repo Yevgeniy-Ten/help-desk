@@ -8,6 +8,7 @@ const {
   Company
 } = require("../../../../models");
 const helpers = require("../../../helpers/helpers");
+const MessageSender = require("../../../mailer");
 
 module.exports = {
   async create(req, res) {
@@ -75,6 +76,12 @@ module.exports = {
         employeeId: employee && employee.id
       })
         .then(async (newRequest) => {
+          const request = await Request.findOne({
+            where: {id: newRequest.dataValues.id},
+            include: ["clientRequest", "employeeRequest"]
+          })
+          MessageSender.sendMailClientRequest(request.dataValues.clientRequest.dataValues.email, newRequest.dataValues.id)
+          MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
           await RequestHistory.create({
             requestId: newRequest.dataValues.id,
             topicTitle: rule && rule.topic.title,

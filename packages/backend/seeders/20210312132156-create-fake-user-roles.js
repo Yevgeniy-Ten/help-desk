@@ -15,12 +15,12 @@ module.exports = {
           // accessUsers: "not",
           // accessTickets: "not"
         },
-        {
-          name: "employee",
-          accessAppeals: "get,update",
-          accessUsers: "not",
-          accessTickets: "get,update",
-        },
+        // {
+        //   name: "employee",
+        //   accessAppeals: "get,update",
+        //   accessUsers: "not",
+        //   accessTickets: "get,update",
+        // },
       ],
       {}
     );

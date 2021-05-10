@@ -33,6 +33,10 @@ module.exports = function (passport) {
             if (!user) {
               return done(null, false, { message: "Email does not exist" });
             }
+            if (user.isFake)
+              return done(null, false, {
+                message: "Вы не подтвердили свою почту!",
+              });
             if (!user.isAuthorized)
               return done(null, false, {
                 message: "Не потвержденный пользователь",

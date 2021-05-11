@@ -30,95 +30,84 @@ When("я жду пока пользователь зайдет в сессию",
   I.wait(3);
 });
 // ------------------------------------------------------------
-//   новый user
-When("я нахожусь на странице заявок {string}", (url) => {
+//   новая company
+When("я вижу что нахожусь на странице {string}", (url) => {
   I.seeCurrentUrlEquals(url);
 });
-// жму контакты
+// жму Настройки
 When(
-  "я нажимаю на ссылку {string} аттрибут {string} с текстом {string}",
+  "я нажму  на ссылку {string} аттрибут {string} с текстом {string}",
   (a, attr, text) => {
     I.wait(1);
     const element = locate(a).withAttr({ href: attr }).withText(text);
     I.click(element);
-    I.wait(1);
+    I.wait(2);
   }
 );
-
-When("я перемещусь на страницу контакты {string}", (text) => {
-  I.wait(2);
+// страница Справочники
+When("я теперь на странице справочники {string}", (text) => {
   I.see(text);
   I.wait(1);
 });
-//  кнопка "Создать пользователя"
-When("я нажму на кнопку с текстом {string}", (button) => {
-  I.click(button);
+// "открыть фильтр
+When("я нажму на иконку {string} аттрибут {string}", (span, attr) => {
+  I.wait(2);
+  const element = locate(span).withAttr({ "aria-label": attr });
+  I.click(element);
+  I.wait(2);
 });
-// проверка url
-When("я перемещусь на страницу форма создания {string}", (url) => {
+// жму селект
+When(
+  "я жму селект {string} выпадающего списка {string}",
+  (select, elementDiv) => {
+    I.wait(1);
+    const element = locate(elementDiv).withAttr({ name: select });
+    I.click(element);
+    I.wait(2);
+  }
+);
+// выбрать по компаниям
+When("я выберу {string} из выпадающего списка {string}", (text, elementDiv) => {
+  I.wait(1);
+  const element = locate(elementDiv).withAttr({ title: text });
+  I.click(element);
+  I.wait(2);
+});
+// /settings/компании
+When("я проверю путь {string}", (url) => {
   I.seeCurrentUrlEquals(url);
-});
-// имя
-When("введу в поле с айди {string} текст {string}", (fieldName, value) => {
-  I.fillField({ id: fieldName }, value);
   I.wait(1);
 });
-//  фам
-When(
-  "введу в поле с айдишником {string} текст {string}",
-  (fieldName, value) => {
-    I.fillField({ id: fieldName }, value);
-    I.wait(1);
-  }
-);
-//  мэйл
-When(
-  "введу в поле email с айди {string} текст {string}",
-  (fieldName, value) => {
-    I.fillField({ id: fieldName }, value);
-    I.wait(1);
-  }
-);
-// тел. номер
-When(
-  "введу в поле телефон с айди {string} номер {string}",
-  (fieldName, value) => {
-    I.fillField({ id: fieldName }, value);
-    I.wait(1);
-  }
-);
-// выбор компании
-When("я нажимаю на селект комапнии {string}", (button) => {
-  I.click({ id: button });
-});
-
-When(
-  "выберу комапнию {string} из списка комапнии {string}",
-  (text, elementDiv) => {
-    I.wait(1);
-    const element = locate(elementDiv).withAttr({ title: text });
-    I.click(element);
-    I.wait(1);
-  }
-);
-// пароль
-When(
-  "введу в поле пароля с айди {string} пароль {string}",
-  (fieldName, value) => {
-    I.fillField({ id: fieldName }, value);
-    I.wait(1);
-  }
-);
-//  кнопка создать
-When("я нажиму на кнопку с текстом {string}", (button) => {
+//  кнопка создать компании
+When("нажму на кнопку {string}", (button) => {
   I.click(button);
+  I.wait(1);
 });
-// /users
-When("меня переместит на страницу {string}", (url) => {
+// Дравер оупен
+When("откроется форма создания компании {string}", (text) => {
+  I.see(text);
+  I.wait(1);
+});
+// имя компании
+When(
+  "в поле компании с айди {string} введу текст {string}",
+  (fieldName, value) => {
+    I.fillField({ id: fieldName }, value);
+    I.wait(1);
+  }
+);
+//  кнопка создать компанию
+When("я жму кнопку с текстом {string}", (button) => {
+  I.click(button);
+  I.wait(3);
+});
+// /settings/компании
+When("меня переместит на {string}", (url) => {
   I.seeCurrentUrlEquals(url);
+  I.wait(1);
 });
-
-Then("увижу сообщение {string}", (text) => {
+// "Тестовая тематика"
+Then("увижу созданную компанию {string}", (text) => {
   // From 'features/register.feature' {'line':12,'column':1}
   I.see(text);
   I.wait(1);

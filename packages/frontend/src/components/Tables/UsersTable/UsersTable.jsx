@@ -54,7 +54,10 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
                 Потвердить
               </Button>
             )}
-            <NavLink to={`/users/edit/${user.id}`}>
+            <NavLink
+              to={`/users/edit/${user.id}`}
+              name={`${user.firstName} ${user.lastName}`}
+            >
               <Button type="dashed">Редактировать</Button>
             </NavLink>
             <Button danger={true}>Удалить</Button>
@@ -65,16 +68,18 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
   ];
   return (
     <Table
-      title={() => (
-        <>
-          <div className={"flex-between"}>
-            <h3>Контакты</h3>
-            <NavLink to="/users/create">
-              <Button type="primary">Создать пользователя</Button>
-            </NavLink>
-          </div>
-        </>
-      )}
+      title={() => {
+        return (
+          <>
+            <div className="flex-between">
+              <h3>Контакты</h3>
+              <NavLink to="/users/create">
+                <Button type="primary">Создать пользователя</Button>
+              </NavLink>
+            </div>
+          </>
+        );
+      }}
       bordered={true}
       columns={usersColumns}
       dataSource={users}

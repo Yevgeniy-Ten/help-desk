@@ -157,7 +157,11 @@ const UserDetails = ({
                       {userRoles.map((userRole) => {
                         console.log(userRole);
                         return (
-                          <Option key={userRole.id} value={userRole.id}>
+                          <Option
+                            key={userRole.id}
+                            value={userRole.id}
+                            name={userRole.name}
+                          >
                             {userRole.name}
                           </Option>
                         );

@@ -50,9 +50,9 @@ When("я теперь на странице справочники {string}", (t
   I.wait(1);
 });
 // "открыть фильтр
-When("я нажму на иконку {string} аттрибут {string}", (svg, attr) => {
+When("я нажму на иконку {string} аттрибут {string}", (span, attr) => {
   I.wait(1);
-  const element = locate(svg).withAttr({ "data-icon": attr });
+  const element = locate(span).withAttr({ "aria-label": attr });
   I.click(element);
   I.wait(2);
 });

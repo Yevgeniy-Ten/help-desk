@@ -11,7 +11,11 @@ const AppealAdminFields = ({ users }) => {
           {users &&
             users.map((user) => {
               return (
-                <Option key={user.id} value={user.id}>
+                <Option
+                  key={user.id}
+                  value={user.id}
+                  name={`${user.firstName} ${user.lastName}`}
+                >
                   {user.firstName} {user.lastName}
                 </Option>
               );

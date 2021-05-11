@@ -34,28 +34,27 @@ When("я жду пока пользователь зайдет в сессию",
 When("я нахожусь на странице {string}", (url) => {
   I.seeCurrentUrlEquals(url);
 });
-
+// жму контакты
 When(
   "я нажимаю на ссылку {string} аттрибут {string} с текстом {string}",
-  (text, attr, elementDiv) => {
+  (a, attr, text) => {
     I.wait(1);
-    const element = locate(elementDiv).withAttr({ href: attr }).withText(text);
+    const element = locate(a).withAttr({ href: attr }).withText(text);
     I.click(element);
+    I.wait(1);
   }
 );
 
+When("я перемещусь на страницу контакты {string}", (text) => {
+  I.wait(2);
+  I.see(text);
+  I.wait(1);
+});
+//  кнопка "Создать пользователя"
 When("я нажму на кнопку с текстом {string}", (button) => {
   I.click(button);
 });
-When(
-  "выберу тематику заявки {string} из списка тематик {string}",
-  (text, elementDiv) => {
-    I.wait(1);
-    const element = locate(elementDiv).withAttr({ title: text });
-    I.click(element);
-  }
-);
-
+// проверка url
 When("я перемещусь на страницу форма создания {string}", (url) => {
   I.seeCurrentUrlEquals(url);
 });

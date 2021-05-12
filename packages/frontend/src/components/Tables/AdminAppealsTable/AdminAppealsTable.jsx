@@ -108,6 +108,7 @@ const AdminAppealsTable = ({ appeals }) => {
       dataIndex: "createdAt",
       key: "createdAt",
       // defaultSortOrder: "descend",
+      // eslint-disable-next-line consistent-return
       sorter: (a, b) => {
         if (a.createdAt.valueOf() > b.createdAt.valueOf()) return 1;
         if (a.createdAt.valueOf() < b.createdAt.valueOf()) return -1;
@@ -137,6 +138,7 @@ const AdminAppealsTable = ({ appeals }) => {
           value: false
         }
       ],
+      // eslint-disable-next-line consistent-return
       onFilter: (value, record) => {
         if (record.isViewed === value) {
           return true;

@@ -4,24 +4,38 @@ export const usersColumns = [
   {
     title: "Имя Фамилия",
     key: "full_name",
-    render: (user) => `${user.firstName} ${user.lastName}`
+    render: (user) => {
+      return `${user.firstName} ${user.lastName}`;
+    }
   },
   {
     title: "Компания",
     dataIndex: "company",
     key: "company",
-    render: (company) => company.name
+    render: (company) => {
+      return company.name;
+    }
   },
   {
     title: "Группа",
     dataIndex: "role",
     key: "role",
-    render: (role) => role.name
+    render: (role) => {
+      return role.name;
+    }
   },
   {
     title: "Электронная почта",
     dataIndex: "email",
     key: "email"
+  },
+  {
+    title: "Почта",
+    dataIndex: "isFake",
+    key: "isFake",
+    render: (isFake) => {
+      return isFake ? "Не подтверждена" : "Подтверждена";
+    }
   },
   {
     title: "Действия",
@@ -30,7 +44,7 @@ export const usersColumns = [
       return (
         <Space>
           {!user.isAuthorized && <Button type="primary">Потвердить</Button>}
-          <Button danger>Удалить</Button>
+          <Button danger={true}>Удалить</Button>
         </Space>
       );
     }

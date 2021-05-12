@@ -41,6 +41,22 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       key: "email"
     },
     {
+      title: "Почта",
+      dataIndex: "isFake",
+      key: "isFake",
+      render: (isFake) => {
+        return isFake ? (
+          <span style={{ textAlign: "center", color: "#ff4d4f" }}>
+            Не подтверждена
+          </span>
+        ) : (
+          <span style={{ textAlign: "center", color: "#99c578" }}>
+            Подтверждена
+          </span>
+        );
+      }
+    },
+    {
       title: "Действия",
       key: "action",
       render: (text, user) => {
@@ -65,16 +81,18 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
   ];
   return (
     <Table
-      title={() => (
-        <>
-          <div className={"flex-between"}>
-            <h3>Контакты</h3>
-            <NavLink to="/users/create">
-              <Button type="primary">Создать пользователя</Button>
-            </NavLink>
-          </div>
-        </>
-      )}
+      title={() => {
+        return (
+          <>
+            <div className="flex-between">
+              <h3>Контакты</h3>
+              <NavLink to="/users/create">
+                <Button type="primary">Создать пользователя</Button>
+              </NavLink>
+            </div>
+          </>
+        );
+      }}
       bordered={true}
       columns={usersColumns}
       dataSource={users}

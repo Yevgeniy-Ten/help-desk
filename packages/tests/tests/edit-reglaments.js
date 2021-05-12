@@ -153,8 +153,8 @@ When("я жму кнопку с текстом {string}", (button) => {
   I.click(button);
   I.wait(3);
 });
-// /settings/компании
-When("меня переместит на {string}", (url) => {
+// /settings/регламент
+When("я далее перемещусь на {string}", (url) => {
   I.seeCurrentUrlEquals(url);
   I.wait(1);
 });

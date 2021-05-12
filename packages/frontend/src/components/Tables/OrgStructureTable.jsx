@@ -53,7 +53,12 @@ const OrgStructureTable = ({ onShowEditor }) => {
       key: "actions",
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onShowEditor(record.id)}>
+          <Typography.Link
+            title={record.position.title}
+            onClick={() => {
+              return onShowEditor(record.id);
+            }}
+          >
             Редактировать
           </Typography.Link>
         );
@@ -67,14 +72,16 @@ const OrgStructureTable = ({ onShowEditor }) => {
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Орг структура</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новая орг структура
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Орг структура</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новая орг структура
+                </Button>
+              </div>
+            );
+          }}
           bordered={true}
           dataSource={orgStructures}
           columns={columns}

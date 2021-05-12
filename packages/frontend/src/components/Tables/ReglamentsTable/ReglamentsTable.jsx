@@ -89,7 +89,12 @@ const ReglamentsTable = ({
       key: "actions",
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onShowEditor(record.id)}>
+          <Typography.Link
+            title={record.title}
+            onClick={() => {
+              return onShowEditor(record.id);
+            }}
+          >
             Редактировать
           </Typography.Link>
         );
@@ -105,19 +110,23 @@ const ReglamentsTable = ({
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Регламенты</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новый регламент
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Регламенты</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новый регламент
+                </Button>
+              </div>
+            );
+          }}
           bordered={true}
           columns={columns}
           pagination={{
             defaultCurrent: currentPage,
-            onChange: (current) => onChangeCurrentPage(current)
+            onChange: (current) => {
+              return onChangeCurrentPage(current);
+            }
           }}
           dataSource={reglaments}
           scroll={{ x: 1000 }}

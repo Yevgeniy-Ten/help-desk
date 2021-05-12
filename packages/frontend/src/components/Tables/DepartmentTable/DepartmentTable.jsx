@@ -50,6 +50,7 @@ const DepartmentTable = ({ onShowEditor }) => {
       render: (_, record) => {
         return (
           <Typography.Link
+            title={record.title}
             onClick={() => {
               return onShowEditor(record.id);
             }}
@@ -67,14 +68,16 @@ const DepartmentTable = ({ onShowEditor }) => {
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Отделы</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новый отдел
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Отделы</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новый отдел
+                </Button>
+              </div>
+            );
+          }}
           bordered={true}
           dataSource={departments}
           columns={columns}

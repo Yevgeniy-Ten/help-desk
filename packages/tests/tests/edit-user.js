@@ -37,18 +37,18 @@ When("я теперь нахожусь на странице заявок {strin
 // жму Контакты
 When(
   "я жму на ссылку {string} аттрибут {string} с текстом {string}",
-  (text, attr, elementDiv) => {
+  (a, attr, text) => {
     I.wait(1);
-    const element = locate(elementDiv).withAttr({ href: attr }).withText(text);
+    const element = locate(a).withAttr({ href: attr }).withText(text);
     I.click(element);
   }
 );
 // жму редактировать
 When(
   "я нажму ссылку {string} аттрибут {string} с текстом {string}",
-  (text, attr, elementDiv) => {
+  (a, attr, text) => {
     I.wait(1);
-    const element = locate(elementDiv).withAttr({ href: attr }).withText(text);
+    const element = locate(a).withAttr({ href: attr }).withText(text);
     I.click(element);
     I.wait(1);
   }

@@ -30,7 +30,7 @@ When("я жду пока пользователь зайдет в сессию",
   I.wait(3);
 });
 // ------------------------------------------------------------
-//   edit  company
+//   edit  department
 When("я вижу что нахожусь на странице {string}", (url) => {
   I.seeCurrentUrlEquals(url);
 });
@@ -66,14 +66,14 @@ When(
     I.wait(2);
   }
 );
-// выбрать по компаниям
+// выбрать по отделу
 When("я выберу {string} из выпадающего списка {string}", (text, elementDiv) => {
   I.wait(1);
   const element = locate(elementDiv).withAttr({ title: text });
   I.click(element);
   I.wait(2);
 });
-// /settings/компании
+// /settings/departments
 When("я проверю путь {string}", (url) => {
   I.seeCurrentUrlEquals(url);
   I.wait(1);
@@ -89,13 +89,13 @@ When(
   }
 );
 // Дравер оупен
-When("откроется форма редактирования компании {string}", (text) => {
+When("откроется форма редактирования отдела {string}", (text) => {
   I.see(text);
   I.wait(1);
 });
-// edit имя компании
+// edit имя отдела
 When(
-  "в поле компании с айди {string} введу текст {string}",
+  "в поле отдела с айди {string} введу текст {string}",
   (fieldName, value) => {
     I.fillField({ id: fieldName }, value);
     I.wait(1);
@@ -106,13 +106,13 @@ When("я жму кнопку с текстом {string}", (button) => {
   I.click(button);
   I.wait(3);
 });
-// /settings/компании
+// /settings/departments
 When("меня переместит на {string}", (url) => {
   I.seeCurrentUrlEquals(url);
   I.wait(1);
 });
-// "увижу отредактированную компанию"
-Then("увижу отредактированную компанию {string}", (text) => {
+// "увижу отредактированный отдел"
+Then("увижу отредактированный отдел {string}", (text) => {
   // From 'features/register.feature' {'line':12,'column':1}
   I.see(text);
   I.wait(1);

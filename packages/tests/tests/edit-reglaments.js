@@ -30,7 +30,7 @@ When("я жду пока пользователь зайдет в сессию",
   I.wait(3);
 });
 // ------------------------------------------------------------
-//   edit  company
+//   edit reglaments
 When("я вижу что нахожусь на странице {string}", (url) => {
   I.seeCurrentUrlEquals(url);
 });
@@ -66,21 +66,21 @@ When(
     I.wait(2);
   }
 );
-// выбрать по компаниям
+// выбрать по регламенту
 When("я выберу {string} из выпадающего списка {string}", (text, elementDiv) => {
   I.wait(1);
   const element = locate(elementDiv).withAttr({ title: text });
   I.click(element);
   I.wait(2);
 });
-// /settings/компании
+// /settings/регламент
 When("я проверю путь {string}", (url) => {
   I.seeCurrentUrlEquals(url);
   I.wait(1);
 });
-// жму редактировать
+// жму цифру 3, пагинация в таблице
 When(
-  "я жму ссылку {string} аттрибут {string} с текстом {string}",
+  "я нажму кнопку {string} аттрибут {string} с текстом {string}",
   (a, attr, text) => {
     I.wait(1);
     const element = locate(a).withAttr({ href: attr }).withText(text);
@@ -88,20 +88,67 @@ When(
     I.wait(1);
   }
 );
+// жму редактировать регламент по id
+When(
+  "я  жму ссылку {string} с id {string} и с текстом {string}",
+  (a, id, text) => {
+    I.wait(1);
+    const element = locate(a).withAttr({ id: id }).withText(text);
+    I.click(element);
+    I.wait(1);
+  }
+);
 // Дравер оупен
-When("откроется форма редактирования компании {string}", (text) => {
+When("откроется форма редактирования регламента {string}", (text) => {
   I.see(text);
   I.wait(1);
 });
-// edit имя компании
+// edit имя регламента
 When(
-  "в поле компании с айди {string} введу текст {string}",
+  "в поле название с айди {string} введу текст {string}",
   (fieldName, value) => {
     I.fillField({ id: fieldName }, value);
     I.wait(1);
   }
 );
-//  кнопка создать компанию
+// edit темы регламента
+When("в поле темы с айди {string} введу текст {string}", (fieldName, value) => {
+  I.fillField({ id: fieldName }, value);
+  I.wait(1);
+});
+// реглам. стандарт
+When(
+  "в поле стандартный срок с айди {string} введу текст {string}",
+  (fieldName, value) => {
+    I.fillField({ id: fieldName }, value);
+    I.wait(1);
+  }
+);
+// реглам. средний
+When(
+  "в поле средний срок с айди {string} введу текст {string}",
+  (fieldName, value) => {
+    I.fillField({ id: fieldName }, value);
+    I.wait(1);
+  }
+);
+// реглам. высокий
+When(
+  "в поле высокий срок с айди {string} введу текст {string}",
+  (fieldName, value) => {
+    I.fillField({ id: fieldName }, value);
+    I.wait(1);
+  }
+);
+// реглам. критично
+When(
+  "в поле критично срок с айди {string} введу текст {string}",
+  (fieldName, value) => {
+    I.fillField({ id: fieldName }, value);
+    I.wait(1);
+  }
+);
+//  кнопка Обновить регламент
 When("я жму кнопку с текстом {string}", (button) => {
   I.click(button);
   I.wait(3);
@@ -111,8 +158,8 @@ When("меня переместит на {string}", (url) => {
   I.seeCurrentUrlEquals(url);
   I.wait(1);
 });
-// "Тестовая тематика"
-Then("увижу созданную компанию {string}", (text) => {
+// "Регламент Тестовый"
+Then("увижу отредактированный регламент {string}", (text) => {
   // From 'features/register.feature' {'line':12,'column':1}
   I.see(text);
   I.wait(1);

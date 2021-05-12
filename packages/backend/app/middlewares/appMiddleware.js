@@ -9,7 +9,7 @@ const cookieparser = require("cookie-parser");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 const corsOptions = {
-  origin: webURL,
+  origin: [webURL, " http://localhost:8200", "http://127.0.0.1:8200"],
   optionSuccessStatus: 200,
   credentials: true,
   withCredentials: true,

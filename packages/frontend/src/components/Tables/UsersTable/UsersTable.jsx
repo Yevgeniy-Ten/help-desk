@@ -15,6 +15,11 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       title: "Компания",
       dataIndex: "company",
       key: "company",
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        if (a.company.title > b.company.title) return 1;
+        if (a.company.title < b.company.title) return -1;
+      },
       render: (company) => {
         return company ? company.title : "Не выбрано";
       }
@@ -31,6 +36,25 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       title: "Роль",
       dataIndex: "role",
       key: "role",
+      filters: [
+        {
+          text: "Админ",
+          value: "admin"
+        },
+        {
+          text: "Клиент",
+          value: "client"
+        }
+      ],
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        if (a.role.name > b.role.name) return 1;
+        if (a.role.name < b.role.name) return -1;
+      },
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        return record.role.name.indexOf(value) === 0;
+      },
       render: (role) => {
         return role ? role.name : "Нет роли";
       }
@@ -38,7 +62,12 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
     {
       title: "Электронная почта",
       dataIndex: "email",
-      key: "email"
+      key: "email",
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        if (a.email > b.email) return 1;
+        if (a.email < b.email) return -1;
+      }
     },
     {
       title: "Почта",

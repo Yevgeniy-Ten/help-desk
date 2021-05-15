@@ -10,9 +10,10 @@ const reglamentsRouter = require("./forReglaments/reglaments.router");
 const reportingRouter = require("./forReporting/reporting.router");
 const chatRouter = require("./forChats/chat.router");
 const userRolesRouter = require("./forUserRoles/userRoles");
-
+const mailMessageRouter = require("./forMailMessage/mailMessage.router");
 const mainRouter = Router();
 
+mainRouter.use("/mailmessages", mailMessageRouter);
 mainRouter.use("/users", userRoute);
 mainRouter.use("/topics", topicsRoute);
 mainRouter.use("/requests", requestRoute);
@@ -23,6 +24,6 @@ mainRouter.use("/orgstructure", orgStructureRoute);
 mainRouter.use("/reglaments", reglamentsRouter);
 mainRouter.use("/reporting", reportingRouter);
 mainRouter.use("/chats", chatRouter);
-mainRouter.use("/userRoles",userRolesRouter);
+mainRouter.use("/userRoles", userRolesRouter);
 
 module.exports = mainRouter;

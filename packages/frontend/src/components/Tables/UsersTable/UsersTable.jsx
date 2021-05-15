@@ -2,7 +2,20 @@ import React from "react";
 import { Button, Space, Table, Divider } from "antd";
 import { NavLink } from "react-router-dom";
 
-const UsersTable = ({ users, onAuthorizeUser }) => {
+const UsersTable = ({ users, onAuthorizeUser, companies }) => {
+  const filtersCopy = () => {
+    let filterCompany = [];
+    if (companies) {
+      filterCompany = companies.map((company) => {
+        return {
+          text: company.title,
+          value: company.title
+        };
+      });
+    }
+    return filterCompany;
+  };
+  console.log(filtersCopy());
   const usersColumns = [
     {
       title: "Имя Фамилия",
@@ -15,6 +28,7 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       title: "Компания",
       dataIndex: "company",
       key: "company",
+      filters: filtersCopy(),
       // eslint-disable-next-line consistent-return
       sorter: (a, b) => {
         let aCopy = null;
@@ -32,6 +46,12 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
           bCopy = "Не выбрано";
         }
         return aCopy - bCopy;
+      },
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.company) {
+          return record.company.title.indexOf(value) === 0;
+        }
       },
       render: (company) => {
         return company ? company.title : "Не выбрано";

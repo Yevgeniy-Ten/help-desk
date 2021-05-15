@@ -44,6 +44,12 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       title: "Почта",
       dataIndex: "isFake",
       key: "isFake",
+      defaultSortOrder: "descend",
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        if (a.isFake > b.isFake) return 1;
+        if (a.isFake < b.isFake) return -1;
+      },
       render: (isFake) => {
         return isFake ? (
           <span style={{ textAlign: "center", color: "#ff4d4f" }}>

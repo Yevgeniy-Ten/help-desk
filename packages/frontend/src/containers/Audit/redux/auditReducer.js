@@ -5,7 +5,7 @@ import {
 } from "./auditType";
 
 const initState = {
-  audit: [],
+  audit: null,
   loading: false,
   error: null
 };

@@ -17,8 +17,21 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       key: "company",
       // eslint-disable-next-line consistent-return
       sorter: (a, b) => {
-        if (a.company.title > b.company.title) return 1;
-        if (a.company.title < b.company.title) return -1;
+        let aCopy = null;
+        let bCopy = null;
+        if (a.company && b.company) {
+          aCopy = a.company.title;
+          bCopy = b.company.title;
+          if (aCopy > bCopy) return 1;
+          if (aCopy < bCopy) return -1;
+        }
+        if (a.company === null) {
+          aCopy = "Не выбрано";
+        }
+        if (b.company === null) {
+          bCopy = "Не выбрано";
+        }
+        return aCopy - bCopy;
       },
       render: (company) => {
         return company ? company.title : "Не выбрано";
@@ -28,6 +41,23 @@ const UsersTable = ({ users, onAuthorizeUser }) => {
       title: "Из отдела",
       dataIndex: "orgStructure",
       key: "orgStructure",
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        let aCopy = null;
+        let bCopy = null;
+        if (a.orgStructure && b.orgStructure) {
+          aCopy = a.orgStructure.departmentId;
+          bCopy = b.orgStructure.departmentId;
+          return aCopy - bCopy;
+        }
+        if (a.orgStructure === null) {
+          aCopy = -1;
+        }
+        if (b.orgStructure === null) {
+          bCopy = -1;
+        }
+        return aCopy - bCopy;
+      },
       render: (orgStructure) => {
         return orgStructure ? orgStructure.departmentId : "Не выбрано";
       }

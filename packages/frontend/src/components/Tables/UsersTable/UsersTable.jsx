@@ -1,8 +1,15 @@
-import React from "react";
-import { Button, Space, Table, Divider } from "antd";
+import React, { useState, useRef } from "react";
+import { Button, Space, Table, Input, Divider } from "antd";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 
 const UsersTable = ({ users, onAuthorizeUser, companies }) => {
+  let searchInput = useRef();
+  const [state, setState] = useState({
+    searchText: " ",
+    searchedColumn: " "
+  });
   const filtersCopy = () => {
     let filterCompany = [];
     if (companies) {
@@ -15,7 +22,107 @@ const UsersTable = ({ users, onAuthorizeUser, companies }) => {
     }
     return filterCompany;
   };
-  console.log(filtersCopy());
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setState({
+      searchText: selectedKeys[0],
+      searchedColumn: dataIndex
+    });
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setState({ searchText: "" });
+  };
+
+  const getColumnSearchProps = (dataIndex) => {
+    return {
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => {
+        return (
+          <div style={{ padding: 8 }}>
+            <Input
+              ref={(node) => {
+                // eslint-disable-next-line no-undef
+                searchInput = node;
+              }}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={(e) => {
+                return setSelectedKeys(e.target.value ? [e.target.value] : []);
+              }}
+              onPressEnter={() => {
+                return handleSearch(selectedKeys, confirm, dataIndex);
+              }}
+              style={{ marginBottom: 8, display: "block" }}
+            />
+            <Space>
+              <Button
+                type="primary"
+                onClick={() => {
+                  return handleSearch(selectedKeys, confirm, dataIndex);
+                }}
+                icon={<SearchOutlined />}
+                size="small"
+                style={{ width: 90 }}
+              >
+                Найти
+              </Button>
+              <Button
+                onClick={() => {
+                  return handleReset(clearFilters);
+                }}
+                size="small"
+                style={{ width: 90 }}
+              >
+                Сборсить
+              </Button>
+            </Space>
+          </div>
+        );
+      },
+      filterIcon: (filtered) => {
+        return (
+          <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+        );
+      },
+      onFilter: (value, record) => {
+        return record[dataIndex]
+          ? record[dataIndex]
+              .toString()
+              .toLowerCase()
+              .includes(value.toLowerCase())
+          : "";
+      },
+      onFilterDropdownVisibleChange: (visible) => {
+        if (visible) {
+          setTimeout(() => {
+            // eslint-disable-next-line no-undef
+            return searchInput.select();
+          }, 100);
+        }
+      },
+      render: (text) => {
+        return state.searchedColumn === dataIndex ? (
+          <Highlighter
+            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+            searchWords={[state.searchText]}
+            autoEscape={true}
+            // eslint-disable-next-line react/destructuring-assignment
+            textToHighlight={text ? text.toString() : ""}
+          />
+        ) : (
+          text
+        );
+      }
+    };
+  };
+
   const usersColumns = [
     {
       title: "Имя Фамилия",
@@ -117,7 +224,8 @@ const UsersTable = ({ users, onAuthorizeUser, companies }) => {
       sorter: (a, b) => {
         if (a.email > b.email) return 1;
         if (a.email < b.email) return -1;
-      }
+      },
+      ...getColumnSearchProps("email")
     },
     {
       title: "Почта",
@@ -164,6 +272,7 @@ const UsersTable = ({ users, onAuthorizeUser, companies }) => {
       }
     }
   ];
+
   return (
     <Table
       title={() => {

@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer")
+const LogCreator = require("../creators/LogCreator")
 const MessageSender = {
     transporter: null,
     connect() {
@@ -27,8 +28,8 @@ const MessageSender = {
                 // text: "Пожалуйста кликните на кнопку и потвердите ваш email!",
                 html: `<div style=\"display: flex; justify-content: center\"><a href=\"${link}\" target=\"_blank\" style=\"background: #40a9ff; border: 1px solid #ccc; color:#fff; text-decoration: none; font-size: 20px; border-radius: 6px; padding: 10px;\">Потвердить email!</a></div>`,
             });
-        } catch (e) {
-            console.error(e)
+        } catch (error) {
+            await LogCreator.createSystemCrashLog("when sending mail message for verify user", error)
         }
     },
     async sendMailClientRequest(email, id) {
@@ -43,8 +44,8 @@ const MessageSender = {
                             <p>Ваша заявка с id ${id} принята. Мы рассмотрим вашу заявку в ближайщее время. Спасибо за обращение!</p>
                        </div>`,
             });
-        } catch (e) {
-            console.error(e)
+        } catch (error) {
+            await LogCreator.createSystemCrashLog("when sending mail message to create request", error)
         }
     },
     async sendMailEmployeeRequest(email, id) {
@@ -59,8 +60,8 @@ const MessageSender = {
                             <p>Заявка с id ${id} назначена на Вас. Проверьте, пожалуйста, в системе!</p>
                        </div>`,
             });
-        } catch (e) {
-            console.error(e)
+        } catch (error) {
+            await LogCreator.createSystemCrashLog("when send message to employee", error)
         }
     }
 }

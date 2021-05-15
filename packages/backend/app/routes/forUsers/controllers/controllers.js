@@ -1,6 +1,7 @@
 const axios = require("axios");
 const {User, OrgStructure} = require("../../../../models");
 const {saveFile} = require("../../../helpers/helpers");
+const LogCreator = require("../../../creators/LogCreator")
 const MessageSender = require("../../../mailer/index")
 const encodeDecode = require("encode-decode-js");
 const {backUrl, webURL} = require("../../../../config/general.config")
@@ -68,6 +69,7 @@ const UsersController = {
                     const emailEncodeForUrl = encodeDecode.encode(result.email)
                     const confirmURL = `${CONFIRM_URL}${emailEncodeForUrl}`
                     MessageSender.sendVerifyMessage(result.email, confirmURL)
+                    LogCreator.createSuccessLog(`${result.firstName} ${result.lastName}`, "registerSuccess")
                     res.sendStatus(201);
                 })
                 .catch((errors) => res.status(400).json(errors));
@@ -99,6 +101,7 @@ const UsersController = {
             });
             res.send(user);
         } catch (e) {
+            LogCreator.createSystemCrashLog("when create sessing some errors", e)
             res.status(401).send(e);
         }
     },

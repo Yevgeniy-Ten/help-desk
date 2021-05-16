@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getEditableElement,
   getReglaments,
+  getCompanies,
   getDepartments,
   getTopics,
   getSettingsLoader
@@ -26,9 +27,11 @@ const ReglamentsTable = ({
 }) => {
   const dispatch = useDispatch();
   const reglaments = useSelector(getReglaments);
+  const companies = useSelector(getCompanies);
   const departments = useSelector(getDepartments);
   const topics = useSelector(getTopics);
   const isLoad = useSelector(getSettingsLoader);
+  const [filtersCompany, setFiltersCompany] = useState([]);
   const [filtersDepartment, setFiltersDepartment] = useState([]);
   const [filtersTopics, setFiltersTopics] = useState([]);
   const columns = [
@@ -46,6 +49,15 @@ const ReglamentsTable = ({
     {
       title: "Компания",
       dataIndex: "company",
+      key: "company",
+      filters: filtersCompany,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.company) {
+          return record.company.title.indexOf(value) === 0;
+        }
+        return record.company === null;
+      },
       render: (company) => {
         return company ? company.title : "Регламент по умолчанию";
       }
@@ -146,10 +158,22 @@ const ReglamentsTable = ({
   ];
   useEffect(() => {
     dispatch(fetchSettings("reglaments"));
+    dispatch(fetchSettings("companies"));
     dispatch(fetchSettings("departments"));
     dispatch(fetchSettings("topics"));
   }, [dispatch]);
   useMemo(() => {
+    if (companies) {
+      let companiesCopy = [];
+      companiesCopy = companies.map((company) => {
+        return { text: company.title, value: company.title };
+      });
+      companiesCopy.unshift({
+        text: "По умолчанию",
+        value: "Регламент по умолчанию"
+      });
+      setFiltersCompany([...companiesCopy]);
+    }
     if (departments) {
       const departmentsCopy = departments.map((department) => {
         return { text: department.title, value: department.title };
@@ -162,7 +186,7 @@ const ReglamentsTable = ({
       });
       setFiltersTopics([...topicsCopy]);
     }
-  }, [departments, topics]);
+  }, [companies, departments, topics]);
   return (
     <>
       {isLoad ? (

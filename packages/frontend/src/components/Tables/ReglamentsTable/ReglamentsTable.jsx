@@ -54,6 +54,13 @@ const ReglamentsTable = ({
       title: "Тематика",
       dataIndex: "topic",
       key: "topic",
+      filters: filtersTopics,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.topic) {
+          return record.topic.title.indexOf(value) === 0;
+        }
+      },
       render: (topic) => {
         return topic ? topic.title : "null";
       }

@@ -160,14 +160,14 @@ const Audit = () => {
                                   <Collapse>
                                     <Panel header="По статусу" key="status">
                                       <Form.Item
-                                        name={`${item.name}status-open`}
+                                        name={`${item.user.firstName}status-open`}
                                         label="Открыто"
                                         initialValue={item.requests.status.open}
                                       >
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}status-inProgress`}
+                                        name={`${item.user.firstName}status-inProgress`}
                                         label="Выполняется"
                                         initialValue={
                                           item.requests.status.inProgress
@@ -176,7 +176,7 @@ const Audit = () => {
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}status-suspend`}
+                                        name={`${item.user.firstName}status-suspend`}
                                         label="Приостановлено"
                                         initialValue={
                                           item.requests.status.suspend
@@ -185,7 +185,7 @@ const Audit = () => {
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}status-done`}
+                                        name={`${item.user.firstName}status-done`}
                                         label="Выполнено"
                                         initialValue={item.requests.status.done}
                                       >
@@ -199,7 +199,7 @@ const Audit = () => {
                                       key="priority"
                                     >
                                       <Form.Item
-                                        name={`${item.name}priority-standart`}
+                                        name={`${item.user.firstName}priority-standart`}
                                         label="Стандартно"
                                         initialValue={
                                           item.requests.priority.standart
@@ -208,7 +208,7 @@ const Audit = () => {
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}priority-medium`}
+                                        name={`${item.user.firstName}priority-medium`}
                                         label="Средний"
                                         initialValue={
                                           item.requests.priority.medium
@@ -217,7 +217,7 @@ const Audit = () => {
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}priority-urgent`}
+                                        name={`${item.user.firstName}priority-urgent`}
                                         label="Срочно"
                                         initialValue={
                                           item.requests.priority.urgent
@@ -226,7 +226,7 @@ const Audit = () => {
                                         <Input disabled={true} />
                                       </Form.Item>
                                       <Form.Item
-                                        name={`${item.name}priority-critical`}
+                                        name={`${item.user.firstName}priority-critical`}
                                         label="Критично"
                                         initialValue={
                                           item.requests.priority.critical

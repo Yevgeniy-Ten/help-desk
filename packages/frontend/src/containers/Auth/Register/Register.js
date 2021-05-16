@@ -6,11 +6,7 @@ import { NavLink } from "react-router-dom";
 import FileInput from "../../../components/UploadFile/FileInput";
 import { Button, Form, Input, Select, message } from "antd";
 import { getCompanies } from "../../Settings/redux/settingGetters";
-
-import {
-  fetchCompanies,
-  fetchSettings
-} from "../../Settings/redux/settingsActions";
+import { fetchSettings } from "../../Settings/redux/settingsActions";
 import { getFieldError } from "../../../helpers/helpers";
 
 const { Option } = Select;
@@ -39,7 +35,6 @@ const Register = () => {
   useEffect(() => {
     dispatch(fetchSettings("companies"));
   }, [dispatch]);
-  console.log(getFieldError(registerError, "email"));
   return (
     <Form
       form={form}

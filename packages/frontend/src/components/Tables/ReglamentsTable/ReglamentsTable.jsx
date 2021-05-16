@@ -56,6 +56,27 @@ const ReglamentsTable = ({
       title: "Приоритет",
       dataIndex: "priority",
       key: "priority",
+      filters: [
+        {
+          text: "Стандартно",
+          value: "Стандартно"
+        },
+        {
+          text: "Средний",
+          value: "Средний"
+        },
+        {
+          text: "Срочно",
+          value: "Срочно"
+        },
+        {
+          text: "Критично",
+          value: "Критично"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.priority.indexOf(value) === 0;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -89,7 +110,11 @@ const ReglamentsTable = ({
       key: "actions",
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onShowEditor(record.id)}>
+          <Typography.Link
+            onClick={() => {
+              return onShowEditor(record.id);
+            }}
+          >
             Редактировать
           </Typography.Link>
         );
@@ -105,19 +130,23 @@ const ReglamentsTable = ({
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Регламенты</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новый регламент
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Регламенты</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новый регламент
+                </Button>
+              </div>
+            );
+          }}
           bordered={true}
           columns={columns}
           pagination={{
             defaultCurrent: currentPage,
-            onChange: (current) => onChangeCurrentPage(current)
+            onChange: (current) => {
+              return onChangeCurrentPage(current);
+            }
           }}
           dataSource={reglaments}
           scroll={{ x: 1000 }}

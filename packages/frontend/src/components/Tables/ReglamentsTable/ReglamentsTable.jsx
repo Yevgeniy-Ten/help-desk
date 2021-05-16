@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Button, Form, Popconfirm, Space, Table, Typography, Tag } from "antd";
 import {
   clearEditalbleElement,
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getEditableElement,
   getReglaments,
+  getDepartments,
+  getTopics,
   getSettingsLoader
 } from "../../../containers/Settings/redux/settingGetters";
 import Spinner from "../../Spinner/Spinner";
@@ -24,7 +26,11 @@ const ReglamentsTable = ({
 }) => {
   const dispatch = useDispatch();
   const reglaments = useSelector(getReglaments);
+  const departments = useSelector(getDepartments);
+  const topics = useSelector(getTopics);
   const isLoad = useSelector(getSettingsLoader);
+  const [filtersDepartment, setFiltersDepartment] = useState([]);
+  const [filtersTopics, setFiltersTopics] = useState([]);
   const columns = [
     {
       title: "Идентификатор",
@@ -77,6 +83,9 @@ const ReglamentsTable = ({
       onFilter: (value, record) => {
         return record.priority.indexOf(value) === 0;
       },
+      sorter: (a, b) => {
+        return a.priority.length - b.priority.length;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -94,6 +103,13 @@ const ReglamentsTable = ({
       title: "Ответственный отдел",
       dataIndex: "department",
       key: "department",
+      filters: filtersDepartment,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.department) {
+          return record.department.title.indexOf(value) === 0;
+        }
+      },
       render: (department) => {
         return department ? department.title : "null";
       }
@@ -123,7 +139,23 @@ const ReglamentsTable = ({
   ];
   useEffect(() => {
     dispatch(fetchSettings("reglaments"));
+    dispatch(fetchSettings("departments"));
+    dispatch(fetchSettings("topics"));
   }, [dispatch]);
+  useMemo(() => {
+    if (departments) {
+      const departmentsCopy = departments.map((department) => {
+        return { text: department.title, value: department.title };
+      });
+      setFiltersDepartment([...departmentsCopy]);
+    }
+    if (topics) {
+      const topicsCopy = topics.map((topic) => {
+        return { text: topic.title, value: topic.title };
+      });
+      setFiltersTopics([...topicsCopy]);
+    }
+  }, [departments, topics]);
   return (
     <>
       {isLoad ? (

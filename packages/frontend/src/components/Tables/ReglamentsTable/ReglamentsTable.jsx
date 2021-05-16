@@ -56,7 +56,9 @@ const ReglamentsTable = ({
         if (record.company) {
           return record.company.title.indexOf(value) === 0;
         }
-        return record.company === null;
+        if (value === "по умолчанию") {
+          return record.company === null;
+        }
       },
       render: (company) => {
         return company ? company.title : "Регламент по умолчанию";
@@ -170,7 +172,7 @@ const ReglamentsTable = ({
       });
       companiesCopy.unshift({
         text: "По умолчанию",
-        value: "Регламент по умолчанию"
+        value: "по умолчанию"
       });
       setFiltersCompany([...companiesCopy]);
     }

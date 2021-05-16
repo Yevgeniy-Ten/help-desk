@@ -170,11 +170,13 @@ module.exports = {
       ]
     });
     let employee = await User.findAll({
+      where: {
+        roleId: 1
+      },
       include: [
         {
           model: Request,
           as: "employeeRequest",
-          // include: ["employeeRequest"]
         }
       ]
     });

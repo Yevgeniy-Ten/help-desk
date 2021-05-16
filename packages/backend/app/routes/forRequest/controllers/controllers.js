@@ -125,9 +125,11 @@ module.exports = {
         ]
       });
       if (!request) return res.sendStatus(404);
-      await request.update({
-        isViewed: true
-      });
+      if (req.user.roleId === 1) {
+        await request.update({
+          isViewed: true
+        });
+      }
       requestUpdate = helpers.hourWorkUpdate([request]);
       res.send(requestUpdate[0]);
     } catch (errors) {

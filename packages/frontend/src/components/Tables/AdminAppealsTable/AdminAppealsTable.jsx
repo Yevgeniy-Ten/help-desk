@@ -109,6 +109,7 @@ const AdminAppealsTable = ({ appeals }) => {
       dataIndex: "createdAt",
       key: "createdAt",
       // defaultSortOrder: "descend",
+      // eslint-disable-next-line consistent-return
       sorter: (a, b) => {
         if (a.createdAt.valueOf() > b.createdAt.valueOf()) return 1;
         if (a.createdAt.valueOf() < b.createdAt.valueOf()) return -1;
@@ -138,6 +139,7 @@ const AdminAppealsTable = ({ appeals }) => {
           value: false
         }
       ],
+      // eslint-disable-next-line consistent-return
       onFilter: (value, record) => {
         if (record.isViewed === value) {
           return true;
@@ -145,15 +147,13 @@ const AdminAppealsTable = ({ appeals }) => {
       },
       render: (isViewed) => {
         return isViewed ? (
-          <div style={{ textAlign: "center" }}>
-            <EyeOutlined style={{ fontSize: "24px", color: "#99c578" }} />
-          </div>
+          <span style={{ textAlign: "center", color: "#99c578" }}>
+            Просмотрено
+          </span>
         ) : (
-          <div style={{ textAlign: "center" }}>
-            <EyeInvisibleOutlined
-              style={{ fontSize: "24px", color: "#ff4d4f" }}
-            />
-          </div>
+          <span style={{ textAlign: "center", color: "#ff4d4f" }}>
+            Не просмотрено
+          </span>
         );
       }
     },

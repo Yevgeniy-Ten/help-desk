@@ -7,7 +7,8 @@ import {
   DatabaseOutlined,
   SettingOutlined,
   HistoryOutlined,
-  AuditOutlined
+  AuditOutlined,
+  InfoCircleOutlined
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { getUser } from "../../containers/Auth/redux/getters/getters";
@@ -36,6 +37,14 @@ const MenuSider = () => {
           icon={<AuditOutlined style={{ fontSize: "24px" }} />}
         >
           <NavLink to="/requests/audit">Аудит</NavLink>
+        </Menu.Item>
+      )}
+      {user && user.role && user.role.name === "admin" && (
+        <Menu.Item
+          key="7"
+          icon={<InfoCircleOutlined style={{ fontSize: "24px" }} />}
+        >
+          <NavLink to="/logs">Логи</NavLink>
         </Menu.Item>
       )}
       {user && user.role && user.role.name === "admin" && (

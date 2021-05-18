@@ -7,8 +7,6 @@ import {
 } from "./redux/usersAction/usersActions";
 import Spinner from "../../components/Spinner/Spinner";
 import UsersTable from "../../components/Tables/UsersTable/UsersTable";
-import { Button } from "antd";
-import { NavLink } from "react-router-dom";
 
 const UserTableContainer = () => {
   const dispatch = useDispatch();

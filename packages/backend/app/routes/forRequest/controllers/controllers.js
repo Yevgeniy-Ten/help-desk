@@ -82,6 +82,7 @@ module.exports = {
                     })
                     MessageSender.sendMailClientRequest(request.dataValues.clientRequest.dataValues.email, newRequest.dataValues.id)
                     MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
+                    LogCreator.createSuccessLog(`${req.user.firstName} ${req.user.lastName}`, "createRequestSuccess")
                     await RequestHistory.create({
                         requestId: newRequest.dataValues.id,
                         topicTitle: rule && rule.topic.title,

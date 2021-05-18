@@ -5,7 +5,7 @@ const permit = require("../../middlewares/permit")
 const LogsRouter = Router();
 
 
-LogsRouter.get("/", [auth, permit("admin")], async (req, res) => {
+LogsRouter.get("/", [auth], async (req, res) => {
     try {
         const allLogs = await Log.findAll()
         if (!allLogs.length) return res.sendStatus(404)

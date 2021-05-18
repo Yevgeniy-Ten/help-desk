@@ -10,6 +10,7 @@ import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import historyReducer from "../containers/History/redux/historyReducer";
 import auditReducer from "../containers/Audit/redux/auditReducer";
+import logReducer from "../containers/Log/redux/logReducer";
 
 export const history = createBrowserHistory();
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   appeal: appealReducer,
   history: historyReducer,
   audit: auditReducer,
+  logs: logReducer,
   router: connectRouter(history)
 });
 

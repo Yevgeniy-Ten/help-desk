@@ -9,7 +9,8 @@ import {
   SETTING_SET_EDITABLE_ELEMENT,
   CLEAR_EDITABLE_ELEMENT,
   SETTING_REQUEST_FINISHED,
-  SETTING_ORGSTRUCTURE_SUCCESS
+  SETTING_ORGSTRUCTURE_SUCCESS,
+  SETTING_REQUEST_MAIL_MESSAGES
 } from "./settingsTypes";
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
   positions: [],
   isLoading: false,
   errors: null,
-  editableSetting: null
+  editableSetting: null,
+  mailMessages: []
 };
 
 export const settingsReducer = (state = initialState, action) => {
@@ -44,6 +46,8 @@ export const settingsReducer = (state = initialState, action) => {
       return { ...state, departments: action.departments };
     case SETTING_REQUEST_POSITIONS:
       return { ...state, positions: action.positions };
+    case SETTING_REQUEST_MAIL_MESSAGES:
+      return { ...state, mailMessages: action.mailMessages };
     case SETTING_SET_EDITABLE_ELEMENT:
       switch (action.payload.type) {
         case "topics":
@@ -154,6 +158,13 @@ export const settingsReducer = (state = initialState, action) => {
             ...state,
             editableSetting: state.positions.find(
               (position) => position.id === action.payload.settingId
+            )
+          };
+        case "mailmessages":
+          return {
+            ...state,
+            editableSetting: state.mailMessages.find(
+              (mailMessage) => mailMessage.id === action.payload.settingId
             )
           };
         default:

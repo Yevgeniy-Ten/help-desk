@@ -13,7 +13,7 @@ module.exports = {
   async editTemplateMessage(req, res) {
     try {
       const { id } = req.params;
-      const mailMessage = MailMessage.findOne({
+      const mailMessage = await MailMessage.findOne({
         where: {
           id,
         },

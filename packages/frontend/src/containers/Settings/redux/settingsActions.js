@@ -6,6 +6,7 @@ import {
   SETTING_REQUEST_DEPARTMENTS,
   SETTING_REQUEST_ERROR,
   SETTING_REQUEST_FINISHED,
+  SETTING_REQUEST_MAIL_MESSAGES,
   SETTING_REQUEST_POSITIONS,
   SETTING_REQUEST_REGLAMENTS,
   SETTING_REQUEST_STARTED,
@@ -38,6 +39,12 @@ export const settingsRequestReglaments = (reglaments) => {
   return {
     type: SETTING_REQUEST_REGLAMENTS,
     reglaments
+  };
+};
+export const settingsRequestMailMessages = (mailMessages) => {
+  return {
+    type: SETTING_REQUEST_MAIL_MESSAGES,
+    mailMessages
   };
 };
 export const settingsRequestDepartments = (departments) => {
@@ -101,6 +108,8 @@ export const fetchSettings = (settingType, queryParams) => {
         dispatch(settingRequestOrgStructure(response.data));
       } else if (settingType === "position") {
         dispatch(settingsRequestPositions(response.data));
+      } else if (settingType === "mailmessages") {
+        dispatch(settingsRequestMailMessages(response.data));
       }
       dispatch(settingRequestFinished());
     } catch (e) {

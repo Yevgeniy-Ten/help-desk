@@ -5,10 +5,10 @@ const mailController = require("./controller");
 
 const mailMessageRouter = Router();
 
-mailMessageRouter.get("/", [auth, permit("admin")], mailController.getAll);
-mailMessageRouter.post(
+mailMessageRouter.get("/", [auth], mailController.getAll);
+mailMessageRouter.put(
   "/:id",
-  [auth, permit("admin")],
+  [auth],
   mailController.editTemplateMessage
 );
 

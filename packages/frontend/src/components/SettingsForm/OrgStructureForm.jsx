@@ -51,16 +51,16 @@ const OrgStructureForm = ({ onCloseEditor, orgstructureId }) => {
     dispatch(fetchSettings("departments"));
     dispatch(fetchSettings("position"));
   }, [dispatch]);
-  useEffect(() => {
-    dispatch(setEditableSetting("orgstructures", orgstructureId));
-    if (orgstructureForEdit) {
-      form.setFieldsValue(orgstructureForEdit);
-      form.setFieldsValue({
-        departmentTitle: orgstructureForEdit.department.title,
-        positionTitle: orgstructureForEdit.position.title
-      });
-    }
-  }, [dispatch, orgstructureForEdit, orgstructureId]);
+  // useEffect(() => {
+  //   dispatch(setEditableSetting("orgstructures", orgstructureId));
+  //   if (orgstructureForEdit) {
+  //     form.setFieldsValue(orgstructureForEdit);
+  //     form.setFieldsValue({
+  //       departmentTitle: orgstructureForEdit.department.title,
+  //       positionTitle: orgstructureForEdit.position.title
+  //     });
+  //   }
+  // }, [dispatch, orgstructureForEdit, orgstructureId]);
 
   return (
     <Form

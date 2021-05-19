@@ -18,6 +18,7 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { useToggle } from "../../hooks/useToggle";
 import { clearEditalbleElement } from "./redux/settingsActions";
 import { useDispatch } from "react-redux";
+import MailMessageForm from "../../components/SettingsForm/MailMessageForm";
 
 const Settings = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -126,6 +127,7 @@ const Settings = () => {
               />
             )}
           />
+          <Route path="/settings/mailmessage" component={MailMessageForm} />
           <Redirect to="/settings/topics" />
         </Switch>
       </Col>

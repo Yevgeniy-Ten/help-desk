@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import { Breadcrumb, Col, Row, Collapse, Form, Input, Button } from "antd";
+import { getMenuShow } from "../redux/faqsGetters";
 
 const { Panel } = Collapse;
 
 const Websites = () => {
   const loading = false;
+  const dispatch = useDispatch();
+  const { iconMenuShow } = useSelector(getMenuShow, shallowEqual);
+  useEffect(() => {});
   return (
     <Row style={{ padding: "10px 20px" }}>
       <Col span={24} className="mb-sm">

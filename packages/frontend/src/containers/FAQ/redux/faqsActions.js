@@ -1,76 +1,76 @@
 import {
+  FAQS_MENU_SHOW,
   CLEAR_EDITABLE_ELEMENT,
-  SETTING_DELETE_SUCCESS,
-  SETTING_ORGSTRUCTURE_SUCCESS,
-  SETTING_REQUEST_COMPANIES,
-  SETTING_REQUEST_DEPARTMENTS,
-  SETTING_REQUEST_ERROR,
-  SETTING_REQUEST_FINISHED,
-  SETTING_REQUEST_MAIL_MESSAGES,
-  SETTING_REQUEST_POSITIONS,
-  SETTING_REQUEST_REGLAMENTS,
-  SETTING_REQUEST_STARTED,
-  SETTING_REQUEST_TOPICS,
-  SETTING_SET_EDITABLE_ELEMENT
-} from "./settingsTypes";
+  FAQS_DELETE_SUCCESS,
+  FAQS_ORGSTRUCTURE_SUCCESS,
+  FAQS_REQUEST_COMPANIES,
+  FAQS_REQUEST_DEPARTMENTS,
+  FAQS_REQUEST_ERROR,
+  FAQS_REQUEST_FINISHED,
+  FAQS_REQUEST_MAIL_MESSAGES,
+  FAQS_REQUEST_POSITIONS,
+  FAQS_REQUEST_REGLAMENTS,
+  FAQS_REQUEST_TOPICS,
+  FAQS_SET_EDITABLE_ELEMENT
+} from "./faqsTypes";
 import { message } from "antd";
 
-export const settingsRequestStart = () => {
-  return { type: SETTING_REQUEST_STARTED };
+export const faqsIconMenuShow = (showMenu) => {
+  return { type: FAQS_MENU_SHOW, showMenu };
 };
 export const settingsRequestError = (errors) => {
   return {
-    type: SETTING_REQUEST_ERROR,
+    type: FAQS_REQUEST_ERROR,
     errors
   };
 };
 export const settingRequestFinished = () => {
   return {
-    type: SETTING_REQUEST_FINISHED
+    type: FAQS_REQUEST_FINISHED
   };
 };
 export const settingsRequestTopics = (topics) => {
   return {
-    type: SETTING_REQUEST_TOPICS,
+    type: FAQS_REQUEST_TOPICS,
     topics
   };
 };
 export const settingsRequestReglaments = (reglaments) => {
   return {
-    type: SETTING_REQUEST_REGLAMENTS,
+    type: FAQS_REQUEST_REGLAMENTS,
     reglaments
   };
 };
 export const settingsRequestMailMessages = (mailMessages) => {
   return {
-    type: SETTING_REQUEST_MAIL_MESSAGES,
+    type: FAQS_REQUEST_MAIL_MESSAGES,
     mailMessages
   };
 };
 export const settingsRequestDepartments = (departments) => {
   return {
-    type: SETTING_REQUEST_DEPARTMENTS,
+    type: FAQS_REQUEST_DEPARTMENTS,
     departments
   };
 };
 export const settingsRequestCompanies = (companies) => {
   return {
-    type: SETTING_REQUEST_COMPANIES,
+    type: FAQS_REQUEST_COMPANIES,
     companies
   };
 };
 export const settingsRequestPositions = (positions) => {
   return {
-    type: SETTING_REQUEST_POSITIONS,
+    type: FAQS_REQUEST_POSITIONS,
     positions
   };
 };
 export const settingDeleteSuccess = () => {
-  return { type: SETTING_DELETE_SUCCESS };
+  return { type: FAQS_DELETE_SUCCESS };
 };
 export const setEditableSetting = (type, settingId) => {
   return {
-    type: SETTING_SET_EDITABLE_ELEMENT,
+    type: FAQS_SET_EDITABLE_ELEMENT,
     payload: {
       type,
       settingId
@@ -82,7 +82,7 @@ export const clearEditalbleElement = () => {
 };
 export const settingRequestOrgStructure = (orgstructures) => {
   return {
-    type: SETTING_ORGSTRUCTURE_SUCCESS,
+    type: FAQS_ORGSTRUCTURE_SUCCESS,
     orgstructures
   };
 };
@@ -90,7 +90,7 @@ export const settingRequestOrgStructure = (orgstructures) => {
 export const fetchSettings = (settingType, queryParams) => {
   return async (dispatch, _, axios) => {
     try {
-      dispatch(settingsRequestStart());
+      // dispatch(settingsRequestStart());
       const response = await axios.get(`/${settingType}`, {
         params: {
           ...queryParams
@@ -123,7 +123,7 @@ export const fetchSettingCreate = (settingType, body) => {
       message.info({
         content: "Идет проверка введенных данных!"
       });
-      dispatch(settingsRequestStart());
+      // dispatch(settingsRequestStart());
       await axios.post(`/${settingType}`, body);
       dispatch(fetchSettings(settingType));
       dispatch(settingRequestFinished());
@@ -140,7 +140,7 @@ export const fetchSettingCreate = (settingType, body) => {
 export const fetchSettingDelete = (settingType, id) => {
   return async (dispatch, _, axios) => {
     try {
-      dispatch(settingsRequestStart());
+      // dispatch(settingsRequestStart());
       await axios.delete(`/${settingType}/${id}`);
       dispatch(settingRequestFinished());
       dispatch(fetchSettings(settingType));
@@ -160,7 +160,7 @@ export const fetchSettingUpdate = (settingType, record, id) => {
       if (id) {
         updatedSetting.id = id;
       }
-      dispatch(settingsRequestStart());
+      // dispatch(settingsRequestStart());
       await axios.put(`${settingType}/${updatedSetting.id}`, updatedSetting);
       dispatch(clearEditalbleElement());
       dispatch(settingRequestFinished());

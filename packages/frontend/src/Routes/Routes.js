@@ -74,32 +74,7 @@ const Routes = () => {
         path="/edit/user/:id"
         component={EditUser}
       />
-      {/* <Route path="/faq" exact={true} component={FAQ} /> */}
       <Route path="/faq" component={FAQ} />
-      {/* <ProtectedRoute
-        isAllowed={true}
-        redirectTo="/faq"
-        path="/faq"
-        component={FAQ}
-      /> */}
-      {/* <ProtectedRoute
-        isAllowed={user}
-        redirectTo="/auth"
-        path="/faq/bookkeeping"
-        component={EditUser}
-      />
-      <ProtectedRoute
-        isAllowed={user}
-        redirectTo="/auth"
-        path="/faq/supports"
-        component={EditUser}
-      />
-      <ProtectedRoute
-        isAllowed={user}
-        redirectTo="/auth"
-        path="/faq/medicine"
-        component={EditUser}
-      /> */}
       <Redirect to="/" />
     </Switch>
   );

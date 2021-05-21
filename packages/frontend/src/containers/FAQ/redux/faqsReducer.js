@@ -1,20 +1,21 @@
 import {
-  SETTING_REQUEST_COMPANIES,
-  SETTING_REQUEST_DEPARTMENTS,
-  SETTING_REQUEST_ERROR,
-  SETTING_REQUEST_REGLAMENTS,
-  SETTING_REQUEST_STARTED,
-  SETTING_REQUEST_TOPICS,
-  SETTING_REQUEST_POSITIONS,
-  SETTING_SET_EDITABLE_ELEMENT,
+  FAQS_MENU_SHOW,
+  FAQS_REQUEST_COMPANIES,
+  FAQS_REQUEST_DEPARTMENTS,
+  FAQS_REQUEST_ERROR,
+  FAQS_REQUEST_REGLAMENTS,
+  FAQS_REQUEST_STARTED,
+  FAQS_REQUEST_TOPICS,
+  FAQS_REQUEST_POSITIONS,
+  FAQS_SET_EDITABLE_ELEMENT,
   CLEAR_EDITABLE_ELEMENT,
-  SETTING_REQUEST_FINISHED,
-  SETTING_ORGSTRUCTURE_SUCCESS,
-  SETTING_REQUEST_MAIL_MESSAGES
-} from "./settingsTypes";
+  FAQS_REQUEST_FINISHED,
+  FAQS_ORGSTRUCTURE_SUCCESS,
+  FAQS_REQUEST_MAIL_MESSAGES
+} from "./faqsTypes";
 
 const initialState = {
-  orgStructures: [],
+  iconMenuShow: null,
   topics: [],
   reglaments: [],
   companies: [],
@@ -22,46 +23,48 @@ const initialState = {
   positions: [],
   isLoading: false,
   errors: null,
-  editableSetting: null,
+  editableFAQS: null,
   mailMessages: []
 };
 
-export const settingsReducer = (state = initialState, action) => {
+export const faqsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SETTING_REQUEST_STARTED:
+    case FAQS_MENU_SHOW:
+      return { ...state, iconMenuShow: action.showMenu };
+    case FAQS_REQUEST_STARTED:
       return { ...state, isLoading: true };
-    case SETTING_REQUEST_ERROR:
+    case FAQS_REQUEST_ERROR:
       return { ...initialState, errors: action.errors ? action.errors : null };
-    case SETTING_REQUEST_FINISHED:
+    case FAQS_REQUEST_FINISHED:
       return { ...state, isLoading: false };
-    case SETTING_REQUEST_TOPICS:
+    case FAQS_REQUEST_TOPICS:
       return { ...state, topics: action.topics };
-    case SETTING_REQUEST_COMPANIES:
+    case FAQS_REQUEST_COMPANIES:
       return { ...state, companies: action.companies };
-    case SETTING_ORGSTRUCTURE_SUCCESS:
+    case FAQS_ORGSTRUCTURE_SUCCESS:
       return { ...state, orgStructures: action.orgstructures };
-    case SETTING_REQUEST_REGLAMENTS:
+    case FAQS_REQUEST_REGLAMENTS:
       return { ...state, reglaments: action.reglaments };
-    case SETTING_REQUEST_DEPARTMENTS:
+    case FAQS_REQUEST_DEPARTMENTS:
       return { ...state, departments: action.departments };
-    case SETTING_REQUEST_POSITIONS:
+    case FAQS_REQUEST_POSITIONS:
       return { ...state, positions: action.positions };
-    case SETTING_REQUEST_MAIL_MESSAGES:
+    case FAQS_REQUEST_MAIL_MESSAGES:
       return { ...state, mailMessages: action.mailMessages };
-    case SETTING_SET_EDITABLE_ELEMENT:
+    case FAQS_SET_EDITABLE_ELEMENT:
       switch (action.payload.type) {
         case "topics":
           return {
             ...state,
-            editableSetting: state.topics.find(
-              (topic) => topic.id === action.payload.settingId
-            )
+            editableFAQS: state.topics.find((topic) => {
+              return topic.id === action.payload.FAQSId;
+            })
           };
         case "reglaments":
           return {
             ...state,
             // eslint-disable-next-line array-callback-return
-            editableSetting: state.reglaments.reduce(
+            editableFAQS: state.reglaments.reduce(
               (regForEdit, reg) => {
                 if (!regForEdit) {
                   return regForEdit;
@@ -127,53 +130,53 @@ export const settingsReducer = (state = initialState, action) => {
                 }
                 return regForEdit;
               },
-              state.reglaments.find(
-                (reglament) => reglament.id === action.payload.settingId
-              )
+              state.reglaments.find((reglament) => {
+                return reglament.id === action.payload.FAQSId;
+              })
             )
           };
         case "orgstructures":
           return {
             ...state,
-            editableSetting: state.orgStructures.find(
-              (orgS) => orgS.id === action.payload.settingId
-            )
+            editableFAQS: state.orgStructures.find((orgS) => {
+              return orgS.id === action.payload.FAQSId;
+            })
           };
         case "companies":
           return {
             ...state,
-            editableSetting: state.companies.find(
-              (company) => company.id === action.payload.settingId
-            )
+            editableFAQS: state.companies.find((company) => {
+              return company.id === action.payload.FAQSId;
+            })
           };
         case "departments":
           return {
             ...state,
-            editableSetting: state.departments.find(
-              (department) => department.id === action.payload.settingId
-            )
+            editableFAQS: state.departments.find((department) => {
+              return department.id === action.payload.FAQSId;
+            })
           };
         case "positions":
           return {
             ...state,
-            editableSetting: state.positions.find(
-              (position) => position.id === action.payload.settingId
-            )
+            editableFAQS: state.positions.find((position) => {
+              return position.id === action.payload.FAQSId;
+            })
           };
         case "mailmessages":
           return {
             ...state,
-            editableSetting: state.mailMessages.find(
-              (mailMessage) => mailMessage.id === action.payload.settingId
-            )
+            editableFAQS: state.mailMessages.find((mailMessage) => {
+              return mailMessage.id === action.payload.FAQSId;
+            })
           };
         default:
           return state;
       }
     case CLEAR_EDITABLE_ELEMENT:
-      return { ...state, editableSetting: null };
+      return { ...state, editableFAQS: null };
     default:
       return state;
   }
 };
-export default settingsReducer;
+export default faqsReducer;

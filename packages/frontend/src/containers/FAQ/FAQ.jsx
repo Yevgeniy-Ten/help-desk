@@ -6,6 +6,9 @@ import {
   NavLink,
   useLocation
 } from "react-router-dom";
+import { useDispatch, shallowEqual, useSelector } from "react-redux";
+import { getMenuShow } from "./redux/faqsGetters";
+import { faqsIconMenuShow } from "./redux/faqsActions";
 import { Col, Divider, Row, Avatar } from "antd";
 import Websites from "./Websites/Websites";
 import Supports from "./Supports/Supports";
@@ -15,14 +18,20 @@ import styles from "./FAQ.module.css";
 
 const FAQ = () => {
   const pathUrl = useLocation();
-  const [iconMenuShow, setIconMenuShow] = useState(null);
+  const dispatch = useDispatch();
+
+  const { iconMenuShow } = useSelector(getMenuShow, shallowEqual);
+
   const menuShow = () => {
-    setIconMenuShow(true);
+    dispatch(faqsIconMenuShow(true));
   };
 
   useEffect(() => {
     if (pathUrl.pathname === "/faq") {
-      setIconMenuShow(null);
+      dispatch(faqsIconMenuShow(null));
+    }
+    if (pathUrl.pathname !== "/faq") {
+      dispatch(faqsIconMenuShow(true));
     }
   }, [pathUrl]);
   return (

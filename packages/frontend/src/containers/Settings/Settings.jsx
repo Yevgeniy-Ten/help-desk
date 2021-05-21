@@ -61,71 +61,83 @@ const Settings = () => {
         <Switch>
           <Route
             path="/settings/topics"
-            render={(props) => (
-              <TopicsTable
-                {...props}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("topics", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <TopicsTable
+                  {...props}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("topics", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route
             path="/settings/companies"
-            render={(props) => (
-              <CompanyTables
-                {...props}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("companies", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <CompanyTables
+                  {...props}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("companies", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route
             path="/settings/reglaments"
-            render={(props) => (
-              <ReglamentsTable
-                {...props}
-                currentPage={currentReglamentPage}
-                onChangeCurrentPage={setCurrentReglamentPage}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("reglaments", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <ReglamentsTable
+                  {...props}
+                  currentPage={currentReglamentPage}
+                  onChangeCurrentPage={setCurrentReglamentPage}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("reglaments", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route
             path="/settings/departments"
-            render={(props) => (
-              <DepartmentTable
-                {...props}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("departments", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <DepartmentTable
+                  {...props}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("departments", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route
             path="/settings/positions"
-            render={(props) => (
-              <PositionTable
-                {...props}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("positions", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <PositionTable
+                  {...props}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("positions", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route
             path="/settings/orgstructure"
-            render={(props) => (
-              <OrgStructureTable
-                {...props}
-                onShowEditor={(idForEdit) =>
-                  onShowSettingEditor("orgstructures", idForEdit)
-                }
-              />
-            )}
+            render={(props) => {
+              return (
+                <OrgStructureTable
+                  {...props}
+                  onShowEditor={(idForEdit) => {
+                    return onShowSettingEditor("orgstructures", idForEdit);
+                  }}
+                />
+              );
+            }}
           />
           <Route path="/settings/mailmessage" component={MailMessageForm} />
           <Redirect to="/settings/topics" />

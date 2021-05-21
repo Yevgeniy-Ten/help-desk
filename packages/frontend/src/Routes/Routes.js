@@ -13,6 +13,7 @@ import FAQ from "../containers/FAQ/FAQ";
 import EditUser from "../containers/AllUsers/EditUser";
 import Audit from "../containers/Audit/Audit";
 import Log from "../containers/Log/Log";
+import Websites from "../containers/FAQ/Websites/Websites";
 
 const Routes = () => {
   const user = useSelector(getUser);
@@ -73,7 +74,32 @@ const Routes = () => {
         path="/edit/user/:id"
         component={EditUser}
       />
-      <Route path="/faq" exact={true} component={FAQ} />
+      {/* <Route path="/faq" exact={true} component={FAQ} /> */}
+      <Route path="/faq" component={FAQ} />
+      {/* <ProtectedRoute
+        isAllowed={true}
+        redirectTo="/faq"
+        path="/faq"
+        component={FAQ}
+      /> */}
+      {/* <ProtectedRoute
+        isAllowed={user}
+        redirectTo="/auth"
+        path="/faq/bookkeeping"
+        component={EditUser}
+      />
+      <ProtectedRoute
+        isAllowed={user}
+        redirectTo="/auth"
+        path="/faq/supports"
+        component={EditUser}
+      />
+      <ProtectedRoute
+        isAllowed={user}
+        redirectTo="/auth"
+        path="/faq/medicine"
+        component={EditUser}
+      /> */}
       <Redirect to="/" />
     </Switch>
   );

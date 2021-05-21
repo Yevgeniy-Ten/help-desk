@@ -2,18 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
-      <change afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/MailMessageForm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forMailMessage/controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forMailMessage/controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forMailMessage/mailMessage.router.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forMailMessage/mailMessage.router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/passport.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/passport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsFilter/SettingsFilter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/OrgStructureForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/SettingsForm/OrgStructureForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/Settings.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingGetters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Settings/redux/settingsTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/mailer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/mailer/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AnonymMenu/AnonymMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AnonymMenu/AnonymMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AuthMenu/AuthMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AuthMenu/AuthMenu.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,6 +162,7 @@
       <workItem from="1620571145134" duration="3279000" />
       <workItem from="1621049556084" duration="5788000" />
       <workItem from="1621415824749" duration="3038000" />
+      <workItem from="1621580686992" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

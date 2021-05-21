@@ -1,26 +1,23 @@
 export const getMenuShow = (state) => {
   return state.faqs;
 };
-export const getReglaments = (state) => {
-  return state.faqs.reglaments;
+export const getBookkeeping = (state) => {
+  return state.faqs.bookkeeping;
 };
-export const getCompanies = (state) => {
-  return state.faqs.companies;
+export const getSupports = (state) => {
+  return state.faqs.supports;
 };
-export const getDepartments = (state) => {
-  return state.faqs.departments;
+export const getWebsites = (state) => {
+  return state.faqs.websites;
+};
+export const getMedicine = (state) => {
+  return state.faqs.medicine;
 };
 export const getfaqsLoader = (state) => {
   return state.faqs.isLoading;
 };
-export const getPositions = (state) => {
-  return state.faqs.positions;
-};
 export const getEditableElement = (state) => {
   return state.faqs.editableSetting;
-};
-export const getOrgStructures = (state) => {
-  return state.faqs.orgStructures;
 };
 export const getMailMessages = (state) => {
   return state.faqs.mailMessages;

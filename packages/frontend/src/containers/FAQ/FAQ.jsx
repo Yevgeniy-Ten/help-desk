@@ -17,7 +17,7 @@ import Medicine from "./Medicine/Medicine";
 import styles from "./FAQ.module.css";
 
 const FAQ = () => {
-  const pathUrl = useLocation();
+  const pathFaqs = useLocation();
   const dispatch = useDispatch();
 
   const { iconMenuShow } = useSelector(getMenuShow, shallowEqual);
@@ -27,13 +27,13 @@ const FAQ = () => {
   };
 
   useEffect(() => {
-    if (pathUrl.pathname === "/faq") {
+    if (pathFaqs.pathname === "/faq") {
       dispatch(faqsIconMenuShow(null));
     }
-    if (pathUrl.pathname !== "/faq") {
+    if (pathFaqs.pathname !== "/faq") {
       dispatch(faqsIconMenuShow(true));
     }
-  }, [pathUrl]);
+  }, [pathFaqs]);
   return (
     <div style={{ padding: "0 20px" }}>
       <Divider orientation="left">Решения</Divider>

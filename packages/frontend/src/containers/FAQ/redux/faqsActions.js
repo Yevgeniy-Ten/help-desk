@@ -1,16 +1,14 @@
 import {
   FAQS_MENU_SHOW,
-  CLEAR_EDITABLE_ELEMENT,
+  FAQS_REQUEST_WEBSITES,
+  FAQS_REQUEST_BOOKKEEPING,
+  FAQS_REQUEST_MEDICINE,
+  FAQS_REQUEST_SUPPORTS,
   FAQS_DELETE_SUCCESS,
-  FAQS_ORGSTRUCTURE_SUCCESS,
-  FAQS_REQUEST_COMPANIES,
-  FAQS_REQUEST_DEPARTMENTS,
   FAQS_REQUEST_ERROR,
   FAQS_REQUEST_FINISHED,
   FAQS_REQUEST_MAIL_MESSAGES,
-  FAQS_REQUEST_POSITIONS,
-  FAQS_REQUEST_REGLAMENTS,
-  FAQS_REQUEST_TOPICS,
+  CLEAR_EDITABLE_ELEMENT,
   FAQS_SET_EDITABLE_ELEMENT
 } from "./faqsTypes";
 import { message } from "antd";
@@ -18,156 +16,141 @@ import { message } from "antd";
 export const faqsIconMenuShow = (showMenu) => {
   return { type: FAQS_MENU_SHOW, showMenu };
 };
-export const settingsRequestError = (errors) => {
+export const faqsRequestError = (errors) => {
   return {
     type: FAQS_REQUEST_ERROR,
     errors
   };
 };
-export const settingRequestFinished = () => {
+export const faqRequestFinished = () => {
   return {
     type: FAQS_REQUEST_FINISHED
   };
 };
-export const settingsRequestTopics = (topics) => {
+export const faqsRequestWebsites = (websites) => {
   return {
-    type: FAQS_REQUEST_TOPICS,
-    topics
+    type: FAQS_REQUEST_WEBSITES,
+    websites
   };
 };
-export const settingsRequestReglaments = (reglaments) => {
+export const faqsRequestSupports = (supports) => {
   return {
-    type: FAQS_REQUEST_REGLAMENTS,
-    reglaments
+    type: FAQS_REQUEST_SUPPORTS,
+    supports
   };
 };
-export const settingsRequestMailMessages = (mailMessages) => {
+export const faqsRequestMailMessages = (mailMessages) => {
   return {
     type: FAQS_REQUEST_MAIL_MESSAGES,
     mailMessages
   };
 };
-export const settingsRequestDepartments = (departments) => {
+export const faqsRequestMedicine = (medicine) => {
   return {
-    type: FAQS_REQUEST_DEPARTMENTS,
-    departments
+    type: FAQS_REQUEST_MEDICINE,
+    medicine
   };
 };
-export const settingsRequestCompanies = (companies) => {
+export const faqsRequestBookkeeping = (bookkeeping) => {
   return {
-    type: FAQS_REQUEST_COMPANIES,
-    companies
+    type: FAQS_REQUEST_BOOKKEEPING,
+    bookkeeping
   };
 };
-export const settingsRequestPositions = (positions) => {
-  return {
-    type: FAQS_REQUEST_POSITIONS,
-    positions
-  };
-};
-export const settingDeleteSuccess = () => {
+
+export const faqDeleteSuccess = () => {
   return { type: FAQS_DELETE_SUCCESS };
 };
-export const setEditableSetting = (type, settingId) => {
+export const setEditableFaq = (type, faqId) => {
   return {
     type: FAQS_SET_EDITABLE_ELEMENT,
     payload: {
       type,
-      settingId
+      faqId
     }
   };
 };
 export const clearEditalbleElement = () => {
   return { type: CLEAR_EDITABLE_ELEMENT };
 };
-export const settingRequestOrgStructure = (orgstructures) => {
-  return {
-    type: FAQS_ORGSTRUCTURE_SUCCESS,
-    orgstructures
-  };
-};
 
-export const fetchSettings = (settingType, queryParams) => {
+export const fetchFaqs = (faqType, queryParams) => {
   return async (dispatch, _, axios) => {
     try {
-      // dispatch(settingsRequestStart());
-      const response = await axios.get(`/${settingType}`, {
+      // dispatch(faqsRequestStart());
+      const response = await axios.get(`/${faqType}`, {
         params: {
           ...queryParams
         }
       });
-      if (settingType === "companies") {
-        dispatch(settingsRequestCompanies(response.data));
-      } else if (settingType === "departments") {
-        dispatch(settingsRequestDepartments(response.data));
-      } else if (settingType === "topics") {
-        dispatch(settingsRequestTopics(response.data));
-      } else if (settingType === "reglaments") {
-        dispatch(settingsRequestReglaments(response.data));
-      } else if (settingType === "orgstructure") {
-        dispatch(settingRequestOrgStructure(response.data));
-      } else if (settingType === "position") {
-        dispatch(settingsRequestPositions(response.data));
-      } else if (settingType === "mailmessages") {
-        dispatch(settingsRequestMailMessages(response.data));
+      if (faqType === "bookkeeping") {
+        dispatch(faqsRequestBookkeeping(response.data));
+      } else if (faqType === "medicine") {
+        dispatch(faqsRequestMedicine(response.data));
+      } else if (faqType === "websites") {
+        dispatch(faqsRequestWebsites(response.data));
+      } else if (faqType === "supports") {
+        dispatch(faqsRequestSupports(response.data));
+      } else if (faqType === "mailmessages") {
+        dispatch(faqsRequestMailMessages(response.data));
       }
-      dispatch(settingRequestFinished());
+      dispatch(faqRequestFinished());
     } catch (e) {
-      dispatch(settingsRequestError(e.response ? e.response.data : e.message));
+      dispatch(faqsRequestError(e.response ? e.response.data : e.message));
     }
   };
 };
-export const fetchSettingCreate = (settingType, body) => {
+export const fetchFaqCreate = (faqType, body) => {
   return async (dispatch, _, axios) => {
     try {
       message.info({
         content: "Идет проверка введенных данных!"
       });
-      // dispatch(settingsRequestStart());
-      await axios.post(`/${settingType}`, body);
-      dispatch(fetchSettings(settingType));
-      dispatch(settingRequestFinished());
+      // dispatch(faqsRequestStart());
+      await axios.post(`/${faqType}`, body);
+      dispatch(fetchFaqs(faqType));
+      dispatch(faqRequestFinished());
       message.success({
         className: "message-custom",
-        content: `${settingType} создана успешно!`
+        content: `${faqType} создана успешно!`
       });
     } catch (errors) {
-      dispatch(settingsRequestError(errors));
+      dispatch(faqsRequestError(errors));
     }
   };
 };
 
-export const fetchSettingDelete = (settingType, id) => {
+export const fetchFaqDelete = (faqType, id) => {
   return async (dispatch, _, axios) => {
     try {
-      // dispatch(settingsRequestStart());
-      await axios.delete(`/${settingType}/${id}`);
-      dispatch(settingRequestFinished());
-      dispatch(fetchSettings(settingType));
+      // dispatch(faqsRequestStart());
+      await axios.delete(`/${faqType}/${id}`);
+      dispatch(faqRequestFinished());
+      dispatch(fetchFaqs(faqType));
     } catch (errors) {
-      dispatch(settingsRequestError(errors));
+      dispatch(faqsRequestError(errors));
     }
   };
 };
 
-export const fetchSettingUpdate = (settingType, record, id) => {
+export const fetchFaqUpdate = (faqType, record, id) => {
   return async (dispatch, getState, axios) => {
     try {
-      const updatedSetting = {
-        ...getState().settings.editableSetting,
+      const updatedFaq = {
+        ...getState().faqs.editableFaq,
         ...record
       };
       if (id) {
-        updatedSetting.id = id;
+        updatedFaq.id = id;
       }
-      // dispatch(settingsRequestStart());
-      await axios.put(`${settingType}/${updatedSetting.id}`, updatedSetting);
+      // dispatch(faqsRequestStart());
+      await axios.put(`${faqType}/${updatedFaq.id}`, updatedFaq);
       dispatch(clearEditalbleElement());
-      dispatch(settingRequestFinished());
-      dispatch(fetchSettings(settingType));
+      dispatch(faqRequestFinished());
+      dispatch(fetchFaqs(faqType));
     } catch (errors) {
       console.log(errors);
-      // dispatch(settingsRequestError(errors))
+      // dispatch(faqsRequestError(errors))
     }
   };
 };

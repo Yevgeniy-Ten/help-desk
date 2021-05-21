@@ -1,26 +1,24 @@
 import {
   FAQS_MENU_SHOW,
-  FAQS_REQUEST_COMPANIES,
-  FAQS_REQUEST_DEPARTMENTS,
+  FAQS_REQUEST_BOOKKEEPING,
+  FAQS_REQUEST_MEDICINE,
   FAQS_REQUEST_ERROR,
-  FAQS_REQUEST_REGLAMENTS,
+  FAQS_REQUEST_SUPPORTS,
   FAQS_REQUEST_STARTED,
-  FAQS_REQUEST_TOPICS,
-  FAQS_REQUEST_POSITIONS,
+  FAQS_REQUEST_WEBSITES,
   FAQS_SET_EDITABLE_ELEMENT,
   CLEAR_EDITABLE_ELEMENT,
   FAQS_REQUEST_FINISHED,
-  FAQS_ORGSTRUCTURE_SUCCESS,
   FAQS_REQUEST_MAIL_MESSAGES
 } from "./faqsTypes";
 
 const initialState = {
   iconMenuShow: null,
-  topics: [],
-  reglaments: [],
-  companies: [],
-  departments: [],
-  positions: [],
+  websites: [],
+  bookkeeping: [],
+  supports: [],
+  medicine: [],
+
   isLoading: false,
   errors: null,
   editableFAQS: null,
@@ -37,18 +35,18 @@ export const faqsReducer = (state = initialState, action) => {
       return { ...initialState, errors: action.errors ? action.errors : null };
     case FAQS_REQUEST_FINISHED:
       return { ...state, isLoading: false };
-    case FAQS_REQUEST_TOPICS:
-      return { ...state, topics: action.topics };
-    case FAQS_REQUEST_COMPANIES:
-      return { ...state, companies: action.companies };
-    case FAQS_ORGSTRUCTURE_SUCCESS:
-      return { ...state, orgStructures: action.orgstructures };
-    case FAQS_REQUEST_REGLAMENTS:
-      return { ...state, reglaments: action.reglaments };
-    case FAQS_REQUEST_DEPARTMENTS:
-      return { ...state, departments: action.departments };
-    case FAQS_REQUEST_POSITIONS:
-      return { ...state, positions: action.positions };
+    // sss
+    case FAQS_REQUEST_WEBSITES:
+      return { ...state, websites: action.websites };
+    // sss
+    case FAQS_REQUEST_BOOKKEEPING:
+      return { ...state, bookkeeping: action.bookkeeping };
+    // sss
+    case FAQS_REQUEST_SUPPORTS:
+      return { ...state, supports: action.supports };
+    // sss
+    case FAQS_REQUEST_MEDICINE:
+      return { ...state, medicine: action.medicine };
     case FAQS_REQUEST_MAIL_MESSAGES:
       return { ...state, mailMessages: action.mailMessages };
     case FAQS_SET_EDITABLE_ELEMENT:

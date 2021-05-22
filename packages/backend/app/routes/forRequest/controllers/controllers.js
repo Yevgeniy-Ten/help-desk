@@ -88,6 +88,7 @@ module.exports = {
                         topicTitle: rule && rule.topic.title,
                         priority,
                         status,
+                        employeeId: newRequest.dataValues.employeeId,
                         deadline: newRequest.dataValues.deadline,
                         departmentTitle: rule && rule.department.title,
                         employeeName: employee
@@ -172,11 +173,13 @@ module.exports = {
             ]
         });
         let employee = await User.findAll({
+            where: {
+                roleId: 1
+            },
             include: [
                 {
                     model: Request,
                     as: "employeeRequest",
-                    // include: ["employeeRequest"]
                 }
             ]
         });
@@ -184,7 +187,7 @@ module.exports = {
             company: null,
             employee: null
         }
-        auditByCompany = company.reduce((a, companyWithUsers) => {
+        let auditByCompany = company.reduce((a, companyWithUsers) => {
             const companyInfo = {
                 name: companyWithUsers.title,
                 users: companyWithUsers.users.length
@@ -246,13 +249,15 @@ module.exports = {
             a.push(companyInfo);
             return a;
         }, []);
-
-        auditByEmployee = employee.reduce((a, employeeWithRequests) => {
+        
+        let auditByEmployee = []
+        for(item of employee) {
             let employeeInfo = {
-                user: employeeWithRequests,
-                count: employeeWithRequests.employeeRequest.length
+                user: item,
+                hourWork: await helpers.hourWorkEmployeeCalc(item.id),
+                count: item.employeeRequest.length
             };
-            const requests = employeeWithRequests.employeeRequest.reduce(
+            const requests = item.employeeRequest.reduce(
                 (requestReport, request) => {
                     switch (request && request.priority) {
                         case "Стандартно":
@@ -300,10 +305,8 @@ module.exports = {
                 }
             );
             employeeInfo.requests = requests;
-            a.push(employeeInfo);
-            return a;
-        }, []);
-
+            auditByEmployee.push(employeeInfo)
+        }
         report.company = auditByCompany;
         report.employee = auditByEmployee;
         res.send(report);
@@ -369,6 +372,7 @@ module.exports = {
                 employeeName: requestCopy.employeeRequest
                     ? `${requestCopy.employeeRequest.dataValues.firstName} ${requestCopy.employeeRequest.dataValues.lastName}`
                     : "Не назначено",
+                employeeId: requestCopy.employeeRequest.dataValues.id,
                 deadline: requestCopy.dataValues.deadline,
                 hourWork: requestCopy.dataValues.hourWork,
                 status: requestCopy.dataValues.status,

@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import { fetchSettings } from "../../containers/Settings/redux/settingsActions";
 import { getTopics } from "../../containers/Settings/redux/settingGetters";
+import { getUser } from "../../containers/Auth/redux/getters/getters";
 
 const { Option } = Select;
-const SettingsFilter = ({ paramFilter }) => {
+const SettingsFilter = ({ paramFilter, onShowEditor }) => {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const [form] = Form.useForm();
   const topics = useSelector(getTopics);
-  console.log([...topics]);
 
   useEffect(() => {
     dispatch(fetchSettings("topics"));
@@ -29,22 +30,36 @@ const SettingsFilter = ({ paramFilter }) => {
     <Form form={form} name="form-filter" layout="vertical">
       {!paramFilter && <h3>Фильтр</h3>}
       {!paramFilter && <hr />}
-      <Form.Item
-        name="status"
-        label={paramFilter ? "По тематике" : "По статусу"}
-      >
-        {paramFilter ? (
-          <Select
-            placeholder="Тематика FAQ"
-            defaultValue={1}
-            name="topics"
-            onChange={onChangeSelect}
+      <div style={{ marginBottom: "20px" }}>
+        {user && user.roleId === 1 && (
+          <Button
+            onClick={() => {
+              console.log("test");
+              onShowEditor();
+              // dispatch(fetchGetFile());
+            }}
           >
-            {topics &&
-              topics.map((topic) => {
-                return <Option value={topic.id}>{topic.title}</Option>;
-              })}
-          </Select>
+            Создать решение
+          </Button>
+        )}
+      </div>
+      <Form.Item name="status" label={paramFilter ? "Фильтр: " : "По статусу"}>
+        {paramFilter ? (
+          <>
+            <div>
+              <Select
+                placeholder="Тематика FAQ"
+                defaultValue={1}
+                name="topics"
+                onChange={onChangeSelect}
+              >
+                {topics &&
+                  topics.map((topic) => {
+                    return <Option value={topic.id}>{topic.title}</Option>;
+                  })}
+              </Select>
+            </div>
+          </>
         ) : (
           <Select
             placeholder="Справочник"

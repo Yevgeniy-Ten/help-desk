@@ -7,51 +7,61 @@ import {
   useLocation
 } from "react-router-dom";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
-import { Col, Divider, Row, Avatar } from "antd";
-import Websites from "../../components/FAQs/Websites/Websites";
+import { Col, Divider, Row, Drawer, Avatar } from "antd";
+import Answers from "../../components/FAQs/Answers/Answers";
 import styles from "./FAQ.module.css";
 import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
+import FAQsForm from "../../components/FAQs/FAQsForm/FAQsForm";
+import { useToggle } from "../../hooks/useToggle";
+import { fetchFaq } from "./redux/faqsActions";
 
 const FAQ = () => {
-  const pathFaqs = useLocation();
   const dispatch = useDispatch();
+  const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
 
-  const menuShow = () => {
-    dispatch(faqsIconMenuShow(true));
+  const onShowSettingEditor = () => {
+    toggleDrawerIsOpen();
   };
-
-  // useEffect(() => {
-  //   if (pathFaqs.pathname === "/faq") {
-  //     dispatch(faqsIconMenuShow(null));
-  //   }
-  //   if (pathFaqs.pathname !== "/faq") {
-  //     dispatch(faqsIconMenuShow(true));
-  //   }
-  // }, [pathFaqs]);
+  const closeDrawerWithResetSettingFields = () => {
+    toggleDrawerIsOpen();
+  };
+  useEffect(() => {
+    dispatch(fetchFaq());
+  }, []);
   return (
     <div style={{ padding: "0 20px" }}>
       <Divider orientation="left">Решения</Divider>
       <Row gutter={16}>
         <Col span={6}>
-          <SettingsFilter paramFilter={true} />
-        </Col>
-      </Row>
-      <Row>
-        <Switch>
-          <Route
-            path="/faq/websites"
-            render={(props) => {
-              return (
-                <Websites
-                  {...props}
-                  onShowEditor={(idForEdit) => {
-                    return console.log("topics", idForEdit);
-                  }}
-                />
-              );
+          <SettingsFilter
+            paramFilter={true}
+            onShowEditor={(idForEdit) => {
+              return onShowSettingEditor();
             }}
           />
-        </Switch>
+        </Col>
+      </Row>
+      <Row gutter={16}>
+        <Answers
+          onShowEditor={(idForEdit) => {
+            return onShowSettingEditor();
+          }}
+        />
+        <Col span={24}>
+          <Drawer
+            title="Форма"
+            width={500}
+            placement="right"
+            closable={true}
+            onClose={closeDrawerWithResetSettingFields}
+            visible={drawerIsOpen}
+          >
+            <FAQsForm
+              onCloseEditor={toggleDrawerIsOpen}
+              // topicId={settingTypeIsOpen.idForEdit}
+            />
+          </Drawer>
+        </Col>
       </Row>
     </div>
   );

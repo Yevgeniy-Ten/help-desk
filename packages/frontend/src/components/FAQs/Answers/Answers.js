@@ -7,7 +7,7 @@ import { getUser } from "../../../containers/Auth/redux/getters/getters";
 
 const { Panel } = Collapse;
 
-const Websites = () => {
+const Answers = ({ onShowEditor }) => {
   const loading = false;
   const dispatch = useDispatch();
   const user = useSelector(getUser);
@@ -16,8 +16,10 @@ const Websites = () => {
     if (user && user.roleId === 1) {
       return (
         <EditOutlined
+          style={{ marginLeft: "10px" }}
           onClick={(event) => {
             event.stopPropagation();
+            onShowEditor();
           }}
         />
       );
@@ -26,21 +28,7 @@ const Websites = () => {
   useEffect(() => {});
   return (
     <Row style={{ padding: "10px 20px" }}>
-      {user && user.roleId === 1 && (
-        <Col span={24} className="mb-sm">
-          <Breadcrumb>
-            <Button
-              onClick={() => {
-                console.log("test");
-                // dispatch(fetchGetFile());
-              }}
-            >
-              Создать решение
-            </Button>
-          </Breadcrumb>
-        </Col>
-      )}
-      <Col span={24}>
+      <Col span={24} className="mb-sm">
         {loading ? null : ( // <Spinner />
           <>
             <Form name="faqs" layout="vertical">
@@ -69,4 +57,4 @@ const Websites = () => {
   );
 };
 
-export default Websites;
+export default Answers;

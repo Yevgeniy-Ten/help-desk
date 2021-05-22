@@ -1,5 +1,6 @@
 import {
   FAQS_REQUEST,
+  FAQS_REQUEST_STARTED,
   FAQS_DELETE_SUCCESS,
   FAQS_REQUEST_ERROR,
   FAQS_REQUEST_FINISHED,
@@ -8,6 +9,9 @@ import {
 } from "./faqsTypes";
 import { message } from "antd";
 
+export const faqsRequestStart = () => {
+  return { type: FAQS_REQUEST_STARTED };
+};
 export const faqsRequestError = (errors) => {
   return {
     type: FAQS_REQUEST_ERROR,
@@ -42,18 +46,12 @@ export const clearEditalbleElement = () => {
   return { type: CLEAR_EDITABLE_ELEMENT };
 };
 
-export const fetchFaq = (faqType, queryParams) => {
+export const fetchFaq = (faqId) => {
   return async (dispatch, _, axios) => {
     try {
-      // dispatch(faqsRequestStart());
-      const response = await axios.get(`/${faqType}`, {
-        params: {
-          ...queryParams
-        }
-      });
-      if (faqType === "websites") {
-        dispatch(faqsRequestFaq(response.data));
-      }
+      dispatch(faqsRequestStart());
+      const response = await axios.get(`/topics/solutions/${faqId}`);
+      dispatch(faqsRequestFaq(response.data));
       dispatch(faqRequestFinished());
     } catch (e) {
       dispatch(faqsRequestError(e.response ? e.response.data : e.message));

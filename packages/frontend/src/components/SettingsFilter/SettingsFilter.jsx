@@ -5,6 +5,7 @@ import { push } from "connected-react-router";
 import { fetchSettings } from "../../containers/Settings/redux/settingsActions";
 import { getTopics } from "../../containers/Settings/redux/settingGetters";
 import { getUser } from "../../containers/Auth/redux/getters/getters";
+import { fetchFaq } from "../../containers/FAQ/redux/faqsActions";
 
 const { Option } = Select;
 const SettingsFilter = ({ paramFilter, onShowEditor }) => {
@@ -25,6 +26,7 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
         dispatch(push(value));
       }, 700);
     }
+    dispatch(fetchFaq(value));
   };
   return (
     <Form form={form} name="form-filter" layout="vertical">

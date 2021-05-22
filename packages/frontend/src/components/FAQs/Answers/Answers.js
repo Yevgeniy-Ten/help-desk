@@ -4,6 +4,7 @@ import { Breadcrumb, Col, Row, Collapse, Form, Input, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { Link, NavLink } from "react-router-dom";
 import { getUser } from "../../../containers/Auth/redux/getters/getters";
+import { getFaqs } from "../../../containers/FAQ/redux/faqsGetters";
 
 const { Panel } = Collapse;
 
@@ -11,6 +12,8 @@ const Answers = ({ onShowEditor }) => {
   const loading = false;
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const faqs = useSelector(getFaqs);
+  console.log(faqs);
   // eslint-disable-next-line consistent-return
   const genExtra = () => {
     if (user && user.roleId === 1) {
@@ -33,21 +36,32 @@ const Answers = ({ onShowEditor }) => {
           <>
             <Form name="faqs" layout="vertical">
               <Collapse accordion={false}>
-                <Panel header="Как обновить браузер" key={2} extra={genExtra()}>
-                  <p>
-                    <b>Ответ: </b> Нажмите F5
-                  </p>
-                  <p>
-                    <b>Видео: </b>{" "}
-                    <a
-                      href="http://youtube.com"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      You tube
-                    </a>
-                  </p>
-                </Panel>
+                {faqs &&
+                  faqs.map((faq, i) => {
+                    return (
+                      <Panel
+                        header={`${faq.questionTitle}`}
+                        key={i}
+                        extra={genExtra()}
+                      >
+                        <p>
+                          <b>Ответ: </b> {faq.answer}
+                        </p>
+                        {faq.videoPath && (
+                          <p>
+                            <b>Видео: </b>{" "}
+                            <a
+                              href={`${faq.videoPath}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Ссылка на решение
+                            </a>
+                          </p>
+                        )}
+                      </Panel>
+                    );
+                  })}
               </Collapse>
             </Form>
           </>

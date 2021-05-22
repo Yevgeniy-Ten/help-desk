@@ -1,7 +1,7 @@
-export const getWebsites = (state) => {
+export const getFaqs = (state) => {
   return state.faqs.faqs;
 };
-export const getfaqsLoader = (state) => {
+export const getFaqsLoader = (state) => {
   return state.faqs.isLoading;
 };
 export const getEditableElement = (state) => {

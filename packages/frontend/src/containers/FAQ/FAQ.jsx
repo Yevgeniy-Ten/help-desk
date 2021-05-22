@@ -7,84 +7,35 @@ import {
   useLocation
 } from "react-router-dom";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
-import { getMenuShow } from "./redux/faqsGetters";
-import { faqsIconMenuShow } from "./redux/faqsActions";
 import { Col, Divider, Row, Avatar } from "antd";
 import Websites from "../../components/FAQs/Websites/Websites";
-import Supports from "../../components/FAQs/Supports/Supports";
-import Bookkeeping from "../../components/FAQs/Bookkeeping/Bookkeeping";
-import Medicine from "../../components/FAQs/Medicine/Medicine";
 import styles from "./FAQ.module.css";
+import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
 
 const FAQ = () => {
   const pathFaqs = useLocation();
   const dispatch = useDispatch();
 
-  const { iconMenuShow } = useSelector(getMenuShow, shallowEqual);
-
   const menuShow = () => {
     dispatch(faqsIconMenuShow(true));
   };
 
-  useEffect(() => {
-    if (pathFaqs.pathname === "/faq") {
-      dispatch(faqsIconMenuShow(null));
-    }
-    if (pathFaqs.pathname !== "/faq") {
-      dispatch(faqsIconMenuShow(true));
-    }
-  }, [pathFaqs]);
+  // useEffect(() => {
+  //   if (pathFaqs.pathname === "/faq") {
+  //     dispatch(faqsIconMenuShow(null));
+  //   }
+  //   if (pathFaqs.pathname !== "/faq") {
+  //     dispatch(faqsIconMenuShow(true));
+  //   }
+  // }, [pathFaqs]);
   return (
     <div style={{ padding: "0 20px" }}>
       <Divider orientation="left">Решения</Divider>
-      {!iconMenuShow && (
-        <Row gutter={16}>
-          <Col span={6}>
-            <NavLink to="/faq/websites" className="ml-sm" onClick={menuShow}>
-              <div className={styles.card}>
-                <Avatar
-                  size={128}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Mo_yec-4l6efC3W2cmFzt7c0E-nKhKYkjA&usqp=CAU"
-                />
-                <h4>Сайты</h4>
-              </div>
-            </NavLink>
-          </Col>
-          <Col span={6}>
-            <NavLink to="/faq/bookkeeping" className="ml-sm" onClick={menuShow}>
-              <div className={styles.card}>
-                <Avatar
-                  size={128}
-                  src="https://img2.freepng.ru/20180329/iaq/kisspng-accounting-accountant-computer-icons-bookkeeping-f-finance-5abc92d426a2b6.3434380115223077961583.jpg"
-                />
-                <h4>Бухгалтерия</h4>
-              </div>
-            </NavLink>
-          </Col>
-          <Col span={6}>
-            <NavLink to="/faq/supports" className="ml-sm" onClick={menuShow}>
-              <div className={styles.card}>
-                <Avatar
-                  size={128}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq2LtRn8UowmBomodLPh2jo04ODGP8DDJD4w&usqp=CAU"
-                />
-                <h4>Техническая поддержка</h4>
-              </div>
-            </NavLink>
-          </Col>
-          <Col span={6}>
-            <NavLink to="/faq/medicine" className="ml-sm" onClick={menuShow}>
-              <div className={styles.card}>
-                <Avatar
-                  size={128}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_K8YJfZwPU1GhJ3xS3FVYnZ2jqMr_CDOwZQ&usqp=CAU"
-                />
-                <h4>Медицина</h4>
-              </div>
-            </NavLink>
-          </Col>
-        </Row>
-      )}
+      <Row gutter={16}>
+        <Col span={6}>
+          <SettingsFilter paramFilter={true} />
+        </Col>
+      </Row>
       <Row>
         <Switch>
           <Route
@@ -95,47 +46,6 @@ const FAQ = () => {
                   {...props}
                   onShowEditor={(idForEdit) => {
                     return console.log("topics", idForEdit);
-                  }}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/faq/bookkeeping"
-            render={(props) => {
-              return (
-                <Bookkeeping
-                  {...props}
-                  onShowEditor={(idForEdit) => {
-                    return console.log("companies", idForEdit);
-                  }}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/faq/supports"
-            render={(props) => {
-              return (
-                <Supports
-                  {...props}
-                  // currentPage={currentReglamentPage}
-                  // onChangeCurrentPage={setCurrentReglamentPage}
-                  onShowEditor={(idForEdit) => {
-                    return console.log("reglaments", idForEdit);
-                  }}
-                />
-              );
-            }}
-          />
-          <Route
-            path="/faq/medicine"
-            render={(props) => {
-              return (
-                <Medicine
-                  {...props}
-                  onShowEditor={(idForEdit) => {
-                    return console.log("departments", idForEdit);
                   }}
                 />
               );

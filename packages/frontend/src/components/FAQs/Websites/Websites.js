@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import { Breadcrumb, Col, Row, Collapse, Form, Input, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { getMenuShow } from "../../../containers/FAQ/redux/faqsGetters";
 import { Link, NavLink } from "react-router-dom";
 import { getUser } from "../../../containers/Auth/redux/getters/getters";
 
@@ -11,7 +10,6 @@ const { Panel } = Collapse;
 const Websites = () => {
   const loading = false;
   const dispatch = useDispatch();
-  const { iconMenuShow } = useSelector(getMenuShow, shallowEqual);
   const user = useSelector(getUser);
   // eslint-disable-next-line consistent-return
   const genExtra = () => {

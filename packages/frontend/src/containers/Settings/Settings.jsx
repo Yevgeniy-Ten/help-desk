@@ -151,7 +151,7 @@ const Settings = () => {
         )}
       </Col>
       <Col span={!collapsed ? 0 : 5}>
-        <SettingsFilter />
+        <SettingsFilter paramFilter={false} />
       </Col>
       <Col span={24}>
         <Drawer

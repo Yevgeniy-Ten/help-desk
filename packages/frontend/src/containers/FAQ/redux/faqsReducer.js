@@ -1,23 +1,14 @@
 import {
-  FAQS_MENU_SHOW,
-  FAQS_REQUEST_BOOKKEEPING,
-  FAQS_REQUEST_MEDICINE,
   FAQS_REQUEST_ERROR,
-  FAQS_REQUEST_SUPPORTS,
   FAQS_REQUEST_STARTED,
-  FAQS_REQUEST_WEBSITES,
+  FAQS_REQUEST,
   FAQS_SET_EDITABLE_ELEMENT,
   CLEAR_EDITABLE_ELEMENT,
-  FAQS_REQUEST_FINISHED,
-  FAQS_REQUEST_MAIL_MESSAGES
+  FAQS_REQUEST_FINISHED
 } from "./faqsTypes";
 
 const initialState = {
-  iconMenuShow: null,
-  websites: [],
-  bookkeeping: [],
-  supports: [],
-  medicine: [],
+  faqs: [],
 
   isLoading: false,
   errors: null,
@@ -27,8 +18,6 @@ const initialState = {
 
 export const faqsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FAQS_MENU_SHOW:
-      return { ...state, iconMenuShow: action.showMenu };
     case FAQS_REQUEST_STARTED:
       return { ...state, isLoading: true };
     case FAQS_REQUEST_ERROR:
@@ -36,19 +25,9 @@ export const faqsReducer = (state = initialState, action) => {
     case FAQS_REQUEST_FINISHED:
       return { ...state, isLoading: false };
     // sss
-    case FAQS_REQUEST_WEBSITES:
-      return { ...state, websites: action.websites };
-    // sss
-    case FAQS_REQUEST_BOOKKEEPING:
-      return { ...state, bookkeeping: action.bookkeeping };
-    // sss
-    case FAQS_REQUEST_SUPPORTS:
-      return { ...state, supports: action.supports };
-    // sss
-    case FAQS_REQUEST_MEDICINE:
-      return { ...state, medicine: action.medicine };
-    case FAQS_REQUEST_MAIL_MESSAGES:
-      return { ...state, mailMessages: action.mailMessages };
+    case FAQS_REQUEST:
+      return { ...state, faqs: action.faqs };
+
     case FAQS_SET_EDITABLE_ELEMENT:
       switch (action.payload.type) {
         case "topics":

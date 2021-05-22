@@ -59,9 +59,8 @@ module.exports = {
                     hourWorkHistory += currentDate - histories[i].updatedAt;
                 }
                 for (let j = i + 1; j < histories.length; j++) {
-                    if(histories[i].employeeId === employeeId && histories[i].employeeId === histories[j].employeeId) {
+                    if(histories[i].employeeId === employeeId) {
                         hourWorkHistory += histories[j].hourWork - histories[i].hourWork;
-                        
                     }
                     break;
                 }

@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {User, OrgStructure} = require("../../../../models");
+const {User, OrgStructure, Department, Position} = require("../../../../models");
 const {saveFile} = require("../../../helpers/helpers");
 const LogCreator = require("../../../creators/LogCreator")
 const MessageSender = require("../../../mailer/index")
@@ -8,26 +8,43 @@ const {backUrl, webURL} = require("../../../../config/general.config")
 const CONFIRM_URL = `${backUrl}/users/confirm/`
 const UsersController = {
     async getAll(req, res) {
-        const {departmentId} = req.query;
-        if (departmentId) {
-            let orgStructures = await OrgStructure.findAll({
-                where: {
-                    departmentId
-                },
-                include: ["users"]
-            });
-            orgStructures = orgStructures.reduce(
-                (allUsers, o) => allUsers.concat(o.users),
-                []
-            );
-            if (!orgStructures.length) return res.sendStatus(404);
-            return res.json(orgStructures);
-        }
+        // const {departmentId} = req.query;
+        // if (departmentId) {
+        //     let orgStructures = await OrgStructure.findAll({
+        //         where: {
+        //             departmentId
+        //         },
+        //         include: ["users"]
+        //     });
+        //     orgStructures = orgStructures.reduce(
+        //         (allUsers, o) => allUsers.concat(o.users),
+        //         []
+        //     );
+        //     if (!orgStructures.length) return res.sendStatus(404);
+        //     return res.json(orgStructures);
+        // }
 
         const users = await User.findAll({
-            include: ["company", "role", "orgStructure"]
+            include: [
+                "company", 
+                "role", 
+                {
+                    model: OrgStructure,
+                    as: "orgStructure",
+                    include: [
+                        {
+                            model: Department,
+                            as: "department", 
+                        },
+                        {
+                            model: Position,
+                            as: "position", 
+                        }
+                    ]
+                }
+            ]
         });
-        res.json(users);
+        res.send(users);
     },
     async getCurrentUser(req, res) {
         try {

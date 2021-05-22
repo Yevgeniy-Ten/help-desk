@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       employeeId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        // allowNull: false,
       },
       departmentTitle: {
         type: DataTypes.STRING,

@@ -65,11 +65,11 @@ const UsersController = {
                 email,
                 phoneNumber
             })
-                .then((result) => {
+                .then(async (result) => {
                     const emailEncodeForUrl = encodeDecode.encode(result.email)
                     const confirmURL = `${CONFIRM_URL}${emailEncodeForUrl}`
-                    MessageSender.sendVerifyMessage(result.email, confirmURL)
-                    LogCreator.createSuccessLog(`${result.firstName} ${result.lastName}`, "registerSuccess")
+                    await MessageSender.sendVerifyMessage(result.email, confirmURL)
+                    await LogCreator.createSuccessLog(`${result.firstName} ${result.lastName}`, "registerSuccess")
                     res.sendStatus(201);
                 })
                 .catch((errors) => res.status(400).json(errors));
@@ -101,7 +101,7 @@ const UsersController = {
             });
             res.send(user);
         } catch (e) {
-            LogCreator.createSystemCrashLog("when create sessing some errors", e)
+            await LogCreator.createSystemCrashLog("when create sessing some errors", e)
             res.status(401).send(e);
         }
     },

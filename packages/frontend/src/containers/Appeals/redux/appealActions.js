@@ -44,7 +44,9 @@ export const getAppealChatMessage = (requestId) => {
       dispatch(appealChatMessageGetSuccess(response.data));
       dispatch(getAppealChatMessage(requestId));
     } catch (e) {
-      dispatch(appealRequestError(e.response.data));
+      dispatch(
+        appealRequestError(e.response ? e.response.data : "Внутренняя оибка")
+      );
     }
   };
 };
@@ -59,7 +61,9 @@ export const getAppealChatMessages = (requestId) => {
       });
       dispatch(appealChatMessagesGetSuccess(response.data));
     } catch (e) {
-      dispatch(appealRequestError(e.response.data));
+      dispatch(
+        appealRequestError(e.response ? e.response.data : "Внутренняя оибка")
+      );
     }
   };
 };
@@ -74,7 +78,9 @@ export const appealCreateMessage = (message, requestId) => {
       });
       dispatch(appealChatMessageCreateSuccess());
     } catch (e) {
-      dispatch(appealRequestError(e.response.data));
+      dispatch(
+        appealRequestError(e.response ? e.response.data : "Внутренняя оибка")
+      );
     }
   };
 };
@@ -84,8 +90,10 @@ export const fetchAppeal = (id) => {
       dispatch(appealRequestStarted());
       const response = await axios.get(`/requests/${id}`);
       dispatch(getAppealSuccess(response.data));
-    } catch (err) {
-      dispatch(appealRequestError(err));
+    } catch (e) {
+      dispatch(
+        appealRequestError(e.response ? e.response.data : "Внутренняя оибка")
+      );
     }
   };
 };

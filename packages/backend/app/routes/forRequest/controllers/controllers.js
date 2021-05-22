@@ -80,9 +80,9 @@ module.exports = {
                         where: {id: newRequest.dataValues.id},
                         include: ["clientRequest", "employeeRequest"]
                     })
-                    MessageSender.sendMailClientRequest(request.dataValues.clientRequest.dataValues.email, newRequest.dataValues.id)
-                    MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
-                    LogCreator.createSuccessLog(`${req.user.firstName} ${req.user.lastName}`, "createRequestSuccess")
+                    await MessageSender.sendMailClientRequest(request.dataValues.clientRequest.dataValues.email, newRequest.dataValues.id)
+                    await MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
+                    await LogCreator.createSuccessLog(`${req.user.firstName} ${req.user.lastName}`, "createRequestSuccess")
                     await RequestHistory.create({
                         requestId: newRequest.dataValues.id,
                         topicTitle: rule && rule.topic.title,
@@ -102,7 +102,7 @@ module.exports = {
                     res.status(400).send(errors);
                 });
         } catch (errors) {
-            LogCreator.createUserErrorLog(`${req.user.firstName} ${req.user.lastName}`, "when create request", errors)
+            await LogCreator.createUserErrorLog(`${req.user.firstName} ${req.user.lastName}`, "when create request", errors)
             res.status(500).send(errors);
         }
     },
@@ -158,152 +158,152 @@ module.exports = {
     },
     async getRequestsAudit(req, res) {
         let company = await Company.findAll({
-          include: [
-            {
-              model: User,
-              as: "users",
-              include: ["clientRequest"]
-            },
-            {
-              model: User,
-              as: "users",
-              include: ["employeeRequest"]
-            }
-          ]
+            include: [
+                {
+                    model: User,
+                    as: "users",
+                    include: ["clientRequest"]
+                },
+                {
+                    model: User,
+                    as: "users",
+                    include: ["employeeRequest"]
+                }
+            ]
         });
         let employee = await User.findAll({
-          include: [
-            {
-              model: Request,
-              as: "employeeRequest",
-              // include: ["employeeRequest"]
-            }
-          ]
+            include: [
+                {
+                    model: Request,
+                    as: "employeeRequest",
+                    // include: ["employeeRequest"]
+                }
+            ]
         });
         let report = {
-          company: null,
-          employee: null
+            company: null,
+            employee: null
         }
         auditByCompany = company.reduce((a, companyWithUsers) => {
-          const companyInfo = {
-            name: companyWithUsers.title,
-            users: companyWithUsers.users.length
-          };
-          // company {users:[user: clientRequest:[ ]  }
-          const requests = companyWithUsers.users.reduce(
-            (requestReport, user) => {
-              if (!user.clientRequest.length) return requestReport;
-              requestReport.count += user.clientRequest.length;
-              for (request of user.clientRequest) {
-                switch (request.priority) {
-                  case "Стандартно":
-                    requestReport.priority.standart += 1;
-                    break;
-                  case "Критично":
-                    requestReport.priority.critical += 1;
-                    break;
-                  case "Средний":
-                    requestReport.priority.medium += 1;
-                    break;
-                  case "Срочно":
-                    requestReport.priority.urgent += 1;
-                    break;
+            const companyInfo = {
+                name: companyWithUsers.title,
+                users: companyWithUsers.users.length
+            };
+            // company {users:[user: clientRequest:[ ]  }
+            const requests = companyWithUsers.users.reduce(
+                (requestReport, user) => {
+                    if (!user.clientRequest.length) return requestReport;
+                    requestReport.count += user.clientRequest.length;
+                    for (request of user.clientRequest) {
+                        switch (request.priority) {
+                            case "Стандартно":
+                                requestReport.priority.standart += 1;
+                                break;
+                            case "Критично":
+                                requestReport.priority.critical += 1;
+                                break;
+                            case "Средний":
+                                requestReport.priority.medium += 1;
+                                break;
+                            case "Срочно":
+                                requestReport.priority.urgent += 1;
+                                break;
+                        }
+                        switch (request.status) {
+                            case "Открыто":
+                                requestReport.status.open += 1;
+                                break;
+                            case "Выполняется":
+                                requestReport.status.inProgress += 1;
+                                break;
+                            case "Приостановлено":
+                                requestReport.status.suspend += 1;
+                                break;
+                            case "Выполнено":
+                                requestReport.status.done += 1;
+                                break;
+                        }
+                    }
+                    return requestReport;
+                },
+                {
+                    count: 0,
+                    status: {
+                        open: 0,
+                        inProgress: 0,
+                        suspend: 0,
+                        done: 0
+                    },
+                    priority: {
+                        standart: 0,
+                        medium: 0,
+                        urgent: 0,
+                        critical: 0
+                    }
                 }
-                switch (request.status) {
-                  case "Открыто":
-                    requestReport.status.open += 1;
-                    break;
-                  case "Выполняется":
-                    requestReport.status.inProgress += 1;
-                    break;
-                  case "Приостановлено":
-                    requestReport.status.suspend += 1;
-                    break;
-                  case "Выполнено":
-                    requestReport.status.done += 1;
-                    break;
-                }
-              }
-              return requestReport;
-            },
-            {
-              count: 0,
-              status: {
-                open: 0,
-                inProgress: 0,
-                suspend: 0,
-                done: 0
-              },
-              priority: {
-                standart: 0,
-                medium: 0,
-                urgent: 0,
-                critical: 0
-              }
-            }
-          );
-          companyInfo.requests = requests;
-          a.push(companyInfo);
-          return a;
+            );
+            companyInfo.requests = requests;
+            a.push(companyInfo);
+            return a;
         }, []);
-    
+
         auditByEmployee = employee.reduce((a, employeeWithRequests) => {
-          let employeeInfo = {
-            user: employeeWithRequests,
-            count: employeeWithRequests.employeeRequest.length
-          };
-          const requests = employeeWithRequests.employeeRequest.reduce(
-            (requestReport, request) => {
-              switch (request && request.priority) {
-                case "Стандартно":
-                  requestReport.priority.standart += 1;
-                  break;
-                case "Критично":
-                  requestReport.priority.critical += 1;
-                  break;
-                case "Средний":
-                  requestReport.priority.medium += 1;
-                  break;
-                case "Срочно":
-                  requestReport.priority.urgent += 1;
-                  break;
-              }
-              switch (request && request.status) {
-                case "Открыто":
-                  requestReport.status.open += 1;
-                  break;
-                case "Выполняется":
-                  requestReport.status.inProgress += 1;
-                  break;
-                case "Приостановлено":
-                  requestReport.status.suspend += 1;
-                  break;
-                case "Выполнено":
-                  requestReport.status.done += 1;
-                  break;
-              }
-              return requestReport;
-            },
-            {
-              status: {
-                open: 0,
-                inProgress: 0,
-                suspend: 0,
-                done: 0
-              },
-              priority: {
-                standart: 0,
-                medium: 0,
-                urgent: 0,
-                critical: 0
-              }
-            }
-          );
-          employeeInfo.requests = requests;
-          a.push(employeeInfo);
-          return a;
+            let employeeInfo = {
+                user: employeeWithRequests,
+                count: employeeWithRequests.employeeRequest.length
+            };
+            const requests = employeeWithRequests.employeeRequest.reduce(
+                (requestReport, request) => {
+                    switch (request && request.priority) {
+                        case "Стандартно":
+                            requestReport.priority.standart += 1;
+                            break;
+                        case "Критично":
+                            requestReport.priority.critical += 1;
+                            break;
+                        case "Средний":
+                            requestReport.priority.medium += 1;
+                            break;
+                        case "Срочно":
+                            requestReport.priority.urgent += 1;
+                            break;
+                    }
+                    switch (request && request.status) {
+                        case "Открыто":
+                            requestReport.status.open += 1;
+                            break;
+                        case "Выполняется":
+                            requestReport.status.inProgress += 1;
+                            break;
+                        case "Приостановлено":
+                            requestReport.status.suspend += 1;
+                            break;
+                        case "Выполнено":
+                            requestReport.status.done += 1;
+                            break;
+                    }
+                    return requestReport;
+                },
+                {
+                    status: {
+                        open: 0,
+                        inProgress: 0,
+                        suspend: 0,
+                        done: 0
+                    },
+                    priority: {
+                        standart: 0,
+                        medium: 0,
+                        urgent: 0,
+                        critical: 0
+                    }
+                }
+            );
+            employeeInfo.requests = requests;
+            a.push(employeeInfo);
+            return a;
         }, []);
-        
+
         report.company = auditByCompany;
         report.employee = auditByEmployee;
         res.send(report);

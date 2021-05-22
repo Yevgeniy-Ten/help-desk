@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fac3a594-dc3c-4c5b-a80b-8639760fd15a" name="Default Changelist" comment="#12 Добавил игнорирование idea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/backend/app/mailer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/mailer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AnonymMenu/AnonymMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AnonymMenu/AnonymMenu.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AuthMenu/AuthMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Header/AuthMenu/AuthMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forRequest/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/app/routes/forUsers/controllers/controllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/components/AppealDetails/AppealDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/components/AppealDetails/AppealDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/frontend/src/containers/Appeals/redux/appealActions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,6 +164,7 @@
       <workItem from="1621049556084" duration="5788000" />
       <workItem from="1621415824749" duration="3038000" />
       <workItem from="1621580686992" duration="322000" />
+      <workItem from="1621667938818" duration="635000" />
     </task>
     <task id="LOCAL-00001" summary="#12 Добавил редактирование для всех справочников">
       <created>1617530701453</created>

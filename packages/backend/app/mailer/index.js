@@ -55,9 +55,8 @@ const MessageSender = {
             await this.transporter.sendMail({
                 from: "ten.djenia@mail.ru",
                 to: email,
-                // text: ,
+                subject: message ? message.message : "Ваша заявка принята!",
                 html: `<div>
-                                <h3>${message ? message.message : "Ваша заявка принята!"}</h3>
                             <p>Ваша заявка с id ${id} принята. Мы рассмотрим вашу заявку в ближайщее время. Спасибо за обращение!</p>
                        </div>`
             });
@@ -80,7 +79,6 @@ const MessageSender = {
                 from: "ten.djenia@mail.ru",
                 to: email,
                 subject: message ? message.message : "На ваше имя пришла новая заявка!",
-                // text: "Пожалуйста кликните на кнопку и потвердите ваш email!",
                 html: `<div>
                             <p>Заявка с id ${id} назначена на Вас. Проверьте, пожалуйста, в системе!</p>
                        </div>`,

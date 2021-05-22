@@ -81,7 +81,7 @@ module.exports = {
                         include: ["clientRequest", "employeeRequest"]
                     })
                     await MessageSender.sendMailClientRequest(request.dataValues.clientRequest.dataValues.email, newRequest.dataValues.id)
-                    await MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
+                    // await MessageSender.sendMailEmployeeRequest(request.dataValues.employeeRequest.dataValues.email, newRequest.dataValues.id)
                     await LogCreator.createSuccessLog(`${req.user.firstName} ${req.user.lastName}`, "createRequestSuccess")
                     await RequestHistory.create({
                         requestId: newRequest.dataValues.id,

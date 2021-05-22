@@ -10,10 +10,10 @@ import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import { getMenuShow } from "./redux/faqsGetters";
 import { faqsIconMenuShow } from "./redux/faqsActions";
 import { Col, Divider, Row, Avatar } from "antd";
-import Websites from "./Websites/Websites";
-import Supports from "./Supports/Supports";
-import Bookkeeping from "./Bookkeeping/Bookkeeping";
-import Medicine from "./Medicine/Medicine";
+import Websites from "../../components/FAQs/Websites/Websites";
+import Supports from "../../components/FAQs/Supports/Supports";
+import Bookkeeping from "../../components/FAQs/Bookkeeping/Bookkeeping";
+import Medicine from "../../components/FAQs/Medicine/Medicine";
 import styles from "./FAQ.module.css";
 
 const FAQ = () => {

@@ -11,7 +11,7 @@ import { Col, Divider, Row, Drawer, Avatar } from "antd";
 import Answers from "../../components/FAQs/Answers/Answers";
 import styles from "./FAQ.module.css";
 import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
-import FAQsForm from "../../components/FAQs/FAQsForm/FAQsForm";
+import FAQsCreateEditForm from "../../components/FAQs/FAQsCreateEditForm/FAQsCreateEditForm";
 import { useToggle } from "../../hooks/useToggle";
 import { fetchFaq } from "./redux/faqsActions";
 
@@ -49,14 +49,14 @@ const FAQ = () => {
         />
         <Col span={24}>
           <Drawer
-            title="Форма"
+            title="Форма FAQ"
             width={500}
             placement="right"
             closable={true}
             onClose={closeDrawerWithResetSettingFields}
             visible={drawerIsOpen}
           >
-            <FAQsForm
+            <FAQsCreateEditForm
               onCloseEditor={toggleDrawerIsOpen}
               // topicId={settingTypeIsOpen.idForEdit}
             />

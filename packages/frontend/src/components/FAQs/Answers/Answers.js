@@ -4,15 +4,19 @@ import { Breadcrumb, Col, Row, Collapse, Form, Input, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import { Link, NavLink } from "react-router-dom";
 import { getUser } from "../../../containers/Auth/redux/getters/getters";
-import { getFaqs } from "../../../containers/FAQ/redux/faqsGetters";
+import {
+  getFaqs,
+  getFaqsLoader
+} from "../../../containers/FAQ/redux/faqsGetters";
+import Spinner from "../../Spinner/Spinner";
 
 const { Panel } = Collapse;
 
 const Answers = ({ onShowEditor }) => {
-  const loading = false;
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const faqs = useSelector(getFaqs);
+  const isLoading = useSelector(getFaqsLoader);
   console.log(faqs);
   // eslint-disable-next-line consistent-return
   const genExtra = () => {
@@ -32,7 +36,9 @@ const Answers = ({ onShowEditor }) => {
   return (
     <Row style={{ padding: "10px 20px" }}>
       <Col span={24} className="mb-sm">
-        {loading ? null : ( // <Spinner />
+        {isLoading ? (
+          <Spinner />
+        ) : (
           <>
             <Form name="faqs" layout="vertical">
               <Collapse accordion={false}>

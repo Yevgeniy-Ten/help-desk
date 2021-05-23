@@ -28,23 +28,27 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
     }
     dispatch(fetchFaq(value));
   };
+  let btnShow;
+  if (onShowEditor) {
+    btnShow = user && user.roleId === 1 && (
+      <div style={{ marginBottom: "20px" }}>
+        <Button
+          onClick={() => {
+            console.log("test");
+            onShowEditor();
+            // dispatch(fetchGetFile());
+          }}
+        >
+          Создать решение
+        </Button>
+      </div>
+    );
+  }
   return (
     <Form form={form} name="form-filter" layout="vertical">
       {!paramFilter && <h3>Фильтр</h3>}
       {!paramFilter && <hr />}
-      <div style={{ marginBottom: "20px" }}>
-        {user && user.roleId === 1 && (
-          <Button
-            onClick={() => {
-              console.log("test");
-              onShowEditor();
-              // dispatch(fetchGetFile());
-            }}
-          >
-            Создать решение
-          </Button>
-        )}
-      </div>
+      {btnShow}
       <Form.Item name="status" label={paramFilter ? "Фильтр: " : "По статусу"}>
         {paramFilter ? (
           <>

@@ -4,6 +4,6 @@ export const getFaqs = (state) => {
 export const getFaqsLoader = (state) => {
   return state.faqs.isLoading;
 };
-export const getEditableElement = (state) => {
-  return state.faqs.editableSetting;
+export const getEditableFaqs = (state) => {
+  return state.faqs.editableFAQS;
 };

@@ -18,8 +18,9 @@ import { fetchFaq } from "./redux/faqsActions";
 const FAQ = () => {
   const dispatch = useDispatch();
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
-
-  const onShowSettingEditor = () => {
+  const [faqId, setFaqId] = useState(null);
+  const onShowSettingEditor = (id) => {
+    setFaqId(id);
     toggleDrawerIsOpen();
   };
   const closeDrawerWithResetSettingFields = () => {
@@ -44,7 +45,7 @@ const FAQ = () => {
       <Row gutter={16}>
         <Answers
           onShowEditor={(idForEdit) => {
-            return onShowSettingEditor();
+            return onShowSettingEditor(idForEdit);
           }}
         />
         <Col span={24}>
@@ -58,7 +59,7 @@ const FAQ = () => {
           >
             <FAQsCreateEditForm
               onCloseEditor={toggleDrawerIsOpen}
-              // topicId={settingTypeIsOpen.idForEdit}
+              faqId={faqId}
             />
           </Drawer>
         </Col>

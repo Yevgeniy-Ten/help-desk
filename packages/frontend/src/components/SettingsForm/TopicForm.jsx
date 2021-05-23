@@ -20,6 +20,7 @@ const TopicForm = ({ topicId, onCloseEditor }) => {
   const [form] = useForm();
   const topicForEdit = useSelector(getEditableElement); // для редактирования
   const dispatch = useDispatch();
+
   const onCreateTopic = async (topic) => {
     if (topicForEdit) {
       await dispatch(fetchSettingUpdate("topics", topic));

@@ -33,13 +33,10 @@ export const faqsRequestFaq = (faqs) => {
 export const faqDeleteSuccess = () => {
   return { type: FAQS_DELETE_SUCCESS };
 };
-export const setEditableFaq = (type, faqId) => {
+export const setEditableFaq = (faqId) => {
   return {
     type: FAQS_SET_EDITABLE_ELEMENT,
-    payload: {
-      type,
-      faqId
-    }
+    faqId
   };
 };
 export const clearEditalbleElement = () => {

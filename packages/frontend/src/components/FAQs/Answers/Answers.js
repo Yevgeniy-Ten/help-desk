@@ -9,6 +9,7 @@ import {
   getFaqsLoader
 } from "../../../containers/FAQ/redux/faqsGetters";
 import Spinner from "../../Spinner/Spinner";
+import { setEditableFaq } from "../../../containers/FAQ/redux/faqsActions";
 
 const { Panel } = Collapse;
 
@@ -19,13 +20,14 @@ const Answers = ({ onShowEditor }) => {
   const isLoading = useSelector(getFaqsLoader);
   console.log(faqs);
   // eslint-disable-next-line consistent-return
-  const genExtra = () => {
+  const genExtra = (id) => {
     if (user && user.roleId === 1) {
       return (
         <EditOutlined
           style={{ marginLeft: "10px" }}
           onClick={(event) => {
             event.stopPropagation();
+            dispatch(setEditableFaq(id));
             onShowEditor();
           }}
         />
@@ -48,7 +50,7 @@ const Answers = ({ onShowEditor }) => {
                       <Panel
                         header={`${faq.questionTitle}`}
                         key={i}
-                        extra={genExtra()}
+                        extra={genExtra(faq.id)}
                       >
                         <p>
                           <b>Ответ: </b> {faq.answer}

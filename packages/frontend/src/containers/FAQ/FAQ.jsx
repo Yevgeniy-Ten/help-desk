@@ -14,9 +14,11 @@ import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
 import FAQsCreateEditForm from "../../components/FAQs/FAQsCreateEditForm/FAQsCreateEditForm";
 import { useToggle } from "../../hooks/useToggle";
 import { clearEditalbleFaq, fetchFaq } from "./redux/faqsActions";
+import { getUser } from "../Auth/redux/getters/getters";
 
 const FAQ = () => {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
   const [faqId, setFaqId] = useState(null);
   const onShowSettingEditor = (id) => {
@@ -27,8 +29,14 @@ const FAQ = () => {
     dispatch(clearEditalbleFaq());
     toggleDrawerIsOpen();
   };
+  // console.log(user);
   useEffect(() => {
-    dispatch(fetchFaq(1));
+    if (user) {
+      dispatch(fetchFaq(1));
+    }
+    if (!user) {
+      dispatch(fetchFaq());
+    }
   }, []);
   return (
     <div style={{ padding: "0 20px" }}>

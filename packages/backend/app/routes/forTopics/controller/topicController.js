@@ -27,29 +27,43 @@ const TopicController = {
   },
   async getSolutions(req, res) {
     const { id } = req.params;
+
+    let roleUser = 2;
+    if (req.user) {
+      roleUser = req.user.roleId;
+    }
+
     const solutions =
-      req.user.role !== 1
+      roleUser !== 1
         ? await Solution.findAll({
             where: {
-              id
+              id,
+              privateForUser: false
             }
           })
         : await Solution.findAll({
             where: {
-              id,
-              private: false
+              id
             }
           });
     if (!solutions.length) return res.sendStatus(404);
     res.send(solutions);
   },
   async getAllSolutions(req, res) {
+    let roleUser = 2;
+    if (req.user) {
+      roleUser = req.user.roleId;
+    }
     const solutions =
-      req.user.role !== 1
-        ? await Solution.findAll()
+      roleUser !== 1
+        ? await Solution.findAll({
+            where: {
+              privateForUser: false
+            }
+          })
         : await Solution.findAll({
             where: {
-              private: false
+              id
             }
           });
     if (!solutions.length) return res.sendStatus(404);

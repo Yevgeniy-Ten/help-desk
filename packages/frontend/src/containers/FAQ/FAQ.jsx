@@ -28,7 +28,7 @@ const FAQ = () => {
     toggleDrawerIsOpen();
   };
   useEffect(() => {
-    dispatch(fetchFaq());
+    dispatch(fetchFaq(1));
   }, []);
   return (
     <div style={{ padding: "0 20px" }}>
@@ -38,7 +38,7 @@ const FAQ = () => {
           <SettingsFilter
             paramFilter={true}
             onShowEditor={(idForEdit) => {
-              return onShowSettingEditor();
+              return onShowSettingEditor(idForEdit);
             }}
           />
         </Col>

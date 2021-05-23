@@ -34,9 +34,7 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
       <div style={{ marginBottom: "20px" }}>
         <Button
           onClick={() => {
-            console.log("test");
             onShowEditor();
-            // dispatch(fetchGetFile());
           }}
         >
           Создать решение
@@ -51,21 +49,17 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
       {btnShow}
       <Form.Item name="status" label={paramFilter ? "Фильтр: " : "По статусу"}>
         {paramFilter ? (
-          <>
-            <div>
-              <Select
-                placeholder="Тематика FAQ"
-                defaultValue={1}
-                name="topics"
-                onChange={onChangeSelect}
-              >
-                {topics &&
-                  topics.map((topic) => {
-                    return <Option value={topic.id}>{topic.title}</Option>;
-                  })}
-              </Select>
-            </div>
-          </>
+          <Select
+            placeholder="Выбирите тематику"
+            defaultValue={1}
+            name="topics"
+            onChange={onChangeSelect}
+          >
+            {topics &&
+              topics.map((topic) => {
+                return <Option value={topic.id}>{topic.title}</Option>;
+              })}
+          </Select>
         ) : (
           <Select
             placeholder="Справочник"

@@ -28,7 +28,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
       form.resetFields();
       onCloseEditor();
     } else {
-      await dispatch(fetchFaqCreate(faqId, faqBody));
+      await dispatch(fetchFaqCreate(faqBody.topicId, faqBody));
       form.resetFields();
       onCloseEditor();
     }
@@ -100,7 +100,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
       <Form.Item name="videoPath" label="Ссылка на видео решение">
         <Input placeholder="Вставьте ссылку на видео" allowClear={true} />
       </Form.Item>
-      <Form.Item name="private" valuePropName="checked">
+      <Form.Item name="privateForUser" valuePropName="checked">
         <Checkbox>Для сотрудников</Checkbox>
       </Form.Item>
       <Form.Item>

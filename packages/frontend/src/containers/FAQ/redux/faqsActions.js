@@ -43,11 +43,20 @@ export const clearEditalbleFaq = () => {
   return { type: CLEAR_EDITABLE_ELEMENT };
 };
 
-export const fetchFaq = (faqId) => {
+export const fetchFaq = (id) => {
   return async (dispatch, _, axios) => {
     try {
+      let idFaq = "";
+      if (id) {
+        idFaq = `/${id}`;
+      }
+      console.log("fet", id);
       dispatch(faqsRequestStart());
-      const response = await axios.get(`/topics/solutions/${faqId}`);
+      const response = await axios.get(`/topics/solutions${idFaq}`, {
+        params: {
+          ...id
+        }
+      });
       dispatch(faqsRequestFaq(response.data));
       dispatch(faqRequestFinished());
     } catch (e) {
@@ -61,8 +70,9 @@ export const fetchFaqCreate = (faqId, body) => {
       message.info({
         content: "Идет проверка введенных данных!"
       });
+      console.log(body);
       // dispatch(faqsRequestStart());
-      await axios.post(`/topics/solutions/${faqId}`, body);
+      await axios.post(`/topics/solutions`, body);
       dispatch(fetchFaq(faqId));
       dispatch(faqRequestFinished());
       // dispatch(clearEditalbleFaq());

@@ -50,7 +50,6 @@ export const fetchFaq = (id) => {
       if (id) {
         idFaq = `/${id}`;
       }
-      console.log("fet", id);
       dispatch(faqsRequestStart());
       const response = await axios.get(`/topics/solutions${idFaq}`, {
         params: {
@@ -70,12 +69,11 @@ export const fetchFaqCreate = (faqId, body) => {
       message.info({
         content: "Идет проверка введенных данных!"
       });
-      console.log(body);
       // dispatch(faqsRequestStart());
       await axios.post(`/topics/solutions`, body);
       dispatch(fetchFaq(faqId));
       dispatch(faqRequestFinished());
-      // dispatch(clearEditalbleFaq());
+      dispatch(clearEditalbleFaq());
       message.success({
         className: "message-custom",
         content: `Решение создано успешно!`

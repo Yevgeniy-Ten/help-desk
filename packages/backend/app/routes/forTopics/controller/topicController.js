@@ -27,7 +27,6 @@ const TopicController = {
   },
   async getSolutions(req, res) {
     const { id } = req.params;
-    console.log("log", req.params);
     const solutions =
       req.user.role !== 1
         ? await Solution.findAll({

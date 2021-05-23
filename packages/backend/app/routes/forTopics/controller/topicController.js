@@ -37,13 +37,13 @@ const TopicController = {
       roleUser !== 1
         ? await Solution.findAll({
             where: {
-              id,
+              topicId: id,
               privateForUser: false
             }
           })
         : await Solution.findAll({
             where: {
-              id
+              topicId: id
             }
           });
     if (!solutions.length) return res.sendStatus(404);
@@ -63,7 +63,7 @@ const TopicController = {
           })
         : await Solution.findAll({
             where: {
-              id
+              topicId: id
             }
           });
     if (!solutions.length) return res.sendStatus(404);

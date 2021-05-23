@@ -13,7 +13,7 @@ import styles from "./FAQ.module.css";
 import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
 import FAQsCreateEditForm from "../../components/FAQs/FAQsCreateEditForm/FAQsCreateEditForm";
 import { useToggle } from "../../hooks/useToggle";
-import { fetchFaq } from "./redux/faqsActions";
+import { clearEditalbleFaq, fetchFaq } from "./redux/faqsActions";
 
 const FAQ = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const FAQ = () => {
     toggleDrawerIsOpen();
   };
   const closeDrawerWithResetSettingFields = () => {
+    dispatch(clearEditalbleFaq());
     toggleDrawerIsOpen();
   };
   useEffect(() => {

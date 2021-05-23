@@ -39,7 +39,7 @@ export const setEditableFaq = (faqId) => {
     faqId
   };
 };
-export const clearEditalbleElement = () => {
+export const clearEditalbleFaq = () => {
   return { type: CLEAR_EDITABLE_ELEMENT };
 };
 
@@ -55,19 +55,20 @@ export const fetchFaq = (faqId) => {
     }
   };
 };
-export const fetchFaqCreate = (faqType, body) => {
+export const fetchFaqCreate = (faqId, body) => {
   return async (dispatch, _, axios) => {
     try {
       message.info({
         content: "Идет проверка введенных данных!"
       });
       // dispatch(faqsRequestStart());
-      await axios.post(`/${faqType}`, body);
-      dispatch(fetchFaq(faqType));
+      await axios.post(`/topics/solutions/${faqId}`, body);
+      dispatch(fetchFaq(faqId));
       dispatch(faqRequestFinished());
+      // dispatch(clearEditalbleFaq());
       message.success({
         className: "message-custom",
-        content: `${faqType} создана успешно!`
+        content: `Решение создано успешно!`
       });
     } catch (errors) {
       dispatch(faqsRequestError(errors));
@@ -75,34 +76,30 @@ export const fetchFaqCreate = (faqType, body) => {
   };
 };
 
-export const fetchFaqDelete = (faqType, id) => {
-  return async (dispatch, _, axios) => {
-    try {
-      // dispatch(faqsRequestStart());
-      await axios.delete(`/${faqType}/${id}`);
-      dispatch(faqRequestFinished());
-      dispatch(fetchFaq(faqType));
-    } catch (errors) {
-      dispatch(faqsRequestError(errors));
-    }
-  };
-};
+// export const fetchFaqDelete = (faqType, id) => {
+//   return async (dispatch, _, axios) => {
+//     try {
+//       // dispatch(faqsRequestStart());
+//       await axios.delete(`/${faqType}/${id}`);
+//       dispatch(faqRequestFinished());
+//       dispatch(fetchFaq(faqType));
+//     } catch (errors) {
+//       dispatch(faqsRequestError(errors));
+//     }
+//   };
+// };
 
-export const fetchFaqUpdate = (faqType, record, id) => {
+export const fetchFaqUpdate = (faqId, record) => {
   return async (dispatch, getState, axios) => {
     try {
       const updatedFaq = {
-        ...getState().faqs.editableFaq,
         ...record
       };
-      if (id) {
-        updatedFaq.id = id;
-      }
       // dispatch(faqsRequestStart());
-      await axios.put(`${faqType}/${updatedFaq.id}`, updatedFaq);
-      dispatch(clearEditalbleElement());
+      await axios.put(`/topics/solutions/${faqId}`, updatedFaq);
+      dispatch(clearEditalbleFaq());
       dispatch(faqRequestFinished());
-      dispatch(fetchFaq(faqType));
+      dispatch(fetchFaq(faqId));
     } catch (errors) {
       console.log(errors);
       // dispatch(faqsRequestError(errors))

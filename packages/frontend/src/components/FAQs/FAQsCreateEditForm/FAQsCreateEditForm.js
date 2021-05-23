@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchSettings } from "../../../containers/Settings/redux/settingsActions";
 import {
-  fetchSettingCreate,
-  fetchSettings,
-  fetchSettingUpdate,
-  setEditableSetting
-} from "../../../containers/Settings/redux/settingsActions";
+  fetchFaqCreate,
+  fetchFaqUpdate
+} from "../../../containers/FAQ/redux/faqsActions";
 import { Button, Form, Select, Input, Checkbox } from "antd";
 // import { PlusOutlined } from "@ant-design/icons";
 // import { useToggle } from "../../hooks/useToggle";
 // import ReglamentFields from "./ReglamentFields";
-import {
-  getTopics,
-  getEditableElement
-} from "../../../containers/Settings/redux/settingGetters";
+import { getTopics } from "../../../containers/Settings/redux/settingGetters";
 import { getEditableFaqs } from "../../../containers/FAQ/redux/faqsGetters";
 
 const { Option } = Select;
@@ -24,23 +20,21 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const topics = useSelector(getTopics);
-  console.log("top", topics);
-
   const editableFAQS = useSelector(getEditableFaqs); // для редактирования
-  console.log("edt", editableFAQS);
-  const onCreateEditFaqs = async (topic) => {
+
+  const onCreateEditFaqs = async (faqBody) => {
     if (editableFAQS) {
-      await dispatch(fetchSettingUpdate("topics", topic));
+      await dispatch(fetchFaqUpdate(faqId, faqBody));
+      form.resetFields();
       onCloseEditor();
     } else {
-      await dispatch(fetchSettingCreate("topics", topic));
+      await dispatch(fetchFaqCreate(faqId, faqBody));
       form.resetFields();
       onCloseEditor();
     }
   };
 
   useEffect(() => {
-    form.resetFields();
     dispatch(fetchSettings("topics"));
   }, [dispatch]);
   useEffect(() => {
@@ -57,7 +51,6 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
       className="faqs-form"
       layout="vertical"
       onFinish={onCreateEditFaqs}
-      // onFinish={onCreateTopic}
     >
       <Form.Item
         name="topicId"

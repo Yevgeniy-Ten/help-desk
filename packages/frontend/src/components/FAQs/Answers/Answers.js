@@ -18,13 +18,13 @@ const Answers = ({ onShowEditor }) => {
   const user = useSelector(getUser);
   const faqs = useSelector(getFaqs);
   const isLoading = useSelector(getFaqsLoader);
-  console.log(faqs);
+
   // eslint-disable-next-line consistent-return
   const genExtra = (id) => {
     if (user && user.roleId === 1) {
       return (
         <EditOutlined
-          style={{ marginLeft: "10px" }}
+          style={{ marginLeft: "10px", width: "25px" }}
           onClick={(event) => {
             event.stopPropagation();
             dispatch(setEditableFaq(id));

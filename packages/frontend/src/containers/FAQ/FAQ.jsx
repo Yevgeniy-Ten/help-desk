@@ -52,11 +52,13 @@ const FAQ = () => {
         </Col>
       </Row>
       <Row gutter={16}>
-        <Answers
-          onShowEditor={(idForEdit) => {
-            return onShowSettingEditor(idForEdit);
-          }}
-        />
+        <Col span={24}>
+          <Answers
+            onShowEditor={(idForEdit) => {
+              return onShowSettingEditor(idForEdit);
+            }}
+          />
+        </Col>
         <Col span={24}>
           <Drawer
             title="Форма FAQ"

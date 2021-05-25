@@ -36,7 +36,7 @@ const Answers = ({ onShowEditor }) => {
   };
   useEffect(() => {});
   return (
-    <Row style={{ padding: "10px 20px" }}>
+    <Row>
       <Col span={24} className="mb-sm">
         {isLoading ? (
           <Spinner />

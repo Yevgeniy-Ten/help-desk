@@ -54,7 +54,7 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
             defaultValue={user ? 1 : "Выбирите тематику"}
             name="topics"
             onChange={onChangeSelect}
-            style={{ width: "190px" }}
+            // style={{ width: "190px" }}
           >
             {topics &&
               topics.map((topic) => {

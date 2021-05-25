@@ -75,7 +75,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
       </Form.Item>
       <Form.Item
         name="questionTitle"
-        label="Тема вопроса"
+        label="Вопрос"
         rules={[
           {
             required: true,
@@ -83,7 +83,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
           }
         ]}
       >
-        <Input placeholder="Тема вопроса" allowClear={true} />
+        <Input placeholder="Вопрос" allowClear={true} />
       </Form.Item>
       <Form.Item
         name="answer"

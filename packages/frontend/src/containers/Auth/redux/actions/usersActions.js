@@ -56,7 +56,7 @@ export const registerUser = (userData, pathPush) => {
       dispatch(push(pathPush));
       message.success({
         content:
-          "Регистрация прошла успешно! Как только вы будете потверждены администратором, то сможете подавать заявки!",
+          "Регистрация прошла успешно! Пожалуйста потвердите вашу почту в ваших сообщениях почты.",
         className: "message-custom"
       });
     } catch (e) {

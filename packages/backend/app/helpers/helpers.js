@@ -1,5 +1,5 @@
-const {nanoid} = require("nanoid");
-const {RequestHistory} = require("../../models");
+const { nanoid } = require("nanoid");
+const { RequestHistory, Request } = require("../../models");
 module.exports = {
     saveFile(file, type) {
         const id = nanoid(10);
@@ -32,6 +32,42 @@ module.exports = {
         }
 
         return whereClause;
+    },
+    async hourWorkEmployeeCalc(employeeId) {
+        let hourWork = 0;
+        let requests = await Request.findAll();
+        const status = {
+            open: "Открыто",
+            inProgress: "Выполняется",
+            suspend: "Приостановлено",
+            done: "Выполнено",
+        };
+        for (let request of requests) {
+            let hourWorkHistory = 0;
+            const histories = await RequestHistory.findAll({
+                where: {
+                    requestId: request.id,
+                },
+            });
+            for (let i = 0; i < histories.length; i++) {
+                const currentDate = new Date();
+                if (
+                    histories[i].employeeId === employeeId &&
+                    histories[i].status === status.inProgress &&
+                    i + 1 >= histories.length
+                ) {
+                    hourWorkHistory += currentDate - histories[i].updatedAt;
+                }
+                for (let j = i + 1; j < histories.length; j++) {
+                    if(histories[i].employeeId === employeeId) {
+                        hourWorkHistory += histories[j].hourWork - histories[i].hourWork;
+                    }
+                    break;
+                }
+            }
+            hourWork += hourWorkHistory;
+        };
+        return hourWork;
     },
     hourWorkUpdate(requests) {
         requests.forEach(async (request) => {

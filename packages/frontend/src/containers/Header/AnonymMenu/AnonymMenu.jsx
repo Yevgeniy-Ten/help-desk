@@ -11,14 +11,14 @@ const AnonymMenu = () => {
         exact={true}
         activeClassName="active"
       >
-        Log in
+        Войти в систему
       </NavLink>
       <NavLink
         to="/auth/register"
         className="menu__link"
         activeClassName="active"
       >
-        Register
+        Зарегестрироваться
       </NavLink>
     </div>
   );

@@ -1,5 +1,5 @@
 const express = require("express");
-
+const MessageSender = require("./app/mailer/index");
 const PORT = process.env.BACK_PORT || 3003;
 const passport = require("passport");
 const { sequelize } = require("./models");
@@ -21,13 +21,14 @@ const start = async () => {
     // синхронизировать модели, с базой данных
     await sequelize.sync({
       alter: true, // чтобы поля в модели в коде совпадали с моделью в таблице
-      // force: true, // чтобы удалить таблицу  и потом заново создать её
+      force: false, // чтобы удалить таблицу  и потом заново создать её
     });
     // подключение к базе
     await sequelize.authenticate();
     app.listen(PORT, async () => {
       console.log(`${PORT} started server`);
     });
+    MessageSender.connect();
   } catch (e) {
     console.log(e);
   }

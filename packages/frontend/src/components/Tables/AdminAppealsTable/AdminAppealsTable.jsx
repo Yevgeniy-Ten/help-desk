@@ -22,7 +22,6 @@ import { getUsersState } from "../../../containers/AllUsers/redux/usersGetters/u
 import { fetchSettings } from "../../../containers/Settings/redux/settingsActions";
 import { fetchAppeals } from "../../../containers/Appeals/redux/action/appealsAction";
 import Spinner from "../../Spinner/Spinner";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const AdminAppealsTable = ({ appeals }) => {
   const dispatch = useDispatch();

@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: null,
       },
+      employeeId: {
+        type: DataTypes.INTEGER,
+        // allowNull: false,
+      },
       departmentTitle: {
         type: DataTypes.STRING,
         defaultValue: null,

@@ -21,7 +21,7 @@ module.exports = {
         companyId: 1,
         isAuthorized: true,
         phoneNumber: "+77054546622",
-        // createdAt: new Date(), updatedAt: new Date()
+        isFake: false
       },
       {
         email: "ten@mail.ru",
@@ -33,7 +33,7 @@ module.exports = {
         companyId: 1,
         isAuthorized: true,
         phoneNumber: "+77054546622",
-        // createdAt: new Date(), updatedAt: new Date()
+        isFake: false
       },
       {
         email: "nurlan@mail.ru",
@@ -45,7 +45,7 @@ module.exports = {
         companyId: 1,
         isAuthorized: true,
         phoneNumber: "+77054546622",
-        // createdAt: new Date(), updatedAt: new Date()
+        isFake: false
       },
       {
         email: "aza@mail.ru",
@@ -57,7 +57,7 @@ module.exports = {
         companyId: 1,
         isAuthorized: true,
         phoneNumber: "+77054546622",
-        // createdAt: new Date(), updatedAt: new Date()
+        isFake: false
       },
       {
         email: "kuat@mail.ru",
@@ -69,7 +69,7 @@ module.exports = {
         companyId: 1,
         isAuthorized: true,
         phoneNumber: "+77054546622",
-        // createdAt: new Date(), updatedAt: new Date()
+        isFake: false
       },
       {
         email: "user@mail.ru",
@@ -81,11 +81,11 @@ module.exports = {
         companyId: 2,
         isAuthorized: false,
         phoneNumber: "+77774546622",
-        // createdAt: new Date(), updatedAt: new Date()
-      },
+        isFake: false
+      }
     ];
     await queryInterface.bulkInsert("users", users, {});
   },
 
-  down: async () => {},
+  down: async () => {}
 };

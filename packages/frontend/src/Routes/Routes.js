@@ -12,6 +12,7 @@ import Settings from "../containers/Settings/Settings";
 import FAQ from "../containers/FAQ/FAQ";
 import EditUser from "../containers/AllUsers/EditUser";
 import Audit from "../containers/Audit/Audit";
+import Log from "../containers/Log/Log";
 
 const Routes = () => {
   const user = useSelector(getUser);
@@ -45,6 +46,12 @@ const Routes = () => {
       <ProtectedRoute
         isAllowed={user}
         redirectTo="/auth"
+        path="/logs"
+        component={Log}
+      />
+      <ProtectedRoute
+        isAllowed={user}
+        redirectTo="/auth"
         path="/users"
         component={Users}
       />
@@ -66,7 +73,7 @@ const Routes = () => {
         path="/edit/user/:id"
         component={EditUser}
       />
-      <Route path="/faq" exact={true} component={FAQ} />
+      <Route path="/faq" component={FAQ} />
       <Redirect to="/" />
     </Switch>
   );

@@ -1,4 +1,4 @@
-const { Topic, Reglaments, ServicesTopic } = require("../../../../models");
+const { Topic, Reglaments, Solution } = require("../../../../models");
 
 const TopicController = {
   async getTopics(req, res) {
@@ -15,8 +15,8 @@ const TopicController = {
       const { id } = req.params;
       const topic = await Topic.findOne({
         where: {
-          id,
-        },
+          id
+        }
       });
       if (!topic) return res.sendStatus(404);
       await topic.update(req.body);
@@ -25,12 +25,79 @@ const TopicController = {
       res.status(401).send(e);
     }
   },
+  async getSolutions(req, res) {
+    const { id } = req.params;
+
+    let roleUser = 2;
+    if (req.user) {
+      roleUser = req.user.roleId;
+    }
+
+    const solutions =
+      roleUser !== 1
+        ? await Solution.findAll({
+            where: {
+              topicId: id,
+              privateForUser: false
+            }
+          })
+        : await Solution.findAll({
+            where: {
+              topicId: id
+            }
+          });
+    if (!solutions.length) return res.sendStatus(404);
+    res.send(solutions);
+  },
+  async getAllSolutions(req, res) {
+    let roleUser = 2;
+    if (req.user) {
+      roleUser = req.user.roleId;
+    }
+    const solutions =
+      roleUser !== 1
+        ? await Solution.findAll({
+            where: {
+              privateForUser: false
+            }
+          })
+        : await Solution.findAll({
+            where: {
+              topicId: id
+            }
+          });
+    if (!solutions.length) return res.sendStatus(404);
+    res.send(solutions);
+  },
+  async createTopicSolution(req, res) {
+    const {
+      privateForUser,
+      questionTitle,
+      answer,
+      videoPath,
+      topicId
+    } = req.body;
+    if (privateForUser && req.user.role !== 1) {
+      return res.sendStatus(403);
+    }
+    let videoPathCopy;
+    if (!videoPath) {
+      videoPathCopy = false;
+    }
+    Solution.create({
+      topicId,
+      privateForUser,
+      questionTitle,
+      answer,
+      videoPathCopy
+    }).then((result) => res.status(201).send(result));
+  },
   async createTopic(req, res) {
     const { title, departmentId, standart, middle, high, incident } = req.body;
     // console.log(req.body);
     const titleCopy = `Регламент для ${title}`;
     Topic.create({
-      title,
+      title
     })
       .then((newTopic) => {
         if (departmentId) {
@@ -39,28 +106,28 @@ const TopicController = {
             priority: "Стандартно",
             title: titleCopy,
             deadline: standart,
-            departmentId,
+            departmentId
           });
           Reglaments.create({
             topicId: newTopic.dataValues.id,
             priority: "Средний",
             title: titleCopy,
             deadline: middle,
-            departmentId,
+            departmentId
           });
           Reglaments.create({
             topicId: newTopic.dataValues.id,
             priority: "Срочно",
             title: titleCopy,
             deadline: high,
-            departmentId,
+            departmentId
           });
           Reglaments.create({
             topicId: newTopic.dataValues.id,
             priority: "Критично",
             title: titleCopy,
             deadline: incident,
-            departmentId,
+            departmentId
           });
         }
         return res.status(201).send(newTopic);
@@ -68,7 +135,7 @@ const TopicController = {
       .catch((errors) => {
         res.status(400).send(errors);
       });
-  },
+  }
   // async getTopicServices(req, res) {
   //     const { id: topicId } = req.params
   //     const servicesByTopic = await ServicesTopic.findAll({

@@ -22,3 +22,6 @@ export const getEditableElement = (state) => {
 export const getOrgStructures = (state) => {
   return state.settings.orgStructures;
 };
+export const getMailMessages = (state) => {
+  return state.settings.mailMessages;
+};

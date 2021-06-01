@@ -5,17 +5,22 @@ import {
   fetchAllUsers,
   fetchAuthorizeUser
 } from "./redux/usersAction/usersActions";
+import { getCompanies } from "../Settings/redux/settingGetters";
+import { fetchSettings } from "../Settings/redux/settingsActions";
+
 import Spinner from "../../components/Spinner/Spinner";
 import UsersTable from "../../components/Tables/UsersTable/UsersTable";
-import { Button } from "antd";
-import { NavLink } from "react-router-dom";
 
 const UserTableContainer = () => {
   const dispatch = useDispatch();
   const { users, isLoading } = useSelector(getUsersState, shallowEqual);
-  const onAuthorizeUser = (id) => dispatch(fetchAuthorizeUser(id));
+  const companies = useSelector(getCompanies);
+  const onAuthorizeUser = (id) => {
+    return dispatch(fetchAuthorizeUser(id));
+  };
   useEffect(() => {
     dispatch(fetchAllUsers());
+    dispatch(fetchSettings("companies"));
   }, [dispatch]);
   return (
     <div style={{ padding: "10px 20px" }}>
@@ -27,7 +32,11 @@ const UserTableContainer = () => {
             <Button>Создать пользователя</Button>
           </NavLink> */}
 
-          <UsersTable onAuthorizeUser={onAuthorizeUser} users={users} />
+          <UsersTable
+            onAuthorizeUser={onAuthorizeUser}
+            users={users}
+            companies={companies}
+          />
         </>
       )}
     </div>

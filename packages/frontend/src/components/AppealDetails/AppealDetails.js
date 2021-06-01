@@ -15,9 +15,16 @@ const AppealDetails = ({ appeal }) => {
           <Button danger={true}>Отозвать</Button>
         </div>
       </Card>
-      <Card title={`Детали обращения #${appeal.id}`} bordered={false}>
+      <Card
+        style={{ textAlign: "center" }}
+        title={`Детали обращения #${appeal.id}`}
+        bordered={false}
+      >
         <Meta title={`Тематика: ${appeal.topic.title}`} className="mb-sm" />
-        <Meta title="Описание:" description={appeal.description} />
+        <Meta title={`Приоритет: ${appeal.priority}`} className="mb-sm" />
+        <Meta title={`В статусе: ${appeal.status}`} className="mb-sm" />
+        <h3>Описание</h3>
+        <p>{appeal.description} </p>
       </Card>
     </>
   );

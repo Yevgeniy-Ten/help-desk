@@ -5,27 +5,34 @@ module.exports = (sequelize, DataTypes) => {
     static associate({ Topic }) {
       this.belongsTo(Topic, {
         foreignKey: "topicId",
-        as: "topicSolution",
+        as: "topicSolution"
       });
     }
   }
+
   Solution.init(
     {
       topicId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
-      title: {
-        type: DataTypes.INTEGER,
+      questionTitle: {
+        type: DataTypes.STRING
       },
-      description: DataTypes.STRING,
-      videoPath: DataTypes.STRING,
+      answer: {
+        type: DataTypes.STRING
+      },
+      privateForUser: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      videoPath: DataTypes.STRING
     },
     {
       sequelize,
       timestamps: false,
       modelName: "Solution",
-      tableName: "solutions",
+      tableName: "solutions"
     }
   );
   return Solution;

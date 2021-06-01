@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Button, Form, Popconfirm, Space, Table, Typography, Tag } from "antd";
 import {
   clearEditalbleElement,
@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getEditableElement,
   getReglaments,
+  getCompanies,
+  getDepartments,
+  getTopics,
   getSettingsLoader
 } from "../../../containers/Settings/redux/settingGetters";
 import Spinner from "../../Spinner/Spinner";
@@ -24,7 +27,13 @@ const ReglamentsTable = ({
 }) => {
   const dispatch = useDispatch();
   const reglaments = useSelector(getReglaments);
+  const companies = useSelector(getCompanies);
+  const departments = useSelector(getDepartments);
+  const topics = useSelector(getTopics);
   const isLoad = useSelector(getSettingsLoader);
+  const [filtersCompany, setFiltersCompany] = useState([]);
+  const [filtersDepartment, setFiltersDepartment] = useState([]);
+  const [filtersTopics, setFiltersTopics] = useState([]);
   const columns = [
     {
       title: "Идентификатор",
@@ -40,6 +49,17 @@ const ReglamentsTable = ({
     {
       title: "Компания",
       dataIndex: "company",
+      key: "company",
+      filters: filtersCompany,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.company) {
+          return record.company.title.indexOf(value) === 0;
+        }
+        if (value === "по умолчанию") {
+          return record.company === null;
+        }
+      },
       render: (company) => {
         return company ? company.title : "Регламент по умолчанию";
       }
@@ -48,6 +68,13 @@ const ReglamentsTable = ({
       title: "Тематика",
       dataIndex: "topic",
       key: "topic",
+      filters: filtersTopics,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.topic) {
+          return record.topic.title.indexOf(value) === 0;
+        }
+      },
       render: (topic) => {
         return topic ? topic.title : "null";
       }
@@ -56,6 +83,30 @@ const ReglamentsTable = ({
       title: "Приоритет",
       dataIndex: "priority",
       key: "priority",
+      filters: [
+        {
+          text: "Стандартно",
+          value: "Стандартно"
+        },
+        {
+          text: "Средний",
+          value: "Средний"
+        },
+        {
+          text: "Срочно",
+          value: "Срочно"
+        },
+        {
+          text: "Критично",
+          value: "Критично"
+        }
+      ],
+      onFilter: (value, record) => {
+        return record.priority.indexOf(value) === 0;
+      },
+      sorter: (a, b) => {
+        return a.priority.length - b.priority.length;
+      },
       render: (priority) => {
         let color = "green";
         if (priority === "Срочно") {
@@ -73,6 +124,13 @@ const ReglamentsTable = ({
       title: "Ответственный отдел",
       dataIndex: "department",
       key: "department",
+      filters: filtersDepartment,
+      // eslint-disable-next-line consistent-return
+      onFilter: (value, record) => {
+        if (record.department) {
+          return record.department.title.indexOf(value) === 0;
+        }
+      },
       render: (department) => {
         return department ? department.title : "null";
       }
@@ -103,7 +161,35 @@ const ReglamentsTable = ({
   ];
   useEffect(() => {
     dispatch(fetchSettings("reglaments"));
+    dispatch(fetchSettings("companies"));
+    dispatch(fetchSettings("departments"));
+    dispatch(fetchSettings("topics"));
   }, [dispatch]);
+  useMemo(() => {
+    if (companies) {
+      let companiesCopy = [];
+      companiesCopy = companies.map((company) => {
+        return { text: company.title, value: company.title };
+      });
+      companiesCopy.unshift({
+        text: "По умолчанию",
+        value: "по умолчанию"
+      });
+      setFiltersCompany([...companiesCopy]);
+    }
+    if (departments) {
+      const departmentsCopy = departments.map((department) => {
+        return { text: department.title, value: department.title };
+      });
+      setFiltersDepartment([...departmentsCopy]);
+    }
+    if (topics) {
+      const topicsCopy = topics.map((topic) => {
+        return { text: topic.title, value: topic.title };
+      });
+      setFiltersTopics([...topicsCopy]);
+    }
+  }, [companies, departments, topics]);
   return (
     <>
       {isLoad ? (

@@ -5,7 +5,7 @@ const AuthMenu = ({ onLogout }) => {
   return (
     <div>
       <Button type="default" size={"middle"} onClick={onLogout}>
-        Log out
+        Выйти из системы
       </Button>
     </div>
   );

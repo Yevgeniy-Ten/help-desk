@@ -82,10 +82,10 @@ module.exports = {
         isAuthorized: false,
         phoneNumber: "+77774546622",
         isFake: false
-      },
+      }
     ];
     await queryInterface.bulkInsert("users", users, {});
   },
 
-  down: async () => {},
+  down: async () => {}
 };

@@ -73,7 +73,7 @@ const Routes = () => {
         path="/edit/user/:id"
         component={EditUser}
       />
-      <Route path="/faq" exact={true} component={FAQ} />
+      <Route path="/faq" component={FAQ} />
       <Redirect to="/" />
     </Switch>
   );

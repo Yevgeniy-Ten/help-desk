@@ -5,6 +5,7 @@ import appealReducer from "../containers/Appeals/redux/appealReducer";
 import appealsReducer from "../containers/Appeals/redux/reducer/appealsReducer";
 import userReducer from "../containers/Auth/redux/reducer/userReducer";
 import settingsReducer from "../containers/Settings/redux/settingsReducer";
+import faqsReducer from "../containers/FAQ/redux/faqsReducer";
 import usersReducer from "../containers/AllUsers/redux/usersReducer/usersReducer";
 import { createBrowserHistory } from "history";
 import { connectRouter, routerMiddleware } from "connected-react-router";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   history: historyReducer,
   audit: auditReducer,
   logs: logReducer,
+  faqs: faqsReducer,
   router: connectRouter(history)
 });
 

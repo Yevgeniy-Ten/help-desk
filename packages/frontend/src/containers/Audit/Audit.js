@@ -4,6 +4,7 @@ import { useDispatch, shallowEqual, useSelector } from "react-redux";
 import Spinner from "../../components/Spinner/Spinner";
 import { getAudit } from "./redux/auditGetters";
 import { fetchAudit, fetchGetFile } from "./redux/auditActions";
+import { getHourWork } from "../../helpers/helpers";
 
 const { Panel } = Collapse;
 
@@ -154,6 +155,13 @@ const Audit = () => {
                                     name={`${item.user.firstName}count`}
                                     label="Количество заявок"
                                     initialValue={item.count}
+                                  >
+                                    <Input disabled={true} />
+                                  </Form.Item>
+                                  <Form.Item
+                                    name={`${item.hourWork}-hourWork`}
+                                    label="Трудозатраты"
+                                    initialValue={getHourWork(item.hourWork)}
                                   >
                                     <Input disabled={true} />
                                   </Form.Item>

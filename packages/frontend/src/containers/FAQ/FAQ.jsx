@@ -1,56 +1,78 @@
-import React, { useEffect } from "react";
-import { Col, Divider, Row, Avatar } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Switch,
+  Route,
+  Redirect,
+  NavLink,
+  useLocation
+} from "react-router-dom";
+import { useDispatch, shallowEqual, useSelector } from "react-redux";
+import { Col, Divider, Row, Drawer, Avatar } from "antd";
+import Answers from "../../components/FAQs/Answers/Answers";
 import styles from "./FAQ.module.css";
+import SettingsFilter from "../../components/SettingsFilter/SettingsFilter";
+import FAQsCreateEditForm from "../../components/FAQs/FAQsCreateEditForm/FAQsCreateEditForm";
+import { useToggle } from "../../hooks/useToggle";
+import { clearEditalbleFaq, fetchFaq } from "./redux/faqsActions";
+import { getUser } from "../Auth/redux/getters/getters";
 
 const FAQ = () => {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
+  const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
+  const [faqId, setFaqId] = useState(null);
+  const onShowSettingEditor = (id) => {
+    setFaqId(id);
+    toggleDrawerIsOpen();
+  };
+  const closeDrawerWithResetSettingFields = () => {
+    dispatch(clearEditalbleFaq());
+    toggleDrawerIsOpen();
+  };
+  // console.log(user);
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchFaq(1));
+    }
+    if (!user) {
+      dispatch(fetchFaq());
+    }
+  }, []);
   return (
     <div style={{ padding: "0 20px" }}>
       <Divider orientation="left">Решения</Divider>
       <Row gutter={16}>
         <Col span={6}>
-          <div className={styles.card}>
-            <Avatar
-              size={128}
-              src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Mo_yec-4l6efC3W2cmFzt7c0E-nKhKYkjA&usqp=CAU"
-              }
-            />
-            <h5>Сайты</h5>
-          </div>
+          <SettingsFilter
+            paramFilter={true}
+            onShowEditor={(idForEdit) => {
+              return onShowSettingEditor(idForEdit);
+            }}
+          />
         </Col>
-        <Col span={6}>
-          <div className={styles.card}>
-            <Avatar
-              size={128}
-              src={
-                "https://img2.freepng.ru/20180329/iaq/kisspng-accounting-accountant-computer-icons-bookkeeping-f-finance-5abc92d426a2b6.3434380115223077961583.jpg"
-              }
-            />
-            <h5>Бухгалтерия</h5>
-          </div>
+      </Row>
+      <Row gutter={16}>
+        <Col span={24}>
+          <Answers
+            onShowEditor={(idForEdit) => {
+              return onShowSettingEditor(idForEdit);
+            }}
+          />
         </Col>
-        <Col span={6}>
-          <div className={styles.card}>
-            <Avatar
-              size={128}
-              src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq2LtRn8UowmBomodLPh2jo04ODGP8DDJD4w&usqp=CAU"
-              }
+        <Col span={24}>
+          <Drawer
+            title="Форма FAQ"
+            width={500}
+            placement="right"
+            closable={true}
+            onClose={closeDrawerWithResetSettingFields}
+            visible={drawerIsOpen}
+          >
+            <FAQsCreateEditForm
+              onCloseEditor={toggleDrawerIsOpen}
+              faqId={faqId}
             />
-            <h5>Техническая поддержка</h5>
-          </div>
-        </Col>
-        <Col span={6}>
-          <div className={styles.card}>
-            <Avatar
-              size={128}
-              src={
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_K8YJfZwPU1GhJ3xS3FVYnZ2jqMr_CDOwZQ&usqp=CAU"
-              }
-            />
-            <h5>Медицина</h5>
-          </div>
+          </Drawer>
         </Col>
       </Row>
     </div>

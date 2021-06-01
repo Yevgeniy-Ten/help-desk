@@ -186,7 +186,36 @@ const UsersTable = ({ users, onAuthorizeUser, companies }) => {
         return aCopy - bCopy;
       },
       render: (orgStructure) => {
-        return orgStructure ? orgStructure.departmentId : "Не выбрано";
+        return orgStructure && orgStructure.department
+          ? orgStructure.department.title
+          : "Не выбрано";
+      }
+    },
+    {
+      title: "Должность",
+      dataIndex: "orgStructure",
+      key: "orgStructure",
+      // eslint-disable-next-line consistent-return
+      sorter: (a, b) => {
+        let aCopy = null;
+        let bCopy = null;
+        if (a.orgStructure && b.orgStructure) {
+          aCopy = a.orgStructure.positionId;
+          bCopy = b.orgStructure.positionId;
+          return aCopy - bCopy;
+        }
+        if (a.orgStructure === null) {
+          aCopy = -1;
+        }
+        if (b.orgStructure === null) {
+          bCopy = -1;
+        }
+        return aCopy - bCopy;
+      },
+      render: (orgStructure) => {
+        return orgStructure && orgStructure.position
+          ? orgStructure.position.title
+          : "Не выбрано";
       }
     },
     {

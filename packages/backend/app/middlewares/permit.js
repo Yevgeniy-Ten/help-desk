@@ -4,7 +4,7 @@ const permit = (...roles) => {
         if (!req.user) {
             return res.status(403).send("Не аунтефицирован!")
         }
-        if (!roles.includes(req.user.role.name)) {
+        if (!roles.includes(req.user.role.id)) {
             return res.status(403).send("Запрещено!")
         }
         next()

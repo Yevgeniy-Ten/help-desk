@@ -148,6 +148,7 @@ const ReglamentsTable = ({
       render: (_, record) => {
         return (
           <Typography.Link
+            id={record.id}
             onClick={() => {
               return onShowEditor(record.id);
             }}

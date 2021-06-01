@@ -90,6 +90,7 @@ const OrgStructureTable = ({ onShowEditor }) => {
       render: (_, record) => {
         return (
           <Typography.Link
+            title={record.position.title}
             onClick={() => {
               return onShowEditor(record.id);
             }}

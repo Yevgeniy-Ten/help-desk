@@ -39,7 +39,12 @@ const TopicsTable = ({ onShowEditor }) => {
       key: "actions",
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onShowEditor(record.id)}>
+          <Typography.Link
+            title={record.title}
+            onClick={() => {
+              return onShowEditor(record.id);
+            }}
+          >
             Редактировать
           </Typography.Link>
         );
@@ -52,14 +57,16 @@ const TopicsTable = ({ onShowEditor }) => {
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Тематики</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новая тематика
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Тематики</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новая тематика
+                </Button>
+              </div>
+            );
+          }}
           columns={columns}
           bordered={true}
           dataSource={topics}

@@ -292,7 +292,10 @@ const UsersTable = ({ users, onAuthorizeUser, companies }) => {
                 Потвердить
               </Button>
             )}
-            <NavLink to={`/users/edit/${user.id}`}>
+            <NavLink
+              to={`/users/edit/${user.id}`}
+              name={`${user.firstName} ${user.lastName}`}
+            >
               <Button type="dashed">Редактировать</Button>
             </NavLink>
             <Button danger={true}>Удалить</Button>

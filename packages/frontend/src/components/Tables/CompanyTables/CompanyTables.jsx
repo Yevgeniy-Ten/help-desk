@@ -37,6 +37,7 @@ const CompanyTables = ({ onShowEditor }) => {
       render: (_, record) => {
         return (
           <Typography.Link
+            title={record.title}
             onClick={() => {
               return onShowEditor(record.id);
             }}
@@ -53,14 +54,16 @@ const CompanyTables = ({ onShowEditor }) => {
         <Spinner />
       ) : (
         <Table
-          title={() => (
-            <div className={"flex-between"}>
-              <h4>Компании</h4>
-              <Button type={"primary"} onClick={onShowEditor}>
-                Новая компания
-              </Button>
-            </div>
-          )}
+          title={() => {
+            return (
+              <div className="flex-between">
+                <h4>Компании</h4>
+                <Button type="primary" onClick={onShowEditor}>
+                  Новая компания
+                </Button>
+              </div>
+            );
+          }}
           columns={columns}
           bordered={true}
           dataSource={companies}

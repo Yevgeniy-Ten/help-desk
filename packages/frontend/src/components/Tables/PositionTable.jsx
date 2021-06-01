@@ -35,7 +35,12 @@ const PositionTable = ({ onShowEditor }) => {
       key: "actions",
       render: (_, record) => {
         return (
-          <Typography.Link onClick={() => onShowEditor(record.id)}>
+          <Typography.Link
+            title={record.title}
+            onClick={() => {
+              return onShowEditor(record.id);
+            }}
+          >
             Редактировать
           </Typography.Link>
         );
@@ -50,14 +55,16 @@ const PositionTable = ({ onShowEditor }) => {
       ) : (
         <Form form={form} component={false}>
           <Table
-            title={() => (
-              <div className={"flex-between"}>
-                <h4>Должности</h4>
-                <Button type={"primary"} onClick={onShowEditor}>
-                  Новая должность
-                </Button>
-              </div>
-            )}
+            title={() => {
+              return (
+                <div className="flex-between">
+                  <h4>Должности</h4>
+                  <Button type="primary" onClick={onShowEditor}>
+                    Новая должность
+                  </Button>
+                </div>
+              );
+            }}
             columns={columns}
             bordered={true}
             dataSource={positions}

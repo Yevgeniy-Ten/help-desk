@@ -20,12 +20,12 @@ mainRouter.use("/mailmessages", [auth, permit(1)],
     mailMessageRouter
 );
 mainRouter.use("/users", userRoute);
-mainRouter.use("/topics", auth, topicsRoute);
+mainRouter.use("/topics",  topicsRoute);
 mainRouter.use("/requests", auth, requestRoute);
-mainRouter.use("/companies", auth, companyRoute);
-mainRouter.use("/departments", auth, departmentRoute);
-mainRouter.use("/position", auth, positionRoute);
-mainRouter.use("/orgstructure", auth, orgStructureRoute);
+mainRouter.use("/companies",  companyRoute);
+mainRouter.use("/departments", departmentRoute);
+mainRouter.use("/position", positionRoute);
+mainRouter.use("/orgstructure",  orgStructureRoute);
 mainRouter.use("/reglaments", auth, reglamentsRouter);
 mainRouter.use("/reporting", auth, reportingRouter);
 mainRouter.use("/chats", auth, chatRouter);

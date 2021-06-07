@@ -16,7 +16,7 @@ const mainRouter = Router();
 const auth = require("../middlewares/auth")
 const permit = require("../middlewares/permit")
 
-mainRouter.use("/mailmessages", [auth, permit(1)],
+mainRouter.use("/mailmessages", [auth,],
     mailMessageRouter
 );
 mainRouter.use("/users", userRoute);

@@ -2,9 +2,9 @@ const {Log} = require("../../models")
 
 module.exports = {
     types: {
-        SYSTEM_CRASHING: "SYSTEM_CRASHING",
-        USER_ERROR: "USER_ERROR",
-        SUCCESS_ACTION: "SUCCESS_ACTION",
+        SYSTEM_CRASHING: "СИСТЕМА УПАЛА",
+        USER_ERROR: "ПОЛЬЗОВАТЕЛЬСКАЯ ОШИБКА",
+        SUCCESS_ACTION: "УСПЕШНОЕ ВЗАИМОДЕЙСТВИЕ",
     },
     async createUserErrorLog(username, actionType, error) {
         try {

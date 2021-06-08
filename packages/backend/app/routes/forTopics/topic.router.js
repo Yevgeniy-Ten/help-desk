@@ -9,6 +9,7 @@ topicRoute.put("/:id", TopicController.editTopic);
 topicRoute.post("/solutions", TopicController.createTopicSolution);
 topicRoute.get("/solutions/", TopicController.getAllSolutions);
 topicRoute.get("/solutions/:id", TopicController.getSolutions);
+topicRoute.put("/solutions/:id", TopicController.editSolution);
 // topicRoute.get("/:id/services", TopicController.getTopicServices)
 // topicRoute.post("/:id/services", TopicController.createTopicServices)
 

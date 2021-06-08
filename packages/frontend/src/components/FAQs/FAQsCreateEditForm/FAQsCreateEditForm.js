@@ -37,6 +37,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
   useEffect(() => {
     dispatch(fetchSettings("topics"));
   }, [dispatch]);
+
   useEffect(() => {
     form.resetFields();
     if (editableFAQS) {

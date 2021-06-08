@@ -28,7 +28,7 @@ const Answers = ({ onShowEditor }) => {
           onClick={(event) => {
             event.stopPropagation();
             dispatch(setEditableFaq(id));
-            onShowEditor();
+            onShowEditor(id);
           }}
         />
       );

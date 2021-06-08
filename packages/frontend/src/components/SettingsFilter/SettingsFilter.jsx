@@ -8,7 +8,7 @@ import { getUser } from "../../containers/Auth/redux/getters/getters";
 import { fetchFaq } from "../../containers/FAQ/redux/faqsActions";
 
 const { Option } = Select;
-const SettingsFilter = ({ paramFilter, onShowEditor }) => {
+const SettingsFilter = ({ paramFilter, onShowEditor, idTopic }) => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const [form] = Form.useForm();
@@ -27,6 +27,7 @@ const SettingsFilter = ({ paramFilter, onShowEditor }) => {
       }, 700);
     }
     dispatch(fetchFaq(value));
+    idTopic(value);
   };
   let btnShow;
   if (onShowEditor) {

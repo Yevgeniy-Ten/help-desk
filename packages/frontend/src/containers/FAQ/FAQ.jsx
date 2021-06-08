@@ -20,6 +20,7 @@ const FAQ = () => {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const [drawerIsOpen, toggleDrawerIsOpen] = useToggle(false);
+  const [topicId, setTopicId] = useState(null);
   const [faqId, setFaqId] = useState(null);
   const onShowSettingEditor = (id) => {
     setFaqId(id);
@@ -48,6 +49,9 @@ const FAQ = () => {
             onShowEditor={(idForEdit) => {
               return onShowSettingEditor(idForEdit);
             }}
+            idTopic={(idTopic) => {
+              return setTopicId(idTopic);
+            }}
           />
         </Col>
       </Row>
@@ -71,6 +75,7 @@ const FAQ = () => {
             <FAQsCreateEditForm
               onCloseEditor={toggleDrawerIsOpen}
               faqId={faqId}
+              topicID={topicId}
             />
           </Drawer>
         </Col>

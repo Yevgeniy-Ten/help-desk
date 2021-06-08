@@ -16,7 +16,7 @@ import { getEditableFaqs } from "../../../containers/FAQ/redux/faqsGetters";
 const { Option } = Select;
 const { TextArea } = Input;
 
-const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
+const FAQsCreateEditForm = ({ faqId, topicID, onCloseEditor }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const topics = useSelector(getTopics);
@@ -24,7 +24,7 @@ const FAQsCreateEditForm = ({ faqId, onCloseEditor }) => {
 
   const onCreateEditFaqs = async (faqBody) => {
     if (editableFAQS) {
-      await dispatch(fetchFaqUpdate(faqId, faqBody));
+      await dispatch(fetchFaqUpdate(faqId, topicID, faqBody));
       form.resetFields();
       onCloseEditor();
     } else {

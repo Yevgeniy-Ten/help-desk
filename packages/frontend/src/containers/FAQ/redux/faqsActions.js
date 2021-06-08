@@ -97,7 +97,7 @@ export const fetchFaqCreate = (faqId, body) => {
 //   };
 // };
 
-export const fetchFaqUpdate = (faqId, record) => {
+export const fetchFaqUpdate = (faqId, topicID, record) => {
   return async (dispatch, getState, axios) => {
     try {
       const updatedFaq = {
@@ -107,7 +107,7 @@ export const fetchFaqUpdate = (faqId, record) => {
       await axios.put(`/topics/solutions/${faqId}`, updatedFaq);
       dispatch(clearEditalbleFaq());
       dispatch(faqRequestFinished());
-      dispatch(fetchFaq(faqId));
+      dispatch(fetchFaq(topicID));
     } catch (errors) {
       console.log(errors);
       // dispatch(faqsRequestError(errors))
